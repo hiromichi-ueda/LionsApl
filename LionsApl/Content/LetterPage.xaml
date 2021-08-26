@@ -9,7 +9,7 @@
                         VerticalOptions="Center"
                         HorizontalTextAlignment="Center" 
                         TextColor="Black"
-                        BackgroundColor="#DAE3F3" />
+                        BackgroundColor="#E1F5A9" />
         <Grid>
           <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -25,7 +25,7 @@
 
           <Label Grid.Row="0"
                  Grid.Column="0"
-                 Text="開催日"
+                 Text="開催日　　"
                  VerticalOptions="Center" 
                  HorizontalTextAlignment="Start" 
                  />
@@ -38,7 +38,7 @@
                  />
           <Label Grid.Row="1"
                  Grid.Column="0"
-                 Text="タイトル"
+                 Text="タイトル　"
                  VerticalOptions="Center" 
                  HorizontalTextAlignment="Start" 
                  />
@@ -57,16 +57,32 @@
                  VerticalOptions="Center" 
                  HorizontalTextAlignment="Start" 
                  />
-          <Image Grid.Row="3"
+          <Label Grid.Row="3"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="2"
+                 x:Name="Image1Label" 
+                 Text=""
+                 VerticalOptions="Center" 
+                 HorizontalTextAlignment="Start" 
+                 />
+          <Label Grid.Row="4"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="2"
+                 x:Name="Image2Label" 
+                 Text=""
+                 VerticalOptions="Center" 
+                 HorizontalTextAlignment="Start" 
+                 />
+        <!--<Image Grid.Row="3"
                  Grid.Column="0"
                  Grid.ColumnSpan="2"
                  x:Name="Image1"
-               />
-          <Image Grid.Row="4"
+                 />
+        <Image Grid.Row="4"
                  Grid.Column="0"
                  Grid.ColumnSpan="2"
                  x:Name="Image2"
-               />
+                 />-->
         </Grid>
       </StackLayout>
     </ContentPage.Content>

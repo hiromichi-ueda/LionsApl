@@ -39,11 +39,14 @@ namespace LionsApl.Content
             // ツールバーに一覧ボタンを設定
             ToolbarItems.Add(new ToolbarItem { Text = "一覧", Command = new Command(Push_LetterList) });
 
+            // A_FILEPATHデータ取得
+            _sqlite.GetFilePath(_sqlite.DATACLASS_LETTER);
+
             // A_ACCOUNTデータ取得
             _sqlite.SetAccount();
 
             // キャビネットレター情報設定
-            SetLetter();
+            GetLetter();
 
         }
 
@@ -53,7 +56,7 @@ namespace LionsApl.Content
         /// キャビネットレター情報をSQLiteファイルから取得して画面に設定する。
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private void SetLetter()
+        private void GetLetter()
         {
             try
             {
@@ -63,22 +66,39 @@ namespace LionsApl.Content
                 {
                     DateLabel.Text = row.EventDate + " " + row.EventTime;
                     BodyLabel.Text = row.Body;
-                    if (row.Image1FileName == null)
+                    if (row.Image1FileName != null)
                     {
-                        DisplayAlert("Alert", "Image1はnull 1", "OK");
+                        Image1Label.Text = _sqlite.Db_A_FilePath.FilePath + "/" + row.Image1FileName;
                     }
-                    if (row.Image1FileName.Equals(null))
+                    else
                     {
-                        DisplayAlert("Alert", "Image1はnull 2", "OK");
+                        Image1Label.Text = "NULL";
                     }
-                    if (row.Image1FileName == string.Empty)
+                    if (row.Image2FileName != null)
                     {
-                        DisplayAlert("Alert", "Image1は空 1", "OK");
+                        Image2Label.Text = _sqlite.Db_A_FilePath.FilePath + "/" + row.Image2FileName;
                     }
-                    if (row.Image1FileName.Equals(string.Empty))
+                    else
                     {
-                        DisplayAlert("Alert", "Image1は空 2", "OK");
+                        Image2Label.Text = "NULL";
                     }
+
+                    //if (row.Image1FileName == null)
+                    //{
+                    //    DisplayAlert("Alert", "Image1はnull", "OK");
+                    //}
+                    //if (row.Image1FileName.Equals(null))
+                    //{
+                    //    DisplayAlert("Alert", "Image1はnull 2", "OK");
+                    //}
+                    //if (row.Image1FileName == string.Empty)
+                    //{
+                    //    DisplayAlert("Alert", "Image1は空 1", "OK");
+                    //}
+                    //if (row.Image1FileName.Equals(string.Empty))
+                    //{
+                    //    DisplayAlert("Alert", "Image1は空 2", "OK");
+                    //}
                     //Image1.Source = ImageSource.FromUri(new Uri());
                 }
             }
