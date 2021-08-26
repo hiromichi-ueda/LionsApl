@@ -8,7 +8,8 @@
       <On Platform="Android, UWP" Value="0,0,0,0" />
     </OnPlatform>
   </ContentPage.Padding>
-  <StackLayout Spacing="10" Padding="10">
+  <ScrollView x:Name="ScrollView1" BackgroundColor="White" Orientation="Both">
+    <StackLayout Spacing="10" Padding="10">
     <Frame BackgroundColor="#00529B" Padding="0,8,0,8" CornerRadius="2">
       <Label Text="Lions Apl" HorizontalTextAlignment="Center" TextColor="White" FontSize="24"/>
     </Frame>
@@ -134,8 +135,6 @@
             BackgroundColor="AliceBlue"  
             TextColor="Black" 
             FontSize="16"/>
-    <ScrollView x:Name="ScrollView1" BackgroundColor="White" Orientation="Both">
-      <StackLayout>
         <Label x:Name="FileText"  
                 Text="File..." 
                 HorizontalTextAlignment="left" 
@@ -167,7 +166,6 @@
                 BackgroundColor="AliceBlue"  
                 TextColor="Black" 
                 FontSize="16"/>
-      </StackLayout>
-    </ScrollView>
   </StackLayout>
+  </ScrollView>
 </ContentPage>

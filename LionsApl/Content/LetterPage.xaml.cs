@@ -30,8 +30,21 @@ namespace LionsApl.Content
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
 
+            // A_SETTINGデータ取得
+            _sqlite.SetSetting();
+
+            // タイトル設定
+            Title = _sqlite.Db_A_Setting.CabinetName;
+
+            // ツールバーに一覧ボタンを設定
+            ToolbarItems.Add(new ToolbarItem { Text = "一覧", Command = new Command(Push_LetterList) });
+
+            // A_ACCOUNTデータ取得
+            _sqlite.SetAccount();
+
             // キャビネットレター情報設定
             SetLetter();
+
         }
 
 
@@ -73,6 +86,11 @@ namespace LionsApl.Content
             {
                 DisplayAlert("Alert", $"SQLite検索エラー(T_LETTER) : &{ex.Message}", "OK");
             }
+        }
+
+        private void Push_LetterList()
+        {
+            Navigation.PushAsync(new LetterList());
         }
     }
 }

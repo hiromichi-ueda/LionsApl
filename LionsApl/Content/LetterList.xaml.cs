@@ -12,6 +12,9 @@ namespace LionsApl.Content
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LetterList : ContentPage
     {
+        private SQLiteManager _sqlite;                      // SQLiteマネージャークラス
+
+
         public ObservableCollection<string> Items { get; set; }
 
         public LetterList()
@@ -28,6 +31,16 @@ namespace LionsApl.Content
             };
 
             MyListView.ItemsSource = Items;
+
+            // SQLite マネージャークラス生成
+            _sqlite = SQLiteManager.GetInstance();
+
+            // A_SETTINGデータ取得
+            _sqlite.SetSetting();
+
+            // タイトル設定
+            Title = _sqlite.Db_A_Setting.CabinetName;
+
         }
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
