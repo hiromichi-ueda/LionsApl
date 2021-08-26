@@ -498,7 +498,7 @@ namespace LionsApl.Content
                         EventTitle0.Text = strTitle;
                         EventCount0.Text = strCount;
                         EventMsg0.Text = strCancel;
-                        EventMark0.Text = ">";
+                        EventMark0.Text = "〉";
                         idx++;
                     }
                     else if (idx == 1)
@@ -507,7 +507,7 @@ namespace LionsApl.Content
                         EventTitle1.Text = strTitle;
                         EventCount1.Text = strCount;
                         EventMsg1.Text = strCancel;
-                        EventMark1.Text = ">";
+                        EventMark1.Text = "〉";
                         idx++;
                     }
                     else if (idx == 2)
@@ -516,7 +516,7 @@ namespace LionsApl.Content
                         EventTitle2.Text = strTitle;
                         EventCount2.Text = strCount;
                         EventMsg2.Text = strCancel;
-                        EventMark2.Text = ">";
+                        EventMark2.Text = "〉";
                         idx++;
                     }
                     else if (idx == 3)
@@ -525,7 +525,7 @@ namespace LionsApl.Content
                         EventTitle3.Text = strTitle;
                         EventCount3.Text = strCount;
                         EventMsg3.Text = strCancel;
-                        EventMark3.Text = ">";
+                        EventMark3.Text = "〉";
                         idx++;
                     }
                 }

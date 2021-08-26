@@ -3,350 +3,594 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:LionsApl"
              x:Class="LionsApl.Content.HomeTop">
+    
     <ContentPage.Content>
         <StackLayout>
-            <!--地区スローガン-->
-            <Label Text="地区スローガン"
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Center"
-                   HorizontalTextAlignment="Center" 
-                   TextColor="Black"
-                   BackgroundColor="#DAE3F3" />
-            <Label x:Name="LabelSlogun"
-                   Text="データが取得できません。"
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Center"
-                   HorizontalTextAlignment="Start" 
-                   TextColor="Black"
-                   BackgroundColor="White" />
-            <Label x:Name="LabelDistrictGovernor"
-                   Text=""
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Center"
-                   HorizontalTextAlignment="End" 
-                   TextColor="Black"
-                   BackgroundColor="White"
-                   />
-            <!--キャビネットレター-->
-            <Label Text="キャビネットレター"
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Center"
-                   HorizontalTextAlignment="Center" 
-                   TextColor="Black"
-                   BackgroundColor="#DAE3F3" />
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <!-- Row 0-->
-                <Label Grid.Row="0"
-                       Grid.Column="0"
-                       x:Name="LetterDate0"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="0"
-                       Grid.Column="1"
-                       x:Name="LetterTitle0"
-                       Text="データが取得できません。"
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       LineBreakMode="TailTruncation"
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="0"
-                       Grid.Column="2"
-                       x:Name="LetterMark0"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <!-- Row 1-->
-                <Label Grid.Row="1"
-                       Grid.Column="0"
-                       x:Name="LetterDate1"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="1"
-                       Grid.Column="1"
-                       x:Name="LetterTitle1"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       LineBreakMode="TailTruncation"
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="1"
-                       Grid.Column="2"
-                       x:Name="LetterMark1"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <!-- Row 2-->
-                <Label Grid.Row="2"
-                       Grid.Column="0"
-                       x:Name="LetterDate2"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="2"
-                       Grid.Column="1"
-                       x:Name="LetterTitle2"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       LineBreakMode="TailTruncation"
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="2"
-                       Grid.Column="2"
-                       x:Name="LetterMark2"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <!-- Row 3-->
-                <Label Grid.Row="3"
-                       Grid.Column="0"
-                       x:Name="LetterDate3"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="3"
-                       Grid.Column="1"
-                       x:Name="LetterTitle3"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       LineBreakMode="TailTruncation"
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="3"
-                       Grid.Column="2"
-                       x:Name="LetterMark3"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-            </Grid>
-            <!--参加予定一覧-->
-            <Label Text="参加予定一覧"
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Center"
-                   HorizontalTextAlignment="Center" 
-                   TextColor="Black"
-                   BackgroundColor="#FFF2CC" />
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <!-- Row 0-->
-                <Label Grid.Row="0"
-                       Grid.Column="0"
-                       x:Name="EventDate0"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="0"
-                       Grid.Column="1"
-                       x:Name="EventTitle0"
-                       Text="データが取得できません。"
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       LineBreakMode="TailTruncation"
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="0"
-                       Grid.Column="2"
-                       x:Name="EventCount0"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="0"
-                       Grid.Column="3"
-                       x:Name="EventMsg0"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="0"
-                       Grid.Column="4"
-                       x:Name="EventMark0"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <!-- Row 1-->
-                <Label Grid.Row="1"
-                       Grid.Column="0"
-                       x:Name="EventDate1"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="1"
-                       Grid.Column="1"
-                       x:Name="EventTitle1"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       LineBreakMode="TailTruncation"
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="1"
-                       Grid.Column="2"
-                       x:Name="EventCount1"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="1"
-                       Grid.Column="3"
-                       x:Name="EventMsg1"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="1"
-                       Grid.Column="4"
-                       x:Name="EventMark1"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <!-- Row 2-->
-                <Label Grid.Row="2"
-                       Grid.Column="0"
-                       x:Name="EventDate2"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="2"
-                       Grid.Column="1"
-                       x:Name="EventTitle2"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       LineBreakMode="TailTruncation"
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="2"
-                       Grid.Column="2"
-                       x:Name="EventCount2"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="2"
-                       Grid.Column="3"
-                       x:Name="EventMsg2"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="2"
-                       Grid.Column="4"
-                       x:Name="EventMark2"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <!-- Row 3-->
-                <Label Grid.Row="3"
-                       Grid.Column="0"
-                       x:Name="EventDate3"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="3"
-                       Grid.Column="1"
-                       x:Name="EventTitle3"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       LineBreakMode="TailTruncation"
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="3"
-                       Grid.Column="2"
-                       x:Name="EventCount3"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="3"
-                       Grid.Column="3"
-                       x:Name="EventMsg3"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-                <Label Grid.Row="3"
-                       Grid.Column="4"
-                       x:Name="EventMark3"
-                       Text=""
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Start" 
-                       TextColor="Black"
-                       BackgroundColor="White" />
-            </Grid>
-            <!--ボタン-->
+
+            <ScrollView>
+
+                <StackLayout>
+
+                    <!-- ログイン情報 -->
+                    <StackLayout 
+                        HeightRequest="18"
+                        Margin="2"
+                        >
+                        <Label
+                        Text="岐阜南LC 池田 昌二" 
+                        FontSize="Caption"
+                        TextColor="#2E2E2E"
+                        VerticalOptions="Center"
+                        Background="White"
+                        HorizontalTextAlignment="End" 
+                        />
+                    </StackLayout>
+                    
+                    <!-- 地区スローガン -->
+                    <StackLayout
+                        Margin="4"
+                        HorizontalOptions="FillAndExpand"                       
+                        >
+                        <Label 
+                            Text="地区スローガン"
+                            FontSize="Default"
+                            TextColor="#2E2E2E"
+                            BackgroundColor="#81BEF7" 
+                            HorizontalTextAlignment="Center" 
+                            />
+                        <Label 
+                            x:Name="LabelSlogun"
+                            Text="データが取得できません。"
+                            FontSize="Default"
+                            TextColor="#2E2E2E"
+                            BackgroundColor="#FFFFFF" 
+                            HorizontalTextAlignment="Center" 
+                            Margin="4,0,4,0"
+                            />
+                        <Label 
+                            x:Name="LabelDistrictGovernor"
+                            Text=""
+                            FontSize="Caption"
+                            TextColor="#2E2E2E"
+                            BackgroundColor="#FFFFFF"
+                            HorizontalTextAlignment="End" 
+                            Margin="0"
+                            />
+                    </StackLayout>
+                    
+                    <!--キャビネットレター-->
+                    <StackLayout
+                        Margin="4,0,4,0"
+                        HorizontalOptions="FillAndExpand"
+                        Background="#FFFFFF"
+                        >
+                        <!-- タイトル -->
+                        <Label 
+                            Text="キャビネットレター"
+                            FontSize="Default"
+                            TextColor="#2E2E2E"
+                            BackgroundColor="#E1F5A9" 
+                            HorizontalTextAlignment="Center" 
+                            />
+                        
+                        <!-- 1行目 -->
+                        <Grid
+                            BackgroundColor="#FFF" 
+                            Margin="8,0,8,0" 
+                            HeightRequest="28"
+                            >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                x:Name="LetterDate0"
+                                Text=""
+                                FontSize="15"
+                                TextColor="#2E2E2E"
+                                BackgroundColor="#FFFFFF" 
+                                HorizontalTextAlignment="Start" 
+                                VerticalTextAlignment="Center"
+                               />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                x:Name="LetterTitle0"
+                                Text="データが取得できません。"
+                                FontSize="15"
+                                TextColor="#2E2E2E"
+                                BackgroundColor="#FFFFFF" 
+                                HorizontalTextAlignment="Start" 
+                                VerticalTextAlignment="Center"
+                                />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                x:Name="LetterMark0"
+                                Text=""
+                                FontSize="15"
+                                TextColor="#2E2E2E"
+                                BackgroundColor="#FFFFFF" 
+                                HorizontalTextAlignment="End" 
+                                HeightRequest="18"
+                                />
+                        </Grid>
+                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.4" Margin="4,0,4,0" />
+
+                        <!-- 2行目(Row 1) -->
+                        <Grid
+                            BackgroundColor="#FFF" 
+                            Margin="8,0,8,0" 
+                            HeightRequest="28"
+                            >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                x:Name="LetterDate1"
+                                Text=""
+                                FontSize="15"
+                                TextColor="#2E2E2E"
+                                BackgroundColor="#FFFFFF" 
+                                HorizontalTextAlignment="Start" 
+                                VerticalTextAlignment="Center"
+                                />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                x:Name="LetterTitle1"
+                                Text=""
+                                FontSize="15"
+                                TextColor="#2E2E2E"
+                                BackgroundColor="#FFFFFF" 
+                                HorizontalTextAlignment="Start" 
+                                VerticalTextAlignment="Center"
+                                />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                x:Name="LetterMark1"
+                                Text=""
+                                FontSize="15"
+                                TextColor="#2E2E2E"
+                                BackgroundColor="#FFFFFF" 
+                                HorizontalTextAlignment="End" 
+                                HeightRequest="18"
+                                />
+                        </Grid>
+                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.4" Margin="4,0,4,0" />
+                        <!-- 3行目(Row 2) -->
+                        <Grid
+                            BackgroundColor="#FFF" 
+                            Margin="8,0,8,0" 
+                            HeightRequest="28"
+                            >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                x:Name="LetterDate2"
+                                Text=""
+                                FontSize="15"
+                                TextColor="#2E2E2E"
+                                BackgroundColor="#FFFFFF" 
+                                HorizontalTextAlignment="Start" 
+                                VerticalTextAlignment="Center"
+                                />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                x:Name="LetterTitle2"
+                                Text=""
+                                FontSize="15"
+                                TextColor="#2E2E2E"
+                                BackgroundColor="#FFFFFF" 
+                                HorizontalTextAlignment="Start" 
+                                VerticalTextAlignment="Center"
+                                />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                x:Name="LetterMark2"
+                                Text=""
+                                FontSize="15"
+                                TextColor="#2E2E2E"
+                                BackgroundColor="#FFFFFF" 
+                                HorizontalTextAlignment="End" 
+                                HeightRequest="18"
+                                />
+                        </Grid>
+                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.4" Margin="4,0,4,0" />
+                        <!-- 4行目(Row 3) -->
+                        <Grid
+                            BackgroundColor="#FFF" 
+                            Margin="8,0,8,0" 
+                            HeightRequest="28"
+                            >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                x:Name="LetterDate3"
+                                Text=""
+                                FontSize="15"
+                                TextColor="#2E2E2E"
+                                BackgroundColor="#FFFFFF" 
+                                HorizontalTextAlignment="Start" 
+                                VerticalTextAlignment="Center"
+                                />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                x:Name="LetterTitle3"
+                                Text=""
+                                FontSize="15"
+                                TextColor="#2E2E2E"
+                                BackgroundColor="#FFFFFF" 
+                                HorizontalTextAlignment="Start" 
+                                VerticalTextAlignment="Center"
+                                />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                x:Name="LetterMark3"
+                                Text=""
+                                FontSize="15"
+                                TextColor="#2E2E2E"
+                                BackgroundColor="#FFFFFF" 
+                                HorizontalTextAlignment="End" 
+                                HeightRequest="18"
+                                />
+                        </Grid>
+                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.4" Margin="4,0,4,0" />
+
+                    </StackLayout>
+                    
+                    <!--参加予定一覧-->
+                    <StackLayout
+                        Margin="4,0,4,0"
+                        HorizontalOptions="FillAndExpand"
+                        >
+                        <Label
+                            Text="参加予定一覧" 
+                            FontSize="Default"
+                            TextColor="#2E2E2E"
+                            Background="#F3F781"
+                            HorizontalTextAlignment="Center"
+                        />
+                        <!-- 1行目 -->
+                        <Grid
+                            BackgroundColor="#FFF" 
+                            Margin="8,0,8,0" 
+                            HeightRequest="28"
+                            >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <!-- Row 0-->
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                x:Name="EventDate0"
+                                Text=""
+                                FontSize="15"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start" 
+                                TextColor="#2E2E2E"
+                                BackgroundColor="White" 
+                                />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                x:Name="EventTitle0"
+                                Text="データが取得できません。"
+                                FontSize="15"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start" 
+                                LineBreakMode="TailTruncation"
+                                TextColor="#2E2E2E"
+                                BackgroundColor="White" 
+                                />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                x:Name="EventCount0"
+                                Text=""
+                                FontSize="15"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start" 
+                                TextColor="#2E2E2E"
+                                BackgroundColor="White" 
+                                />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="3"
+                                x:Name="EventMsg0"
+                                Text=""
+                                FontSize="15"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start" 
+                                TextColor="#2E2E2E"
+                                BackgroundColor="White" 
+                                   />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="4"
+                                x:Name="EventMark0"
+                                Text=""
+                                FontSize="15"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start" 
+                                TextColor="#2E2E2E"
+                                BackgroundColor="White" 
+                                />
+                        </Grid>
+                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.6" Margin="4,0,4,0" />
+                        
+                        <!-- 2行目 -->
+                        <Grid
+                            BackgroundColor="#FFF" 
+                            Margin="8,0,8,0" 
+                            HeightRequest="28"
+                            >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                x:Name="EventDate1"
+                                Text=""
+                                FontSize="15"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start" 
+                                TextColor="#2E2E2E"
+                                BackgroundColor="White" 
+                                />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                x:Name="EventTitle1"
+                                Text=""
+                                FontSize="15"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start" 
+                                LineBreakMode="TailTruncation"
+                                TextColor="#2E2E2E"
+                                BackgroundColor="White" 
+                                />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                x:Name="EventCount1"
+                                Text=""
+                                FontSize="15"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start" 
+                                TextColor="#2E2E2E"
+                                BackgroundColor="White" 
+                                />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="3"
+                                x:Name="EventMsg1"
+                                Text=""
+                                FontSize="15"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start" 
+                                TextColor="#2E2E2E"
+                                BackgroundColor="White" 
+                                />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="4"
+                                x:Name="EventMark1"
+                                Text=""
+                                FontSize="15"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start" 
+                                TextColor="#2E2E2E"
+                                BackgroundColor="White" 
+                                />
+                        </Grid>
+                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.6" Margin="4,0,4,0" />
+                        
+                        <!-- 3行目 -->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                x:Name="EventDate2"
+                                Text=""
+                                FontSize="15"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start" 
+                                TextColor="#2E2E2E"
+                                BackgroundColor="White" 
+                                />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                x:Name="EventTitle2"
+                                Text=""
+                                FontSize="15"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start" 
+                                LineBreakMode="TailTruncation"
+                                TextColor="#2E2E2E"
+                                BackgroundColor="White" 
+                                />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                x:Name="EventCount2"
+                                Text=""
+                                FontSize="15"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start" 
+                                TextColor="#2E2E2E"
+                                BackgroundColor="White" 
+                                />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="3"
+                                x:Name="EventMsg2"
+                                Text=""
+                                FontSize="15"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start" 
+                                TextColor="#2E2E2E"
+                                BackgroundColor="White" 
+                                />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="4"
+                                x:Name="EventMark2"
+                                Text=""
+                                FontSize="15"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start" 
+                                TextColor="#2E2E2E"
+                                BackgroundColor="White" 
+                                />
+                        </Grid>
+                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.6" Margin="4,0,4,0" />
+                        
+                        <!-- 4行目 -->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                x:Name="EventDate3"
+                                Text=""
+                                FontSize="15"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start" 
+                                TextColor="#2E2E2E"
+                                BackgroundColor="White" 
+                                   />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                x:Name="EventTitle3"
+                                Text=""
+                                FontSize="15"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start" 
+                                LineBreakMode="TailTruncation"
+                                TextColor="#2E2E2E"
+                                BackgroundColor="White" 
+                                   />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                x:Name="EventCount3"
+                                Text=""
+                                FontSize="15"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start" 
+                                TextColor="#2E2E2E"
+                                BackgroundColor="White" 
+                                   />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="3"
+                                x:Name="EventMsg3"
+                                Text=""
+                                FontSize="15"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start" 
+                                TextColor="#2E2E2E"
+                                BackgroundColor="White" 
+                                />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="4"
+                                x:Name="EventMark3"
+                                Text=""
+                                FontSize="15"
+                                VerticalOptions="Center"
+                                HorizontalTextAlignment="Start" 
+                                TextColor="#2E2E2E"
+                                BackgroundColor="White" 
+                                />
+                        </Grid>
+                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.6" Margin="4,0,4,0" />
+                        
+                    </StackLayout>
+                    
+                </StackLayout>
+            </ScrollView>
+            
+            <!-- 各種ボタン -->
             <Grid  HorizontalOptions="Fill" 
-                   VerticalOptions="EndAndExpand" >
+                   VerticalOptions="EndAndExpand" 
+                   Margin="10"
+                   >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>          <!-- 1行目 -->
+                    <!--<RowDefinition Height="Auto"/>-->   <!-- 2行目 -->
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -354,181 +598,66 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <!-- Row 0-->
-                <Button Grid.Row="0"
+                <!-- 出欠確認 -->
+                <Button 
+                    Grid.Row="0"
                     Grid.Column="0"
                     Grid.ColumnSpan="1"
-                    Text="参加・不参加" 
+                    Text="出欠確認"
+                    FontSize="Caption"
                     Clicked="Eventret_Button_Clicked"
                     Padding="8,0,8,0" 
                     BorderWidth="1" 
-                    BorderColor="#00529B">
+                    BorderColor="#00529B"
+                    Background="#FFFFFF"
+                    CornerRadius="6"
+                    >
                 </Button>
-                <Button Grid.Row="0"
+                <!-- 連絡事項 -->
+                <Button 
+                    Grid.Row="0"
                     Grid.Column="1"
                     Grid.ColumnSpan="1"
                     Text="連絡事項" 
                     Clicked="Infomation_Button_Clicked"
                     Padding="8,0,8,0" 
                     BorderWidth="1" 
-                    BorderColor="#00529B">
+                    BorderColor="#00529B"
+                    Background="#FFFFFF"
+                    CornerRadius="6"
+                    >
                 </Button>
-                <Button Grid.Row="0"
+                <!-- 地区誌 -->
+                <Button 
+                    Grid.Row="0"
                     Grid.Column="2"
                     Grid.ColumnSpan="1"
                     Text="地区誌" 
                     Clicked="Magazine_Button_Clicked"
                     Padding="8,0,8,0" 
                     BorderWidth="1" 
-                    BorderColor="#00529B">
+                    BorderColor="#00529B"
+                    Background="#FFFFFF"
+                    CornerRadius="6"
+                    >
                 </Button>
-                <Button Grid.Row="0"
+                <!-- LCIF -->
+                <Button 
+                    Grid.Row="0"
                     Grid.Column="3"
                     Grid.ColumnSpan="1"
                     Text="LCIF" 
                     Clicked="Lcif_Button_Clicked"
                     Padding="8,0,8,0" 
                     BorderWidth="1" 
-                    BorderColor="#00529B">
-                </Button>
-                <!-- Row 1-->
-                <Button Grid.Row="1"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="1"
-                    Text="Activity" 
-                    Clicked="Activity_Button_Clicked"
-                    Padding="8,0,8,0" 
-                    BorderWidth="1" 
-                    BorderColor="#00529B">
-                </Button>
-                <Button Grid.Row="1"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="1"
-                    Text=" " 
-                    Padding="8,0,8,0" 
-                    BorderWidth="1" 
-                    BorderColor="#00529B">
-                </Button>
-                <Button Grid.Row="1"
-                    Grid.Column="2"
-                    Grid.ColumnSpan="1"
-                    Text=" " 
-                    Padding="8,0,8,0" 
-                    BorderWidth="1" 
-                    BorderColor="#00529B">
-                </Button>
-                <Button Grid.Row="1"
-                    Grid.Column="3"
-                    Grid.ColumnSpan="1"
-                    Text=" " 
-                    Padding="8,0,8,0" 
-                    BorderWidth="1" 
-                    BorderColor="#00529B">
+                    BorderColor="#00529B"
+                    Background="#D8D8D8"
+                    CornerRadius="6"
+                    >
                 </Button>
             </Grid>
 
-            <!--<Label x:Name="HomeTopLabelEvent1"
-                   Text="データが取得できません。"
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Center"
-                   HorizontalTextAlignment="Start" 
-                   TextColor="Black"
-                   BackgroundColor="White" />
-            <Label x:Name="HomeTopLabelEvent2"
-                   Text=""
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Center"
-                   HorizontalTextAlignment="Start" 
-                   TextColor="Black"
-                   BackgroundColor="White" />
-            <Label x:Name="HomeTopLabelEvent3"
-                   Text=""
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Center"
-                   HorizontalTextAlignment="Start" 
-                   TextColor="Black"
-                   BackgroundColor="White" />
-            <Label x:Name="HomeTopLabelEvent4"
-                   Text=""
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Center"
-                   HorizontalTextAlignment="Start" 
-                   TextColor="Black"
-                   BackgroundColor="White" />-->
-            <!--<ListView x:Name="HomeTopListViewSlogan"
-                      SelectionMode="None" 
-                      IsPullToRefreshEnabled="False">
-                <ListView.Header>
-                    <StackLayout>
-                        <Label Text="地区スローガン"
-                               HorizontalOptions="Fill"
-                               VerticalOptions="Center"
-                               HorizontalTextAlignment="Center" 
-                               TextColor="Black"
-                               BackgroundColor="#DAE3F3" />
-                    </StackLayout>
-                </ListView.Header>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout>
-                                <Label Text="{Binding Slogan}" />
-                                <Label Text="{Binding DistrictGovernor}"
-                                       HorizontalOptions="End"/>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <ListView x:Name="HomeTopList_Letter">
-                <ListView.Header>
-                    <StackLayout>
-                        <Label Text="キャビネットレター"
-                               HorizontalOptions="Fill"
-                               VerticalOptions="Center"
-                               HorizontalTextAlignment="Center" 
-                               TextColor="Black"
-                               BackgroundColor="#DAE3F3" />
-                    </StackLayout>
-                </ListView.Header>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Label Grid.Column="0"
-                                       Text ="00/00"
-                                       TextColor="Black" 
-                                       Padding="8,0,0,0"
-                                       VerticalOptions="Start"/>
-                                <Label Grid.Column="1"
-                                       Text ="第２回キャビネット会議"
-                                       TextColor="Black" 
-                                       Padding="8,0,0,0"
-                                       VerticalOptions="Start"/>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <ListView x:Name="HomeTopList_Event">
-                <ListView.Header>
-                    <StackLayout>
-                        <Label Text="参加予定一覧"
-                               HorizontalOptions="Fill"
-                               VerticalOptions="Center"
-                               HorizontalTextAlignment="Center" 
-                               TextColor="Black"
-                               BackgroundColor="#FFF2CC" />
-                    </StackLayout>
-                </ListView.Header>
-            </ListView>-->
         </StackLayout>
     </ContentPage.Content>
+    
 </ContentPage>
