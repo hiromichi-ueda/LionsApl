@@ -2,100 +2,198 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LionsApl.Content.AccountSetting">
+    
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <On Platform="iOS" Value="0,40,0,0" />
             <On Platform="Android, UWP" Value="0,0,0,0" />
         </OnPlatform>
     </ContentPage.Padding>
+    
     <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
+        <StackLayout>
+
+            <!-- タイトル -->
+            <Frame 
+                BackgroundColor="#2196F3" 
+                Padding="18" 
+                CornerRadius="0"
+                >
+                <Label 
+                    Text="Lions Apl" 
+                    HorizontalTextAlignment="Center" 
+                    TextColor="White" 
+                    FontSize="28"/>
+            </Frame>
+
+            <!-- BODY -->
+            <StackLayout 
+                        Margin="10"
+                        HorizontalOptions="FillAndExpand"
+                        >
+                <!-- タイトル -->
+                <Label 
                     Text="アカウント設定"
-                    BackgroundColor="#F2F2F2"
+                    TextColor="#2E2E2E"
+                    BackgroundColor="#BDBDBD"
                     VerticalOptions="Center"
                     HorizontalOptions="Fill"
-                    HorizontalTextAlignment="Center"/>
-            <Label Grid.Row="1"
-                    Grid.Column="0"
-                    Text ="リジョン"
-                    Padding="8,0,0,0"
-                    VerticalOptions="Center"/>
-            <Picker Grid.Row="1"
-                    Grid.Column="1"
-                    x:Name="RegionPicker"
-                    Title="リジョン選択"
-                    TitleColor="GRAY"
-                    ItemDisplayBinding="{Binding Name}"
-                    SelectedIndexChanged="RegionPicker_SelectedIndexChanged"
-                    Margin="0,0,8,0">
-            </Picker>
-            <Label Grid.Row="2"
-                    Grid.Column="0"
-                    Text="ゾーン"
-                    Padding="8,0,0,0"
-                    VerticalOptions="Center"/>
-            <Picker Grid.Row="2"
-                    Grid.Column="1"
-                    x:Name="ZonePicker"
-                    Title="ゾーン選択"
-                    TitleColor="GRAY"
-                    ItemDisplayBinding="{Binding Name}"
-                    SelectedIndexChanged="ZonePicker_SelectedIndexChanged"
-                    Margin="0,0,8,0">
-            </Picker>
-            <Label Grid.Row="3"
-                    Grid.Column="0"
-                    Text="クラブ"
-                    Padding="8,0,0,0"
-                    VerticalOptions="Center"/>
-            <Picker Grid.Row="3"
-                    Grid.Column="1"
-                    x:Name="ClubPicker"
-                    Title="クラブ選択"
-                    TitleColor="GRAY"
-                    ItemDisplayBinding="{Binding Name}"
-                    SelectedIndexChanged="ClubPicker_SelectedIndexChanged"
-                    Margin="0,0,8,0">
-            </Picker>
-            <Label Grid.Row="4"
-                    Grid.Column="0"
-                    Text="会員"
-                    Padding="8,0,0,0"
-                    VerticalOptions="Center"/>
-            <Picker Grid.Row="4"
-                    Grid.Column="1"
-                    x:Name="MemberPicker"
-                    Title="会員選択"
-                    TitleColor="GRAY"
-                    ItemDisplayBinding="{Binding Name}"
-                    SelectedIndexChanged="MemberPicker_SelectedIndexChanged"
-                    Margin="0,0,8,0">
-            </Picker>
-            <Button Grid.Row="5"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Text="アカウント登録" 
-                    Clicked="AccountSet_Button_Clicked"
-                    Padding="8,0,8,0" 
-                    BorderWidth="1" 
-                    BorderColor="#00529B">
-            </Button>
-        </Grid>
+                    HorizontalTextAlignment="Center"
+                 />
+
+                <!-- 入力項目 -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- リジョン -->
+                    <Label 
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Text ="リジョン"
+                        FontSize="Default"
+                        TextColor="#2E2E2E"
+                        Padding="10,0,10,0"
+                        VerticalOptions="Center"
+                        >
+                    </Label>
+                    <Picker 
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        x:Name="RegionPicker"
+                        Title="リジョン選択"
+                        TitleColor="GRAY"
+                        TextColor="#2E2E2E"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedIndexChanged="RegionPicker_SelectedIndexChanged"
+                        Margin="0,0,10,0"
+                        >
+                    </Picker>
+                    
+                    <!-- ゾーン -->
+                    <Label 
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Text="ゾーン"
+                        FontSize="Default"
+                        TextColor="#2E2E2E"
+                        Padding="10,0,10,0"
+                        VerticalOptions="Center"
+                        >
+                    </Label>
+                    <Picker 
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        x:Name="ZonePicker"
+                        Title="ゾーン選択"
+                        TitleColor="GRAY"
+                        TextColor="#2E2E2E"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedIndexChanged="ZonePicker_SelectedIndexChanged"
+                        Margin="0,0,8,0"
+                        >
+                    </Picker>
+
+                    <!-- クラブ -->
+                    <Label 
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Text="クラブ"
+                        FontSize="Default"
+                        TextColor="#2E2E2E"
+                        Padding="10,0,10,0"
+                        VerticalOptions="Center"
+                        >
+                    </Label>
+                    <Picker 
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        x:Name="ClubPicker"
+                        Title="クラブ選択"
+                        TitleColor="GRAY"
+                        TextColor="#2E2E2E"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedIndexChanged="ClubPicker_SelectedIndexChanged"
+                        Margin="0,0,8,0"
+                         >
+                    </Picker>
+
+                    <!-- 会員名 -->
+                    <Label 
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Text="会員名"
+                        FontSize="Default"
+                        TextColor="#2E2E2E"
+                        Padding="10,0,10,0"
+                        VerticalOptions="Center"
+                        >
+                    </Label>
+                    <Picker 
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        x:Name="MemberPicker"
+                        Title="会員選択"
+                        TitleColor="GRAY"
+                        TextColor="#2E2E2E"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedIndexChanged="MemberPicker_SelectedIndexChanged"
+                        Margin="0,0,8,0"
+                        >
+                    </Picker>
+                </Grid>
+                
+                <!-- 各ボタン -->
+                <Grid  
+                    HorizontalOptions="Fill" 
+                    VerticalOptions="EndAndExpand" 
+                    Margin="10"
+                       >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button 
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Text="戻　る" 
+                        Clicked="Button_Back_Clicked"
+                        Padding="8,0,8,0" 
+                        BorderWidth="1" 
+                        BorderColor="#00529B"
+                        Background="#FFFFFF"
+                        CornerRadius="6"
+                        >
+                    </Button>
+                    <Button 
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Text="アカウント登録" 
+                        Clicked="Button_AccountSet_Clicked"
+                        Padding="8,0,8,0" 
+                        BorderWidth="1" 
+                        BorderColor="#00529B"
+                        Background="#FFFFFF"
+                        CornerRadius="6"
+                        >
+                    </Button>
+                </Grid>
+                
+            </StackLayout>
+            
+        </StackLayout>
+        
     </ContentPage.Content>
 </ContentPage>

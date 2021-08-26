@@ -588,6 +588,17 @@ namespace LionsApl.Content
             }
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 戻るボタン押下
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void Button_Back_Clicked(object sender, System.EventArgs e)
+        {
+            Application.Current.MainPage = new MainPage();
+        }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -596,7 +607,7 @@ namespace LionsApl.Content
         /// <param name="sender"></param>
         /// <param name="e"></param>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private void AccountSet_Button_Clicked(object sender, System.EventArgs e)
+        private void Button_AccountSet_Clicked(object sender, System.EventArgs e)
         {
             if (_selRegion == null ||
                 _selZone == null ||

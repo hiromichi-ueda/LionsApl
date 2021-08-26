@@ -1,153 +1,125 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:LionsApl"
              x:Class="LionsApl.Content.ClubTop">
+    
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="クラブスローガン"
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Center"
-                   HorizontalTextAlignment="Center" 
-                   TextColor="Black"
-                   BackgroundColor="#DAE3F3" />
-            <Label x:Name="ClubTopLabelClubSlogun"
-                   Text="データが取得できません。"
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Center"
-                   HorizontalTextAlignment="Start" 
-                   TextColor="Black"
-                   BackgroundColor="White" />
-            <Label x:Name="ClubTopLabelExecutiveName"
-                   Text=""
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Center"
-                   HorizontalTextAlignment="End" 
-                   TextColor="Black"
-                   BackgroundColor="White" />
-            <Label Text="メニュー"
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Center"
-                   HorizontalTextAlignment="Center" 
-                   TextColor="Black"
-                   BackgroundColor="#FFF2CC" />
-            <Label x:Name="ClubTopLabelMenu1"
-                   Text="年間例会スケジュール"                 
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Center"
-                   HorizontalTextAlignment="Start" 
-                   TextColor="Black"
-                   BackgroundColor="White">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnLabelClickMenu1" />
-                </Label.GestureRecognizers>
-            </Label>
-            <Label x:Name="ClubTopLabelMenu2"
-                   Text="理事・委員会"
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Center"
-                   HorizontalTextAlignment="Start" 
-                   TextColor="Black"
-                   BackgroundColor="White">
-            </Label>
-            <Label x:Name="ClubTopLabelMen3"
-                   Text="例会プログラム"
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Center"
-                   HorizontalTextAlignment="Start" 
-                   TextColor="Black"
-                   BackgroundColor="White"></Label>
-            <Label x:Name="ClubTopLabelMenu4"
-                   Text="連絡事項"
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Center"
-                   HorizontalTextAlignment="Start" 
-                   TextColor="Black"
-                   BackgroundColor="White"></Label>
-            <Label x:Name="ClubTopLabelMenu5"
-                   Text="会員情報"
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Center"
-                   HorizontalTextAlignment="Start" 
-                   TextColor="Black"
-                   BackgroundColor="White"></Label>
 
-            <ListView x:Name="ClubTopListViewSlogan"
-                      HasUnevenRows="false"
-                      RowHeight="80"
-                      SelectionMode="None">
-                <ListView.Header>
-                    <StackLayout>
-                        <Label Text="クラブスローガン"
-                               HorizontalOptions="Fill"
-                               VerticalOptions="Center"
-                               HorizontalTextAlignment="Center" 
-                               TextColor="Black"
-                               BackgroundColor="#DAE3F3" />
+            <ScrollView>
+
+                <StackLayout>
+
+                    <!-- ログイン情報 -->
+                    <StackLayout 
+                        HeightRequest="18"
+                        Margin="2"
+                        >
+                        <Label
+                                Text="岐阜南LC 池田 昌二" 
+                                FontSize="Caption"
+                                TextColor="#2E2E2E"
+                                VerticalOptions="Center"
+                                Background="White"
+                                HorizontalTextAlignment="End" 
+                            />
                     </StackLayout>
-                </ListView.Header>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout>
-                                <Label Text="{Binding ClubSlogan}" />
-                                <Label Text="{Binding ExecutiveName}"
-                                       HorizontalOptions="End"/>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <ListView x:Name="ClubTopListViewMenu"
-                      HasUnevenRows="false"
-                      RowHeight="40"
-                      SelectionMode="None"
-                      ItemTapped="ClubTopViewMenu_ItemTapped">
-                <ListView.Header>
-                    <StackLayout>
-                        <Label Text="メニュー"
-                                   HorizontalOptions="Fill"
-                                   VerticalOptions="Center"
-                                   HorizontalTextAlignment="Center" 
-                                   TextColor="Black"
-                                   BackgroundColor="#FFF2CC" />
+
+                    <!-- クラブスローガン -->
+                    <StackLayout 
+                        Margin="4"
+                        HorizontalOptions="FillAndExpand"
+                        >
+                        <Label
+                            Text="クラブスローガン" 
+                            FontSize="Default"
+                            TextColor="#2E2E2E"
+                            Background="#81BEF7"
+                            HorizontalTextAlignment="Center"
+                        />
+                        <Label
+                            Text="メンバーの「叡智」を結集して「新しい生活様式」に応じた「クラブ運営」「奉仕活動」の在り方を築いていこう！" 
+                            FontSize="Default"
+                            TextColor="#2E2E2E"
+                            Background="#FFFFFF"
+                            HorizontalTextAlignment="Center"
+                            Margin="4"
+                        />
+                        <Label
+                            Text="会長 L.矢橋 純一" 
+                            FontSize="Caption"
+                            TextColor="#2E2E2E"
+                            Background="#FFFFFF"
+                            HorizontalTextAlignment="End"
+                            Margin="0"
+                        />
                     </StackLayout>
-                </ListView.Header>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Label Grid.Column="0"
-                                       Grid.Row="0"
-                                       Text ="{Binding Title}"
-                                       TextColor="Black" 
-                                       Padding="8,0,0,0"
-                                       VerticalOptions="Start" />
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>            
-            </ListView>
-            <!--<TableView x:Name="ClubTopTableViewSlogan"
-                       HasUnevenRows="false"
-                       Intent="Settings">
-                <TableRoot>
-                    <TableSection Title="クラブスローガン">
-                        <ViewCell>
-                            <StackLayout>
-                                <Label Text="「温かき心を以って たがいに手を繋ごう」" />
-                                <Label Text="会長 L.山田 太郎"
-                                       HorizontalOptions="End"/>
-                            </StackLayout>
-                        </ViewCell>
-                    </TableSection>
-                </TableRoot>
-            </TableView>-->
+
+                    <!-- メニュー -->
+                    <StackLayout 
+                        Margin="4"
+                        HorizontalOptions="FillAndExpand"
+                        >
+                        <Label
+                            Text="メニュー" 
+                            FontSize="Default"
+                            TextColor="#2E2E2E"
+                            Background="#BDBDBD"
+                            HorizontalTextAlignment="Center"
+                        />
+                        <Label
+                            Text="年間例会スケジュール" 
+                            FontSize="18"
+                            TextColor="#2E2E2E"
+                            Background="#FFFFFF"
+                            HorizontalTextAlignment="Start"
+                            Margin="14,8,0,8"
+                        />
+                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.8" />
+                        <Label
+                            Text="理事・委員会" 
+                            FontSize="18"
+                            TextColor="#2E2E2E"
+                            Background="#FFFFFF"
+                            HorizontalTextAlignment="Start"
+                            Margin="14,8,0,8"
+                        />
+                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.8" />
+                        <Label
+                            Text="例会プログラム" 
+                            FontSize="18"
+                            TextColor="#2E2E2E"
+                            Background="#FFFFFF"
+                            HorizontalTextAlignment="Start"
+                            Margin="14,8,0,8"
+                        />
+                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.8" />
+                        <Label
+                            Text="連絡事項"
+                            FontSize="18"
+                            TextColor="#2E2E2E"
+                            Background="#FFFFFF"
+                            HorizontalTextAlignment="Start"
+                            Margin="14,8,0,8"
+                        />
+                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.8" />
+                        <Label
+                            Text="会員情報"
+                            FontSize="18"
+                            TextColor="#2E2E2E"
+                            Background="#FFFFFF"
+                            HorizontalTextAlignment="Start"
+                            Margin="14,8,0,8"
+                        />
+                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.8" />
+                    </StackLayout>
+
+                </StackLayout>
+
+            </ScrollView>
+            
         </StackLayout>
     </ContentPage.Content>
+    
 </ContentPage>

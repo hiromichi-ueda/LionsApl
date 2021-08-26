@@ -2,170 +2,202 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LionsApl.MainPage">
+    
   <ContentPage.Padding>
+      
     <OnPlatform x:TypeArguments="Thickness">
       <On Platform="iOS" Value="0,40,0,0" />
       <On Platform="Android, UWP" Value="0,0,0,0" />
     </OnPlatform>
+      
   </ContentPage.Padding>
-  <ScrollView x:Name="ScrollView1" BackgroundColor="White" Orientation="Both">
-    <StackLayout Spacing="10" Padding="10">
-    <Frame BackgroundColor="#00529B" Padding="0,8,0,8" CornerRadius="2">
-      <Label Text="Lions Apl" HorizontalTextAlignment="Center" TextColor="White" FontSize="24"/>
-    </Frame>
-    <Label Text="各画面遷移関連" />
-    <Button Text="Account Setting" 
-            Clicked="Button_AccountSetting_Clicked" 
-            Padding="8,0,8,0" 
-            BorderWidth="1" 
-            BorderColor="#00529B"></Button>
-    <Button Text="Main Tab Page" 
-            Clicked="Button_MainTabPage_Clicked" 
-            Padding="8,0,8,0" 
-            BorderWidth="1" 
-            BorderColor="#00529B"></Button>
-    <Button Text="SQLite Check" 
-            Clicked="Button_SQLiteCheck_Clicked" 
-            Padding="8,0,8,0" 
-            BorderWidth="1" 
-            BorderColor="#00529B"></Button>
-  <!--<Button Text="Home Top" 
-                Clicked="Button_HomeTop_Clicked" 
-                Padding="8,0,8,0" 
-                BorderWidth="1" 
-                BorderColor="#00529B"></Button>
-        <Button Text="Club Top" 
-                Clicked="Button_ClubTop_Clicked" 
-                Padding="8,0,8,0" 
-                BorderWidth="1" 
-                BorderColor="#00529B"></Button>-->
-    <Label Text="SQLite関連（ファイル操作）" />
-    <Button Text="Create SQLite File(DB3)" 
-            Clicked="Button_CreateTable_Clicked"
-            Padding="8,0,8,0" 
-            BorderWidth="1" 
-            BorderColor="#00529B"></Button>
-    <Button Text="Get ACCOUNT Data (Send SQLite File)" 
-            Clicked="Button_SendSQLite_Clicked" 
-            Padding="8,0,8,0" 
-            BorderWidth="1" 
-            BorderColor="#00529B"></Button>
-    <Button Text="Get HOME Data (Send SQLite File)" 
-            Clicked="Button_SendSQLite_HOME_Clicked" 
-            Padding="8,0,8,0" 
-            BorderWidth="1" 
-            BorderColor="#00529B"></Button>
-    <Button Text="Get File Names" 
-            Clicked="Button_GetFileName_Clicked" 
-            Padding="8,0,8,0" 
-            BorderWidth="1" 
-            BorderColor="#00529B"></Button>
-    <Button Text="Get DB Table Names" 
-            Clicked="Button_GetDBTableName_Clicked" 
-            Padding="8,0,8,0" 
-            BorderWidth="1" 
-            BorderColor="#00529B"></Button>
-    <Button Text="Delete DB3" 
-            Clicked="Button_DeleteDB3_Clicked" 
-            Padding="8,0,8,0" 
-            BorderWidth="1" 
-            BorderColor="#00529B"></Button>
-  <!--<Label Text="SQLite関連（データ操作）" />
-        <Button Text="Select A_SETTING" 
-                Clicked="Button_Select_A_SETTING_Clicked" 
-                BorderWidth="1" 
-                Padding="8,0,8,0" 
-                BorderColor="#00529B"></Button>
-        <Button Text="Select M_MEMBER" 
-                Clicked="Button_Select_M_MEMBER_Clicked" 
-                Padding="8,0,8,0" 
-                BorderWidth="1" 
-                BorderColor="#00529B"></Button>
-        <Button Text="Select A_ACCOUNT" 
-                Clicked="Button_Select_A_ACCOUNT_Clicked" 
-                Padding="8,0,8,0" 
-                BorderWidth="1" 
-                BorderColor="#00529B"></Button>
-        <Button Text="Select T_SLOGAN" 
-                Clicked="Button_Select_T_SLOGAN_Clicked" 
-                Padding="8,0,8,0" 
-                BorderWidth="1" 
-                BorderColor="#00529B"></Button>
-        <Button Text="Select T_LETTER" 
-                Clicked="Button_Select_T_LETTER_Clicked" 
-                Padding="8,0,8,0" 
-                BorderWidth="1" 
-                BorderColor="#00529B"></Button>
-        <Button Text="Select T_EVENTRET" 
-                Clicked="Button_Select_T_EVENTRET_Clicked" 
-                Padding="8,0,8,0" 
-                BorderWidth="1" 
-                BorderColor="#00529B"></Button>
-        <Button Text="Select T_EVENT" 
-                Clicked="Button_Select_T_EVENT_Clicked" 
-                Padding="8,0,8,0" 
-                BorderWidth="1" 
-                BorderColor="#00529B"></Button>
-        <Button Text="Select T_MEETINGSCHEDULE" 
-                Clicked="Button_Select_T_MEETINGSCHEDULE_Clicked" 
-                Padding="8,0,8,0" 
-                BorderWidth="1" 
-                BorderColor="#00529B"></Button>
-        <Button Text="Select T_EVENTRETxT_EVENTxT_MEETINGSCHEDULE" 
-                Clicked="Button_Select_JOIN_Clicked" 
-                Padding="8,0,8,0" 
-                BorderWidth="1" 
-                BorderColor="#00529B"></Button>
-        <Button Text="Select JOINT" 
-                Clicked="Button_Select_JOINT_Clicked" 
-                Padding="8,0,8,0" 
-                BorderWidth="1" 
-                BorderColor="#00529B"></Button>-->
-    <Label x:Name="StartText"  
-            Text="Start time..." 
-            HorizontalTextAlignment="left" 
-            HorizontalOptions="Fill"
-            BackgroundColor="AliceBlue"  
-            TextColor="Black" 
-            FontSize="16"/>
-    <Label x:Name="EndText"  
-            Text="End time..." 
-            HorizontalTextAlignment="left" 
-            HorizontalOptions="Fill"
-            BackgroundColor="AliceBlue"  
-            TextColor="Black" 
-            FontSize="16"/>
-        <Label x:Name="FileText"  
-                Text="File..." 
-                HorizontalTextAlignment="left" 
-                HorizontalOptions="FillAndExpand"
-                LineBreakMode="CharacterWrap"
-                BackgroundColor="AliceBlue"  
-                TextColor="Black" 
-                FontSize="16"/>
-        <Label x:Name="CommandText"  
-                Text="Command..." 
-                HorizontalTextAlignment="left" 
-                HorizontalOptions="Fill"
-                BackgroundColor="AliceBlue"  
-                TextColor="Black" 
-                FontSize="16"/>
-        <Label x:Name="MessageText"  
-                Text="Message..." 
-                HorizontalTextAlignment="left" 
-                HorizontalOptions="FillAndExpand"
-                LineBreakMode="CharacterWrap"
-                BackgroundColor="AliceBlue"  
-                TextColor="Black" 
-                FontSize="16"/>
-        <Label x:Name="ResultText"  
-                Text="result..." 
-                HorizontalTextAlignment="left" 
-                HorizontalOptions="FillAndExpand"
-                LineBreakMode="CharacterWrap"
-                BackgroundColor="AliceBlue"  
-                TextColor="Black" 
-                FontSize="16"/>
-  </StackLayout>
-  </ScrollView>
+
+    <StackLayout>
+
+        <StackLayout>
+            <!--
+            <Frame BackgroundColor="#00529B" Padding="0,8,0,8" CornerRadius="2">
+                <Label Text="Lions Apl" HorizontalTextAlignment="Center" TextColor="White" FontSize="24"/>
+            </Frame>
+            -->
+            <Frame 
+                BackgroundColor="#2196F3" 
+                Padding="0" 
+                CornerRadius="0"
+                >
+                <Label 
+                Text="Lions Apl" 
+                HorizontalTextAlignment="Center" 
+                TextColor="White" 
+                FontSize="28"
+                />
+            </Frame>
+        </StackLayout>
+
+        <StackLayout>
+            <ScrollView x:Name="ScrollView1" BackgroundColor="White" Orientation="Both">
+
+                <StackLayout Spacing="0" Padding="0">
+
+                    <StackLayout
+                        Padding="48"
+                        >
+                        <Button 
+                            Text="ホーム" 
+                            BorderWidth="1" 
+                            BorderColor="#00529B"
+                            Background="#FFFFFF"
+                            FontSize="Default"
+                            Clicked="Button_Home_Clicked" 
+                        >
+                        </Button>
+                        <Button 
+                            Text="アカウント設定" 
+                            BorderWidth="1" 
+                            BorderColor="#00529B"
+                            Background="#FFFFFF"
+                            FontSize="Default"
+                            Clicked="Button_Account_Clicked" 
+                        >
+                        </Button>
+                    </StackLayout>
+
+                    <!-- 開発用領域 -->
+                    
+                    <StackLayout
+                        Padding="48,0,48,10"
+                        >
+                        <Label Text="＜各画面遷移関連＞" />
+                        <Button 
+                            Text="Account Setting" 
+                            Clicked="Button_AccountSetting_Clicked" 
+                            Padding="8,0,8,0" 
+                            BorderWidth="1" 
+                            BorderColor="#00529B">
+                        </Button>
+
+                        <Button 
+                            Text="Main Tab Page" 
+                            Clicked="Button_MainTabPage_Clicked" 
+                            Padding="8,0,8,0" 
+                            BorderWidth="1" 
+                            BorderColor="#00529B">
+                        </Button>
+
+                        <Button 
+                            Text="SQLite Check" 
+                            Clicked="Button_SQLiteCheck_Clicked" 
+                            Padding="8,0,8,0" 
+                            BorderWidth="1" 
+                            BorderColor="#00529B">
+                        </Button>
+
+                        <Label Text="＜SQLite関連（ファイル操作）＞" />
+                        <Button 
+                            Text="Create SQLite File(DB3)" 
+                            Clicked="Button_CreateTable_Clicked"
+                            Padding="8,0,8,0" 
+                            BorderWidth="1" 
+                            BorderColor="#00529B">
+                        </Button>
+                        <Button 
+                            Text="Get ACCOUNT Data (Send SQLite File)" 
+                            Clicked="Button_SendSQLite_Clicked" 
+                            Padding="8,0,8,0" 
+                            BorderWidth="1" 
+                            BorderColor="#00529B">
+                        </Button>
+                        <Button 
+                            Text="Get HOME Data (Send SQLite File)" 
+                            Clicked="Button_SendSQLite_HOME_Clicked" 
+                            Padding="8,0,8,0" 
+                            BorderWidth="1" 
+                            BorderColor="#00529B">
+                        </Button>
+                        <Button 
+                            Text="Get File Names" 
+                            Clicked="Button_GetFileName_Clicked" 
+                            Padding="8,0,8,0" 
+                            BorderWidth="1" 
+                            BorderColor="#00529B">
+                        </Button>
+                        <Button 
+                            Text="Get DB Table Names" 
+                            Clicked="Button_GetDBTableName_Clicked" 
+                            Padding="8,0,8,0" 
+                            BorderWidth="1" 
+                            BorderColor="#00529B">
+                        </Button>
+                        <Button 
+                            Text="Delete DB3" 
+                            Clicked="Button_DeleteDB3_Clicked" 
+                            Padding="8,0,8,0" 
+                            BorderWidth="1" 
+                            BorderColor="#00529B">
+                        </Button>
+
+                        <Label 
+                            x:Name="StartText"  
+                            Text="Start time..." 
+                            HorizontalTextAlignment="left" 
+                            HorizontalOptions="Fill"
+                            BackgroundColor="AliceBlue"  
+                            TextColor="Black" 
+                            FontSize="16"
+                            />
+                        <Label 
+                            x:Name="EndText"  
+                            Text="End time..." 
+                            HorizontalTextAlignment="left" 
+                            HorizontalOptions="Fill"
+                            BackgroundColor="AliceBlue"  
+                            TextColor="Black" 
+                            FontSize="16"
+                            />
+                        <Label 
+                            x:Name="FileText"  
+                            Text="File..." 
+                            HorizontalTextAlignment="left" 
+                            HorizontalOptions="FillAndExpand"
+                            LineBreakMode="CharacterWrap"
+                            BackgroundColor="AliceBlue"  
+                            TextColor="Black" 
+                            FontSize="16"
+                            />
+                        <Label 
+                            x:Name="CommandText"  
+                            Text="Command..." 
+                            HorizontalTextAlignment="left" 
+                            HorizontalOptions="Fill"
+                            BackgroundColor="AliceBlue"  
+                            TextColor="Black" 
+                            FontSize="16"
+                            />
+                        <Label 
+                            x:Name="MessageText"  
+                            Text="Message..." 
+                            HorizontalTextAlignment="left" 
+                            HorizontalOptions="FillAndExpand"
+                            LineBreakMode="CharacterWrap"
+                            BackgroundColor="AliceBlue"  
+                            TextColor="Black" 
+                            FontSize="16"
+                            />
+                        <Label 
+                            x:Name="ResultText"  
+                            Text="result..." 
+                            HorizontalTextAlignment="left" 
+                            HorizontalOptions="FillAndExpand"
+                            LineBreakMode="CharacterWrap"
+                            BackgroundColor="AliceBlue"  
+                            TextColor="Black" 
+                            FontSize="16"
+                            />
+                    </StackLayout>
+                </StackLayout>
+
+            </ScrollView>
+        </StackLayout>
+
+    </StackLayout>
 </ContentPage>

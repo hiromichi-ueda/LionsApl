@@ -28,11 +28,69 @@ namespace LionsApl
         }
 
 
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// ボタン押下処理
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////////////////////
+        // ===============================
+        // ボタン押下処理
+        // ===============================
+        #region 各ボタン処理
+
+            //---------------------------------------
+            // HOME画面
+            //---------------------------------------
+            void Button_Home_Clicked(object sender, System.EventArgs e)
+            {
+
+                // DB情報取得処理
+                try
+                {
+                    Task<HttpResponseMessage> response = sqliteManager.AsyncPostFileForWebAPI(MessageText, sqliteManager.GetSendFileContent_HOME());
+                    ResultText.Text += "Send SQLite file Finish : " + response.Result.StatusCode.ToString();
+                }
+                catch (Exception ex)
+                {
+                    ResultText.Text += "Send SQLite file Error : " + ex.Message;
+
+                }
+
+                // HOME画面表示
+                Application.Current.MainPage = new Content.MainTabPage();
+            }
+
+            //---------------------------------------
+            // アカウント設定
+            //---------------------------------------
+            void Button_Account_Clicked(object sender, System.EventArgs e)
+            {
+
+                DateTime stDt = DateTime.Now;
+                StartText.Text = stDt.ToString();
+
+                ResultText.Text = "";
+
+                try
+                {
+                    // 空DB作成処理
+                    sqliteManager.CreateTable_ALL();
+
+                    // アカウント情報取得
+                    Task<HttpResponseMessage> response = sqliteManager.AsyncPostFileForWebAPI(MessageText, sqliteManager.GetSendFileContent());
+                    ResultText.Text = "Create Table Finish : \r\n" + sqliteManager.DbPath;
+                }
+                catch (Exception ex)
+                {
+                    ResultText.Text = "アカウント設定 : \r\n" + ex.Message;
+                }
+                ResultText.Text = "アカウント設定 OK";
+
+                /// 終了時間表示
+                DateTime edDt = DateTime.Now;
+                EndText.Text = edDt.ToString();
+
+                // アカウント設定画面表示
+                Application.Current.MainPage = new Content.AccountSetting();
+
+            }
+
+        #endregion
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////
