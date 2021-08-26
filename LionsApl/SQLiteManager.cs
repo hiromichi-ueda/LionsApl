@@ -11,13 +11,18 @@ namespace LionsApl
 {
     class SQLiteManager
     {
+        // A_FILEPATTH / DataClass
+        public string DATACLASS_LETTER    = "1";
+        public string DATACLASS_EVENT     = "2";
+        public string DATACLASS_MAGAZINE  = "3";
+
         private static SQLiteManager _single = null;
         private HttpClient _httpClient = null;
         private string usrId = null;
 
-
         public Table.A_SETTING Db_A_Setting;                 // A_SETTINGテーブルクラス
         public Table.A_ACCOUNT Db_A_Account;                 // A_ACCOUNTテーブルクラス
+        public Table.A_FILEPATH Db_A_FilePath;               // A_FILEPATHテーブルクラス
         public Table.T_SLOGAN  Db_T_Slogan;                  // T_SLOGANテーブルクラス
         public List<Table.T_LETTER> DbList_T_Letter = new List<Table.T_LETTER>();   // T_LETTERテーブルクラスリスト
 
@@ -1078,6 +1083,37 @@ namespace LionsApl
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// ファイルパス情報をSQLiteファイルから取得する。
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void GetFilePath(string InDataClass)
+        {
+            Db_A_FilePath = null;
+
+            // データ取得
+            try
+            {
+                foreach (Table.A_FILEPATH row in Get_A_FILEPATH("SELECT * FROM A_FILEPATH " +
+                                                                "WHERE DataClass = '" + InDataClass + "'"))
+                {
+                    Db_A_FilePath = new Table.A_FILEPATH
+                    {
+                        DataClass = row.DataClass,
+                        FilePath = row.FilePath
+                    };
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ///DisplayAlert("Alert", $"SQLite検索エラー(スローガン) : &{ex.Message}", "OK");
+                throw;
+            }
+        }
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// データ登録
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1088,7 +1124,7 @@ namespace LionsApl
         /// A_ACCOUNTテーブルデータ登録
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public void Set_A_ACCOUNT(Table.A_ACCOUNT _account)
+        public void Set_A_ACCOUNT(Table.A_ACCOUNT InAccount)
         {
             // データ登録
             try
@@ -1099,14 +1135,14 @@ namespace LionsApl
                     _ = db.CreateTable<Table.A_ACCOUNT>();
                     _ = db.Insert(new Table.A_ACCOUNT()
                     {
-                        Region = _account.Region,
-                        Zone = _account.Zone,
-                        ClubCode = _account.ClubCode,
-                        ClubName = _account.ClubName,
-                        MemberCode = _account.MemberCode,
-                        MemberFirstName = _account.MemberFirstName,
-                        MemberLastName = _account.MemberLastName,
-                        AccountDate = _account.AccountDate
+                        Region = InAccount.Region,
+                        Zone = InAccount.Zone,
+                        ClubCode = InAccount.ClubCode,
+                        ClubName = InAccount.ClubName,
+                        MemberCode = InAccount.MemberCode,
+                        MemberFirstName = InAccount.MemberFirstName,
+                        MemberLastName = InAccount.MemberLastName,
+                        AccountDate = InAccount.AccountDate
                     });
                 }
             }
