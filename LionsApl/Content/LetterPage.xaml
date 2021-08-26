@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LionsApl.Content.LetterPage">
+    <ContentPage.Content>
+      <StackLayout>
+        <Label Text="キャビネットレター"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Center"
+                        HorizontalTextAlignment="Center" 
+                        TextColor="Black"
+                        BackgroundColor="#DAE3F3" />
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+
+          <Label Grid.Row="0"
+                 Grid.Column="0"
+                 Text="開催日"
+                 VerticalOptions="Center" 
+                 HorizontalTextAlignment="Start" 
+                 />
+          <Label Grid.Row="0"
+                 Grid.Column="1"
+                 x:Name="DateLabel" 
+                 Text=""
+                 VerticalOptions="Center" 
+                 HorizontalTextAlignment="Start" 
+                 />
+          <Label Grid.Row="1"
+                 Grid.Column="0"
+                 Text="タイトル"
+                 VerticalOptions="Center" 
+                 HorizontalTextAlignment="Start" 
+                 />
+          <Label Grid.Row="1"
+                 Grid.Column="1"
+                 x:Name="TitleLabel" 
+                 Text=""
+                 VerticalOptions="Center" 
+                 HorizontalTextAlignment="Start" 
+                 />
+          <Label Grid.Row="2"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="2"
+                 x:Name="BodyLabel" 
+                 Text=""
+                 VerticalOptions="Center" 
+                 HorizontalTextAlignment="Start" 
+                 />
+          <Image Grid.Row="3"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="2"
+                 x:Name="Image1"
+               />
+          <Image Grid.Row="4"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="2"
+                 x:Name="Image2"
+               />
+        </Grid>
+      </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

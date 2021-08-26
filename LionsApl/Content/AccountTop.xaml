@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LionsApl.Content.AccountTop">
+  <!--Pages can be added as references or inline-->
+    <ContentPage.Content>
+        <StackLayout>
+        <Label Text="アカウント"
+                               HorizontalOptions="Fill"
+                               VerticalOptions="Center"
+                               HorizontalTextAlignment="Center" 
+                               TextColor="Black"
+                               BackgroundColor="#DAE3F3" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

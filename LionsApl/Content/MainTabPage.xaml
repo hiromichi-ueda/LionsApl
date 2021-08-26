@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:LionsApl.Content;assembly=LionsApl"
+             x:Class="LionsApl.Content.MainTabPage"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             android:TabbedPage.ToolbarPlacement="Bottom"
+            >
+  <!--Pages can be added as references or inline-->
+    <!--<pages:HomeTop Title="ホーム" IconImageSource="home.png" />
+    <pages:ClubTop Title="クラブ" IconImageSource="club.png" />
+    <pages:AccountTop Title="アカウント" IconImageSource="account.png" />-->
+
+    <NavigationPage Title="ホーム" IconImageSource="home.png" HeightRequest="10" WidthRequest="10">
+        <x:Arguments>
+            <pages:HomeTop />
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage Title="クラブ" IconImageSource="club.png">
+        <x:Arguments>
+            <pages:ClubTop />
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage Title="マッチング" IconImageSource="matching.png">
+        <x:Arguments>
+            <pages:MatchingTop />
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage Title="アカウント" IconImageSource="account.png">
+        <x:Arguments>
+            <pages:AccountTop />
+        </x:Arguments>
+    </NavigationPage>
+</TabbedPage>

@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LionsApl.Content.AccountSetting">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS" Value="0,40,0,0" />
+            <On Platform="Android, UWP" Value="0,0,0,0" />
+        </OnPlatform>
+    </ContentPage.Padding>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Text="アカウント設定"
+                    BackgroundColor="#F2F2F2"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Fill"
+                    HorizontalTextAlignment="Center"/>
+            <Label Grid.Row="1"
+                    Grid.Column="0"
+                    Text ="リジョン"
+                    Padding="8,0,0,0"
+                    VerticalOptions="Center"/>
+            <Picker Grid.Row="1"
+                    Grid.Column="1"
+                    x:Name="RegionPicker"
+                    Title="リジョン選択"
+                    TitleColor="GRAY"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedIndexChanged="RegionPicker_SelectedIndexChanged"
+                    Margin="0,0,8,0">
+            </Picker>
+            <Label Grid.Row="2"
+                    Grid.Column="0"
+                    Text="ゾーン"
+                    Padding="8,0,0,0"
+                    VerticalOptions="Center"/>
+            <Picker Grid.Row="2"
+                    Grid.Column="1"
+                    x:Name="ZonePicker"
+                    Title="ゾーン選択"
+                    TitleColor="GRAY"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedIndexChanged="ZonePicker_SelectedIndexChanged"
+                    Margin="0,0,8,0">
+            </Picker>
+            <Label Grid.Row="3"
+                    Grid.Column="0"
+                    Text="クラブ"
+                    Padding="8,0,0,0"
+                    VerticalOptions="Center"/>
+            <Picker Grid.Row="3"
+                    Grid.Column="1"
+                    x:Name="ClubPicker"
+                    Title="クラブ選択"
+                    TitleColor="GRAY"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedIndexChanged="ClubPicker_SelectedIndexChanged"
+                    Margin="0,0,8,0">
+            </Picker>
+            <Label Grid.Row="4"
+                    Grid.Column="0"
+                    Text="会員"
+                    Padding="8,0,0,0"
+                    VerticalOptions="Center"/>
+            <Picker Grid.Row="4"
+                    Grid.Column="1"
+                    x:Name="MemberPicker"
+                    Title="会員選択"
+                    TitleColor="GRAY"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedIndexChanged="MemberPicker_SelectedIndexChanged"
+                    Margin="0,0,8,0">
+            </Picker>
+            <Button Grid.Row="5"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Text="アカウント登録" 
+                    Clicked="AccountSet_Button_Clicked"
+                    Padding="8,0,8,0" 
+                    BorderWidth="1" 
+                    BorderColor="#00529B">
+            </Button>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
