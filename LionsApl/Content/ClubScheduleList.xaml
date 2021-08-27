@@ -13,7 +13,6 @@
         <StackLayout>
             
             <ListView x:Name="LetterListView"
-              ItemTapped="Handle_ItemTapped"
               CachingStrategy="RecycleElement">
 
                 <ListView.Header>
