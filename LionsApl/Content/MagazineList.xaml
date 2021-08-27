@@ -35,7 +35,7 @@
                     VerticalOptions="Center"
                     HorizontalTextAlignment="Center" 
                     TextColor="Black"
-                    BackgroundColor="#E1F5A9" 
+                    BackgroundColor="#81BEF7" 
                    />
             </StackLayout>
 
