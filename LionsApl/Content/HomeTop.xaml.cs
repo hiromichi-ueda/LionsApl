@@ -84,33 +84,6 @@ namespace LionsApl.Content
             // 参加予定一覧情報取得
             SetEventLt();
 
-            // Letter
-            //LetterDate0.Text = "01/01";
-            //LetterTitle0.Text = "レター１";
-            //LetterDate1.Text = "02/02";
-            //LetterTitle1.Text = "レター２";
-            //LetterDate2.Text = "03/03";
-            //LetterTitle2.Text = "レター３";
-            //LetterDate3.Text = "04/04";
-            //LetterTitle3.Text = "レター４";
-            // Event
-            //EventDate0.Text = "01/01";
-            //EventTitle0.Text = "イベント１";
-            //EventCount0.Text = "(本日)";
-            //EventMsg0.Text = "    ";
-            //EventDate1.Text = "02/02";
-            //EventTitle1.Text = "イベント２";
-            //EventCount1.Text = "(7日前)";
-            //EventMsg1.Text = "    ";
-            //EventDate2.Text = "03/03";
-            //EventTitle2.Text = "イベント３";
-            //EventCount2.Text = "(30日前)";
-            //EventMsg2.Text = "    ";
-            //EventDate3.Text = "04/04";
-            //EventTitle3.Text = "イベント４";
-            //EventCount3.Text = "(120日前)";
-            //EventMsg3.Text = "    ";
-
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -175,7 +148,7 @@ namespace LionsApl.Content
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// Activityボタン押下
+        /// キャビネットレター情報タップ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -299,7 +272,6 @@ namespace LionsApl.Content
         {
             int idx = 0;
             _letterLt.Clear();
-
 
             try
             {
@@ -573,35 +545,5 @@ namespace LionsApl.Content
         public string EventTitle { get; set; }
         public string EventCount { get; set; }
     }
-
-    //public class HomeTopTemplateSelector : DataTemplateSelector
-    //{
-    //    DataTemplate sloganTemp;
-    //    DataTemplate letterTemp;
-    //    DataTemplate eventTemp;
-
-    //    public HomeTopTemplateSelector()
-    //    {
-    //        sloganTemp = new DataTemplate(typeof(SloganCell));
-    //        letterTemp = new DataTemplate(typeof(LetterCell));
-    //        eventTemp = new DataTemplate(typeof(EventCell));
-    //    }
-
-    //    protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
-    //    {
-    //        if (item is SloganCellClass)
-    //            return sloganTemp;
-
-    //        if (item is LetterCellClass)
-    //            return letterTemp;
-
-    //        if (item is EventCellClass)
-    //            return eventTemp;
-
-    //        //throw new NotImplementedException();
-    //        throw new Exception("Could not find the Hometop.");
-    //    }
-    //}
-
 
 }

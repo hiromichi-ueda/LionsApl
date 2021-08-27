@@ -13,14 +13,13 @@ namespace LionsApl.Content
 
     public partial class ClubTop : ContentPage
     {
-        private SQLiteManager _sqlite;                      // SQLiteマネージャークラス
+        //private SQLiteManager _sqlite;                      // SQLiteマネージャークラス
+        //private Table.T_SLOGAN _t_slogan;                   // T_SLOGANテーブルクラス
 
         public ClubTop()
         {
             InitializeComponent();
 
-            // キャビネット名
-            //Title = _sqlite.Db_A_Setting.CabinetName;
 
         }
 
