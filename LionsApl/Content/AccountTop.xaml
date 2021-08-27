@@ -2,15 +2,61 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LionsApl.Content.AccountTop">
-  <!--Pages can be added as references or inline-->
+
+    <!-- 
+    +++++++++++++++++++++++++++++++++++++
+    　画面名: アカウント情報表示画面
+    +++++++++++++++++++++++++++++++++++++
+    -->
+    
     <ContentPage.Content>
         <StackLayout>
-        <Label Text="アカウント"
-                               HorizontalOptions="Fill"
-                               VerticalOptions="Center"
-                               HorizontalTextAlignment="Center" 
-                               TextColor="Black"
-                               BackgroundColor="#DAE3F3" />
+
+            <ScrollView>
+
+                <StackLayout>
+
+                    <!-- ログイン情報 -->
+                    <StackLayout 
+                        HeightRequest="18"
+                        Margin="2"
+                        >
+                        <Label
+                                Text="岐阜南LC 池田 昌二" 
+                                FontSize="Caption"
+                                TextColor="#2E2E2E"
+                                VerticalOptions="Center"
+                                Background="White"
+                                HorizontalTextAlignment="End" 
+                            />
+                    </StackLayout>
+
+                    <!-- タイトル -->
+                    <StackLayout 
+                        Margin="4"
+                        HorizontalOptions="FillAndExpand"
+                        >
+                        <Label
+                            Text="アカウント情報" 
+                            FontSize="Default"
+                            TextColor="#2E2E2E"
+                            Background="#BDBDBD"
+                            HorizontalTextAlignment="Center"
+                        />
+                    </StackLayout>
+
+                    <!-- BODY -->
+
+                    
+                    
+                    
+                    
+                    
+                </StackLayout>
+                
+            </ScrollView>
+            
         </StackLayout>
+        
     </ContentPage.Content>
 </ContentPage>

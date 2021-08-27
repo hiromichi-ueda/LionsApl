@@ -2,6 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LionsApl.Content.AccountSetting">
+
+    <!-- 
+    +++++++++++++++++++++++++++++++++++++
+    　画面名: アカウント設定画面
+    +++++++++++++++++++++++++++++++++++++
+    -->
     
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
@@ -42,7 +48,7 @@
                     HorizontalTextAlignment="Center"
                  />
 
-                <!-- 入力項目 -->
+                <!-- BODY -->
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>

@@ -3,6 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:LionsApl"
              x:Class="LionsApl.Content.HomeTop">
+
+    <!-- 
+    +++++++++++++++++++++++++++++++++++++
+    　画面名: HOME画面
+    +++++++++++++++++++++++++++++++++++++
+    -->
     
     <ContentPage.Content>
         <StackLayout>
@@ -28,7 +34,7 @@
                     
                     <!-- 地区スローガン -->
                     <StackLayout
-                        Margin="4"
+                        Margin="4,0,4,0"
                         HorizontalOptions="FillAndExpand"                       
                         >
                         <Label 
@@ -287,7 +293,7 @@
                         />
                         <!-- 1行目 -->
                         <Grid
-                            BackgroundColor="#FFF" 
+                            BackgroundColor="#FFFFFF" 
                             Margin="8,0,8,0" 
                             HeightRequest="28"
                             >
@@ -301,7 +307,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <!-- Row 0-->
+                            <!-- 1列目(イベント日) -->
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="0"
@@ -311,8 +317,9 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 TextColor="#2E2E2E"
-                                BackgroundColor="White" 
+                                BackgroundColor="#FFFFFF" 
                                 />
+                            <!-- 2列目(イベント名) -->
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="1"
@@ -321,10 +328,10 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                LineBreakMode="TailTruncation"
                                 TextColor="#2E2E2E"
-                                BackgroundColor="White" 
+                                BackgroundColor="#FFFFFF" 
                                 />
+                            <!-- 3列目(○日) -->
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="2"
@@ -334,8 +341,9 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 TextColor="#2E2E2E"
-                                BackgroundColor="White" 
+                                BackgroundColor="#FFFFFF" 
                                 />
+                            <!-- 4列目(前) -->
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="3"
@@ -345,8 +353,9 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 TextColor="#2E2E2E"
-                                BackgroundColor="White" 
+                                BackgroundColor="#FFFFFF" 
                                    />
+                            <!-- 5列目(マーク) -->
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="4"
@@ -356,14 +365,14 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 TextColor="#2E2E2E"
-                                BackgroundColor="White" 
+                                BackgroundColor="#FFFFFF" 
                                 />
                         </Grid>
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.6" Margin="4,0,4,0" />
                         
                         <!-- 2行目 -->
                         <Grid
-                            BackgroundColor="#FFF" 
+                            BackgroundColor="#FFFFFF" 
                             Margin="8,0,8,0" 
                             HeightRequest="28"
                             >
@@ -377,6 +386,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
+                            <!-- 1列目(イベント日) -->
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="0"
@@ -386,8 +396,9 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 TextColor="#2E2E2E"
-                                BackgroundColor="White" 
+                                BackgroundColor="#FFFFFF" 
                                 />
+                            <!-- 2列目(イベント名) -->
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="1"
@@ -396,10 +407,10 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                LineBreakMode="TailTruncation"
                                 TextColor="#2E2E2E"
-                                BackgroundColor="White" 
+                                BackgroundColor="#FFFFFF" 
                                 />
+                            <!-- 3列目(○日) -->
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="2"
@@ -409,8 +420,9 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 TextColor="#2E2E2E"
-                                BackgroundColor="White" 
+                                BackgroundColor="#FFFFFF" 
                                 />
+                            <!-- 4列目(前) -->
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="3"
@@ -420,8 +432,9 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 TextColor="#2E2E2E"
-                                BackgroundColor="White" 
+                                BackgroundColor="#FFFFFF" 
                                 />
+                            <!-- 5列目(マーク) -->
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="4"
@@ -431,13 +444,17 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 TextColor="#2E2E2E"
-                                BackgroundColor="White" 
+                                BackgroundColor="#FFFFFF" 
                                 />
                         </Grid>
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.6" Margin="4,0,4,0" />
                         
                         <!-- 3行目 -->
-                        <Grid>
+                        <Grid
+                            BackgroundColor="#FFFFFF" 
+                            Margin="8,0,8,0" 
+                            HeightRequest="28"
+                            >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
@@ -448,6 +465,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
+                            <!-- 1列目(イベント日) -->
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="0"
@@ -457,8 +475,9 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 TextColor="#2E2E2E"
-                                BackgroundColor="White" 
+                                BackgroundColor="#FFFFFF" 
                                 />
+                            <!-- 2列目(イベント名) -->
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="1"
@@ -467,10 +486,10 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                LineBreakMode="TailTruncation"
                                 TextColor="#2E2E2E"
-                                BackgroundColor="White" 
+                                BackgroundColor="#FFFFFF" 
                                 />
+                            <!-- 3列目(○日) -->
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="2"
@@ -478,10 +497,10 @@
                                 Text=""
                                 FontSize="15"
                                 VerticalOptions="Center"
-                                HorizontalTextAlignment="Start" 
                                 TextColor="#2E2E2E"
-                                BackgroundColor="White" 
+                                BackgroundColor="#FFFFFF" 
                                 />
+                            <!-- 4列目(前) -->
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="3"
@@ -489,10 +508,10 @@
                                 Text=""
                                 FontSize="15"
                                 VerticalOptions="Center"
-                                HorizontalTextAlignment="Start" 
                                 TextColor="#2E2E2E"
-                                BackgroundColor="White" 
+                                BackgroundColor="#FFFFFF" 
                                 />
+                            <!-- 5列目(マーク) -->
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="4"
@@ -502,13 +521,17 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 TextColor="#2E2E2E"
-                                BackgroundColor="White" 
+                                BackgroundColor="#FFFFFF" 
                                 />
                         </Grid>
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.6" Margin="4,0,4,0" />
                         
                         <!-- 4行目 -->
-                        <Grid>
+                        <Grid
+                            BackgroundColor="#FFFFFF" 
+                            Margin="8,0,8,0" 
+                            HeightRequest="28"
+                            >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
@@ -519,6 +542,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
+                            <!-- 1列目(イベント日) -->
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="0"
@@ -528,8 +552,9 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 TextColor="#2E2E2E"
-                                BackgroundColor="White" 
+                                BackgroundColor="#FFFFFF" 
                                    />
+                            <!-- 2列目(イベント名) -->
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="1"
@@ -538,10 +563,10 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                LineBreakMode="TailTruncation"
                                 TextColor="#2E2E2E"
-                                BackgroundColor="White" 
+                                BackgroundColor="#FFFFFF" 
                                    />
+                            <!-- 3列目(○日) -->
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="2"
@@ -551,8 +576,9 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 TextColor="#2E2E2E"
-                                BackgroundColor="White" 
+                                BackgroundColor="#FFFFFF" 
                                    />
+                            <!-- 4列目(前) -->
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="3"
@@ -562,8 +588,9 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 TextColor="#2E2E2E"
-                                BackgroundColor="White" 
+                                BackgroundColor="#FFFFFF" 
                                 />
+                            <!-- 5列目(マーク) -->
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="4"
@@ -573,7 +600,7 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 TextColor="#2E2E2E"
-                                BackgroundColor="White" 
+                                BackgroundColor="#FFFFFF" 
                                 />
                         </Grid>
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.6" Margin="4,0,4,0" />

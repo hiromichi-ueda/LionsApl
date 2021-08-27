@@ -2,24 +2,24 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LionsApl.MainPage">
-    
-  <ContentPage.Padding>
-      
-    <OnPlatform x:TypeArguments="Thickness">
-      <On Platform="iOS" Value="0,40,0,0" />
-      <On Platform="Android, UWP" Value="0,0,0,0" />
-    </OnPlatform>
-      
-  </ContentPage.Padding>
+
+    <!-- 
+    +++++++++++++++++++++++++++++++++++++
+    　画面名:  ログイン画面(起動画面)
+    +++++++++++++++++++++++++++++++++++++
+    -->
+
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS" Value="0,40,0,0" />
+            <On Platform="Android, UWP" Value="0,0,0,0" />
+        </OnPlatform>
+    </ContentPage.Padding>
 
     <StackLayout>
 
+        <!-- HEADER -->
         <StackLayout>
-            <!--
-            <Frame BackgroundColor="#00529B" Padding="0,8,0,8" CornerRadius="2">
-                <Label Text="Lions Apl" HorizontalTextAlignment="Center" TextColor="White" FontSize="24"/>
-            </Frame>
-            -->
             <Frame 
                 BackgroundColor="#2196F3" 
                 Padding="0" 
@@ -34,6 +34,7 @@
             </Frame>
         </StackLayout>
 
+        <!-- BODY -->
         <StackLayout>
             <ScrollView x:Name="ScrollView1" BackgroundColor="White" Orientation="Both">
 
@@ -42,6 +43,7 @@
                     <StackLayout
                         Padding="48"
                         >
+                        <!-- HOMEボタン -->
                         <Button 
                             Text="ホーム" 
                             BorderWidth="1" 
@@ -51,6 +53,7 @@
                             Clicked="Button_Home_Clicked" 
                         >
                         </Button>
+                        <!-- アカウント設定ボタン -->
                         <Button 
                             Text="アカウント設定" 
                             BorderWidth="1" 
@@ -62,8 +65,12 @@
                         </Button>
                     </StackLayout>
 
-                    <!-- 開発用領域 -->
                     
+                    <!-- 
+                    ************************************
+                     開発用領域 (終了後コメント) 
+                    ************************************
+                    -->
                     <StackLayout
                         Padding="48,0,48,10"
                         >
@@ -194,6 +201,7 @@
                             FontSize="16"
                             />
                     </StackLayout>
+                    
                 </StackLayout>
 
             </ScrollView>

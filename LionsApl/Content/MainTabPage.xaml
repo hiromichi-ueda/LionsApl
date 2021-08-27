@@ -6,7 +6,14 @@
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              android:TabbedPage.ToolbarPlacement="Bottom"
             >
-  <!--Pages can be added as references or inline-->
+
+    <!-- 
+    +++++++++++++++++++++++++++++++++++++
+    　画面名: メインタブ画面
+    +++++++++++++++++++++++++++++++++++++
+    -->
+
+    <!-- ホーム -->
     <NavigationPage Title="ホーム" 
                     x:Name="HomeNavi"
                     IconImageSource="home.png">
@@ -14,6 +21,8 @@
             <pages:HomeTop />
         </x:Arguments>
     </NavigationPage>
+
+    <!-- クラブ -->
     <NavigationPage Title="クラブ" 
                     x:Name="ClubNavi"
                     IconImageSource="club.png">
@@ -21,6 +30,8 @@
             <pages:ClubTop />
         </x:Arguments>
     </NavigationPage>
+
+    <!-- マッチング -->
     <NavigationPage Title="マッチング" 
                     x:Name="MatchingNavi"
                     IconImageSource="matching.png">
@@ -28,6 +39,8 @@
             <pages:MatchingTop />
         </x:Arguments>
     </NavigationPage>
+
+    <!-- アカウント -->
     <NavigationPage Title="アカウント" 
                     x:Name="AccountNavi"
                     IconImageSource="account.png">
@@ -35,4 +48,5 @@
             <pages:AccountTop />
         </x:Arguments>
     </NavigationPage>
+    
 </TabbedPage>

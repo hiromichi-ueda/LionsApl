@@ -7,18 +7,21 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-// https://anderson02.com/cs/xamarin1/xamarin-21/
-
 namespace LionsApl.Content
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 
     public partial class ClubTop : ContentPage
     {
+        private SQLiteManager _sqlite;                      // SQLiteマネージャークラス
 
         public ClubTop()
         {
             InitializeComponent();
+
+            // キャビネット名
+            //Title = _sqlite.Db_A_Setting.CabinetName;
+
         }
 
     }
