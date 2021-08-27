@@ -10,6 +10,22 @@
     +++++++++++++++++++++++++++++++++++++
     -->
     
+    <ContentPage.Resources>
+        <StyleSheet>
+            <![CDATA[
+            ^ContentPage {
+                background-color: #FFFFFF;
+                color: #2E2E2E;
+            }
+            button {
+                border-color: #00529B; 
+                background-color: #FFFFFF;
+                padding: 8,0,8,0;
+            }
+            ]]>
+        </StyleSheet>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <StackLayout>
 
@@ -25,9 +41,7 @@
                         <Label
                         Text="岐阜南LC 池田 昌二" 
                         FontSize="Caption"
-                        TextColor="#2E2E2E"
                         VerticalOptions="Center"
-                        Background="White"
                         HorizontalTextAlignment="End" 
                         />
                     </StackLayout>
@@ -40,7 +54,6 @@
                         <Label 
                             Text="地区スローガン"
                             FontSize="Default"
-                            TextColor="#2E2E2E"
                             BackgroundColor="#81BEF7" 
                             HorizontalTextAlignment="Center" 
                             />
@@ -48,8 +61,6 @@
                             x:Name="LabelSlogun"
                             Text="データが取得できません。"
                             FontSize="Default"
-                            TextColor="#2E2E2E"
-                            BackgroundColor="#FFFFFF" 
                             HorizontalTextAlignment="Center" 
                             Margin="4,0,4,0"
                             />
@@ -57,8 +68,6 @@
                             x:Name="LabelDistrictGovernor"
                             Text=""
                             FontSize="Caption"
-                            TextColor="#2E2E2E"
-                            BackgroundColor="#FFFFFF"
                             HorizontalTextAlignment="End" 
                             Margin="0"
                             />
@@ -68,20 +77,17 @@
                     <StackLayout
                         Margin="4,0,4,0"
                         HorizontalOptions="FillAndExpand"
-                        Background="#FFFFFF"
                         >
                         <!-- タイトル -->
                         <Label 
                             Text="キャビネットレター"
                             FontSize="Default"
-                            TextColor="#2E2E2E"
                             BackgroundColor="#E1F5A9" 
                             HorizontalTextAlignment="Center" 
                             />
                         
                         <!-- 1行目 -->
                         <Grid
-                            BackgroundColor="#FFF" 
                             Margin="8,0,8,0" 
                             HeightRequest="28"
                             >
@@ -99,8 +105,6 @@
                                 x:Name="LetterDate0"
                                 Text=""
                                 FontSize="15"
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 HorizontalTextAlignment="Start" 
                                 VerticalTextAlignment="Center"
                                />
@@ -110,8 +114,6 @@
                                 x:Name="LetterTitle0"
                                 Text="データが取得できません。"
                                 FontSize="15"
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 HorizontalTextAlignment="Start" 
                                 VerticalTextAlignment="Center"
                                 />
@@ -121,8 +123,6 @@
                                 x:Name="LetterMark0"
                                 Text=""
                                 FontSize="15"
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 HorizontalTextAlignment="End" 
                                 HeightRequest="18"
                                 />
@@ -131,7 +131,6 @@
 
                         <!-- 2行目(Row 1) -->
                         <Grid
-                            BackgroundColor="#FFF" 
                             Margin="8,0,8,0" 
                             HeightRequest="28"
                             >
@@ -149,8 +148,6 @@
                                 x:Name="LetterDate1"
                                 Text=""
                                 FontSize="15"
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 HorizontalTextAlignment="Start" 
                                 VerticalTextAlignment="Center"
                                 />
@@ -160,8 +157,6 @@
                                 x:Name="LetterTitle1"
                                 Text=""
                                 FontSize="15"
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 HorizontalTextAlignment="Start" 
                                 VerticalTextAlignment="Center"
                                 />
@@ -171,8 +166,6 @@
                                 x:Name="LetterMark1"
                                 Text=""
                                 FontSize="15"
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 HorizontalTextAlignment="End" 
                                 HeightRequest="18"
                                 />
@@ -180,7 +173,6 @@
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.4" Margin="4,0,4,0" />
                         <!-- 3行目(Row 2) -->
                         <Grid
-                            BackgroundColor="#FFF" 
                             Margin="8,0,8,0" 
                             HeightRequest="28"
                             >
@@ -198,8 +190,6 @@
                                 x:Name="LetterDate2"
                                 Text=""
                                 FontSize="15"
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 HorizontalTextAlignment="Start" 
                                 VerticalTextAlignment="Center"
                                 />
@@ -209,8 +199,6 @@
                                 x:Name="LetterTitle2"
                                 Text=""
                                 FontSize="15"
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 HorizontalTextAlignment="Start" 
                                 VerticalTextAlignment="Center"
                                 />
@@ -220,8 +208,6 @@
                                 x:Name="LetterMark2"
                                 Text=""
                                 FontSize="15"
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 HorizontalTextAlignment="End" 
                                 HeightRequest="18"
                                 />
@@ -229,7 +215,6 @@
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.4" Margin="4,0,4,0" />
                         <!-- 4行目(Row 3) -->
                         <Grid
-                            BackgroundColor="#FFF" 
                             Margin="8,0,8,0" 
                             HeightRequest="28"
                             >
@@ -247,8 +232,6 @@
                                 x:Name="LetterDate3"
                                 Text=""
                                 FontSize="15"
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 HorizontalTextAlignment="Start" 
                                 VerticalTextAlignment="Center"
                                 />
@@ -258,8 +241,6 @@
                                 x:Name="LetterTitle3"
                                 Text=""
                                 FontSize="15"
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 HorizontalTextAlignment="Start" 
                                 VerticalTextAlignment="Center"
                                 />
@@ -269,8 +250,6 @@
                                 x:Name="LetterMark3"
                                 Text=""
                                 FontSize="15"
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 HorizontalTextAlignment="End" 
                                 HeightRequest="18"
                                 />
@@ -287,13 +266,11 @@
                         <Label
                             Text="参加予定一覧" 
                             FontSize="Default"
-                            TextColor="#2E2E2E"
                             Background="#F3F781"
                             HorizontalTextAlignment="Center"
                         />
                         <!-- 1行目 -->
                         <Grid
-                            BackgroundColor="#FFFFFF" 
                             Margin="8,0,8,0" 
                             HeightRequest="28"
                             >
@@ -316,8 +293,6 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 />
                             <!-- 2列目(イベント名) -->
                             <Label 
@@ -328,8 +303,6 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 />
                             <!-- 3列目(○日) -->
                             <Label 
@@ -340,8 +313,6 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 />
                             <!-- 4列目(前) -->
                             <Label 
@@ -352,9 +323,7 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
-                                   />
+                                />
                             <!-- 5列目(マーク) -->
                             <Label 
                                 Grid.Row="0"
@@ -364,15 +333,12 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 />
                         </Grid>
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.6" Margin="4,0,4,0" />
                         
                         <!-- 2行目 -->
                         <Grid
-                            BackgroundColor="#FFFFFF" 
                             Margin="8,0,8,0" 
                             HeightRequest="28"
                             >
@@ -395,8 +361,6 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 />
                             <!-- 2列目(イベント名) -->
                             <Label 
@@ -407,8 +371,6 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 />
                             <!-- 3列目(○日) -->
                             <Label 
@@ -419,8 +381,6 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 />
                             <!-- 4列目(前) -->
                             <Label 
@@ -431,8 +391,6 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 />
                             <!-- 5列目(マーク) -->
                             <Label 
@@ -443,15 +401,12 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 />
                         </Grid>
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.6" Margin="4,0,4,0" />
                         
                         <!-- 3行目 -->
                         <Grid
-                            BackgroundColor="#FFFFFF" 
                             Margin="8,0,8,0" 
                             HeightRequest="28"
                             >
@@ -474,8 +429,6 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 />
                             <!-- 2列目(イベント名) -->
                             <Label 
@@ -486,8 +439,6 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 />
                             <!-- 3列目(○日) -->
                             <Label 
@@ -497,8 +448,6 @@
                                 Text=""
                                 FontSize="15"
                                 VerticalOptions="Center"
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 />
                             <!-- 4列目(前) -->
                             <Label 
@@ -508,8 +457,6 @@
                                 Text=""
                                 FontSize="15"
                                 VerticalOptions="Center"
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 />
                             <!-- 5列目(マーク) -->
                             <Label 
@@ -520,15 +467,12 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 />
                         </Grid>
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.6" Margin="4,0,4,0" />
                         
                         <!-- 4行目 -->
                         <Grid
-                            BackgroundColor="#FFFFFF" 
                             Margin="8,0,8,0" 
                             HeightRequest="28"
                             >
@@ -551,9 +495,7 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
-                                   />
+                                />
                             <!-- 2列目(イベント名) -->
                             <Label 
                                 Grid.Row="0"
@@ -563,9 +505,7 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
-                                   />
+                                />
                             <!-- 3列目(○日) -->
                             <Label 
                                 Grid.Row="0"
@@ -575,9 +515,7 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
-                                   />
+                                />
                             <!-- 4列目(前) -->
                             <Label 
                                 Grid.Row="0"
@@ -587,8 +525,6 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 />
                             <!-- 5列目(マーク) -->
                             <Label 
@@ -599,8 +535,6 @@
                                 FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
-                                TextColor="#2E2E2E"
-                                BackgroundColor="#FFFFFF" 
                                 />
                         </Grid>
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.6" Margin="4,0,4,0" />
@@ -630,14 +564,10 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     Grid.ColumnSpan="1"
-                    Text="出欠確認"
-                    FontSize="Caption"
-                    Clicked="Eventret_Button_Clicked"
-                    Padding="8,0,8,0" 
+                    Text="出欠登録"
                     BorderWidth="1" 
-                    BorderColor="#00529B"
-                    Background="#FFFFFF"
                     CornerRadius="6"
+                    Clicked="Eventret_Button_Clicked"
                     >
                 </Button>
                 <!-- 連絡事項 -->
@@ -646,12 +576,9 @@
                     Grid.Column="1"
                     Grid.ColumnSpan="1"
                     Text="連絡事項" 
-                    Clicked="Infomation_Button_Clicked"
-                    Padding="8,0,8,0" 
                     BorderWidth="1" 
-                    BorderColor="#00529B"
-                    Background="#FFFFFF"
                     CornerRadius="6"
+                    Clicked="Infomation_Button_Clicked"
                     >
                 </Button>
                 <!-- 地区誌 -->
@@ -660,12 +587,9 @@
                     Grid.Column="2"
                     Grid.ColumnSpan="1"
                     Text="地区誌" 
-                    Clicked="Magazine_Button_Clicked"
-                    Padding="8,0,8,0" 
                     BorderWidth="1" 
-                    BorderColor="#00529B"
-                    Background="#FFFFFF"
                     CornerRadius="6"
+                    Clicked="Magazine_Button_Clicked"
                     >
                 </Button>
                 <!-- LCIF -->
@@ -674,12 +598,10 @@
                     Grid.Column="3"
                     Grid.ColumnSpan="1"
                     Text="LCIF" 
-                    Clicked="Lcif_Button_Clicked"
-                    Padding="8,0,8,0" 
                     BorderWidth="1" 
-                    BorderColor="#00529B"
-                    Background="#D8D8D8"
                     CornerRadius="6"
+                    Clicked="Lcif_Button_Clicked"
+                    Background="#D8D8D8"
                     >
                 </Button>
             </Grid>

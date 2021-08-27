@@ -46,15 +46,301 @@
                     </StackLayout>
 
                     <!-- BODY -->
+                    <!-- 会員情報 -->
+                    <StackLayout 
+                        Margin="6,20,0,0"
+                        HorizontalOptions="FillAndExpand"
+                        >
+                        <Grid BackgroundColor="#FFF" Margin="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.*" />
+                                <ColumnDefinition Width="1.*" />
+                                <ColumnDefinition Width="1.*" />
+                                <ColumnDefinition Width="1.*" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="リジョン" 
+                                FontSize="18"
+                                TextColor="#2E2E2E"
+                                HorizontalTextAlignment="Start"
+                                VerticalTextAlignment="Center"
+                                Margin="4"
+                            />
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Text="1" 
+                                FontSize="18"
+                                TextColor="#2E2E2E"
+                                HorizontalTextAlignment="Start"
+                                Margin="4"
+                            />
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Text="ゾーン" 
+                                FontSize="18"
+                                TextColor="#2E2E2E"
+                                HorizontalTextAlignment="Start"
+                                VerticalTextAlignment="Center"
+                                Margin="4"
+                            />
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="3"
+                                Text="3" 
+                                FontSize="18"
+                                TextColor="#2E2E2E"
+                                HorizontalTextAlignment="Start"
+                                Margin="4"
+                            />
+                        </Grid>
+                    </StackLayout>
 
-                    
-                    
-                    
-                    
-                    
+                    <StackLayout 
+                        Margin="0,0,0,0"
+                        HorizontalOptions="FillAndExpand"
+                        >
+                        <Grid BackgroundColor="#FFF" Margin="6,0,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="クラブ名" 
+                                FontSize="18"
+                                TextColor="#2E2E2E"
+                                HorizontalTextAlignment="Start"
+                                VerticalTextAlignment="Center"
+                                Margin="4"
+                            />
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Text="岐阜南LC" 
+                                FontSize="18"
+                                TextColor="#2E2E2E"
+                                HorizontalTextAlignment="Start"
+                                Margin="4"
+                            />
+                        </Grid>
+                    </StackLayout>
+
+                    <StackLayout 
+                        Margin="0,0,0,0"
+                        HorizontalOptions="FillAndExpand"
+                        >
+                        <Grid BackgroundColor="#FFF" Margin="6,0,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="会員名" 
+                                FontSize="18"
+                                TextColor="#2E2E2E"
+                                HorizontalTextAlignment="Start"
+                                VerticalTextAlignment="Center"
+                                Margin="4"
+                            />
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Text="1234567" 
+                                FontSize="18"
+                                TextColor="#2E2E2E"
+                                HorizontalTextAlignment="Start"
+                                Margin="4"
+                            />
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Text="池田昌 昌二昌二（男性）" 
+                                FontSize="18"
+                                TextColor="#2E2E2E"
+                                HorizontalTextAlignment="Start"
+                                Margin="4"
+                            />
+                        </Grid>
+                    </StackLayout>
+
+                    <StackLayout 
+                        Margin="0,0,0,0"
+                        HorizontalOptions="FillAndExpand"
+                        >
+                        <Grid BackgroundColor="#FFF" Margin="6,0,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="会員種別" 
+                                FontSize="18"
+                                TextColor="#2E2E2E"
+                                HorizontalTextAlignment="Start"
+                                VerticalTextAlignment="Center"
+                                Margin="4"
+                            />
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Text="正会員" 
+                                FontSize="18"
+                                TextColor="#2E2E2E"
+                                HorizontalTextAlignment="Start"
+                                Margin="4"
+                        />
+                        </Grid>
+                    </StackLayout>
+
+                    <StackLayout 
+                        Margin="0,0,0,0"
+                        HorizontalOptions="FillAndExpand"
+                        >
+                        <Grid BackgroundColor="#FFF" Margin="6,0,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="入会日" 
+                                FontSize="18"
+                                TextColor="#2E2E2E"
+                                HorizontalTextAlignment="Start"
+                                VerticalTextAlignment="Center"
+                                Margin="4"
+                            />
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Text="YYYY/MM/DD" 
+                                FontSize="18"
+                                TextColor="#2E2E2E"
+                                HorizontalTextAlignment="Start"
+                                Margin="4"
+                            />
+                        </Grid>
+                    </StackLayout>
+
+                    <!-- 地区役員、クラブ役職・委員会 -->
+                    <StackLayout 
+                        Margin="0,0,0,0"
+                        HorizontalOptions="FillAndExpand"
+                        Background="#FFF"
+                        >
+                        <Grid BackgroundColor="#FFF" Margin="10" HorizontalOptions="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="＜地区役員、クラブ役職・委員会＞" 
+                                FontSize="18"
+                                TextColor="#2E2E2E"
+                                Background="#FFF"
+                                HorizontalTextAlignment="Center"
+                                VerticalTextAlignment="Center"
+                                Margin="4"
+                            />
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Text="334B地区 IT・MC委員会" 
+                                FontSize="18"
+                                TextColor="#2E2E2E"
+                                Background="#FFF"
+                                HorizontalTextAlignment="Start"
+                                VerticalTextAlignment="Center"
+                                Margin="4"
+                            />
+                            <Label
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Text="2年理事" 
+                                FontSize="18"
+                                TextColor="#2E2E2E"
+                                Background="#FFF"
+                                HorizontalTextAlignment="Start"
+                                VerticalTextAlignment="Center"
+                                Margin="4"
+                            />
+                            <Label
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                Text="出席委員会" 
+                                FontSize="18"
+                                TextColor="#2E2E2E"
+                                Background="#FFF"
+                                HorizontalTextAlignment="Start"
+                                VerticalTextAlignment="Center"
+                                Margin="4"
+                            />
+                        </Grid>
+                    </StackLayout>
+
                 </StackLayout>
                 
             </ScrollView>
+
+            <!-- 編集ボタン -->
+            <Grid  
+                HorizontalOptions="Fill" 
+                VerticalOptions="EndAndExpand" 
+                Margin="10"
+                >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Button 
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    Grid.ColumnSpan="1"
+                    Text="編　集" 
+                    Padding="5,0,5,0" 
+                    BorderWidth="1" 
+                    BorderColor="#00529B"
+                    Background="#FFFFFF"
+                    FontSize="Default"
+                    Clicked="Button_Edit_Clicked"
+                    >
+                </Button>
+            </Grid>
             
         </StackLayout>
         

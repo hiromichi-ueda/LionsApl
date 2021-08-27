@@ -8,6 +8,22 @@
     　画面名:  ログイン画面(起動画面)
     +++++++++++++++++++++++++++++++++++++
     -->
+    
+    <ContentPage.Resources>
+        <StyleSheet>
+            <![CDATA[
+            ^ContentPage {
+                background-color: #FFFFFF;
+                color: #2E2E2E; 
+            }
+            button {
+                border-color: #00529B; 
+                background-color: #FFFFFF;
+                padding: 8,0,8,0;
+            }
+            ]]>
+        </StyleSheet>
+    </ContentPage.Resources>
 
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
@@ -22,13 +38,13 @@
         <StackLayout>
             <Frame 
                 BackgroundColor="#2196F3" 
-                Padding="0" 
-                CornerRadius="0"
+                Padding="0,20,0,0" 
+                HeightRequest="80"
                 >
                 <Label 
                 Text="Lions Apl" 
                 HorizontalTextAlignment="Center" 
-                TextColor="White" 
+                TextColor="#FFFFFF" 
                 FontSize="28"
                 />
             </Frame>
@@ -47,9 +63,8 @@
                         <Button 
                             Text="ホーム" 
                             BorderWidth="1" 
-                            BorderColor="#00529B"
-                            Background="#FFFFFF"
                             FontSize="Default"
+                            CornerRadius="5"
                             Clicked="Button_Home_Clicked" 
                         >
                         </Button>
@@ -57,9 +72,8 @@
                         <Button 
                             Text="アカウント設定" 
                             BorderWidth="1" 
-                            BorderColor="#00529B"
-                            Background="#FFFFFF"
                             FontSize="Default"
+                            CornerRadius="5"
                             Clicked="Button_Account_Clicked" 
                         >
                         </Button>
@@ -78,69 +92,60 @@
                         <Button 
                             Text="Account Setting" 
                             Clicked="Button_AccountSetting_Clicked" 
-                            Padding="8,0,8,0" 
                             BorderWidth="1" 
-                            BorderColor="#00529B">
+                            >
                         </Button>
 
                         <Button 
                             Text="Main Tab Page" 
                             Clicked="Button_MainTabPage_Clicked" 
-                            Padding="8,0,8,0" 
                             BorderWidth="1" 
-                            BorderColor="#00529B">
+                            >
                         </Button>
 
                         <Button 
                             Text="SQLite Check" 
                             Clicked="Button_SQLiteCheck_Clicked" 
-                            Padding="8,0,8,0" 
                             BorderWidth="1" 
-                            BorderColor="#00529B">
+                            >
                         </Button>
 
                         <Label Text="＜SQLite関連（ファイル操作）＞" />
                         <Button 
                             Text="Create SQLite File(DB3)" 
                             Clicked="Button_CreateTable_Clicked"
-                            Padding="8,0,8,0" 
                             BorderWidth="1" 
-                            BorderColor="#00529B">
+                            >
                         </Button>
                         <Button 
                             Text="Get ACCOUNT Data (Send SQLite File)" 
                             Clicked="Button_SendSQLite_Clicked" 
-                            Padding="8,0,8,0" 
                             BorderWidth="1" 
-                            BorderColor="#00529B">
+                            >
                         </Button>
                         <Button 
                             Text="Get HOME Data (Send SQLite File)" 
                             Clicked="Button_SendSQLite_HOME_Clicked" 
-                            Padding="8,0,8,0" 
                             BorderWidth="1" 
-                            BorderColor="#00529B">
+                            >
                         </Button>
                         <Button 
                             Text="Get File Names" 
                             Clicked="Button_GetFileName_Clicked" 
-                            Padding="8,0,8,0" 
                             BorderWidth="1" 
-                            BorderColor="#00529B">
+                            >
                         </Button>
                         <Button 
                             Text="Get DB Table Names" 
                             Clicked="Button_GetDBTableName_Clicked" 
-                            Padding="8,0,8,0" 
                             BorderWidth="1" 
-                            BorderColor="#00529B">
+                            >
                         </Button>
                         <Button 
                             Text="Delete DB3" 
                             Clicked="Button_DeleteDB3_Clicked" 
-                            Padding="8,0,8,0" 
                             BorderWidth="1" 
-                            BorderColor="#00529B">
+                            >
                         </Button>
 
                         <Label 
@@ -149,7 +154,6 @@
                             HorizontalTextAlignment="left" 
                             HorizontalOptions="Fill"
                             BackgroundColor="AliceBlue"  
-                            TextColor="Black" 
                             FontSize="16"
                             />
                         <Label 
@@ -158,7 +162,6 @@
                             HorizontalTextAlignment="left" 
                             HorizontalOptions="Fill"
                             BackgroundColor="AliceBlue"  
-                            TextColor="Black" 
                             FontSize="16"
                             />
                         <Label 
@@ -167,8 +170,7 @@
                             HorizontalTextAlignment="left" 
                             HorizontalOptions="FillAndExpand"
                             LineBreakMode="CharacterWrap"
-                            BackgroundColor="AliceBlue"  
-                            TextColor="Black" 
+                            BackgroundColor="AliceBlue"   
                             FontSize="16"
                             />
                         <Label 
@@ -176,8 +178,7 @@
                             Text="Command..." 
                             HorizontalTextAlignment="left" 
                             HorizontalOptions="Fill"
-                            BackgroundColor="AliceBlue"  
-                            TextColor="Black" 
+                            BackgroundColor="AliceBlue"   
                             FontSize="16"
                             />
                         <Label 
@@ -187,7 +188,6 @@
                             HorizontalOptions="FillAndExpand"
                             LineBreakMode="CharacterWrap"
                             BackgroundColor="AliceBlue"  
-                            TextColor="Black" 
                             FontSize="16"
                             />
                         <Label 
@@ -197,7 +197,6 @@
                             HorizontalOptions="FillAndExpand"
                             LineBreakMode="CharacterWrap"
                             BackgroundColor="AliceBlue"  
-                            TextColor="Black" 
                             FontSize="16"
                             />
                     </StackLayout>
