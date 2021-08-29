@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace LionsApl.Content
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Event : ContentPage
+    public partial class EventPage : ContentPage
     {
-        public Event()
+        public EventPage()
         {
             InitializeComponent();
         }

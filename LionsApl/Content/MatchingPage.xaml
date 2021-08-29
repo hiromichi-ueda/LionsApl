@@ -1,17 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LionsApl.Content.Event">
-
+             x:Class="LionsApl.Content.MatchingPage">
     <!-- 
     +++++++++++++++++++++++++++++++++++++
-    　画面名: 出欠確認画面
+    　画面名: マッチング画面
     +++++++++++++++++++++++++++++++++++++
     -->
 
     <ContentPage.Content>
         <StackLayout>
-            
+
             <ScrollView>
 
                 <StackLayout>
@@ -32,7 +31,7 @@
                             HorizontalOptions="FillAndExpand"
                             >
                         <Label 
-                            Text="出欠確認"
+                            Text="マッチング"
                             FontSize="Default"
                             VerticalTextAlignment="Center"
                             StyleClass="title_blue"
@@ -45,7 +44,6 @@
 
 
 
-
                     </StackLayout>
 
                 </StackLayout>
@@ -54,5 +52,5 @@
 
         </StackLayout>
     </ContentPage.Content>
-
+    
 </ContentPage>

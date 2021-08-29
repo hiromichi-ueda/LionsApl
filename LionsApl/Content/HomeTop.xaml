@@ -36,7 +36,7 @@
                             Text="地区スローガン"
                             FontSize="Default"
                             VerticalTextAlignment="Center"
-                            StyleClass="title_lightblue"
+                            StyleClass="title_liteblue"
                             />
                         <Label 
                             x:Name="LabelSlogun"

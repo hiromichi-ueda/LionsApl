@@ -3,57 +3,73 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LionsApl.Content.LetterList">
 
-
     <!-- 
     +++++++++++++++++++++++++++++++++++++
     　画面名: キャビネットレター一覧画面
     +++++++++++++++++++++++++++++++++++++
     -->
-    
-    <ListView x:Name="LetterListView"
-              ItemTapped="Handle_ItemTapped"
-              CachingStrategy="RecycleElement">
 
-        
-        <ListView.Header>
+    <ContentPage.Content>
+        <StackLayout>
 
-            <!-- HEADER -->
-            <StackLayout
-                StyleClass="login"
-                >
-                <!-- ログイン情報 -->
-                <Label
-                    Text="岐阜南LC 池田 昌二" 
-                    VerticalTextAlignment="Center"
-                />
-                <!-- タイトル -->
-                <Label 
-                    Text="キャビネットレター"
-                    FontSize="Default"
-                    VerticalTextAlignment="Center"
-                    StyleClass="title_yellow"
-                   />
-            </StackLayout>
-        
-        </ListView.Header>
+            <ListView 
+                    x:Name="LetterListView"
+                    ItemTapped="Handle_ItemTapped"
+                    CachingStrategy="RecycleElement">
 
-        <!-- BODY -->
-        <ListView.ItemTemplate>
-            
-            <DataTemplate>
-                <ViewCell>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <!-- 開催日 -->
-                        <Label 
+                <!-- HEADER -->
+                <ListView.Header>
+                    <StackLayout>
+
+                        <!-- ログイン情報 -->
+                        <StackLayout 
+                            HeightRequest="18"
+                            Margin="2"
+                            >
+                            <Label
+                                Text="岐阜南LC 池田 昌二" 
+                                FontSize="Small"
+                                TextColor="#2E2E2E"
+                                VerticalOptions="Center"
+                                Background="#FFFFFF"
+                                HorizontalTextAlignment="End" 
+                            />
+                        </StackLayout>
+
+                        <!-- タイトル -->
+                        <StackLayout
+                            Margin="4,0,4,0"
+                            HorizontalOptions="FillAndExpand"
+                            >
+                            <Label
+                                Text="キャビネットレター" 
+                                FontSize="Default"
+                                TextColor="#2E2E2E"
+                                Background="#58ACFA"
+                                HorizontalTextAlignment="Center"
+                            />
+                        </StackLayout>
+
+                    </StackLayout>
+                </ListView.Header>
+                
+                <!-- BODY -->
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <!-- 開催日 -->
+                                <Label 
                             Grid.Column="0"
                             Grid.Row="0"
                             Grid.ColumnSpan="1"
@@ -62,7 +78,7 @@
                             TextColor="#2E2E2E"
                             Margin="8, 0, 8, 0"
                             />
-                        <Label 
+                                <Label 
                             Grid.Column="1"
                             Grid.Row="0"
                             Grid.ColumnSpan="1"
@@ -71,8 +87,8 @@
                             TextColor="#2E2E2E"
                             Margin="8, 0, 8, 0"
                             />
-                        <!-- 件名 -->
-                        <Label 
+                                <!-- 件名 -->
+                                <Label 
                             Grid.Column="0"
                             Grid.Row="1"
                             Grid.ColumnSpan="1"
@@ -81,7 +97,7 @@
                             TextColor="#2E2E2E"
                             Margin="8, 0, 8, 0"
                             />
-                        <Label 
+                                <Label 
                             Grid.Column="1"
                             Grid.Row="1"
                             Grid.ColumnSpan="1"
@@ -90,8 +106,8 @@
                             TextColor="#2E2E2E"
                             Margin="8, 0, 8, 0"
                             />
-                        <!-- マーク -->
-                        <Label 
+                                <!-- マーク -->
+                                <Label 
                             Grid.Column="2"
                             Grid.Row="0"
                             Grid.ColumnSpan="1"
@@ -101,27 +117,15 @@
                             TextColor="#2E2E2E"
                             Margin="8, 0, 8, 0"
                             />
-                    </Grid>
-                </ViewCell>
-            </DataTemplate>
-            
-        </ListView.ItemTemplate>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
 
-        <!--Custom View Cells-->
-        <!--
-        <ListView.ItemTemplate>
-          <DataTemplate>
-            <ViewCell>
-              <StackLayout>
-                <Label Text="{Binding Text}" 
-                       Style="{DynamicResource ListItemTextStyle}" />
-                <Label Text="{Binding Detail}" 
-                       Style="{DynamicResource ListItemDetailTextStyle}"/>
-              </StackLayout>
-            </ViewCell>
-          </DataTemplate>
-        </ListView.ItemTemplate>
-        -->
-        
-    </ListView>
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+        </StackLayout>
+    </ContentPage.Content>
+    
 </ContentPage>

@@ -8,44 +8,65 @@
     　画面名: 出欠確認一覧画面
     +++++++++++++++++++++++++++++++++++++
     -->
-    
-    <ContentPage.Content>
 
+    <ContentPage.Content>
         <StackLayout>
 
-            <StackLayout>
-
-                <!-- ログイン情報 -->
-                <StackLayout 
-                        StyleClass="login"
-                        >
-                    <Label
-                        Text="岐阜南LC 池田 昌二" 
-                        VerticalTextAlignment="Center"
-                        >
-                    </Label>
-                    <!-- タイトル -->
-                    <Label 
-                        Text="出欠確認"
-                        FontSize="Default"
-                        VerticalTextAlignment="Center"
-                        StyleClass="title_blue"
-                       >
-                    </Label>
-                </StackLayout>
-                
-            </StackLayout>
-
-            <!-- BODY -->
             <ListView x:Name="LetterListView"
               CachingStrategy="RecycleElement">
 
+                <!-- HEADER -->
+                <ListView.Header>
+                    <StackLayout>
 
+                        <!-- ログイン情報 -->
+                        <StackLayout 
+                            HeightRequest="18"
+                            Margin="2"
+                            StyleClass="fcolor"
+                            >
+                            <Label
+                                Text="岐阜南LC 池田 昌二" 
+                                FontSize="Small"
+                                VerticalOptions="Center"
+                                Background="#FFFFFF"
+                                HorizontalTextAlignment="End" 
+                            />
+                        </StackLayout>
 
+                        <!-- タイトル -->
+                        <StackLayout
+                            Margin="4"
+                            HorizontalOptions="FillAndExpand"
+                            >
+                            <Label
+                                Text="出欠確認" 
+                                FontSize="Default"
+                                TextColor="#2E2E2E"
+                                Background="#58ACFA"
+                                HorizontalTextAlignment="Center"
+                            />
+                        </StackLayout>
+
+                    </StackLayout>
+                </ListView.Header>
+
+                <!-- LIST -->
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+
+                </ListView.ItemTemplate>
 
             </ListView>
 
         </StackLayout>
-
     </ContentPage.Content>
+
 </ContentPage>

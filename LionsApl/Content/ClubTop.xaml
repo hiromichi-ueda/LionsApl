@@ -36,7 +36,7 @@
                             Text="クラブスローガン" 
                             FontSize="Default"
                             VerticalTextAlignment="Center"
-                            StyleClass="title_lightblue"
+                            StyleClass="title_blue"
                         />
                         <Label
                             Text="メンバーの「叡智」を結集して「新しい生活様式」に応じた「クラブ運営」「奉仕活動」の在り方を築いていこう！" 
