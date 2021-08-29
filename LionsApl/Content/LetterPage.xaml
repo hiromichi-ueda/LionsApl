@@ -8,146 +8,142 @@
     　画面名: キャビネットレター画面
     +++++++++++++++++++++++++++++++++++++
     -->
-    
+
     <ContentPage.Content>
-
-        <ScrollView>
-        
-            <StackLayout>
-
-                <!-- ログイン情報 -->
-                <StackLayout 
-                        HeightRequest="18"
-                        Margin="2"
-                        >
-                    <Label
-                        Text="岐阜南LC 池田 昌二" 
-                        FontSize="Caption"
-                        TextColor="#2E2E2E"
-                        VerticalOptions="Center"
-                        Background="White"
-                        HorizontalTextAlignment="End" 
-                        />
-                </StackLayout>
-
-                <!-- タイトル -->
-                <StackLayout 
-                        Margin="4,0,4,0"
-                        HorizontalOptions="FillAndExpand"
-                        >
-                    <Label 
-                        Text="キャビネットレター"
-                        HorizontalOptions="Fill"
-                        VerticalOptions="Center"
-                        HorizontalTextAlignment="Center" 
-                        TextColor="Black"
-                        BackgroundColor="#E1F5A9" 
-                    />
-                </StackLayout>
-
-                <!-- BODY -->
-                <Grid
-                    Padding="10"
-                    >
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <!-- 開催日 -->
-                    <Label 
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Text="開催日"
-                        TextColor="#2E2E2E"
-                        FontSize="Default"
-                        VerticalOptions="Center" 
-                        HorizontalTextAlignment="Start" 
-                        Padding="0,0,10,0"
-                        HeightRequest="30"
-                        Margin="8, 5, 8, 0"
-                     />
-                    <Label 
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        x:Name="DateLabel" 
-                        Text=""
-                        TextColor="#2E2E2E"
-                        FontSize="Default"
-                        VerticalOptions="Center" 
-                        HorizontalTextAlignment="Start" 
-                        Padding="0,0,10,0"
-                        HeightRequest="30"
-                        Margin="8, 5, 8, 0"
-                     />
-                    <!-- 件名 -->
-                    <Label 
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Text="タイトル"
-                        TextColor="#2E2E2E"
-                        VerticalOptions="Center" 
-                        HorizontalTextAlignment="Start" 
-                        Margin="8, 5, 8, 0"
-                     />
-                    <Label 
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        x:Name="TitleLabel" 
-                        Text=""
-                        TextColor="#2E2E2E"
-                        VerticalOptions="Center" 
-                        HorizontalTextAlignment="Start" 
-                        Margin="8, 5, 8, 0"
-                     />
-                    <!-- 内容 -->
-                    <Label 
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        x:Name="BodyLabel" 
-                        Text=""
-                        TextColor="#2E2E2E"
-                        VerticalOptions="Center" 
-                        HorizontalTextAlignment="Start" 
-                        Margin="8, 10, 8, 0"
-                     />
-                    <!-- 画像① -->
-                    <Label 
-                        Grid.Row="3"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        x:Name="Image1Label" 
-                        Text=""
-                        TextColor="#2E2E2E"
-                        VerticalOptions="Center" 
-                        HorizontalTextAlignment="Start" 
-                        Margin="8"
-                     />
-                    <!-- 画像② -->
-                    <Label 
-                        Grid.Row="4"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        x:Name="Image2Label" 
-                        Text=""
-                        TextColor="#2E2E2E"
-                        VerticalOptions="Center" 
-                        HorizontalTextAlignment="Start" 
-                        Margin="8"
-                     />
-                </Grid>
-                
-            </StackLayout>
+        <StackLayout>
             
-        </ScrollView>
+            <ScrollView>
         
+                <StackLayout>
+
+                    <!-- ログイン情報 -->
+                    <StackLayout 
+                            StyleClass="login"
+                            >
+                        <Label
+                            Text="岐阜南LC 池田 昌二" 
+                            VerticalTextAlignment="Center"
+                            />
+                    </StackLayout>
+
+                    <!-- タイトル -->
+                    <StackLayout 
+                            Margin="4,0,4,0"
+                            HorizontalOptions="FillAndExpand"
+                            >
+                        <Label 
+                            Text="キャビネットレター"
+                            FontSize="Default"
+                            VerticalTextAlignment="Center"
+                            StyleClass="title_blue"
+                        />
+                    </StackLayout>
+
+                    <!-- BODY -->
+                    <Grid
+                        Padding="10"
+                        >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- 開催日 -->
+                        <Label 
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Text="開催日"
+                            TextColor="#2E2E2E"
+                            FontSize="Default"
+                            VerticalOptions="Center" 
+                            HorizontalTextAlignment="Start" 
+                            Padding="0,0,10,0"
+                            HeightRequest="30"
+                            Margin="8, 5, 8, 0"
+                         />
+                        <Label 
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            x:Name="DateLabel" 
+                            Text=""
+                            TextColor="#2E2E2E"
+                            FontSize="Default"
+                            VerticalOptions="Center" 
+                            HorizontalTextAlignment="Start" 
+                            Padding="0,0,10,0"
+                            HeightRequest="30"
+                            Margin="8, 5, 8, 0"
+                         />
+                        <!-- 件名 -->
+                        <Label 
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Text="タイトル"
+                            TextColor="#2E2E2E"
+                            VerticalOptions="Center" 
+                            HorizontalTextAlignment="Start" 
+                            Margin="8, 5, 8, 0"
+                         />
+                        <Label 
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            x:Name="TitleLabel" 
+                            Text=""
+                            TextColor="#2E2E2E"
+                            VerticalOptions="Center" 
+                            HorizontalTextAlignment="Start" 
+                            Margin="8, 5, 8, 0"
+                         />
+                        <!-- 内容 -->
+                        <Label 
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            x:Name="BodyLabel" 
+                            Text=""
+                            TextColor="#2E2E2E"
+                            VerticalOptions="Center" 
+                            HorizontalTextAlignment="Start" 
+                            Margin="8, 10, 8, 0"
+                         />
+                        <!-- 画像① -->
+                        <Label 
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            x:Name="Image1Label" 
+                            Text=""
+                            TextColor="#2E2E2E"
+                            VerticalOptions="Center" 
+                            HorizontalTextAlignment="Start" 
+                            Margin="8"
+                         />
+                        <!-- 画像② -->
+                        <Label 
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            x:Name="Image2Label" 
+                            Text=""
+                            TextColor="#2E2E2E"
+                            VerticalOptions="Center" 
+                            HorizontalTextAlignment="Start" 
+                            Margin="8"
+                         />
+                    </Grid>
+                
+                </StackLayout>
+            
+            </ScrollView>
+            
+        </StackLayout>
     </ContentPage.Content>
+    
 </ContentPage>

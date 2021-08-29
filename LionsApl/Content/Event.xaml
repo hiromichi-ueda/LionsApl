@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LionsApl.Content.ClubSchedule">
+             x:Class="LionsApl.Content.Event">
 
     <!-- 
     +++++++++++++++++++++++++++++++++++++
@@ -25,14 +25,14 @@
                             VerticalTextAlignment="Center"
                             />
                     </StackLayout>
-                
+
                     <!-- タイトル -->
                     <StackLayout 
                             Margin="4,0,4,0"
                             HorizontalOptions="FillAndExpand"
                             >
                         <Label 
-                            Text="年間例会スケジュール"
+                            Text="出欠確認"
                             FontSize="Default"
                             VerticalTextAlignment="Center"
                             StyleClass="title_blue"
@@ -41,11 +41,11 @@
 
                     <!-- BODY -->
                     <StackLayout>
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
                     </StackLayout>
 
                 </StackLayout>

@@ -1,0 +1,97 @@
+﻿
+/* ----------------------------------- */
+/* スタイルシート */
+/* ----------------------------------- */
+
+
+/* ======================================================================
+    < 共通エリア > 
+=======================================================================*/
+
+    /* <ContentPage> */
+    ^ContentPage {
+        background-color: #FFFFFF;
+        color: #2E2E2E;
+    }
+
+    /* <frame> */
+    frame {
+        background-color: #2196F3; /* 背景 */
+        padding: 0,0,0,0; /* 文字の余白 */
+        height: 80; /* 高さ */
+    }
+        frame > label {
+            color: #FFFFFF; /* 文字色 */
+            font-size: large; /* 文字サイズ */
+            text-align: center; /* 位置 */
+        }
+
+    /* <button> */
+    button {
+        font-size: small; /* 文字サイズ */
+        border-color: #00529B; /* 線色 */
+        background-color: #FFFFFF; /* 背景 */
+        border-width: 1; /* 線太さ */
+        padding: 8,0,8,0; /* 文字の余白 */
+        border-radius: 8; /* 角の丸み*/
+    }
+
+/* ======================================================================
+    < オリジナルエリア > 
+=======================================================================*/
+
+/* ログイン情報 */
+.login {
+    height: 18; /* 高さ */
+    margin: 2; /* 余白 */
+}
+    .login > label {
+        font-size: small; /* 文字サイズ */
+        text-align: end; /* 位置(右寄せ) */
+    }
+
+/* タイトル(BLUE) 
+    各画面のタイトルバー
+*/
+.title_blue {
+    color: #2E2E2E; /* 文字色 */
+    background-color: #2E9AFE; /* 背景 */
+    text-align: center; /* 位置 */
+}
+
+/* タイトル(lightBLUE) 
+    スローガン
+*/
+.title_lightblue {
+    color: #2E2E2E; /* 文字色 */
+    background-color: #CEECF5; /* 背景 */
+    text-align: center; /* 位置 */
+}
+
+/* タイトル(Green) 
+    キャビネットレター
+*/
+.title_green {
+    color: #2E2E2E; /* 文字色 */
+    background-color: #E1F5A9; /* 背景 */
+    text-align: center; /* 位置 */
+}
+
+/* タイトル(Yellow) 
+    参加予定一覧
+*/
+.title_yellow {
+    color: #2E2E2E; /* 文字色 */
+    background-color: #F3F781; /* 背景 */
+    text-align: center; /* 位置 */
+}
+
+/* タイトル(Grey) 
+    アカウント
+*/
+.title_grey {
+    color: #2E2E2E; /* 文字色 */
+    background-color: #BDBDBD; /* 背景 */
+    text-align: center; /* 位置 */
+}
+

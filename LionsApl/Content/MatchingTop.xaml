@@ -5,56 +5,53 @@
 
     <!-- 
     +++++++++++++++++++++++++++++++++++++
-    　画面名: マッチング一覧画面
+    　画面名: マッチング画面
     +++++++++++++++++++++++++++++++++++++
     -->
     
     <ContentPage.Content>
+        <StackLayout>
 
-        <ScrollView>
+            <ScrollView>
 
-            <StackLayout>
+                <StackLayout>
 
-                <!-- ログイン情報 -->
-                <StackLayout 
-                        HeightRequest="18"
-                        Margin="2"
-                        >
-                    <Label
-                        Text="岐阜南LC 池田 昌二" 
-                        FontSize="Caption"
-                        TextColor="#2E2E2E"
-                        VerticalOptions="Center"
-                        Background="White"
-                        HorizontalTextAlignment="End" 
+                    <!-- ログイン情報 -->
+                    <StackLayout 
+                            StyleClass="login"
+                            >
+                        <Label
+                            Text="岐阜南LC 池田 昌二" 
+                            VerticalTextAlignment="Center"
+                            />
+                    </StackLayout>
+
+                    <!-- タイトル -->
+                    <StackLayout 
+                            Margin="4,0,4,0"
+                            HorizontalOptions="FillAndExpand"
+                            >
+                        <Label 
+                            Text="マッチング"
+                            FontSize="Default"
+                            VerticalTextAlignment="Center"
+                            StyleClass="title_blue"
                         />
+                    </StackLayout>
+
+                    <!-- BODY -->
+                    <StackLayout>
+                    
+                    
+                    
+                    
+                    </StackLayout>
+
                 </StackLayout>
 
-                <!-- タイトル -->
-                <StackLayout 
-                        Margin="4,0,4,0"
-                        HorizontalOptions="FillAndExpand"
-                        >
-                    <Label 
-                        Text="マッチング"
-                        HorizontalOptions="Fill"
-                        VerticalOptions="Center"
-                        HorizontalTextAlignment="Center" 
-                        TextColor="#2E2E2E"
-                        BackgroundColor="#81BEF7" 
-                    />
-                </StackLayout>
+            </ScrollView>
 
-                <!-- BODY -->
-
-
-
-
-
-            </StackLayout>
-
-        </ScrollView>
-        
+        </StackLayout>
     </ContentPage.Content>
     
 </ContentPage>

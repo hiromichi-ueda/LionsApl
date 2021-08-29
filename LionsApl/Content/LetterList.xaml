@@ -19,32 +19,25 @@
 
             <!-- HEADER -->
             <StackLayout
-                Margin="4"
-                HorizontalOptions="FillAndExpand"
+                StyleClass="login"
                 >
                 <!-- ログイン情報 -->
                 <Label
                     Text="岐阜南LC 池田 昌二" 
-                    FontSize="Caption"
-                    TextColor="#2E2E2E"
-                    VerticalOptions="Center"
-                    Background="White"
-                    HorizontalTextAlignment="End" 
+                    VerticalTextAlignment="Center"
                 />
                 <!-- タイトル -->
                 <Label 
                     Text="キャビネットレター"
-                    HorizontalOptions="Fill"
-                    VerticalOptions="Center"
-                    HorizontalTextAlignment="Center" 
-                    TextColor="Black"
-                    BackgroundColor="#E1F5A9" 
+                    FontSize="Default"
+                    VerticalTextAlignment="Center"
+                    StyleClass="title_yellow"
                    />
             </StackLayout>
         
         </ListView.Header>
 
-        <!-- LIST -->
+        <!-- BODY -->
         <ListView.ItemTemplate>
             
             <DataTemplate>

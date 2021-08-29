@@ -18,17 +18,12 @@
 
                     <!-- ログイン情報 -->
                     <StackLayout 
-                        HeightRequest="18"
-                        Margin="2"
+                        StyleClass="login"
                         >
                         <Label
-                                Text="岐阜南LC 池田 昌二" 
-                                FontSize="Caption"
-                                TextColor="#2E2E2E"
-                                VerticalOptions="Center"
-                                Background="White"
-                                HorizontalTextAlignment="End" 
-                            />
+                        Text="岐阜南LC 池田 昌二" 
+                        VerticalTextAlignment="Center"
+                        />
                     </StackLayout>
 
                     <!-- タイトル -->
@@ -39,9 +34,7 @@
                         <Label
                             Text="アカウント情報" 
                             FontSize="Default"
-                            TextColor="#2E2E2E"
-                            Background="#BDBDBD"
-                            HorizontalTextAlignment="Center"
+                            StyleClass="title_grey"
                         />
                     </StackLayout>
 

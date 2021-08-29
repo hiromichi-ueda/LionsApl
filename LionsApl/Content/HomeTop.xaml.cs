@@ -88,18 +88,6 @@ namespace LionsApl.Content
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// 参加・不参加ボタン押下
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        private void Eventret_Button_Clicked(object sender, System.EventArgs e)
-        {
-
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
         /// 連絡事項ボタン押下
         /// </summary>
         /// <param name="sender"></param>
@@ -136,15 +124,16 @@ namespace LionsApl.Content
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// Activityボタン押下
+        /// 出欠登録ボタン押下
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private void Activity_Button_Clicked(object sender, System.EventArgs e)
+        private void Matching_Button_Clicked(object sender, System.EventArgs e)
         {
 
         }
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
