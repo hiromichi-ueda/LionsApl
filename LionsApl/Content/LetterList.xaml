@@ -44,8 +44,7 @@
                             <Label
                                 Text="キャビネットレター" 
                                 FontSize="Default"
-                                TextColor="#2E2E2E"
-                                Background="#58ACFA"
+                                StyleClass="title_blue"
                                 HorizontalTextAlignment="Center"
                             />
                         </StackLayout>
