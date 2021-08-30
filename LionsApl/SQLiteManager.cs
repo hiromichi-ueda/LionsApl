@@ -931,6 +931,32 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
+        /// MAGAZINE_LIST(T_MAGAZINE/T_MAGAZINEBUY)テーブルデータ取得
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.MAGAZINE_LIST[] Get_MAGAZINE_LIST(string command)
+        {
+            List<Table.MAGAZINE_LIST> items = new List<Table.MAGAZINE_LIST>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                {   // Select
+                    items = db.Query<Table.MAGAZINE_LIST>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.MAGAZINE_LIST[0]);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
         /// M_DISTRICTOFFICERテーブルデータ取得
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
