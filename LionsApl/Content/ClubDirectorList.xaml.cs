@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,12 +11,13 @@ using Xamarin.Forms.Xaml;
 namespace LionsApl.Content
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class EventPage : ContentPage
+    public partial class ClubDirectorList : ContentPage
     {
         private SQLiteManager _sqlite;                      // SQLiteマネージャークラス
 
+        public ObservableCollection<string> Items { get; set; }
 
-        public EventPage()
+        public ClubDirectorList()
         {
             InitializeComponent();
 
@@ -28,7 +30,8 @@ namespace LionsApl.Content
             // タイトル設定
             Title = _sqlite.Db_A_Setting.CabinetName;
 
-            // イベント情報データ取得
+            // 理事・委員会データ取得
+
 
 
 

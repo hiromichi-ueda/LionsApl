@@ -9,12 +9,6 @@
     +++++++++++++++++++++++++++++++++++++
     -->
 
-    <!-- Style Sheet-->
-    <ContentPage.Resources>
-        <!--<StyleSheet Source="/Assets/styles.css" />-->
-        
-    </ContentPage.Resources>
-
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <On Platform="iOS" Value="0,40,0,0" />
@@ -22,6 +16,7 @@
         </OnPlatform>
     </ContentPage.Padding>
 
+    
     <ContentPage.Content>
 
         <StackLayout>
