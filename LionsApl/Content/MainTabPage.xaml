@@ -31,12 +31,12 @@
         </x:Arguments>
     </NavigationPage>
 
-    <!-- マッチング -->
-    <NavigationPage Title="マッチング" 
+    <!-- 出欠確認 -->
+    <NavigationPage Title="出欠確認" 
                     x:Name="MatchingNavi"
                     IconImageSource="matching.png">
         <x:Arguments>
-            <pages:MatchingTop />
+            <pages:EventList />
         </x:Arguments>
     </NavigationPage>
 

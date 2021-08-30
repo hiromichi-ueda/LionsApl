@@ -1,0 +1,17 @@
+﻿
+/* ----------------------------------- */
+/* スタイルシート */
+/* ----------------------------------- */
+
+/* ContentPage */
+^ContentPage {
+    background-color: #FFFFFF;
+    color: #2E2E2E;
+}
+
+/* button */
+button {
+    border-color: #00529B;
+    background-color: #FFFFFF;
+    padding: 8,0,8,0;
+}

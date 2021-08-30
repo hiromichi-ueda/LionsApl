@@ -19,17 +19,12 @@
 
                     <!-- ログイン情報 -->
                     <StackLayout 
-                        HeightRequest="18"
-                        Margin="2"
+                        StyleClass="login"
                         >
                         <Label
-                                Text="岐阜南LC 池田 昌二" 
-                                FontSize="Caption"
-                                TextColor="#2E2E2E"
-                                VerticalOptions="Center"
-                                Background="White"
-                                HorizontalTextAlignment="End" 
-                            />
+                            Text="岐阜南LC 池田 昌二" 
+                            VerticalTextAlignment="Center"
+                        />
                     </StackLayout>
 
                     <!-- クラブスローガン -->
@@ -40,9 +35,8 @@
                         <Label
                             Text="クラブスローガン" 
                             FontSize="Default"
-                            TextColor="#2E2E2E"
-                            Background="#81BEF7"
-                            HorizontalTextAlignment="Center"
+                            VerticalTextAlignment="Center"
+                            StyleClass="title_blue"
                         />
                         <Label
                             Text="メンバーの「叡智」を結集して「新しい生活様式」に応じた「クラブ運営」「奉仕活動」の在り方を築いていこう！" 
@@ -70,9 +64,8 @@
                         <Label
                             Text="メニュー" 
                             FontSize="Default"
-                            TextColor="#2E2E2E"
-                            Background="#BDBDBD"
-                            HorizontalTextAlignment="Center"
+                            VerticalTextAlignment="Center"
+                            StyleClass="title_grey"
                         />
                         <Label
                             Text="年間例会スケジュール" 

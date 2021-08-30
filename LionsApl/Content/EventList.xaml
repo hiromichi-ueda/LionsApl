@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LionsApl.Content.ClubScheduleList">
+             x:Class="LionsApl.Content.EventList">
 
     <!-- 
-    ++++++++++++++++++++++++++++++++++++++++++
-    　画面名: 年間例会スケジュール一覧画面
-    ++++++++++++++++++++++++++++++++++++++++++
+    +++++++++++++++++++++++++++++++++++++
+    　画面名: 出欠確認一覧画面
+    +++++++++++++++++++++++++++++++++++++
     -->
-    
+
     <ContentPage.Content>
         <StackLayout>
 
             <ListView x:Name="LetterListView"
-                      CachingStrategy="RecycleElement">
+              CachingStrategy="RecycleElement">
 
                 <!-- HEADER -->
                 <ListView.Header>
@@ -23,11 +23,11 @@
                         <StackLayout 
                             HeightRequest="18"
                             Margin="2"
+                            StyleClass="fcolor"
                             >
                             <Label
                                 Text="岐阜南LC 池田 昌二" 
                                 FontSize="Small"
-                                TextColor="#2E2E2E"
                                 VerticalOptions="Center"
                                 Background="#FFFFFF"
                                 HorizontalTextAlignment="End" 
@@ -36,11 +36,11 @@
 
                         <!-- タイトル -->
                         <StackLayout
-                            Margin="4,0,4,0"
+                            Margin="4"
                             HorizontalOptions="FillAndExpand"
                             >
                             <Label
-                                Text="年間例会スケジュール" 
+                                Text="出欠確認" 
                                 FontSize="Default"
                                 TextColor="#2E2E2E"
                                 Background="#58ACFA"
@@ -65,8 +65,8 @@
                 </ListView.ItemTemplate>
 
             </ListView>
-            
+
         </StackLayout>
     </ContentPage.Content>
-    
+
 </ContentPage>

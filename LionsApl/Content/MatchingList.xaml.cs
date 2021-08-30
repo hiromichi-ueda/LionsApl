@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace LionsApl.Content
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ClubSchedule : ContentPage
+    public partial class MatchingList : ContentPage
     {
-        public ClubSchedule()
+        public MatchingList()
         {
             InitializeComponent();
         }
