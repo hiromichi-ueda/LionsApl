@@ -49,6 +49,8 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -114,8 +116,22 @@
                             Margin="8, 10, 8, 0"
                          />
                         <!-- 画像① -->
-                        <Label 
+                        <Image
                             Grid.Row="3"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            HorizontalOptions="FillAndExpand"
+                            x:Name="Image1">
+                        </Image>
+              <!-- 画像② -->
+            <Image
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            x:Name="Image2">
+            </Image>
+            <Label 
+                            Grid.Row="5"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             x:Name="Image1Label" 
@@ -125,9 +141,8 @@
                             HorizontalTextAlignment="Start" 
                             Margin="8"
                          />
-                        <!-- 画像② -->
-                        <Label 
-                            Grid.Row="4"
+            <Label 
+                            Grid.Row="6"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             x:Name="Image2Label" 

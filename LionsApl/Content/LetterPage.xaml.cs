@@ -64,42 +64,31 @@ namespace LionsApl.Content
                                                                     "From T_LETTER " +
                                                                     "Where DataNo='" + _dataNo + "'"))
                 {
-                    DateLabel.Text = row.EventDate + " " + row.EventTime;
+                    DateLabel.Text = row.EventDate.Substring(0, 10) + " " + row.EventTime;
                     BodyLabel.Text = row.Body;
                     if (row.Image1FileName != null)
                     {
-                        Image1Label.Text = _sqlite.Db_A_FilePath.FilePath + "/" + row.Image1FileName;
+                        string uriStr = "http://ap.insat.co.jp" + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/") + "/" + row.Image1FileName;
+                        Image1.Source = ImageSource.FromUri(new Uri(uriStr));
+
+                        //Image1Label.Text = _sqlite.Db_A_FilePath.FilePath + "/" + row.Image1FileName + "\r\n" + uriStr;
+
                     }
                     else
                     {
-                        Image1Label.Text = "NULL";
+                        Image1Label.Text = "写真なし";
                     }
                     if (row.Image2FileName != null)
                     {
-                        Image2Label.Text = _sqlite.Db_A_FilePath.FilePath + "/" + row.Image2FileName;
+                        string uriStr = "http://ap.insat.co.jp" + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/") + "/" + row.Image2FileName;
+                        Image2.Source = ImageSource.FromUri(new Uri(uriStr));
+
+                        //Image2Label.Text = _sqlite.Db_A_FilePath.FilePath + "/" + row.Image2FileName + "\r\n" + uriStr;
                     }
                     else
                     {
-                        Image2Label.Text = "NULL";
+                        //Image2Label.Text = "NULL";
                     }
-
-                    //if (row.Image1FileName == null)
-                    //{
-                    //    DisplayAlert("Alert", "Image1はnull", "OK");
-                    //}
-                    //if (row.Image1FileName.Equals(null))
-                    //{
-                    //    DisplayAlert("Alert", "Image1はnull 2", "OK");
-                    //}
-                    //if (row.Image1FileName == string.Empty)
-                    //{
-                    //    DisplayAlert("Alert", "Image1は空 1", "OK");
-                    //}
-                    //if (row.Image1FileName.Equals(string.Empty))
-                    //{
-                    //    DisplayAlert("Alert", "Image1は空 2", "OK");
-                    //}
-                    //Image1.Source = ImageSource.FromUri(new Uri());
                 }
             }
             catch (Exception ex)

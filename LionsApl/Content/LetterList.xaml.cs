@@ -22,17 +22,6 @@ namespace LionsApl.Content
         {
             InitializeComponent();
 
-            //Items = new ObservableCollection<string>
-            //{
-            //    "Item 1",
-            //    "Item 2",
-            //    "Item 3",
-            //    "Item 4",
-            //    "Item 5"
-            //};
-
-            //MyListView.ItemsSource = Items;
-
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
 
@@ -80,7 +69,7 @@ namespace LionsApl.Content
                                                                     "ORDER BY EventDate DESC, EventTime DESC, DataNo DESC"))
                 {
                     WorkDataNo = row.DataNo;
-                    WorkDate = row.EventDate + " " + row.EventTime;
+                    WorkDate = row.EventDate.Substring(0, 10) + "  " + row.EventTime;
                     WorkTitle = row.Title;
                     items.Add(new LetterRow(WorkDataNo, WorkDate, WorkTitle));
                 }
