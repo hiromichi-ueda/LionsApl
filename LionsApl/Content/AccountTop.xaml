@@ -8,8 +8,9 @@
     　画面名: アカウント情報表示画面
     +++++++++++++++++++++++++++++++++++++
     -->
-    
+
     <ContentPage.Content>
+
         <StackLayout>
 
             <ScrollView>
@@ -27,17 +28,14 @@
                     </StackLayout>
 
                     <!-- タイトル -->
-                    <StackLayout 
-                        Margin="4"
-                        HorizontalOptions="FillAndExpand"
-                        >
-                        <Label
-                            Text="アカウント情報" 
+                    <Label 
+                            Text="アカウント設定"
                             FontSize="Default"
+                            VerticalTextAlignment="Center"
                             StyleClass="title_grey"
-                        />
-                    </StackLayout>
-
+                            >
+                    </Label>
+                    
                     <!-- BODY -->
                     <!-- 会員情報 -->
                     <StackLayout 
@@ -302,7 +300,7 @@
                     </StackLayout>
 
                 </StackLayout>
-                
+
             </ScrollView>
 
             <!-- 編集ボタン -->
@@ -334,8 +332,8 @@
                     >
                 </Button>
             </Grid>
-            
+
         </StackLayout>
-        
     </ContentPage.Content>
+    
 </ContentPage>
