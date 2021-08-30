@@ -20,6 +20,7 @@ frame {
     padding: 0,0,0,0; /* 文字の余白 */
     height: 80; /* 高さ */
 }
+
     frame > label {
         color: #FFFFFF; /* 文字色 */
         font-size: large; /* 文字サイズ */
@@ -37,11 +38,9 @@ button {
 }
 
 
-
 /* ======================================================================
     < オリジナルエリア > 
 =======================================================================*/
-
 /* ログイン情報 */
 .login {
     height: 18; /* 高さ */
@@ -50,6 +49,7 @@ button {
     .login > label {
         font-size: small; /* 文字サイズ */
         text-align: end; /* 位置(右寄せ) */
+        
     }
 
 /* 共通-タイトル(BLUE) */
@@ -57,6 +57,7 @@ button {
     color: #2E2E2E; /* 文字色 */
     background-color: #58ACFA; /* 背景 */
     text-align: center; /* 位置 */
+    height: 20;
 }
 
 /* TOP-スローガンタイトル(LITEBLUE) */

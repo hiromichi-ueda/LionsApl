@@ -15,7 +15,7 @@ namespace LionsApl.Content
     {
         private SQLiteManager _sqlite;                      // SQLiteマネージャークラス
 
-        public ObservableCollection<string> Items { get; set; }
+        public ObservableCollection<CMagazinePicker> _magazinePk = new ObservableCollection<CMagazinePicker>();
 
         public MagazineList()
         {
@@ -42,6 +42,8 @@ namespace LionsApl.Content
             Title = _sqlite.Db_A_Setting.CabinetName;
 
             GetMagazine();
+
+            SetMagazineInfo();
         }
 
         void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -49,9 +51,9 @@ namespace LionsApl.Content
             if (e.Item == null)
                 return;
 
-            LetterRow item = e.Item as LetterRow;
+            MagazineListRow item = e.Item as MagazineListRow;
 
-            Navigation.PushAsync(new LetterPage(item.Title, item.DataNo));
+            //Navigation.PushAsync(new MagazinePage(item.Title, item.DataNo));
 
             //await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
 
@@ -61,7 +63,7 @@ namespace LionsApl.Content
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// キャビネットレター情報をSQLiteファイルから取得して画面に設定する。
+        /// 地区誌情報をSQLiteファイルから取得して画面に設定する。
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetMagazine()
@@ -71,7 +73,7 @@ namespace LionsApl.Content
             int WorkMagazineDataNo;
             string WorkBuy = string.Empty;
             List<MagazineListRow> items = new List<MagazineListRow>();
-
+            
             try
             {
                 foreach (Table.MAGAZINE_LIST row in _sqlite.Get_MAGAZINE_LIST("SELECT TM.*, " +
@@ -90,11 +92,39 @@ namespace LionsApl.Content
                     }
                     items.Add(new MagazineListRow(WorkDataNo, WorkMagazine, WorkBuy));
                 }
-                LetterListView.ItemsSource = items;
+                MagazineListView.ItemsSource = items;
             }
             catch (Exception ex)
             {
                 DisplayAlert("Alert", $"SQLite検索エラー(MAGAZINE_LIST) : &{ex.Message}", "OK");
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 地区誌情報取得
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void SetMagazineInfo()
+        {
+            // データ取得
+            try
+            {
+                string strMagazine;
+                _magazinePk.Clear();
+                foreach (Table.T_MAGAZINE row in _sqlite.Get_T_MAGAZINE("SELECT * " +
+                                                                        "FROM T_MAGAZINE " +
+                                                                        "ORDER BY DataNo" ))
+                {
+                    strMagazine = row.Magazine + " " + row.MagazinePrice.ToString() + "(円)";
+                    _magazinePk.Add(new CMagazinePicker(row.DataNo, strMagazine));
+                }
+                // RegionPickerにCRegionPickerクラスを設定する
+                MagazinePicker.ItemsSource = _magazinePk;
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Alert", $"SQLite検索エラー(T_MAGAZINE) : &{ex.Message}", "OK");
             }
         }
     }
@@ -110,6 +140,22 @@ namespace LionsApl.Content
         public int DataNo { get; set; }
         public string Magazine { get; set; }
         public string MagazineBuy { get; set; }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// Magazineピッカークラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    public class CMagazinePicker
+    {
+        public int DataNo { get; set; }
+        public string Name { get; set; }
+        public CMagazinePicker(int dataNo, string name)
+        {
+            DataNo = dataNo;
+            Name = name;
+        }
     }
 
 }

@@ -57,6 +57,13 @@
                     </StackLayout>
 
                     <!-- メニュー -->
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     <StackLayout 
                         Margin="4"
                         HorizontalOptions="FillAndExpand"
@@ -67,6 +74,8 @@
                             VerticalTextAlignment="Center"
                             StyleClass="title_grey"
                         />
+
+                        <!-- 年間例会スケジュール -->
                         <Label
                             Text="年間例会スケジュール" 
                             FontSize="18"
@@ -74,8 +83,14 @@
                             Background="#FFFFFF"
                             HorizontalTextAlignment="Start"
                             Margin="14,8,0,8"
-                        />
+                            >
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Label_ClubSchedule_Taped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.8" />
+
+                        <!-- 理事・委員会 -->
                         <Label
                             Text="理事・委員会" 
                             FontSize="18"
@@ -83,8 +98,14 @@
                             Background="#FFFFFF"
                             HorizontalTextAlignment="Start"
                             Margin="14,8,0,8"
-                        />
+                            >
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Label_Director_Taped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.8" />
+
+                        <!-- 例会プログラム -->
                         <Label
                             Text="例会プログラム" 
                             FontSize="18"
@@ -92,8 +113,14 @@
                             Background="#FFFFFF"
                             HorizontalTextAlignment="Start"
                             Margin="14,8,0,8"
-                        />
+                            >
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Label_MeetingProgram_Taped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.8" />
+
+                        <!-- 連絡事項 -->
                         <Label
                             Text="連絡事項"
                             FontSize="18"
@@ -101,8 +128,14 @@
                             Background="#FFFFFF"
                             HorizontalTextAlignment="Start"
                             Margin="14,8,0,8"
-                        />
+                            >
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Label_Infomation_Taped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.8" />
+
+                        <!-- 会員情報 -->
                         <Label
                             Text="会員情報"
                             FontSize="18"
@@ -110,8 +143,13 @@
                             Background="#FFFFFF"
                             HorizontalTextAlignment="Start"
                             Margin="14,8,0,8"
-                        />
+                            >
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Label_Member_Taped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.8" />
+                        
                     </StackLayout>
 
                 </StackLayout>

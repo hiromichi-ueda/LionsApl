@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LionsApl.Content.MatchingList">
+             x:Class="LionsApl.Content.ClubDirectorList">
 
     <!-- 
-    +++++++++++++++++++++++++++++++++++++
-    　画面名: マッチング一覧画面
-    +++++++++++++++++++++++++++++++++++++
+    ++++++++++++++++++++++++++++++++++++++++++
+    　画面名: 理事・委員会一覧画面
+    ++++++++++++++++++++++++++++++++++++++++++
     -->
 
     <ContentPage.Content>
         <StackLayout>
 
-            <ListView x:Name="MatchingListView"
-              CachingStrategy="RecycleElement">
+            <ListView x:Name="ClubDirectorListView"
+                      CachingStrategy="RecycleElement">
 
                 <!-- HEADER -->
                 <ListView.Header>
@@ -40,7 +40,7 @@
                             HorizontalOptions="FillAndExpand"
                             >
                             <Label
-                                Text="マッチング" 
+                                Text="理事・委員会" 
                                 FontSize="Default"
                                 TextColor="#2E2E2E"
                                 Background="#58ACFA"
