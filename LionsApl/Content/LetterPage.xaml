@@ -21,7 +21,7 @@
                             StyleClass="login"
                             >
                         <Label
-                            Text="岐阜南LC 池田 昌二" 
+                            x:Name="LoginInfo"
                             VerticalTextAlignment="Center"
                             />
                     </StackLayout>
