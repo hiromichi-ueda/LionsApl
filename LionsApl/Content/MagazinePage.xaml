@@ -46,11 +46,47 @@
                 </StackLayout>
 
                 <!-- BODY -->
- 
-                
-                
-                
+                <Grid
+                        Padding="10"
+                        >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="400"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
+                    <!-- 画像 -->
+                    <!--<WebView
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="1"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand"
+                        x:Name="Pdf">
+                    </WebView>-->
+                    <Frame
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="1"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand"
+                        x:Name="PdfFrame">
+                    </Frame>
+                    <Label 
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="1"
+                        x:Name="PdfLabel" 
+                        Text=""
+                        TextColor="#2E2E2E"
+                        VerticalOptions="Center" 
+                        HorizontalTextAlignment="Start" 
+                        Margin="8"
+                        />
+                </Grid>
+                
             </StackLayout>
 
         </ScrollView>

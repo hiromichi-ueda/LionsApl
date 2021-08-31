@@ -10,7 +10,9 @@
     -->
     <StackLayout>
         <ListView x:Name="MagazineListView"
-              CachingStrategy="RecycleElement" RowHeight="60">
+                  ItemTapped="Handle_ItemTapped"
+                  CachingStrategy="RecycleElement"
+                  RowHeight="60">
 
             <ListView.Header>
                 <!-- HEADER -->
@@ -93,9 +95,10 @@
         </ListView>
         
         <StackLayout
-                Margin="4"
-                HorizontalOptions="FillAndExpand"
-                >
+            x:Name="MagazineBuy"
+            Margin="4"
+            HorizontalOptions="FillAndExpand"
+            >
             <Label
                 Text="地区誌購入" 
                 TextColor="#2E2E2E"

@@ -21,17 +21,6 @@ namespace LionsApl.Content
         {
             InitializeComponent();
 
-            //Items = new ObservableCollection<string>
-            //{
-            //    "Item 1",
-            //    "Item 2",
-            //    "Item 3",
-            //    "Item 4",
-            //    "Item 5"
-            //};
-
-            //MyListView.ItemsSource = Items;
-
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
 
@@ -41,8 +30,10 @@ namespace LionsApl.Content
             // タイトル設定
             Title = _sqlite.Db_A_Setting.CabinetName;
 
+            // 地区誌一覧取得
             GetMagazine();
 
+            // 地区誌購入欄設定
             SetMagazineInfo();
         }
 
@@ -53,7 +44,7 @@ namespace LionsApl.Content
 
             MagazineListRow item = e.Item as MagazineListRow;
 
-            //Navigation.PushAsync(new MagazinePage(item.Title, item.DataNo));
+            Navigation.PushAsync(new MagazinePage(item.DataNo));
 
             //await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
 
@@ -114,13 +105,20 @@ namespace LionsApl.Content
                 _magazinePk.Clear();
                 foreach (Table.T_MAGAZINE row in _sqlite.Get_T_MAGAZINE("SELECT * " +
                                                                         "FROM T_MAGAZINE " +
+                                                                        "WHERE MagazineClass = '1' " +
                                                                         "ORDER BY DataNo" ))
                 {
                     strMagazine = row.Magazine + " " + row.MagazinePrice.ToString() + "(円)";
                     _magazinePk.Add(new CMagazinePicker(row.DataNo, strMagazine));
                 }
-                // RegionPickerにCRegionPickerクラスを設定する
+                // MagazinePickerにCMagazinePickerクラスを設定する
                 MagazinePicker.ItemsSource = _magazinePk;
+
+                // 購入可能な地区誌がない場合は地区誌購入欄を非表示にする
+                if(MagazinePicker.ItemsSource.Count == 0)
+                {
+                    MagazineBuy.IsVisible = false;
+                }
             }
             catch (Exception ex)
             {

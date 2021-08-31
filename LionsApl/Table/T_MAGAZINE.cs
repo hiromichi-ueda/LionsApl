@@ -15,7 +15,5 @@ namespace LionsApl.Table
         public string FileName { get; set; }
         public string MagazineClass { get; set; }
         public int MagazinePrice { get; set; }
-        public string OpenFlg { get; set; }
-        public string DelFlg { get; set; }
     }
 }
