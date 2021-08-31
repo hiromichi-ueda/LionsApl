@@ -31,6 +31,14 @@ namespace LionsApl.Content
             // タイトル設定
             Title = _sqlite.Db_A_Setting.CabinetName;
 
+            // A_ACCOUNTデータ取得
+            _sqlite.SetAccount();
+
+            // ログイン情報設定
+            LoginInfo.Text = _sqlite.Db_A_Account.ClubName + " " + _sqlite.Db_A_Account.MemberFirstName + _sqlite.Db_A_Account.MemberLastName;
+
+
+
             // イベント情報データ取得
 
 
@@ -40,7 +48,7 @@ namespace LionsApl.Content
 
         private void Label_List_Taped(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new EventPage());
+            Navigation.PushAsync(new EventPage("",0,0));
         }
 
     }

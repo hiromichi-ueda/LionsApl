@@ -18,12 +18,12 @@ namespace LionsApl.Content
         public ObservableCollection<CHomeTopEvent> _eventLt = new ObservableCollection<CHomeTopEvent>();
 
         private SQLiteManager _sqlite;                      // SQLiteマネージャークラス
-        private Table.A_SETTING _a_setting;                 // A_SETTINGテーブルクラス
-        private Table.A_ACCOUNT _a_account;                 // A_ACCOUNTテーブルクラス
+        //private Table.A_SETTING _a_setting;                 // A_SETTINGテーブルクラス
+        //private Table.A_ACCOUNT _a_account;                 // A_ACCOUNTテーブルクラス
         private Table.T_SLOGAN _t_slogan;                   // T_SLOGANテーブルクラス
-        private Table.T_LETTER _t_letter;                   // T_LETTERテーブルクラス
-        private Table.T_EVENTRET _t_eventret;               // T_EVENTRETテーブルクラス
-        private Table.T_EVENT _t_event;                     // T_EVENTテーブルクラス
+        //private Table.T_LETTER _t_letter;                   // T_LETTERテーブルクラス
+        //private Table.T_EVENTRET _t_eventret;               // T_EVENTRETテーブルクラス
+        //private Table.T_EVENT _t_event;                     // T_EVENTテーブルクラス
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -69,11 +69,18 @@ namespace LionsApl.Content
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
 
-            // 設定ファイル情報取得
-            SetSetting();
+            // A_SETTINGデータ取得
+            _sqlite.SetSetting();
 
-            // アカウント情報取得
-            SetAccount();
+            // タイトル設定
+            Title = _sqlite.Db_A_Setting.CabinetName;
+
+            // A_ACCOUNTデータ取得
+            _sqlite.SetAccount();
+
+            // ログイン情報設定
+            LoginInfo.Text = _sqlite.Db_A_Account.ClubName + " " + _sqlite.Db_A_Account.MemberFirstName + _sqlite.Db_A_Account.MemberLastName;
+
 
             // スローガン情報取得
             SetSlogan();
@@ -147,77 +154,18 @@ namespace LionsApl.Content
             Navigation.PushAsync(new LetterPage(_letterLt[listNo].LetterTitle, _letterLt[listNo].LetterDataNo));
         }
 
-
-
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// 設定ファイル情報をSQLiteファイルから取得して画面に設定する。
+        /// 参加予定一覧情報タップ
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private void SetSetting()
+        private void Event_Label_Tap(object sender, System.EventArgs e, int listNo)
         {
-            _a_setting = null;
-
-            // データ取得
-            try
-            {
-                foreach (Table.A_SETTING row in _sqlite.Get_A_SETTING("SELECT * FROM A_SETTING"))
-                {
-                    _a_setting = new Table.A_SETTING
-                    {
-                        DistrictCode = row.DistrictCode,
-                        DistrictName = row.DistrictName,
-                        CabinetName = row.CabinetName,
-                        PeriodStart = row.PeriodStart,
-                        PeriodEnd = row.PeriodEnd,
-                        DistrictID = row.DistrictID,
-                        MagazineMoney = row.MagazineMoney,
-                        EventDataDay = row.EventDataDay
-                    };
-
-                }
-                Title = _a_setting.CabinetName;
-            }
-            catch (Exception ex)
-            {
-                DisplayAlert("Alert", $"SQLite検索エラー(セッティング) : &{ex.Message}", "OK");
-            }
+            Navigation.PushAsync(new EventPage(_eventLt[listNo].EventTitle, _eventLt[listNo].EventDataNo, _eventLt[listNo].EventEventDataNo));
         }
 
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// アカウント情報をSQLiteファイルから取得して画面に設定する。
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        private void SetAccount()
-        {
-            _a_account = null;
-
-            // データ取得
-            try
-            {
-                foreach (Table.A_ACCOUNT row in _sqlite.Get_A_ACCOUNT("SELECT * FROM A_ACCOUNT"))
-                {
-                    _a_account = new Table.A_ACCOUNT
-                    {
-                        Region = row.Region,
-                        Zone = row.Zone,
-                        ClubCode = row.ClubCode,
-                        ClubName = row.ClubName,
-                        MemberCode = row.MemberCode,
-                        MemberFirstName = row.MemberFirstName,
-                        MemberLastName = row.MemberLastName,
-                        AccountDate = row.AccountDate
-                    };
-
-                }
-            }
-            catch (Exception ex)
-            {
-                DisplayAlert("Alert", $"SQLite検索エラー(アカウント) : &{ex.Message}", "OK");
-            }
-        }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -361,10 +309,9 @@ namespace LionsApl.Content
         {
             int idx = 0;
             //DateTime dt = DateTime.Now;
-            DateTime dt = new DateTime(2003,1,1,0,0,0);     
-            DateTime wdt;
-            TimeSpan countTSpn;
-            string _nowDate = dt.ToString("yyyy/MM/dd");
+            //DateTime wdt;
+            //TimeSpan countTSpn;
+            //string _nowDate = dt.ToString("yyyy/MM/dd");
             string strTitle = "";                           // タイトル設定用文字列
             string strDate = "";                            // 月日設定用文字列
             string strCount = "";                           // 日数設定用文字列
@@ -373,7 +320,6 @@ namespace LionsApl.Content
             _eventLt.Clear();
             try
             {
-
                 foreach (Table.HOME_EVENT row in _sqlite.Get_HOME_EVENT(
                                         "SELECT " +
                                             "t1.DataNo, " +
@@ -399,95 +345,104 @@ namespace LionsApl.Content
                                             "t1.EventClass = '2' and " +
                                             "t1.EventDataNo = t3.DataNo " +
                                         "WHERE " +
-                                            "t1.MemberCode = '" + _a_account.MemberCode + "'"))
+                                            "t1.MemberCode = '" + _sqlite.Db_A_Account.MemberCode + "'"))
+                                            //"t1.MemberCode = '" + _a_account.MemberCode + "'"))
                                             //"t1.MemberCode = '" + _a_account.MemberCode + "' AND " +
                                             //"t1.EventDate >= '" + _nowDate + "' AND " +
                                             //"(t1.Answer <> '2')"))
                 {
-                    // タイトル設定
-                    // 1:キャビネット
-                    if (row.EventClass.Equals("1"))
-                    {
-                        _eventLt.Add(new CHomeTopEvent(row.EventDate, row.Title, "0"));
-                        strDate = row.EventDate;
-                        strTitle = row.Title;
-                        //strCount = row.CountDate.ToString();
-                    }
-                    // 2:クラブ（例会）
-                    else if (row.EventClass.Equals("2"))
-                    {
-                        _eventLt.Add(new CHomeTopEvent(row.EventDate, row.Title, "0"));
-                        strDate = row.EventDate;
-                        strTitle = row.MeetingName;
-                        //strCount = row.CountDate.ToString();
-                    }
-                    // 3:クラブ（理事・委員会）
-                    else if (row.EventClass.Equals("3"))
-                    {
-                        _eventLt.Add(new CHomeTopEvent(row.EventDate, row.Title, "0"));
-                        strDate = row.EventDate;
-                        strTitle = row.Title;
-                        //strCount = row.CountDate.ToString();
-                    }
-
-                    // 日数設定
-                    wdt = DateTime.Parse(strDate);
-                    countTSpn = wdt - dt;
-                    strCount = countTSpn.Days.ToString();
-                    if (countTSpn.Days == 0)
-                    {
-                        strCount = "本日";
-                    }
-                    else if (countTSpn.Days > 0)
-                    {
-                        strCount = countTSpn.Days.ToString() + "日前";
-                    }
-                    else
-                    {
-                        strCount = "日時エラー";
-                    }
-
-                    // 中止設定
-                    if (row.CancelFlg.Equals("1"))
-                    {
-                        strCancel = "中止";
-                    }
+                    // イベントリストの各項目値を取得する
+                    GetEventListData(row, ref strDate, ref strTitle, ref strCount, ref strCancel);
 
                     if (idx == 0)
                     {
-                        EventDate0.Text = strDate.Substring(5, 5);
+                        // 月日設定
+                        EventDate0.Text = strDate;
+                        // タイトル設定
                         EventTitle0.Text = strTitle;
+                        // 日数設定
                         EventCount0.Text = strCount;
+                        // 中止設定
                         EventMsg0.Text = strCancel;
+                        // 画面遷移記号設定
                         EventMark0.Text = "〉";
+
+                        // Labelタップ時の処理追加
+                        TapGestureRecognizer tgr0 = new TapGestureRecognizer();
+                        tgr0.Tapped += (s, e) => { Event_Label_Tap(s, e, 0); };
+                        EventDate0.GestureRecognizers.Add(tgr0);
+                        EventTitle0.GestureRecognizers.Add(tgr0);
+                        EventMsg0.GestureRecognizers.Add(tgr0);
+                        EventMark0.GestureRecognizers.Add(tgr0);
+
                         idx++;
                     }
                     else if (idx == 1)
                     {
-                        EventDate1.Text = strDate.Substring(5, 5);
+                        // 月日設定
+                        EventDate1.Text = strDate;
+                        // タイトル設定
                         EventTitle1.Text = strTitle;
+                        // 日数設定
                         EventCount1.Text = strCount;
+                        // 中止設定
                         EventMsg1.Text = strCancel;
+                        // 画面遷移記号設定
                         EventMark1.Text = "〉";
+
+                        // Labelタップ時の処理追加
+                        TapGestureRecognizer tgr0 = new TapGestureRecognizer();
+                        tgr0.Tapped += (s, e) => { Event_Label_Tap(s, e, 0); };
+                        EventDate1.GestureRecognizers.Add(tgr0);
+                        EventTitle1.GestureRecognizers.Add(tgr0);
+                        EventMsg1.GestureRecognizers.Add(tgr0);
+                        EventMark1.GestureRecognizers.Add(tgr0);
+
                         idx++;
                     }
                     else if (idx == 2)
                     {
-                        EventDate2.Text = strDate.Substring(5, 5);
+                        // 月日設定
+                        EventDate2.Text = strDate;
+                        // タイトル設定
                         EventTitle2.Text = strTitle;
+                        // 日数設定
                         EventCount2.Text = strCount;
+                        // 中止設定
                         EventMsg2.Text = strCancel;
+                        // 画面遷移記号設定
                         EventMark2.Text = "〉";
                         idx++;
+
+                        // Labelタップ時の処理追加
+                        TapGestureRecognizer tgr0 = new TapGestureRecognizer();
+                        tgr0.Tapped += (s, e) => { Event_Label_Tap(s, e, 0); };
+                        EventDate2.GestureRecognizers.Add(tgr0);
+                        EventTitle2.GestureRecognizers.Add(tgr0);
+                        EventMsg2.GestureRecognizers.Add(tgr0);
+                        EventMark2.GestureRecognizers.Add(tgr0);
                     }
                     else if (idx == 3)
                     {
-                        EventDate3.Text = strDate.Substring(5, 5);
+                        // 月日設定
+                        EventDate3.Text = strDate;
+                        // タイトル設定
                         EventTitle3.Text = strTitle;
+                        // 日数設定
                         EventCount3.Text = strCount;
+                        // 中止設定
                         EventMsg3.Text = strCancel;
+                        // 画面遷移記号設定
                         EventMark3.Text = "〉";
                         idx++;
+
+                        // Labelタップ時の処理追加
+                        TapGestureRecognizer tgr0 = new TapGestureRecognizer();
+                        tgr0.Tapped += (s, e) => { Event_Label_Tap(s, e, 0); };
+                        EventDate3.GestureRecognizers.Add(tgr0);
+                        EventTitle3.GestureRecognizers.Add(tgr0);
+                        EventMsg3.GestureRecognizers.Add(tgr0);
+                        EventMark3.GestureRecognizers.Add(tgr0);
                     }
                 }
             }
@@ -496,6 +451,77 @@ namespace LionsApl.Content
                 DisplayAlert("Alert", $"SQLite検索エラー(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE) : &{ex.Message}", "OK");
             }
         }
+
+        private void GetEventListData(Table.HOME_EVENT row, ref string strDate, ref string strTitle, ref string strCount, ref string strCancel)
+        {
+            DateTime dt = DateTime.Now;
+            DateTime wdt;
+            string wstrDate = "";
+            TimeSpan countTSpn;
+
+            // 日時・日数設定
+            if (row.EventDate != null)
+            {
+                wstrDate = row.EventDate;
+                wdt = DateTime.Parse(wstrDate);
+
+                // 日時設定
+                strDate = wstrDate.Substring(5, 5);
+
+                // 日数設定
+                countTSpn = wdt - dt;
+
+                if (countTSpn.Days == 0)
+                {
+                    strCount = "本日";
+                }
+                else if (countTSpn.Days > 0)
+                {
+                    strCount = countTSpn.Days.ToString() + "日前";
+                }
+                else
+                {
+                    strCount = countTSpn.Days.ToString() + "日前";
+                    //strCount = "日時エラー";
+                }
+            }
+
+            // タイトル設定
+            // 1:キャビネット
+            if (row.EventClass.Equals("1"))
+            {
+                if (row.Title != null)
+                {
+                    strTitle = row.Title;
+                }
+            }
+            // 2:クラブ（例会）
+            else if (row.EventClass.Equals("2"))
+            {
+                if (row.MeetingName != null)
+                {
+                    strTitle = row.MeetingName;
+                }
+            }
+            // 3:クラブ（理事・委員会）
+            else if (row.EventClass.Equals("3"))
+            {
+                if (row.Title != null)
+                {
+                    strTitle = row.Title;
+                }
+            }
+
+            // 中止設定
+            if (row.CancelFlg.Equals("1"))
+            {
+                strCancel = "中止";
+            }
+
+            _eventLt.Add(new CHomeTopEvent(strDate, strTitle, strCount, strCancel, row.DataNo, row.EventDataNo));
+
+        }
+
     }
 
     public sealed class CHomeTopSlogan
@@ -524,15 +550,21 @@ namespace LionsApl.Content
 
     public sealed class CHomeTopEvent
     {
-        public CHomeTopEvent(string eventDate, string eventTitle, string eventCount)
+        public CHomeTopEvent(string eventDate, string eventTitle, string eventCount, string eventCancel, int eventDataNo, int eventEventDataNo)
         {
             EventDate = eventDate;
             EventTitle = eventTitle;
             EventCount = eventCount;
+            EventCancel = eventCancel;
+            EventDataNo = eventDataNo;
+            EventEventDataNo = eventEventDataNo;
         }
         public string EventDate { get; set; }
         public string EventTitle { get; set; }
         public string EventCount { get; set; }
+        public string EventCancel { get; set; }
+        public int EventDataNo { get; set; }
+        public int EventEventDataNo { get; set; }
     }
 
 }

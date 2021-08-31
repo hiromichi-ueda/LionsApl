@@ -10,8 +10,14 @@
 
 /* <ContentPage> */
 ^ContentPage {
-    background-color: #FFFFFF;
-    color: #2E2E2E;
+    color: #2E2E2E; /* 文字色 */
+    background-color: #FFFFFF; /* 背景 */
+}
+
+/* <Label> */
+^Label {
+    color: #2E2E2E; /* 文字色 */
+    background-color: #FFFFFF; /* 背景 */
 }
 
 /* <frame> */
@@ -23,7 +29,8 @@ frame {
 
     frame > label {
         color: #FFFFFF; /* 文字色 */
-        font-size: large; /* 文字サイズ */
+        font-size: 28; /* 文字サイズ */
+        background-color: #2196F3; /* 背景 */
         text-align: center; /* 位置 */
     }
 
@@ -41,6 +48,28 @@ button {
 /* ======================================================================
     < オリジナルエリア > 
 =======================================================================*/
+
+/* APLヘッダー */
+.aplheaderbg {
+    background-color: #2196F3; /* 背景 */
+    height: 80; /* 高さ */
+}
+.aplhedaer {
+    color: #FFFFFF; /* 文字色 */
+    background-color: #2196F3; /* 背景 */
+    padding: 0,0,0,0; /* 余白 */
+    align-content: center; /* 位置 */
+}
+    .aplhedaer > Image {
+        height: 38; /* 高さ */
+    }
+    .aplhedaer > label {
+        color: #FFFFFF; /* 文字色 */
+        font-size: 38; /* 文字サイズ */
+        background-color: #2196F3; /* 背景 */
+        Padding: 6,0,0,0; /* 余白 */
+    }
+
 /* ログイン情報 */
 .login {
     height: 18; /* 高さ */
@@ -88,3 +117,9 @@ button {
     text-align: center; /* 位置 */
 }
 
+.club_menu {
+    color: #2E2E2E; /* 文字色 */
+    font-size: 18; /* 文字サイズ */
+    background-color: #FFFFFF; /* 背景 */
+    margin: 12, 10, 10, 8; /* 文字の余白 */
+}

@@ -41,117 +41,204 @@
                         <Label
                             Text="メンバーの「叡智」を結集して「新しい生活様式」に応じた「クラブ運営」「奉仕活動」の在り方を築いていこう！" 
                             FontSize="Default"
-                            TextColor="#2E2E2E"
-                            Background="#FFFFFF"
                             HorizontalTextAlignment="Center"
                             Margin="4"
                         />
                         <Label
                             Text="会長 L.矢橋 純一" 
                             FontSize="Caption"
-                            TextColor="#2E2E2E"
-                            Background="#FFFFFF"
                             HorizontalTextAlignment="End"
                             Margin="0"
                         />
                     </StackLayout>
 
-                    <!-- メニュー -->
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <StackLayout 
-                        Margin="4"
-                        HorizontalOptions="FillAndExpand"
+                    <!-- CLUBメニュー -->
+                    <StackLayout
                         >
-                        <Label
+                        <StackLayout
+                            Margin="4,0,4,0"
+                            HorizontalOptions="FillAndExpand"
+                            >
+                            <Label
                             Text="メニュー" 
                             FontSize="Default"
                             VerticalTextAlignment="Center"
                             StyleClass="title_grey"
                         />
+                        </StackLayout>
 
                         <!-- 年間例会スケジュール -->
-                        <Label
-                            Text="年間例会スケジュール" 
-                            FontSize="18"
-                            TextColor="#2E2E2E"
-                            Background="#FFFFFF"
-                            HorizontalTextAlignment="Start"
-                            Margin="14,8,0,8"
-                            >
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="Label_ClubSchedule_Taped"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.8" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="年間例会スケジュール" 
+                                VerticalOptions="FillAndExpand"
+                                StyleClass="club_menu"
+                                >
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="Label_ClubSchedule_Taped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Text="〉" 
+                                VerticalOptions="FillAndExpand"
+                                StyleClass="club_menu"
+                                >
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="Label_ClubSchedule_Taped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+                        <BoxView BackgroundColor="#d3d3d3" HeightRequest="0.1" />
 
                         <!-- 理事・委員会 -->
-                        <Label
-                            Text="理事・委員会" 
-                            FontSize="18"
-                            TextColor="#2E2E2E"
-                            Background="#FFFFFF"
-                            HorizontalTextAlignment="Start"
-                            Margin="14,8,0,8"
-                            >
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="Label_Director_Taped"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.8" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="理事・委員会" 
+                                VerticalOptions="FillAndExpand"
+                                StyleClass="club_menu"
+                                >
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="Label_Director_Taped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Text="〉" 
+                                VerticalOptions="FillAndExpand"
+                                StyleClass="club_menu"
+                                >
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="Label_Director_Taped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+                        <BoxView BackgroundColor="#d3d3d3" HeightRequest="0.1" />
 
                         <!-- 例会プログラム -->
-                        <Label
-                            Text="例会プログラム" 
-                            FontSize="18"
-                            TextColor="#2E2E2E"
-                            Background="#FFFFFF"
-                            HorizontalTextAlignment="Start"
-                            Margin="14,8,0,8"
-                            >
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="Label_MeetingProgram_Taped"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.8" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="例会プログラム" 
+                                VerticalOptions="FillAndExpand"
+                                StyleClass="club_menu"
+                                >
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="Label_MeetingProgram_Taped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Text="〉" 
+                                VerticalOptions="FillAndExpand"
+                                StyleClass="club_menu"
+                                >
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="Label_MeetingProgram_Taped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+                        <BoxView BackgroundColor="#d3d3d3" HeightRequest="0.1" />
 
                         <!-- 連絡事項 -->
-                        <Label
-                            Text="連絡事項"
-                            FontSize="18"
-                            TextColor="#2E2E2E"
-                            Background="#FFFFFF"
-                            HorizontalTextAlignment="Start"
-                            Margin="14,8,0,8"
-                            >
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="Label_Infomation_Taped"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.8" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="連絡事項" 
+                                VerticalOptions="FillAndExpand"
+                                StyleClass="club_menu"
+                                >
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="Label_Infomation_Taped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Text="〉" 
+                                VerticalOptions="FillAndExpand"
+                                StyleClass="club_menu"
+                                >
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="Label_Infomation_Taped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+                        <BoxView BackgroundColor="#d3d3d3" HeightRequest="0.1" />
 
                         <!-- 会員情報 -->
-                        <Label
-                            Text="会員情報"
-                            FontSize="18"
-                            TextColor="#2E2E2E"
-                            Background="#FFFFFF"
-                            HorizontalTextAlignment="Start"
-                            Margin="14,8,0,8"
-                            >
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="Label_Member_Taped"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.8" />
-                        
-                    </StackLayout>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="会員情報" 
+                                VerticalOptions="FillAndExpand"
+                                StyleClass="club_menu"
+                                >
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="Label_Member_Taped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Text="〉" 
+                                VerticalOptions="FillAndExpand"
+                                StyleClass="club_menu"
+                                >
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="Label_Member_Taped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+                        <BoxView BackgroundColor="#d3d3d3" HeightRequest="0.1" />
 
+                    </StackLayout>
+                                       
                 </StackLayout>
 
             </ScrollView>

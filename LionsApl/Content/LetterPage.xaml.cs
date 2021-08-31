@@ -18,12 +18,12 @@ namespace LionsApl.Content
         private string _titleName;                           // タイトル
         private int _dataNo;                                 // データNo.
 
-        public LetterPage(string InTitle, int InDataNo)
+        public LetterPage(string title, int dataNo)
         {
             InitializeComponent();
 
-            _titleName = InTitle;
-            _dataNo = InDataNo;
+            _titleName = title;
+            _dataNo = dataNo;
 
             TitleLabel.Text = _titleName;
 
@@ -36,17 +36,20 @@ namespace LionsApl.Content
             // タイトル設定
             Title = _sqlite.Db_A_Setting.CabinetName;
 
-            // ツールバーに一覧ボタンを設定
-            ToolbarItems.Add(new ToolbarItem { Text = "一覧", Command = new Command(Push_LetterList) });
+            // A_ACCOUNTデータ取得
+            _sqlite.SetAccount();
+
+            // ログイン情報設定
+            LoginInfo.Text = _sqlite.Db_A_Account.ClubName + " " + _sqlite.Db_A_Account.MemberFirstName + _sqlite.Db_A_Account.MemberLastName;
 
             // A_FILEPATHデータ取得
             _sqlite.GetFilePath(_sqlite.DATACLASS_LETTER);
 
-            // A_ACCOUNTデータ取得
-            _sqlite.SetAccount();
-
             // キャビネットレター情報設定
             GetLetter();
+
+            // ツールバーに一覧ボタンを設定
+            ToolbarItems.Add(new ToolbarItem { Text = "一覧", Command = new Command(Push_LetterList) });
 
         }
 
