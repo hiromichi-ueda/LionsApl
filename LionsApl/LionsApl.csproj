@@ -16,8 +16,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Assets\**" />
     <Compile Remove="新しいフォルダー\**" />
+    <EmbeddedResource Remove="Assets\**" />
     <EmbeddedResource Remove="新しいフォルダー\**" />
+    <None Remove="Assets\**" />
     <None Remove="新しいフォルダー\**" />
   </ItemGroup>
 

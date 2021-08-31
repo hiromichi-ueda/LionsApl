@@ -25,18 +25,19 @@ namespace LionsApl
             InitializeComponent();
 
             sqliteManager = SQLiteManager.GetInstance();
+
         }
 
-
+ 
         // ===============================
         // ボタン押下処理
         // ===============================
         #region 各ボタン処理
 
-            //---------------------------------------
-            // HOME画面
-            //---------------------------------------
-            void Button_Home_Clicked(object sender, System.EventArgs e)
+        //---------------------------------------
+        // HOME画面
+        //---------------------------------------
+        void Button_Home_Clicked(object sender, System.EventArgs e)
             {
 
                 // DB情報取得処理

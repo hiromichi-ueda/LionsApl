@@ -16,27 +16,36 @@
         </OnPlatform>
     </ContentPage.Padding>
 
-    
     <ContentPage.Content>
 
         <StackLayout>
 
-            <!-- HEADER -->
-            <StackLayout>
-                <Frame>
+            <!-- APL HEADER -->
+            <StackLayout
+                HorizontalOptions="Fill"
+                StyleClass="aplheaderbg"
+                >
+                <StackLayout 
+                    Orientation="Horizontal" 
+                    HorizontalOptions="Center"
+                    VerticalOptions="CenterAndExpand"
+                    StyleClass="aplhedaer"
+                    >
+                    <Image 
+                        Source="icon_white.png"
+                        />
                     <Label 
-                        Text="Lions Apl" 
-                        VerticalTextAlignment="Center"
-                        >
-                    </Label>
-                </Frame>
+                        Text="Lions Apl"
+                        VerticalOptions="Center"
+                        />
+                </StackLayout>
             </StackLayout>
 
             <!-- BODY -->
             <StackLayout>
-                <ScrollView x:Name="ScrollView1" Orientation="Both">
+                <ScrollView>
 
-                    <StackLayout Spacing="0" Padding="0">
+                    <StackLayout>
 
                         <StackLayout
                             Padding="48"
@@ -176,7 +185,6 @@
             </StackLayout>
 
         </StackLayout>
-
     </ContentPage.Content>
             
 </ContentPage>
