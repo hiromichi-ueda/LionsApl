@@ -27,7 +27,7 @@
                             StyleClass="lg"
                             >
                             <Label
-                                Text="岐阜南LC 池田 昌二" 
+                                x:Name="LoginInfo"
                                 FontSize="Small"
                                 Background="#FFFFFF"
                                 VerticalOptions="Center"

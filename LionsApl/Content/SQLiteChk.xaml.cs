@@ -125,7 +125,7 @@ namespace LionsApl.Content
         private void Sel_A_APLLOG()
         {
             /// label clear
-            ResultLabel.Text = "A_APLLOG:\r\b";
+            ResultLabel.Text = "A_APLLOG:\r\n";
 
             // データ取得
             try
@@ -153,7 +153,7 @@ namespace LionsApl.Content
         private void Sel_A_SETTING()
         {
             /// label clear
-            ResultLabel.Text = "A_SETTING:\r\b";
+            ResultLabel.Text = "A_SETTING:\r\n";
 
             // データ取得
             // データ取得
@@ -183,7 +183,7 @@ namespace LionsApl.Content
         private void Sel_M_MEMBER()
                 {
             /// label clear
-            ResultLabel.Text = "M_MEMBER:\r\b";
+            ResultLabel.Text = "M_MEMBER:\r\n";
 
             // データ取得
             try
@@ -211,7 +211,7 @@ namespace LionsApl.Content
         private void Sel_A_ACCOUNT()
         {
             /// label clear
-            ResultLabel.Text = "A_ACCOUNT:\r\b";
+            ResultLabel.Text = "A_ACCOUNT:\r\n";
 
             // データ取得
             // データ取得
@@ -241,7 +241,7 @@ namespace LionsApl.Content
         private void Sel_A_FILEPATH()
         {
             /// label clear
-            ResultLabel.Text = "A_FILEPATH:\r\b";
+            ResultLabel.Text = "A_FILEPATH:\r\n";
 
             // データ取得
             // データ取得
@@ -269,7 +269,7 @@ namespace LionsApl.Content
         private void Sel_T_SLOGAN()
         {
             /// label clear
-            ResultLabel.Text = "T_SLOGAN:\r\b";
+            ResultLabel.Text = "T_SLOGAN:\r\n";
 
             // データ取得
             // データ取得
@@ -299,7 +299,7 @@ namespace LionsApl.Content
         private void Sel_T_LETTER()
         {
             /// label clear
-            ResultLabel.Text = "T_LETTER:\r\b";
+            ResultLabel.Text = "T_LETTER:\r\n";
 
             // データ取得
             // データ取得
@@ -329,7 +329,7 @@ namespace LionsApl.Content
         private void Sel_T_EVENTRET()
         {
             /// label clear
-            ResultLabel.Text = "T_EVENTRET:\r\b";
+            ResultLabel.Text = "T_EVENTRET:\r\n";
 
             // データ取得
             // データ取得
@@ -358,7 +358,7 @@ namespace LionsApl.Content
         private void Sel_T_EVENT()
         {
             /// label clear
-            ResultLabel.Text = "T_EVENT:\r\b";
+            ResultLabel.Text = "T_EVENT:\r\n";
 
             // データ取得
             // データ取得
@@ -387,7 +387,7 @@ namespace LionsApl.Content
         private void Sel_T_MEETINGSCHEDULE()
         {
             /// label clear
-            ResultLabel.Text = "T_MEETINGSCHEDULE:\r\b";
+            ResultLabel.Text = "T_MEETINGSCHEDULE:\r\n";
 
             // データ取得
             // データ取得
@@ -416,7 +416,7 @@ namespace LionsApl.Content
         private void Sel_T_MAGAZINE()
         {
             /// label clear
-            ResultLabel.Text = "T_MAGAZINE:\r\b";
+            ResultLabel.Text = "T_MAGAZINE:\r\n";
 
             // データ取得
             try
@@ -444,7 +444,7 @@ namespace LionsApl.Content
         private void Sel_T_MAGAZINEBUY()
         {
             /// label clear
-            ResultLabel.Text = "T_MAGAZINEBUY:\r\b";
+            ResultLabel.Text = "T_MAGAZINEBUY:\r\n";
 
             // データ取得
             try
@@ -474,7 +474,7 @@ namespace LionsApl.Content
         private void Sel_M_DISTRICTOFFICER()
         {
             /// label clear
-            ResultLabel.Text = "M_DISTRICTOFFICER:\r\b";
+            ResultLabel.Text = "M_DISTRICTOFFICER:\r\n";
 
             // データ取得
             try
@@ -501,7 +501,7 @@ namespace LionsApl.Content
         private void Sel_M_CABINET()
         {
             /// label clear
-            ResultLabel.Text = "M_CABINET:\r\b";
+            ResultLabel.Text = "M_CABINET:\r\n";
 
             // データ取得
             try
@@ -529,7 +529,7 @@ namespace LionsApl.Content
         private void Sel_M_CLUB()
         {
             /// label clear
-            ResultLabel.Text = "M_CLUB:\r\b";
+            ResultLabel.Text = "M_CLUB:\r\n";
 
             // データ取得
             try
