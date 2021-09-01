@@ -62,10 +62,10 @@ namespace LionsApl.Content
                     if (row.FileName != null)
                     {
                         string urlStr = "http://ap.insat.co.jp" + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/") + "/" + row.FileName;
-                        string encodeUrl = System.Net.WebUtility.UrlEncode(urlStr);
-                        string source = "https://docs.google.com/viewer?url=" + encodeUrl + "&embedded=true";
-                        //string source = urlStr;
-                        PdfFrame.Resources.Source = new Uri(source);
+                        //string encodeUrl = System.Net.WebUtility.UrlEncode(urlStr);
+                        //string source = "https://docs.google.com/viewer?url=" + encodeUrl + "&embedded=true";
+                        string source = urlStr;
+                        Pdf.Source = source;
 
 
                         PdfLabel.Text = _sqlite.Db_A_FilePath.FilePath + "/" + row.FileName + "\r\n" + source;

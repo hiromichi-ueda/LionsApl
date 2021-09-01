@@ -58,22 +58,22 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- 画像 -->
-                    <!--<WebView
+                    <WebView
                         Grid.Row="0"
                         Grid.Column="0"
                         Grid.ColumnSpan="1"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="FillAndExpand"
                         x:Name="Pdf">
-                    </WebView>-->
-                    <Frame
+                    </WebView>
+                    <!--<Frame
                         Grid.Row="0"
                         Grid.Column="0"
                         Grid.ColumnSpan="1"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="FillAndExpand"
                         x:Name="PdfFrame">
-                    </Frame>
+                    </Frame>-->
                     <Label 
                         Grid.Row="1"
                         Grid.Column="0"
