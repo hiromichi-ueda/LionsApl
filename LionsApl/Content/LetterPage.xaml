@@ -120,17 +120,18 @@
                             Grid.Row="3"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
-                            HorizontalOptions="FillAndExpand"
+                            Aspect="AspectFill"
                             x:Name="Image1">
                         </Image>
-              <!-- 画像② -->
-            <Image
+                        <!-- 画像② -->
+                        <Image
                             Grid.Row="4"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
+                            Aspect="AspectFill"
                             x:Name="Image2">
-            </Image>
-            <Label 
+                        </Image>
+                        <Label 
                             Grid.Row="5"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
@@ -140,8 +141,8 @@
                             VerticalOptions="Center" 
                             HorizontalTextAlignment="Start" 
                             Margin="8"
-                         />
-            <Label 
+                        />
+                        <Label 
                             Grid.Row="6"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
@@ -151,7 +152,7 @@
                             VerticalOptions="Center" 
                             HorizontalTextAlignment="Start" 
                             Margin="8"
-                         />
+                        />
                     </Grid>
                 
                 </StackLayout>
