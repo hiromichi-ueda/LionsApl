@@ -61,7 +61,7 @@ namespace LionsApl.Content
                 {
                     if (row.FileName != null)
                     {
-                        string urlStr = "http://ap.insat.co.jp" + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/") + "/" + row.FileName;
+                        string urlStr = ((App)Application.Current).AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/").Replace("\r\n", "") + "/" + row.FileName;
                         //string encodeUrl = System.Net.WebUtility.UrlEncode(urlStr);
                         //string source = "https://docs.google.com/viewer?url=" + encodeUrl + "&embedded=true";
                         string source = urlStr;

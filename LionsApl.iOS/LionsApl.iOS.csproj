@@ -85,6 +85,9 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <None Include="..\LionsApl\App.config">
+      <Link>App.config</Link>
+    </None>
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -148,6 +151,9 @@
     </PackageReference>
     <PackageReference Include="NLog.Config">
       <Version>4.7.10</Version>
+    </PackageReference>
+    <PackageReference Include="PCLAppConfig">
+      <Version>1.0.1</Version>
     </PackageReference>
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.7.335</Version>
