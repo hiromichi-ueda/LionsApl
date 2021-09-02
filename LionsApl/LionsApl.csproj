@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AiForms.Dialogs" Version="1.0.12" />
     <PackageReference Include="NLog" Version="4.7.10" />
     <PackageReference Include="NLog.Config" Version="4.7.10" />
     <PackageReference Include="PCLAppConfig" Version="1.0.1" />
@@ -103,6 +104,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Content\SQLiteChk.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LionsAplToastView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

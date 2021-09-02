@@ -1,5 +1,8 @@
-﻿using System;
+﻿using AiForms.Dialogs;
+using AiForms.Dialogs.Abstractions;
+using System;
 using System.Configuration;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,6 +12,7 @@ namespace LionsApl
     public partial class App : Application
     {
         public string AppServer;
+        public string WebServiceUrl;
 
         public App()
         {
@@ -16,7 +20,8 @@ namespace LionsApl
             
             // Configファイルより値を取得
             AppServer = PCLAppConfig.ConfigurationManager.AppSettings["ApplicationServer"];
-            
+            WebServiceUrl = PCLAppConfig.ConfigurationManager.AppSettings["WebServiceUrl"];
+
             //MainPage = new NavigationPage(new MainPage());
             MainPage = new MainPage();
         }
@@ -31,6 +36,30 @@ namespace LionsApl
 
         protected override void OnResume()
         {
+        }
+
+        public async Task DispLoadingDialog()
+        {
+            // ダイアログの初期設定
+            Configurations.LoadingConfig = new LoadingConfig
+            {
+                IndicatorColor = Color.White,
+                OverlayColor = Color.Black,
+                Opacity = 0.4,
+                FontSize = 18,
+                DefaultMessage = "処理中です...",
+                ProgressMessageFormat = "",
+            };
+
+            // ダイアログ表示
+            await Loading.Instance.StartAsync(async progress =>
+            {
+                // タスク待機(ダイアログ表示のために2回以上必要)
+                for (var i = 0; i < 2; i++)
+                {
+                    await Task.Delay(10);
+                }
+            });
         }
     }
 }

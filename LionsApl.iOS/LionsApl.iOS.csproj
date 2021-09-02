@@ -146,6 +146,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AiForms.Dialogs">
+      <Version>1.0.12</Version>
+    </PackageReference>
     <PackageReference Include="NLog">
       <Version>4.7.10</Version>
     </PackageReference>

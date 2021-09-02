@@ -35,7 +35,7 @@ namespace LionsApl
         public static MultipartFormDataContent content;
         //        public static HttpClient httpClient = new HttpClient();
         //public static String webServiceUrl = "http://ap.insat.co.jp/InsatTest01Web/InsatTest01WebHandler.ashx";
-        public static String webServiceUrl = "http://ap.insat.co.jp/LionsAplWeb/LionsAplIisHandler.ashx";
+        public static String webServiceUrl = ((App)Application.Current).WebServiceUrl;
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
