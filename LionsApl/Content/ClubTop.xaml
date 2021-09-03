@@ -21,8 +21,7 @@
                     <StackLayout 
                         StyleClass="login"
                         >
-                        <Label
-                            Text="岐阜南LC 池田 昌二" 
+                        <Label x:Name="LoginInfo"
                             VerticalTextAlignment="Center"
                         />
                     </StackLayout>
@@ -38,14 +37,12 @@
                             VerticalTextAlignment="Center"
                             StyleClass="title_blue"
                         />
-                        <Label
-                            Text="メンバーの「叡智」を結集して「新しい生活様式」に応じた「クラブ運営」「奉仕活動」の在り方を築いていこう！" 
+                        <Label x:Name="ClubSlogan"
                             FontSize="Default"
                             HorizontalTextAlignment="Center"
                             Margin="4"
                         />
-                        <Label
-                            Text="会長 L.矢橋 純一" 
+                        <Label x:Name="ExecutiveName"
                             FontSize="Caption"
                             HorizontalTextAlignment="End"
                             Margin="0"

@@ -18,7 +18,7 @@ namespace LionsApl.Content
         private SQLiteManager sqliteManager;
 
         private string _selTable = null;
-        private string _selTableId = null;
+        //private string _selTableId = null;
 
         public SQLiteChk()
         {
@@ -28,20 +28,38 @@ namespace LionsApl.Content
 
             _tablePk.Add(new CTablePicker("0", "A_APLLOG"));
             _tablePk.Add(new CTablePicker("1", "A_SETTING"));
-            _tablePk.Add(new CTablePicker("2", "M_MEMBER"));
-            _tablePk.Add(new CTablePicker("3", "A_ACCOUNT"));
-            _tablePk.Add(new CTablePicker("4", "A_FILEPATH"));
-            _tablePk.Add(new CTablePicker("5", "T_SLOGAN"));
-            _tablePk.Add(new CTablePicker("6", "T_LETTER"));
-            _tablePk.Add(new CTablePicker("7", "T_EVENTRET"));
-            _tablePk.Add(new CTablePicker("8", "T_EVENT"));
-            _tablePk.Add(new CTablePicker("9", "T_MEETINGSCHEDULE"));
-            _tablePk.Add(new CTablePicker("10", "T_MAGAZINE"));
-            _tablePk.Add(new CTablePicker("11", "T_MAGAZINEBUY"));
-            _tablePk.Add(new CTablePicker("12", "M_DISTRICTOFFICER"));
-            _tablePk.Add(new CTablePicker("13", "M_CABINET"));
-            _tablePk.Add(new CTablePicker("14", "M_CLUB"));
+            _tablePk.Add(new CTablePicker("2", "A_ACCOUNT"));
+            _tablePk.Add(new CTablePicker("3", "A_FILEPATH"));
+            _tablePk.Add(new CTablePicker("4", "T_SLOGAN"));
+            _tablePk.Add(new CTablePicker("5", "T_LETTER"));
+            _tablePk.Add(new CTablePicker("6", "T_EVENTRET"));
+            _tablePk.Add(new CTablePicker("7", "T_EVENT"));
+            _tablePk.Add(new CTablePicker("8", "T_INFOMATION_CABI"));
+            _tablePk.Add(new CTablePicker("9", "T_MAGAZINE"));
+            _tablePk.Add(new CTablePicker("10", "T_MAGAZINEBUY"));
+            _tablePk.Add(new CTablePicker("11", "M_DISTRICTOFFICER"));
+            _tablePk.Add(new CTablePicker("12", "M_CABINET"));
+            _tablePk.Add(new CTablePicker("13", "M_CLUB"));
+            _tablePk.Add(new CTablePicker("14", "T_CLUBSLOGAN"));
+            _tablePk.Add(new CTablePicker("15", "T_MEETINGSCHEDULE"));
+            _tablePk.Add(new CTablePicker("16", "T_DIRECTOR"));
+            _tablePk.Add(new CTablePicker("17", "T_MEETINGPROGRAM"));
+            _tablePk.Add(new CTablePicker("18", "T_INFOMATION_CLUB"));
+            _tablePk.Add(new CTablePicker("19", "M_MEMBER"));
             TablePicker.ItemsSource = _tablePk;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 戻るボタン押下
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void Back_Button_Clicked(object sender, System.EventArgs e)
+        {
+            BackButton.BackgroundColor = Color.Gray;
+            Application.Current.MainPage = new MainPage();
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -57,8 +75,8 @@ namespace LionsApl.Content
             if (item != null)
             {
                 // 選択リジョン情報設定
-                _selTableId = item.Id.ToString();
-                _selTable = item.Name.ToString();
+                //_selTableId = item.Id.ToString();
+                _selTable = item.TableName.ToString();
 
                 switch (_selTable)
                 {
@@ -67,9 +85,6 @@ namespace LionsApl.Content
                         break;
                     case "A_SETTING":
                         Sel_A_SETTING();
-                        break;
-                    case "M_MEMBER":
-                        Sel_M_MEMBER();
                         break;
                     case "A_ACCOUNT":
                         Sel_A_ACCOUNT();
@@ -89,11 +104,11 @@ namespace LionsApl.Content
                     case "T_EVENT":
                         Sel_T_EVENT();
                         break;
-                    case "T_MEETINGSCHEDULE":
-                        Sel_T_MEETINGSCHEDULE();
-                        break;
                     case "T_MAGAZINE":
                         Sel_T_MAGAZINE();
+                        break;
+                    case "T_INFOMATION_CABI":
+                        Sel_T_INFOMATION_CABI();
                         break;
                     case "T_MAGAZINEBUY":
                         Sel_T_MAGAZINEBUY();
@@ -107,6 +122,24 @@ namespace LionsApl.Content
                     case "M_CLUB":
                         Sel_M_CLUB();
                         break;
+                    case "T_CLUBSLOGAN":
+                        Sel_T_CLUBSLOGAN();
+                        break;
+                    case "T_MEETINGSCHEDULE":
+                        Sel_T_MEETINGSCHEDULE();
+                        break;
+                    case "T_DIRECTOR":
+                        Sel_T_DIRECTOR();
+                        break;
+                    case "T_MEETINGPROGRAM":
+                        Sel_T_MEETINGPROGRAM();
+                        break;
+                    case "T_INFOMATION_CLUB":
+                        Sel_T_INFOMATION_CLUB();
+                        break;
+                    case "M_MEMBER":
+                        Sel_M_MEMBER();
+                        break;
                     default:
                         break;
 
@@ -115,6 +148,10 @@ namespace LionsApl.Content
         }
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// 選択したテーブルの内容を表示する。
+        ///////////////////////////////////////////////////////////////////////////////////////////
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// キャビネット
         ///////////////////////////////////////////////////////////////////////////////////////////
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -163,43 +200,14 @@ namespace LionsApl.Content
                 {   // Select
                     foreach (var row in db.Query<Table.A_SETTING>("Select * From A_SETTING"))
                     {
-                        ResultLabel.Text += $"A_SETTING:\r\n" +
-                                           $"{row.Id}, {row.DistrictCode}, {row.DistrictName}, {row.CabinetName},\r\n" +
-                                           $"{row.PeriodStart}, {row.PeriodEnd}, {row.DistrictID}, {row.MagazineMoney}, {row.EventDataDay}\r\n";
+                        ResultLabel.Text += $"{row.Id}, {row.DistrictCode}, {row.DistrictName}, {row.CabinetName},\r\n" +
+                                            $"{row.PeriodStart}, {row.PeriodEnd}, {row.DistrictID}, {row.MagazineMoney}, {row.EventDataDay}\r\n";
                     }
                 }
             }
             catch (Exception ex)
             {
                 ResultLabel.Text = "Select A_SETTING Error : " + ex.Message;
-            }
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// 選択したテーブルの内容を表示する。(M_MEMBER)
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        private void Sel_M_MEMBER()
-                {
-            /// label clear
-            ResultLabel.Text = "M_MEMBER:\r\n";
-
-            // データ取得
-            try
-            {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
-                {
-                    foreach (var row in db.Query<Table.M_MEMBER>("Select * From M_MEMBER"))
-                    {
-                        ResultLabel.Text += $"{row.Id}, {row.Region}, {row.Zone}, {row.ClubCode}, {row.ClubNameShort},\r\n" +
-                                            $"{row.MemberCode}, {row.MemberFirstName}, {row.MemberLastName}, {row.MemberNameKana}\r\n";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ResultLabel.Text = "Select M_MEMBER Error : " + ex.Message;
             }
         }
 
@@ -221,9 +229,8 @@ namespace LionsApl.Content
                 {   // Select
                     foreach (var row in db.Query<Table.A_ACCOUNT>("Select * From A_ACCOUNT"))
                     {
-                        ResultLabel.Text += $"A_ACCOUNT:\r\n" +
-                                           $"{row.Id}, {row.Region}, {row.Zone}, {row.ClubCode}, {row.ClubName},\r\n" +
-                                           $"{row.MemberCode}, {row.MemberFirstName}, {row.MemberLastName}, {row.AccountDate}\r\n";
+                        ResultLabel.Text += $"{row.Id}, {row.Region}, {row.Zone}, {row.ClubCode}, {row.ClubName},\r\n" +
+                                            $"{row.MemberCode}, {row.MemberFirstName}, {row.MemberLastName}, {row.AccountDate}\r\n";
                     }
                 }
             }
@@ -339,7 +346,8 @@ namespace LionsApl.Content
                 {   // Select
                     foreach (var row in db.Query<Table.T_EVENTRET>("Select * From T_EVENTRET"))
                     {
-                        ResultLabel.Text += $"{row.Id}, {row.DataNo}, {row.EventClass}, {row.EventClass}, {row.EventDataNo}, {row.EventDate},\r\n" +
+                        ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
+                                            $"{row.Id}, {row.DataNo}, {row.EventClass}, {row.EventClass}, {row.EventDataNo}, {row.EventDate},\r\n" +
                                             $"{row.ClubCode}, {row.ClubNameShort}, {row.MemberCode}, {row.MemberName}, {row.Answer}\r\n";
                     }
                 }
@@ -368,8 +376,10 @@ namespace LionsApl.Content
                 {   // Select
                     foreach (var row in db.Query<Table.T_EVENT>("Select * From T_EVENT"))
                     {
-                        ResultLabel.Text += $"{row.Id}, {row.DataNo}, {row.EventDate}, {row.EventTimeStart}, {row.EventTimeEnd}, {row.ReceptionTime}, {row.EventPlace},\r\n" +
-                                            $"{row.Title}, {row.Body}\r\n";
+                        ResultLabel.Text += $"{row.Id}, {row.DataNo}, {row.EventDate}, {row.EventTimeStart}, {row.EventTimeEnd}, {row.ReceptionTime},\r\n" +
+                                            $"{row.EventPlace},\r\n" +
+                                            $"{row.Title},\r\n" +
+                                            $"{row.Body}\r\n";
                     }
                 }
             }
@@ -381,13 +391,13 @@ namespace LionsApl.Content
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// 選択したテーブルの内容を表示する。(T_MEETINGSCHEDULE)
+        /// 選択したテーブルの内容を表示する。(T_INFOMATION_CABI)
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private void Sel_T_MEETINGSCHEDULE()
+        private void Sel_T_INFOMATION_CABI()
         {
             /// label clear
-            ResultLabel.Text = "T_MEETINGSCHEDULE:\r\n";
+            ResultLabel.Text = "T_INFOMATION_CABI:\r\n";
 
             // データ取得
             // データ取得
@@ -395,16 +405,21 @@ namespace LionsApl.Content
             {
                 using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
                 {   // Select
-                    foreach (var row in db.Query<Table.T_MEETINGSCHEDULE>("Select * From T_MEETINGSCHEDULE"))
+                    foreach (var row in db.Query<Table.T_INFOMATION_CABI>("Select * From T_INFOMATION_CABI"))
                     {
-                        ResultLabel.Text += $"{row.Id}, {row.DataNo}, {row.ClubCode}, {row.ClubNameShort}, {row.Fiscal}, {row.MeetingDate}, {row.MeetingTime}, {row.MeetingCount},\r\n" +
-                                            $"{row.MeetingName}, {row.Online}, {row.AnswerDate}, {row.AnswerTime}, {row.RemarksCheck}, {row.Remarks},\r\n";
+                        ResultLabel.Text += $"{row.Id}, {row.DataNo}, {row.AddDate},\r\n" +
+                                            $"{row.Subject},\r\n" +
+                                            $"{row.Detail},\r\n" +
+                                            $"{row.FileName},\r\n" +
+                                            $"{row.InfoFlg},\r\n" +
+                                            $"{row.InfoUser},\r\n" +
+                                            $"{row.NoticeFlg}\r\n";
                     }
                 }
             }
             catch (Exception ex)
             {
-                ResultLabel.Text = "Select T_MEETINGSCHEDULE Error : " + ex.Message;
+                ResultLabel.Text = "Select T_INFOMATION_CABI Error : " + ex.Message;
             }
         }
 
@@ -550,6 +565,203 @@ namespace LionsApl.Content
         }
 
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// クラブ
+        ///////////////////////////////////////////////////////////////////////////////////////////
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 選択したテーブルの内容を表示する。(T_CLUBSLOGAN)
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void Sel_T_CLUBSLOGAN()
+        {
+            /// label clear
+            ResultLabel.Text = "T_CLUBSLOGAN:\r\n";
+
+            // データ取得
+            try
+            {
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                {
+                    foreach (var row in db.Query<Table.T_CLUBSLOGAN>("Select * From T_CLUBSLOGAN"))
+                    {
+                        ResultLabel.Text += $"----------------------------------------------------------------\r\n" +
+                                            $"{row.Id}, {row.DataNo}, {row.ClubCode}, {row.ClubNameShort}, {row.FiscalStart}, {row.FiscalEnd},\r\n" +
+                                            $"{row.ClubSlogan},\r\n" +
+                                            $"{row.ExecutiveName}\r\n";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ResultLabel.Text = "Select T_CLUBSLOGAN Error : " + ex.Message;
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 選択したテーブルの内容を表示する。(T_MEETINGSCHEDULE)
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void Sel_T_MEETINGSCHEDULE()
+        {
+            /// label clear
+            ResultLabel.Text = "T_MEETINGSCHEDULE:\r\n";
+
+            // データ取得
+            // データ取得
+            try
+            {
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                {   // Select
+                    foreach (var row in db.Query<Table.T_MEETINGSCHEDULE>("Select * From T_MEETINGSCHEDULE"))
+                    {
+                        ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
+                                            $"{row.Id}, {row.DataNo}, {row.ClubCode}, {row.ClubNameShort}, {row.Fiscal}, {row.MeetingDate}, {row.MeetingTime}, {row.MeetingCount},\r\n" +
+                                            $"{row.MeetingName}, {row.Online}, {row.AnswerDate}, {row.AnswerTime}, {row.RemarksCheck}, {row.Remarks},\r\n";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ResultLabel.Text = "Select T_MEETINGSCHEDULE Error : " + ex.Message;
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 選択したテーブルの内容を表示する。(T_DIRECTOR)
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void Sel_T_DIRECTOR()
+        {
+            /// label clear
+            ResultLabel.Text = "T_DIRECTOR:\r\n";
+
+            // データ取得
+            // データ取得
+            try
+            {
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                {   // Select
+                    foreach (var row in db.Query<Table.T_DIRECTOR>("Select * From T_DIRECTOR"))
+                    {
+                        ResultLabel.Text += $"----------------------------------------------------------------\r\n" +
+                                            $"{row.Id}, {row.DataNo}, {row.ClubCode}, {row.ClubNameShort}, {row.CommitteeCode}, {row.CommitteeName},\r\n" +
+                                            $"{row.Season}, {row.EventDate}, {row.EventTime}, {row.EventPlace},\r\n" +
+                                            $"{row.Subject},\r\n" +
+                                            $"{row.Agenda},\r\n" +
+                                            $"{row.Member},\r\n" +
+                                            $"{row.AnswerDate},{row.CancelFlg},{row.NoticeFlg},\r\n";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ResultLabel.Text = "Select T_DIRECTOR Error : " + ex.Message;
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 選択したテーブルの内容を表示する。(T_MEETINGPROGRAM)
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void Sel_T_MEETINGPROGRAM()
+        {
+            /// label clear
+            ResultLabel.Text = "T_MEETINGPROGRAM:\r\n";
+
+            // データ取得
+            // データ取得
+            try
+            {
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                {   // Select
+                    foreach (var row in db.Query<Table.T_MEETINGPROGRAM>("Select * From T_MEETINGPROGRAM"))
+                    {
+                        ResultLabel.Text += $"----------------------------------------------------------------\r\n" +
+                                            $"{row.Id}, {row.DataNo}, {row.ClubCode}, {row.ClubNameShort},\r\n" +
+                                            $"{row.Fiscal}, {row.MeetingDate},{row.MeetingCount}, {row.MeetingName},\r\n" +
+                                            $"{row.FileName},\r\n" +
+                                            $"{row.FileName1},\r\n" +
+                                            $"{row.FileName2},\r\n" +
+                                            $"{row.FileName3},\r\n" +
+                                            $"{row.FileName4},\r\n" +
+                                            $"{row.FileName5},\r\n" +
+                                            $"{row.Meeting},{row.MeetingUrl},{row.MeetingID},{row.MeetingPW},{row.MeetingOther},{row.NoticeFlg},\r\n";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ResultLabel.Text = "Select T_MEETINGPROGRAM Error : " + ex.Message;
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 選択したテーブルの内容を表示する。(T_INFOMATION_CLUB)
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void Sel_T_INFOMATION_CLUB()
+        {
+            /// label clear
+            ResultLabel.Text = "T_INFOMATION_CLUB:\r\n";
+
+            // データ取得
+            try
+            {
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                {
+                    foreach (var row in db.Query<Table.T_INFOMATION_CLUB>("Select * From T_INFOMATION_CLUB"))
+                    {
+                        ResultLabel.Text += $"{row.Id}, {row.ClubCode}, {row.ClubNameShort}, {row.AddDate},\r\n" +
+                                            $"{row.Subject},\r\n" +
+                                            $"{row.Detail},\r\n" +
+                                            $"{row.FileName},\r\n" +
+                                            $"{row.InfoFlg},\r\n" +
+                                            $"{row.InfoUser},\r\n" +
+                                            $"{row.NoticeFlg}\r\n";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ResultLabel.Text = "Select T_INFOMATION_CLUB Error : " + ex.Message;
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 選択したテーブルの内容を表示する。(M_MEMBER)
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void Sel_M_MEMBER()
+        {
+            /// label clear
+            ResultLabel.Text = "M_MEMBER:\r\n";
+
+            // データ取得
+            try
+            {
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                {
+                    foreach (var row in db.Query<Table.M_MEMBER>("Select * From M_MEMBER"))
+                    {
+                        ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
+                                            $"{row.Id}, {row.Region}, {row.Zone}, {row.ClubCode}, {row.ClubNameShort},\r\n" +
+                                            $"{row.MemberCode}, {row.MemberFirstName}, {row.MemberLastName}, {row.MemberNameKana}\r\n";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ResultLabel.Text = "Select M_MEMBER Error : " + ex.Message;
+            }
+        }
+
     }
 
 
@@ -561,11 +773,11 @@ namespace LionsApl.Content
     public class CTablePicker
     {
         public string Id { get; set; }
-        public string Name { get; set; }
-        public CTablePicker(string id, string name)
+        public string TableName { get; set; }
+        public CTablePicker(string id, string tablename)
         {
             Id = id;
-            Name = name;
+            TableName = tablename;
         }
     }
 }
