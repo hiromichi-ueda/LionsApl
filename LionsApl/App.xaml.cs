@@ -45,9 +45,9 @@ namespace LionsApl
             {
                 IndicatorColor = Color.White,
                 OverlayColor = Color.Black,
-                Opacity = 0.4,
+                Opacity = 0.6,
                 FontSize = 18,
-                DefaultMessage = "処理中です...",
+                DefaultMessage = "Now Loading.....",
                 ProgressMessageFormat = "",
             };
 
