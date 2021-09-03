@@ -121,7 +121,7 @@ namespace LionsApl
                 _ = db.CreateTable<Table.T_INFOMATION_CABI>();
                 _ = db.CreateTable<Table.T_MAGAZINE>();
                 _ = db.CreateTable<Table.T_MAGAZINEBUY>();
-                _ = db.CreateTable<Table.M_DISTRICTOFFICER>();
+                //_ = db.CreateTable<Table.M_DISTRICTOFFICER>();
                 _ = db.CreateTable<Table.M_CABINET>();
                 _ = db.CreateTable<Table.M_CLUB>();
                 _ = db.CreateTable<Table.T_CLUBSLOGAN>();
@@ -307,14 +307,14 @@ namespace LionsApl
         /// データベーステーブル作成（M_DISTRICTOFFICER）
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public void CreateTable_M_DISTRICTOFFICER()
-        {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
-            {
-                // Create Table
-                db.CreateTable<Table.M_DISTRICTOFFICER>();
-            }
-        }
+        //public void CreateTable_M_DISTRICTOFFICER()
+        //{
+        //    using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+        //    {
+        //        // Create Table
+        //        db.CreateTable<Table.M_DISTRICTOFFICER>();
+        //    }
+        //}
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -373,7 +373,7 @@ namespace LionsApl
                 db.DropTable<Table.T_INFOMATION_CABI>();
                 db.DropTable<Table.T_MAGAZINE>();
                 db.DropTable<Table.T_MAGAZINEBUY>();
-                db.DropTable<Table.M_DISTRICTOFFICER>();
+                //db.DropTable<Table.M_DISTRICTOFFICER>();
                 db.DropTable<Table.M_CABINET>();
                 db.DropTable<Table.M_CLUB>();
                 db.DropTable<Table.T_CLUBSLOGAN>();
@@ -558,14 +558,14 @@ namespace LionsApl
         /// データベーステーブル削除（M_DISTRICTOFFICER）
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public void DropTable_M_DISTRICTOFFICER()
-        {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
-            {
-                // Drop Table
-                db.DropTable<Table.M_DISTRICTOFFICER>();
-            }
-        }
+        //public void DropTable_M_DISTRICTOFFICER()
+        //{
+        //    using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+        //    {
+        //        // Drop Table
+        //        db.DropTable<Table.M_DISTRICTOFFICER>();
+        //    }
+        //}
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -971,26 +971,26 @@ namespace LionsApl
         /// M_DISTRICTOFFICERテーブルデータ取得
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public Table.M_DISTRICTOFFICER[] Get_M_DISTRICTOFFICER(string command)
-        {
-            List<Table.M_DISTRICTOFFICER> items = new List<Table.M_DISTRICTOFFICER>();
+        //public Table.M_DISTRICTOFFICER[] Get_M_DISTRICTOFFICER(string command)
+        //{
+        //    List<Table.M_DISTRICTOFFICER> items = new List<Table.M_DISTRICTOFFICER>();
 
-            try
-            {
-                // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
-                {   // Select
-                    items = db.Query<Table.M_DISTRICTOFFICER>(command);
-                }
-            }
-            catch
-            {
-                throw;
-            }
+        //    try
+        //    {
+        //        // データ取得
+        //        using (SQLiteConnection db = new SQLiteConnection(DbPath))
+        //        {   // Select
+        //            items = db.Query<Table.M_DISTRICTOFFICER>(command);
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        throw;
+        //    }
 
-            return items.Count > 0 ? items.ToArray() : (new Table.M_DISTRICTOFFICER[0]);
+        //    return items.Count > 0 ? items.ToArray() : (new Table.M_DISTRICTOFFICER[0]);
 
-        }
+        //}
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>

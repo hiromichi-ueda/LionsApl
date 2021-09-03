@@ -25,6 +25,8 @@ namespace LionsApl.Droid
 		
 		public static void UpdateIdValues()
 		{
+<<<<<<< HEAD
+=======
 			global::AiForms.Dialogs.Resource.Animation.abc_fade_in = global::LionsApl.Droid.Resource.Animation.abc_fade_in;
 			global::AiForms.Dialogs.Resource.Animation.abc_fade_out = global::LionsApl.Droid.Resource.Animation.abc_fade_out;
 			global::AiForms.Dialogs.Resource.Animation.abc_grow_fade_in_from_bottom = global::LionsApl.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;
@@ -3670,6 +3672,7 @@ namespace LionsApl.Droid
 			global::AiForms.Dialogs.Resource.Xml.standalone_badge_gravity_bottom_start = global::LionsApl.Droid.Resource.Xml.standalone_badge_gravity_bottom_start;
 			global::AiForms.Dialogs.Resource.Xml.standalone_badge_gravity_top_start = global::LionsApl.Droid.Resource.Xml.standalone_badge_gravity_top_start;
 			global::AiForms.Dialogs.Resource.Xml.standalone_badge_offset = global::LionsApl.Droid.Resource.Xml.standalone_badge_offset;
+>>>>>>> 43272911d9023edd771c7edb9c26f838d0bf5b78
 			global::PCLAppConfig.FileSystemStream.Resource.Animation.abc_fade_in = global::LionsApl.Droid.Resource.Animation.abc_fade_in;
 			global::PCLAppConfig.FileSystemStream.Resource.Animation.abc_fade_out = global::LionsApl.Droid.Resource.Animation.abc_fade_out;
 			global::PCLAppConfig.FileSystemStream.Resource.Animation.abc_grow_fade_in_from_bottom = global::LionsApl.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;
@@ -19541,6 +19544,162 @@ namespace LionsApl.Droid
 			public const int item_view_role_description = 2131623984;
 			
 			// aapt resource value: 0x7F0E0031
+<<<<<<< HEAD
+			public const int material_slider_range_end = 2131623985;
+			
+			// aapt resource value: 0x7F0E0032
+			public const int material_slider_range_start = 2131623986;
+			
+			// aapt resource value: 0x7F0E0033
+			public const int mtrl_badge_numberless_content_description = 2131623987;
+			
+			// aapt resource value: 0x7F0E0034
+			public const int mtrl_chip_close_icon_content_description = 2131623988;
+			
+			// aapt resource value: 0x7F0E0035
+			public const int mtrl_exceed_max_badge_number_content_description = 2131623989;
+			
+			// aapt resource value: 0x7F0E0036
+			public const int mtrl_exceed_max_badge_number_suffix = 2131623990;
+			
+			// aapt resource value: 0x7F0E0037
+			public const int mtrl_picker_a11y_next_month = 2131623991;
+			
+			// aapt resource value: 0x7F0E0038
+			public const int mtrl_picker_a11y_prev_month = 2131623992;
+			
+			// aapt resource value: 0x7F0E0039
+			public const int mtrl_picker_announce_current_selection = 2131623993;
+			
+			// aapt resource value: 0x7F0E003A
+			public const int mtrl_picker_cancel = 2131623994;
+			
+			// aapt resource value: 0x7F0E003B
+			public const int mtrl_picker_confirm = 2131623995;
+			
+			// aapt resource value: 0x7F0E003C
+			public const int mtrl_picker_date_header_selected = 2131623996;
+			
+			// aapt resource value: 0x7F0E003D
+			public const int mtrl_picker_date_header_title = 2131623997;
+			
+			// aapt resource value: 0x7F0E003E
+			public const int mtrl_picker_date_header_unselected = 2131623998;
+			
+			// aapt resource value: 0x7F0E003F
+			public const int mtrl_picker_day_of_week_column_header = 2131623999;
+			
+			// aapt resource value: 0x7F0E0040
+			public const int mtrl_picker_invalid_format = 2131624000;
+			
+			// aapt resource value: 0x7F0E0041
+			public const int mtrl_picker_invalid_format_example = 2131624001;
+			
+			// aapt resource value: 0x7F0E0042
+			public const int mtrl_picker_invalid_format_use = 2131624002;
+			
+			// aapt resource value: 0x7F0E0043
+			public const int mtrl_picker_invalid_range = 2131624003;
+			
+			// aapt resource value: 0x7F0E0044
+			public const int mtrl_picker_navigate_to_year_description = 2131624004;
+			
+			// aapt resource value: 0x7F0E0045
+			public const int mtrl_picker_out_of_range = 2131624005;
+			
+			// aapt resource value: 0x7F0E0046
+			public const int mtrl_picker_range_header_only_end_selected = 2131624006;
+			
+			// aapt resource value: 0x7F0E0047
+			public const int mtrl_picker_range_header_only_start_selected = 2131624007;
+			
+			// aapt resource value: 0x7F0E0048
+			public const int mtrl_picker_range_header_selected = 2131624008;
+			
+			// aapt resource value: 0x7F0E0049
+			public const int mtrl_picker_range_header_title = 2131624009;
+			
+			// aapt resource value: 0x7F0E004A
+			public const int mtrl_picker_range_header_unselected = 2131624010;
+			
+			// aapt resource value: 0x7F0E004B
+			public const int mtrl_picker_save = 2131624011;
+			
+			// aapt resource value: 0x7F0E004C
+			public const int mtrl_picker_text_input_date_hint = 2131624012;
+			
+			// aapt resource value: 0x7F0E004D
+			public const int mtrl_picker_text_input_date_range_end_hint = 2131624013;
+			
+			// aapt resource value: 0x7F0E004E
+			public const int mtrl_picker_text_input_date_range_start_hint = 2131624014;
+			
+			// aapt resource value: 0x7F0E004F
+			public const int mtrl_picker_text_input_day_abbr = 2131624015;
+			
+			// aapt resource value: 0x7F0E0050
+			public const int mtrl_picker_text_input_month_abbr = 2131624016;
+			
+			// aapt resource value: 0x7F0E0051
+			public const int mtrl_picker_text_input_year_abbr = 2131624017;
+			
+			// aapt resource value: 0x7F0E0052
+			public const int mtrl_picker_toggle_to_calendar_input_mode = 2131624018;
+			
+			// aapt resource value: 0x7F0E0053
+			public const int mtrl_picker_toggle_to_day_selection = 2131624019;
+			
+			// aapt resource value: 0x7F0E0054
+			public const int mtrl_picker_toggle_to_text_input_mode = 2131624020;
+			
+			// aapt resource value: 0x7F0E0055
+			public const int mtrl_picker_toggle_to_year_selection = 2131624021;
+			
+			// aapt resource value: 0x7F0E0056
+			public const int nav_app_bar_navigate_up_description = 2131624022;
+			
+			// aapt resource value: 0x7F0E0057
+			public const int nav_app_bar_open_drawer_description = 2131624023;
+			
+			// aapt resource value: 0x7F0E0058
+			public const int not_set = 2131624024;
+			
+			// aapt resource value: 0x7F0E0059
+			public const int overflow_tab_title = 2131624025;
+			
+			// aapt resource value: 0x7F0E005A
+			public const int password_toggle_content_description = 2131624026;
+			
+			// aapt resource value: 0x7F0E005B
+			public const int path_password_eye = 2131624027;
+			
+			// aapt resource value: 0x7F0E005C
+			public const int path_password_eye_mask_strike_through = 2131624028;
+			
+			// aapt resource value: 0x7F0E005D
+			public const int path_password_eye_mask_visible = 2131624029;
+			
+			// aapt resource value: 0x7F0E005E
+			public const int path_password_strike_through = 2131624030;
+			
+			// aapt resource value: 0x7F0E005F
+			public const int preference_copied = 2131624031;
+			
+			// aapt resource value: 0x7F0E0060
+			public const int search_menu_title = 2131624032;
+			
+			// aapt resource value: 0x7F0E0061
+			public const int status_bar_notification_info_overflow = 2131624033;
+			
+			// aapt resource value: 0x7F0E0062
+			public const int summary_collapsed_preference_list = 2131624034;
+			
+			// aapt resource value: 0x7F0E0063
+			public const int v7_preference_off = 2131624035;
+			
+			// aapt resource value: 0x7F0E0064
+			public const int v7_preference_on = 2131624036;
+=======
 			public const int library_name = 2131623985;
 			
 			// aapt resource value: 0x7F0E0032
@@ -19698,6 +19857,7 @@ namespace LionsApl.Droid
 			
 			// aapt resource value: 0x7F0E0065
 			public const int v7_preference_on = 2131624037;
+>>>>>>> 43272911d9023edd771c7edb9c26f838d0bf5b78
 			
 			static String()
 			{

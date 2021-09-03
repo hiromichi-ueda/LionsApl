@@ -15,6 +15,7 @@ namespace LionsApl.Table
         public string Detail { get; set; }
         public string FileName { get; set; }
         public string InfoFlg { get; set; }
+        public string TypeCode { get; set; }
         public string InfoUser { get; set; }
         public string NoticeFlg { get; set; }
     }

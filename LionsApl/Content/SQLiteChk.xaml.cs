@@ -37,7 +37,7 @@ namespace LionsApl.Content
             _tablePk.Add(new CTablePicker("8", "T_INFOMATION_CABI"));
             _tablePk.Add(new CTablePicker("9", "T_MAGAZINE"));
             _tablePk.Add(new CTablePicker("10", "T_MAGAZINEBUY"));
-            _tablePk.Add(new CTablePicker("11", "M_DISTRICTOFFICER"));
+            //_tablePk.Add(new CTablePicker("11", "M_DISTRICTOFFICER"));
             _tablePk.Add(new CTablePicker("12", "M_CABINET"));
             _tablePk.Add(new CTablePicker("13", "M_CLUB"));
             _tablePk.Add(new CTablePicker("14", "T_CLUBSLOGAN"));
@@ -113,9 +113,9 @@ namespace LionsApl.Content
                     case "T_MAGAZINEBUY":
                         Sel_T_MAGAZINEBUY();
                         break;
-                    case "M_DISTRICTOFFICER":
-                        Sel_M_DISTRICTOFFICER();
-                        break;
+                    //case "M_DISTRICTOFFICER":
+                    //    Sel_M_DISTRICTOFFICER();
+                    //    break;
                     case "M_CABINET":
                         Sel_M_CABINET();
                         break;
@@ -171,7 +171,8 @@ namespace LionsApl.Content
                 {
                     foreach (var row in db.Query<Table.A_APLLOG>("Select * From A_APLLOG"))
                     {
-                        ResultLabel.Text += $"{row.Id}, {row.LogDate}, {row.LogClass}, {row.MachineClass}, {row.ClubCode}, \r\n" +
+                        ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
+                                            $"{row.Id}, {row.LogDate}, {row.LogClass}, {row.MachineClass}, {row.ClubCode}, \r\n" +
                                             $"{row.ClubName}, {row.MembwrCode}, {row.MemberFirstName}, {row.MemberLastName}\r\n";
                     }
                 }
@@ -200,7 +201,8 @@ namespace LionsApl.Content
                 {   // Select
                     foreach (var row in db.Query<Table.A_SETTING>("Select * From A_SETTING"))
                     {
-                        ResultLabel.Text += $"{row.Id}, {row.DistrictCode}, {row.DistrictName}, {row.CabinetName},\r\n" +
+                        ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
+                                            $"{row.Id}, {row.DistrictCode}, {row.DistrictName}, {row.CabinetName},\r\n" +
                                             $"{row.PeriodStart}, {row.PeriodEnd}, {row.DistrictID}, {row.MagazineMoney}, {row.EventDataDay}\r\n";
                     }
                 }
@@ -229,7 +231,8 @@ namespace LionsApl.Content
                 {   // Select
                     foreach (var row in db.Query<Table.A_ACCOUNT>("Select * From A_ACCOUNT"))
                     {
-                        ResultLabel.Text += $"{row.Id}, {row.Region}, {row.Zone}, {row.ClubCode}, {row.ClubName},\r\n" +
+                        ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
+                                            $"{row.Id}, {row.Region}, {row.Zone}, {row.ClubCode}, {row.ClubName},\r\n" +
                                             $"{row.MemberCode}, {row.MemberFirstName}, {row.MemberLastName}, {row.AccountDate}\r\n";
                     }
                 }
@@ -258,7 +261,8 @@ namespace LionsApl.Content
                 {   // Select
                     foreach (var row in db.Query<Table.A_FILEPATH>("Select * From A_FILEPATH"))
                     {
-                        ResultLabel.Text += $"{row.Id}, {row.DataClass}, {row.FilePath}\r\n";
+                        ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
+                                            $"{row.Id}, {row.DataClass}, {row.FilePath}\r\n";
                     }
                 }
             }
@@ -286,7 +290,8 @@ namespace LionsApl.Content
                 {   // Select
                     foreach (var row in db.Query<Table.T_SLOGAN>("Select * From T_SLOGAN"))
                     {
-                        ResultLabel.Text += $"{row.Id}, {row.DataNo}, {row.FiscalStart}, {row.FiscalEnd},\r\n" +
+                        ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
+                                            $"{row.Id}, {row.DataNo}, {row.FiscalStart}, {row.FiscalEnd},\r\n" +
                                             $"{row.Slogan}\r\n" +
                                             $"{ row.DistrictGovernor},\r\n";
                     }
@@ -316,7 +321,8 @@ namespace LionsApl.Content
                 {   // Select
                     foreach (var row in db.Query<Table.T_LETTER>("Select * From T_LETTER"))
                     {
-                        ResultLabel.Text += $"{row.Id}, {row.DataNo}, {row.EventDate}, {row.EventTime},\r\n" +
+                        ResultLabel.Text += $"----------------------------------------------------------------\r\n" +
+                                            $"{row.Id}, {row.DataNo}, {row.EventDate}, {row.EventTime},\r\n" +
                                             $"{row.Title}, {row.Body}\r\n" +
                                             $"{ row.Image1FileName}, { row.Image2FileName}, { row.NoticeFlg}\r\n";
                     }
@@ -376,7 +382,8 @@ namespace LionsApl.Content
                 {   // Select
                     foreach (var row in db.Query<Table.T_EVENT>("Select * From T_EVENT"))
                     {
-                        ResultLabel.Text += $"{row.Id}, {row.DataNo}, {row.EventDate}, {row.EventTimeStart}, {row.EventTimeEnd}, {row.ReceptionTime},\r\n" +
+                        ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
+                                            $"{row.Id}, {row.DataNo}, {row.EventDate}, {row.EventTimeStart}, {row.EventTimeEnd}, {row.ReceptionTime},\r\n" +
                                             $"{row.EventPlace},\r\n" +
                                             $"{row.Title},\r\n" +
                                             $"{row.Body}\r\n";
@@ -407,7 +414,8 @@ namespace LionsApl.Content
                 {   // Select
                     foreach (var row in db.Query<Table.T_INFOMATION_CABI>("Select * From T_INFOMATION_CABI"))
                     {
-                        ResultLabel.Text += $"{row.Id}, {row.DataNo}, {row.AddDate},\r\n" +
+                        ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
+                                            $"{row.Id}, {row.DataNo}, {row.AddDate},\r\n" +
                                             $"{row.Subject},\r\n" +
                                             $"{row.Detail},\r\n" +
                                             $"{row.FileName},\r\n" +
@@ -440,7 +448,8 @@ namespace LionsApl.Content
                 {
                     foreach (var row in db.Query<Table.T_MAGAZINE>("Select * From T_MAGAZINE"))
                     {
-                        ResultLabel.Text += $"{row.Id}, {row.DataNo}, {row.SortNo}, {row.Magazine}, \r\n {row.FilePath},\r\n" +
+                        ResultLabel.Text += $"----------------------------------------------------------------\r\n" +
+                                            $"{row.Id}, {row.DataNo}, {row.SortNo}, {row.Magazine}, \r\n {row.FilePath},\r\n" +
                                             $"{row.FileName}, {row.MagazineClass}, {row.MagazinePrice}\r\n";
                     }
                 }
@@ -468,7 +477,8 @@ namespace LionsApl.Content
                 {
                     foreach (var row in db.Query<Table.T_MAGAZINEBUY>("Select * From T_MAGAZINEBUY"))
                     {
-                        ResultLabel.Text += $"{row.Id}, {row.DataNo}, {row.MagazineDataNo}, {row.Magazine},\r\n" +
+                        ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
+                                            $"{row.Id}, {row.DataNo}, {row.MagazineDataNo}, {row.Magazine},\r\n" +
                                             $"{row.BuyDate}, {row.BuyNumber}, {row.MagazinePrice}, {row.MoneyTotal},\r\n" +
                                             $"{row.Region}, {row.Zone}, {row.ClubCode}, {row.ClubNameShort}, {row.MemberCode}, {row.MemberName},\r\n" +
                                             $"{row.ShippingDate}, {row.PaymentDate}, {row.Payment}, {row.DelFlg}\r\n";
@@ -481,32 +491,32 @@ namespace LionsApl.Content
             }
         }
 
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// 選択したテーブルの内容を表示する。(M_DISTRICTOFFICER)
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        private void Sel_M_DISTRICTOFFICER()
-        {
-            /// label clear
-            ResultLabel.Text = "M_DISTRICTOFFICER:\r\n";
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        ///// <summary>
+        ///// 選択したテーブルの内容を表示する。(M_DISTRICTOFFICER)
+        ///// </summary>
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        //private void Sel_M_DISTRICTOFFICER()
+        //{
+        //    /// label clear
+        //    ResultLabel.Text = "M_DISTRICTOFFICER:\r\n";
 
-            // データ取得
-            try
-            {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
-                {
-                    foreach (var row in db.Query<Table.M_DISTRICTOFFICER>("Select * From M_DISTRICTOFFICER"))
-                    {
-                        ResultLabel.Text += $"{row.Id}, {row.DistrictClass}, {row.DistrictCode}, {row.DistrictName}\r\n";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ResultLabel.Text = "Select M_DISTRICTOFFICER Error : " + ex.Message;
-            }
-        }
+        //    // データ取得
+        //    try
+        //    {
+        //        using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+        //        {
+        //            foreach (var row in db.Query<Table.M_DISTRICTOFFICER>("Select * From M_DISTRICTOFFICER"))
+        //            {
+        //                ResultLabel.Text += $"{row.Id}, {row.DistrictClass}, {row.DistrictCode}, {row.DistrictName}\r\n";
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ResultLabel.Text = "Select M_DISTRICTOFFICER Error : " + ex.Message;
+        //    }
+        //}
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -525,7 +535,8 @@ namespace LionsApl.Content
                 {
                     foreach (var row in db.Query<Table.M_CABINET>("Select * From M_CABINET"))
                     {
-                        ResultLabel.Text += $"{row.Id}, {row.FiscalStart}, {row.FiscalEnd}, {row.MemberCode}, {row.MemberName},\r\n" + 
+                        ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
+                                            $"{row.Id}, {row.FiscalStart}, {row.FiscalEnd}, {row.MemberCode}, {row.MemberName},\r\n" + 
                                             $"{row.ClubCode}, {row.ClubNameShort}, {row.DistrictClass}, {row.DistrictCode}, {row.DistrictName}\r\n";
                     }
                 }
@@ -553,7 +564,8 @@ namespace LionsApl.Content
                 {
                     foreach (var row in db.Query<Table.M_CLUB>("Select * From M_CLUB"))
                     {
-                        ResultLabel.Text += $"{row.Id}, {row.Region}, {row.Zone}, {row.Sort}, {row.ClubCode}, {row.ClubName}, {row.ClubNameShort},\r\n" +
+                        ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
+                                            $"{row.Id}, {row.Region}, {row.Zone}, {row.Sort}, {row.ClubCode}, {row.ClubName}, {row.ClubNameShort},\r\n" +
                                             $"{row.PassWord}, {row.FormationDate}, {row.CharterNight}, {row.MeetingDate}, {row.MeetingTime}, {row.MeetingPlace}\r\n";
                     }
                 }
@@ -717,11 +729,12 @@ namespace LionsApl.Content
                 {
                     foreach (var row in db.Query<Table.T_INFOMATION_CLUB>("Select * From T_INFOMATION_CLUB"))
                     {
-                        ResultLabel.Text += $"{row.Id}, {row.ClubCode}, {row.ClubNameShort}, {row.AddDate},\r\n" +
+                        ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
+                                            $"{row.Id}, {row.ClubCode}, {row.ClubNameShort}, {row.AddDate},\r\n" +
                                             $"{row.Subject},\r\n" +
                                             $"{row.Detail},\r\n" +
                                             $"{row.FileName},\r\n" +
-                                            $"{row.InfoFlg},\r\n" +
+                                            $"{row.InfoFlg}, {row.TypeCode}, \r\n" +
                                             $"{row.InfoUser},\r\n" +
                                             $"{row.NoticeFlg}\r\n";
                     }
