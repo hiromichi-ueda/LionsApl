@@ -163,7 +163,7 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void Event_Label_Tap(object sender, System.EventArgs e, int listNo)
         {
-            Navigation.PushAsync(new EventPage(_eventLt[listNo].EventTitle, _eventLt[listNo].EventDataNo, _eventLt[listNo].EventEventDataNo));
+            Navigation.PushAsync(new EventPage(_eventLt[listNo].EventTitle, _eventLt[listNo].DataNo, _eventLt[listNo].EventDataNo));
         }
 
 
@@ -181,18 +181,25 @@ namespace LionsApl.Content
             {
                 foreach (Table.T_SLOGAN row in _sqlite.Get_T_SLOGAN("SELECT * FROM T_SLOGAN"))
                 {
-                    _t_slogan = new Table.T_SLOGAN
+                    //_t_slogan = new Table.T_SLOGAN
+                    //{
+                    //    DataNo = row.DataNo,
+                    //    FiscalStart = row.FiscalStart,
+                    //    FiscalEnd = row.FiscalEnd,
+                    //    Slogan = row.Slogan,
+                    //    DistrictGovernor = row.DistrictGovernor
+                    //};
+                    // スローガン設定
+                    if (row.Slogan != null)
                     {
-                        DataNo = row.DataNo,
-                        FiscalStart = row.FiscalStart,
-                        FiscalEnd = row.FiscalEnd,
-                        Slogan = row.Slogan,
-                        DistrictGovernor = row.DistrictGovernor
-                    };
-
+                        LabelSlogun.Text = row.Slogan;
+                    }
+                    // ガバナー設定
+                    if (row.DistrictGovernor != null)
+                    {
+                        LabelDistrictGovernor.Text = "地区ガバナー " + row.DistrictGovernor;
+                    }
                 }
-                LabelSlogun.Text = _t_slogan.Slogan;
-                LabelDistrictGovernor.Text = "地区ガバナー " + _t_slogan.DistrictGovernor;
             }
             catch (Exception ex)
             {
@@ -312,10 +319,13 @@ namespace LionsApl.Content
             //DateTime wdt;
             //TimeSpan countTSpn;
             //string _nowDate = dt.ToString("yyyy/MM/dd");
+            int intDataNo = 0;                              // データNo.設定用
+            int intEventDataNo = 0;                         // イベントデータNo.設定用
             string strTitle = "";                           // タイトル設定用文字列
             string strDate = "";                            // 月日設定用文字列
             string strCount = "";                           // 日数設定用文字列
             string strCancel = "";                          // 中止表示用文字列
+            string strAnswer = "";                          // 出欠設定用文字列
 
             _eventLt.Clear();
             try
@@ -351,8 +361,28 @@ namespace LionsApl.Content
                                             //"t1.EventDate >= '" + _nowDate + "' AND " +
                                             //"(t1.Answer <> '2')"))
                 {
+                    intDataNo = 0;                           // データNo.設定用
+                    intEventDataNo = 0;                      // イベントデータNo.設定用
+                    strTitle = "";                           // タイトル設定用文字列
+                    strDate = "";                            // 月日設定用文字列
+                    strCount = "";                           // 日数設定用文字列
+                    strCancel = "";                          // 中止表示用文字列
+                    strAnswer = "";                          // 出欠設定用文字列
+
                     // イベントリストの各項目値を取得する
-                    GetEventListData(row, ref strDate, ref strTitle, ref strCount, ref strCancel);
+                    GetEventListData(row, 
+                                     ref intDataNo, 
+                                     ref intEventDataNo,
+                                     ref strDate, 
+                                     ref strTitle, 
+                                     ref strCount, 
+                                     ref strCancel, 
+                                     ref strAnswer);
+
+                    if (strAnswer == "")
+                    {
+                        continue;
+                    }
 
                     if (idx == 0)
                     {
@@ -452,12 +482,35 @@ namespace LionsApl.Content
             }
         }
 
-        private void GetEventListData(Table.HOME_EVENT row, ref string strDate, ref string strTitle, ref string strCount, ref string strCancel)
+        private void GetEventListData(Table.HOME_EVENT row, 
+                                        ref int intDataNo,
+                                        ref int intEventDataNo,
+                                        ref string strDate, 
+                                        ref string strTitle, 
+                                        ref string strCount, 
+                                        ref string strCancel, 
+                                        ref string strAnswer)
         {
             DateTime dt = DateTime.Now;
             DateTime wdt;
             string wstrDate = "";
             TimeSpan countTSpn;
+
+            // データNo.設定
+            if (row.DataNo == 0)
+            {
+                return;
+            }
+            else
+            {
+                intDataNo = row.DataNo;
+            }
+
+            // イベントNo.設定
+            if (row.EventDataNo != 0)
+            {
+                intEventDataNo = row.EventDataNo;
+            }
 
             // 日時・日数設定
             if (row.EventDate != null)
@@ -487,38 +540,52 @@ namespace LionsApl.Content
             }
 
             // タイトル設定
-            // 1:キャビネット
-            if (row.EventClass.Equals("1"))
+            if (row.EventClass != null)
             {
-                if (row.Title != null)
+                // 1:キャビネット
+                if (row.EventClass.Equals("1"))
                 {
-                    strTitle = row.Title;
+                    if (row.Title != null)
+                    {
+                        strTitle = row.Title;
+                    }
                 }
-            }
-            // 2:クラブ（例会）
-            else if (row.EventClass.Equals("2"))
-            {
-                if (row.MeetingName != null)
+                // 2:クラブ（例会）
+                else if (row.EventClass.Equals("2"))
                 {
-                    strTitle = row.MeetingName;
+                    if (row.MeetingName != null)
+                    {
+                        strTitle = row.MeetingName;
+                    }
                 }
-            }
-            // 3:クラブ（理事・委員会）
-            else if (row.EventClass.Equals("3"))
-            {
-                if (row.Title != null)
+                // 3:クラブ（理事・委員会）
+                else if (row.EventClass.Equals("3"))
                 {
-                    strTitle = row.Title;
+                    if (row.Title != null)
+                    {
+                        strTitle = row.Title;
+                    }
                 }
             }
 
             // 中止設定
-            if (row.CancelFlg.Equals("1"))
+            if (row.CancelFlg != null)
             {
-                strCancel = "中止";
+                if (row.CancelFlg.Equals("1"))
+                {
+                    strCancel = "中止";
+                }
             }
 
-            _eventLt.Add(new CHomeTopEvent(strDate, strTitle, strCount, strCancel, row.DataNo, row.EventDataNo));
+            // 出欠設定
+            if (row.Answer != null)
+            {
+                strAnswer = row.Answer;
+
+                // Null以外の時のみ表示
+                _eventLt.Add(new CHomeTopEvent(intDataNo, intEventDataNo, strDate, strTitle, strCount, strCancel, strAnswer));
+            }
+
 
         }
 
@@ -550,21 +617,23 @@ namespace LionsApl.Content
 
     public sealed class CHomeTopEvent
     {
-        public CHomeTopEvent(string eventDate, string eventTitle, string eventCount, string eventCancel, int eventDataNo, int eventEventDataNo)
+        public CHomeTopEvent(int dataNo, int eventDataNo, string eventDate, string eventTitle, string eventCount, string eventCancel, string answer)
         {
+            DataNo = dataNo;
+            EventDataNo = eventDataNo;
             EventDate = eventDate;
             EventTitle = eventTitle;
             EventCount = eventCount;
             EventCancel = eventCancel;
-            EventDataNo = eventDataNo;
-            EventEventDataNo = eventEventDataNo;
+            Answer = answer;
         }
+        public int DataNo { get; set; }
+        public int EventDataNo { get; set; }
         public string EventDate { get; set; }
         public string EventTitle { get; set; }
         public string EventCount { get; set; }
         public string EventCancel { get; set; }
-        public int EventDataNo { get; set; }
-        public int EventEventDataNo { get; set; }
+        public string Answer { get; set; }
     }
 
 }
