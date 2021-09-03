@@ -53,6 +53,7 @@
     <BundleAssemblies>false</BundleAssemblies>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <MandroidI18n />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
