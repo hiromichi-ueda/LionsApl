@@ -25,6 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Table\M_DISTRICTOFFICER.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Remove="Content\LetterList - コピー.xaml" />
   </ItemGroup>
 
