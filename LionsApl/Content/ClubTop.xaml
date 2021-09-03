@@ -9,8 +9,12 @@
     　画面名: クラブTOP画面
     +++++++++++++++++++++++++++++++++++++
     -->
-    
+    <ContentPage.Resources>
+        <StyleSheetExtension Source="/styles.css" />
+    </ContentPage.Resources>
+
     <ContentPage.Content>
+
         <StackLayout>
 
             <ScrollView>

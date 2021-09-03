@@ -37,6 +37,9 @@ namespace LionsApl.Content
             // ログイン情報設定
             LoginInfo.Text = _sqlite.Db_A_Account.ClubName + " " + _sqlite.Db_A_Account.MemberFirstName + _sqlite.Db_A_Account.MemberLastName;
 
+            // クラブスローガン設定
+            Sel_T_CLUBSLOGAN();
+
 
         }
 
@@ -89,7 +92,6 @@ namespace LionsApl.Content
         {
             Navigation.PushAsync(new ClubMemberList());
         }
-
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>

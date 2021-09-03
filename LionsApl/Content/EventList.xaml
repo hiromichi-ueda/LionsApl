@@ -24,7 +24,7 @@
                         <StackLayout 
                             HeightRequest="18"
                             Margin="2"
-                            StyleClass="lg"
+                            StyleClass="login"
                             >
                             <Label
                                 x:Name="LoginInfo"
