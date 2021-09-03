@@ -12,8 +12,11 @@
     <ContentPage.Content>
         <StackLayout>
 
-            <ListView x:Name="ClubMemberListView"
-                      CachingStrategy="RecycleElement">
+            <ListView 
+                    x:Name="ClubMemberListView"
+                    ItemTapped="Handle_ItemTapped"
+                    CachingStrategy="RecycleElement"
+                    RowHeight="60">
 
                 <!-- HEADER -->
                 <ListView.Header>
@@ -25,7 +28,7 @@
                             Margin="2"
                             >
                             <Label
-                                Text="岐阜南LC 池田 昌二" 
+                                x:Name="LoginInfo"
                                 FontSize="Small"
                                 TextColor="#2E2E2E"
                                 VerticalOptions="Center"
@@ -57,7 +60,77 @@
                     <DataTemplate>
                         <ViewCell>
                             <Grid>
-
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1.*"/>
+                                    <RowDefinition Height="1.*"/>
+                                </Grid.RowDefinitions>
+                                <!-- 入会日 + 執行役名 -->
+                                <Label 
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="1"
+                                    Grid.RowSpan="1"
+                                    VerticalOptions="Center"
+                                    Text="入会日" 
+                                    StyleClass="list"
+                                    />
+                                <Label 
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="1"
+                                    Grid.RowSpan="1"
+                                    LineBreakMode="TailTruncation"
+                                    VerticalOptions="Center"
+                                    Text="{Binding JoinDate}" 
+                                    StyleClass="list"
+                                    />
+                                <Label 
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    Grid.ColumnSpan="1"
+                                    Grid.RowSpan="1"
+                                    LineBreakMode="TailTruncation"
+                                    VerticalOptions="Center"
+                                    Text="{Binding ExecutiveName}" 
+                                    StyleClass="list"
+                                    />
+                                <!-- 会員名 + 委員会名 -->
+                                <Label 
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    Grid.RowSpan="1"
+                                    LineBreakMode="TailTruncation"
+                                    VerticalOptions="Center"
+                                    Text="{Binding MemberName}" 
+                                    StyleClass="list"
+                                    />
+                                <Label 
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Grid.ColumnSpan="1"
+                                    Grid.RowSpan="1"
+                                    LineBreakMode="TailTruncation"
+                                    VerticalOptions="Center"
+                                    Text="{Binding CommitteeName}" 
+                                    StyleClass="list"
+                                    />
+                                <!-- マーク -->
+                                <Label 
+                                    Grid.Row="0"
+                                    Grid.Column="3"
+                                    Grid.ColumnSpan="1"
+                                    Grid.RowSpan="2"
+                                    VerticalOptions="Center"
+                                    Text="〉" 
+                                    StyleClass="list"
+                                    />
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

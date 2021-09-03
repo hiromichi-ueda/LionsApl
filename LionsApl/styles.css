@@ -44,6 +44,11 @@ button {
     border-radius: 8; /* 角の丸み*/
 }
 
+/* ListView */
+.list {
+    color: #2E2E2E; /* 文字色 */
+    margin: 8,0,8,0; /* 余白 */
+}
 
 /* ======================================================================
     < オリジナルエリア > 
@@ -78,7 +83,6 @@ button {
     .login > label {
         font-size: small; /* 文字サイズ */
         text-align: end; /* 位置(右寄せ) */
-        
     }
 
 /* 共通-タイトル(BLUE) */
@@ -122,4 +126,11 @@ button {
     font-size: 18; /* 文字サイズ */
     background-color: #FFFFFF; /* 背景 */
     margin: 12, 10, 10, 8; /* 文字の余白 */
+}
+
+.page_member {
+    color: #2E2E2E; /* 文字色 */
+    text-align: start; /* 位置(左寄せ) */
+    height: 30;
+    margin: 8,0,8,0; /* 余白 */
 }
