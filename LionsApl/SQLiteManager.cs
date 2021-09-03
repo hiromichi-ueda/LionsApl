@@ -968,19 +968,19 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// T_INFOMATIONテーブルデータ取得
+        /// T_INFOMATION_CLUBテーブルデータ取得
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public Table.T_INFOMATION[] Get_T_INFOMATION(string command)
+        public Table.T_INFOMATION_CLUB[] Get_T_INFOMATION_CLUB(string command)
         {
-            List<Table.T_INFOMATION> items = new List<Table.T_INFOMATION>();
+            List<Table.T_INFOMATION_CLUB> items = new List<Table.T_INFOMATION_CLUB>();
 
             try
             {
                 // データ取得
                 using (SQLiteConnection db = new SQLiteConnection(DbPath))
                 {   // Select
-                    items = db.Query<Table.T_INFOMATION>(command);
+                    items = db.Query<Table.T_INFOMATION_CLUB>(command);
                 }
             }
             catch
@@ -988,7 +988,7 @@ namespace LionsApl
                 throw;
             }
 
-            return items.Count > 0 ? items.ToArray() : (new Table.T_INFOMATION[0]);
+            return items.Count > 0 ? items.ToArray() : (new Table.T_INFOMATION_CLUB[0]);
 
         }
 

@@ -12,7 +12,7 @@ namespace LionsApl.Content
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ClubInfomationPage : ContentPage
     {
-        public ClubInfomationPage()
+        public ClubInfomationPage(string clubCode, string addDate)
         {
             InitializeComponent();
         }
