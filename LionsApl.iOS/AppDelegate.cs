@@ -24,8 +24,12 @@ namespace LionsApl.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            AiForms.Dialogs.Dialogs.Init();
             // Configファイル取得準備
-            ConfigurationManager.Initialise(PCLAppConfig.FileSystemStream.PortableStream.Current);
+            if (ConfigurationManager.AppSettings == null)
+            {
+                ConfigurationManager.Initialise(PCLAppConfig.FileSystemStream.PortableStream.Current);
+            }
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

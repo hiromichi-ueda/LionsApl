@@ -17,7 +17,6 @@
     </ContentPage.Padding>
 
     <ContentPage.Content>
-
         <StackLayout>
 
             <!-- APL HEADER -->
