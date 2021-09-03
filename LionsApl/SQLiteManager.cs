@@ -957,6 +957,32 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
+        /// T_INFOMATIONテーブルデータ取得
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.T_INFOMATION[] Get_T_INFOMATION(string command)
+        {
+            List<Table.T_INFOMATION> items = new List<Table.T_INFOMATION>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                {   // Select
+                    items = db.Query<Table.T_INFOMATION>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.T_INFOMATION[0]);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
         /// M_DISTRICTOFFICERテーブルデータ取得
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
