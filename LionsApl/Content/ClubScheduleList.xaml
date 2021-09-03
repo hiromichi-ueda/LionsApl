@@ -13,6 +13,7 @@
         <StackLayout>
 
             <ListView x:Name="ClubScheduleListView"
+                      ItemTapped="List_Tapped"
                       CachingStrategy="RecycleElement"
                       RowHeight="60"
                       >
@@ -27,7 +28,7 @@
                             Margin="2"
                             >
                             <Label
-                                Text="岐阜南LC 池田 昌二" 
+                                x:Name="LoginInfo"
                                 FontSize="Small"
                                 TextColor="#2E2E2E"
                                 VerticalOptions="Center"
@@ -64,6 +65,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -76,6 +78,7 @@
                                     Grid.Row="0"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
+                                    VerticalOptions="Center"
                                     Text="例会日" 
                                     TextColor="#2E2E2E"
                                     Margin="8, 0, 8, 0"
@@ -85,8 +88,21 @@
                                     Grid.Row="0"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
-                                    Text="" 
+                                    LineBreakMode="TailTruncation"
+                                    VerticalOptions="Center"
+                                    Text="{Binding DateTime}" 
                                     TextColor="#2E2E2E"
+                                    Margin="8, 0, 8, 0"
+                                />
+                                <!-- 中止 -->
+                                <Label 
+                                    Grid.Column="2"
+                                    Grid.Row="0"
+                                    Grid.ColumnSpan="1"
+                                    Grid.RowSpan="1"
+                                    VerticalOptions="Center"
+                                    Text="{Binding Cancel}" 
+                                    TextColor="RED"
                                     Margin="8, 0, 8, 0"
                                 />
 
@@ -96,6 +112,7 @@
                                     Grid.Row="1"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
+                                    VerticalOptions="Center"
                                     Text="例会名" 
                                     TextColor="#2E2E2E"
                                     Margin="8, 0, 8, 0"
@@ -103,9 +120,11 @@
                                 <Label 
                                     Grid.Column="1"
                                     Grid.Row="1"
-                                    Grid.ColumnSpan="1"
+                                    Grid.ColumnSpan="2"
                                     Grid.RowSpan="1"
-                                    Text="" 
+                                    LineBreakMode="TailTruncation"
+                                    VerticalOptions="Center"
+                                    Text="{Binding Title}" 
                                     TextColor="#2E2E2E"
                                     Margin="8, 0, 8, 0"
                                 />
