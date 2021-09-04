@@ -13,9 +13,11 @@ namespace LionsApl.Content
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ClubInfomationList : ContentPage
     {
-        private SQLiteManager _sqlite;                      // SQLiteマネージャークラス
+        // SQLiteマネージャークラス
+        private SQLiteManager _sqlite;
 
-        public List<ClubInfomationRow> Items { get; set; }      // リストビュー設定内容
+        // リストビュー設定内容
+        public List<ClubInfomationRow> Items { get; set; }
 
 
         public ClubInfomationList()
@@ -150,7 +152,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(T_INFOMATION) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(T_INFOMATION_CLUB) : &{ex.Message}", "OK");
             }
         }
     }

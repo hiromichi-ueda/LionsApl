@@ -10,13 +10,13 @@
 
 /* <ContentPage> */
 ^ContentPage {
-    color: #2E2E2E; /* 文字色 */
+    color: #151515; /* 文字色 */
     background-color: #FFFFFF; /* 背景 */
 }
 
 /* <Label> */
 ^Label {
-    color: #2E2E2E; /* 文字色 */
+    color: #151515; /* 文字色 */
     background-color: #FFFFFF; /* 背景 */
 }
 
@@ -36,6 +36,7 @@ frame {
 
 /* <button> */
 button {
+    color: #151515; /* 文字色 */
     font-size: small; /* 文字サイズ */
     border-color: #00529B; /* 線色 */
     background-color: #FFFFFF; /* 背景 */
@@ -45,8 +46,13 @@ button {
 }
 
 /* ListView */
-.list {
-    color: #2E2E2E; /* 文字色 */
+.list_grid {
+    background-color: #FFFFFF; /* 背景 */
+    margin: 10; /* 余白 */
+}
+.list_label {
+    background-color: #FFFFFF; /* 背景 */
+    color: #151515; /* 文字色 */
     margin: 8,0,8,0; /* 余白 */
 }
 
@@ -87,7 +93,7 @@ button {
 
 /* 共通-タイトル(BLUE) */
 .title_blue {
-    color: #2E2E2E; /* 文字色 */
+    color: #151515; /* 文字色 */
     background-color: #58ACFA; /* 背景 */
     text-align: center; /* 位置 */
     height: 20;
@@ -95,41 +101,41 @@ button {
 
 /* TOP-スローガンタイトル(LITEBLUE) */
 .title_liteblue {
-    color: #2E2E2E; /* 文字色 */
+    color: #151515; /* 文字色 */
     background-color: #CEECF5; /* 背景 */
     text-align: center; /* 位置 */
 }
 
 /* TOP-キャビネットレタータイトル(Green) */
 .title_green {
-    color: #2E2E2E; /* 文字色 */
+    color: #151515; /* 文字色 */
     background-color: #E1F5A9; /* 背景 */
     text-align: center; /* 位置 */
 }
 
 /* TOP-参加予定一覧タイトル(Yellow) */
 .title_yellow {
-    color: #2E2E2E; /* 文字色 */
+    color: #151515; /* 文字色 */
     background-color: #F3F781; /* 背景 */
     text-align: center; /* 位置 */
 }
 
 /* アカウント-タイトル(Grey) */
 .title_grey {
-    color: #2E2E2E; /* 文字色 */
+    color: #151515; /* 文字色 */
     background-color: #BDBDBD; /* 背景 */
     text-align: center; /* 位置 */
 }
 
 .club_menu {
-    color: #2E2E2E; /* 文字色 */
+    color: #151515; /* 文字色 */
     font-size: 18; /* 文字サイズ */
     background-color: #FFFFFF; /* 背景 */
     margin: 12, 10, 10, 8; /* 文字の余白 */
 }
 
 .page_member {
-    color: #2E2E2E; /* 文字色 */
+    color: #151515; /* 文字色 */
     text-align: start; /* 位置(左寄せ) */
     height: 30;
     margin: 8,0,8,0; /* 余白 */

@@ -527,6 +527,20 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
+        /// データベーステーブル削除（T_MEETINGPROGRAM）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void DropTable_T_MEETINGPROGRAM()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            {
+                // Drop Table
+                db.DropTable<Table.T_MEETINGPROGRAM>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
         /// データベーステーブル削除（T_MAGAZINE）
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -859,6 +873,58 @@ namespace LionsApl
             }
 
             return items.Count > 0 ? items.ToArray() : (new Table.T_MEETINGSCHEDULE[0]);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// T_MEETINGPROGRAMテーブルデータ取得
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.T_MEETINGPROGRAM[] Get_T_MEETINGPROGRAM(string command)
+        {
+            List<Table.T_MEETINGPROGRAM> items = new List<Table.T_MEETINGPROGRAM>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                {   // Select
+                    items = db.Query<Table.T_MEETINGPROGRAM>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.T_MEETINGPROGRAM[0]);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// T_MEETINGPROGRAMテーブルデータ取得
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.T_DIRECTOR[] Get_T_DIRECTOR(string command)
+        {
+            List<Table.T_DIRECTOR> items = new List<Table.T_DIRECTOR>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                {   // Select
+                    items = db.Query<Table.T_DIRECTOR>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.T_DIRECTOR[0]);
 
         }
 

@@ -5,7 +5,8 @@
              x:Class="LionsApl.Content.ClubInfomationList"
              xmlns:local="clr-namespace:LionsApl.Content"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             >
     
     <!-- 
     ++++++++++++++++++++++++++++++++++++++++++
@@ -13,47 +14,49 @@
     ++++++++++++++++++++++++++++++++++++++++++
     -->
 
-        <StackLayout>
+    <StackLayout>
 
-            <ListView x:Name="ClubInfomationListView"
-                      ItemTapped="Handle_ItemTapped"
-                      CachingStrategy="RecycleElement"
-                      RowHeight="60"
-                      HasUnevenRows="True"
-                      ItemTemplate="{StaticResource myDataTemplateSelector}"
-                      ItemsSource="{Binding Items}">
+        <ListView 
+            x:Name="ClubInfomationListView"
+            ItemTapped="Handle_ItemTapped"
+            CachingStrategy="RecycleElement"
+            RowHeight="68"
+            HasUnevenRows="True"
+            ItemTemplate="{StaticResource myDataTemplateSelector}"
+            ItemsSource="{Binding Items}"
+            >
 
-                <!-- HEADER -->
+            <!-- HEADER -->
             <ListView.Header>
                 <StackLayout>
 
                     <!-- ログイン情報 -->
                     <StackLayout 
-                            HeightRequest="18"
-                            Margin="2"
-                            >
+                        HeightRequest="18"
+                        Margin="2"
+                        >
                         <Label
-                                x:Name="LoginInfo" 
-                                FontSize="Small"
-                                TextColor="#2E2E2E"
-                                VerticalOptions="Center"
-                                Background="#FFFFFF"
-                                HorizontalTextAlignment="End" 
-                            />
+                            x:Name="LoginInfo" 
+                            FontSize="Small"
+                            TextColor="#2E2E2E"
+                            VerticalOptions="Center"
+                            Background="#FFFFFF"
+                            HorizontalTextAlignment="End" 
+                        />
                     </StackLayout>
 
                     <!-- タイトル -->
                     <StackLayout
-                            Margin="4,0,4,0"
-                            HorizontalOptions="FillAndExpand"
-                            >
+                        Margin="4,0,4,0"
+                        HorizontalOptions="FillAndExpand"
+                        >
                         <Label
-                                Text="連絡事項（クラブ）" 
-                                FontSize="Default"
-                                TextColor="#2E2E2E"
-                                Background="#58ACFA"
-                                HorizontalTextAlignment="Center"
-                            />
+                            Text="連絡事項（クラブ）" 
+                            FontSize="Default"
+                            TextColor="#2E2E2E"
+                            Background="#58ACFA"
+                            HorizontalTextAlignment="Center"
+                        />
                     </StackLayout>
 
                 </StackLayout>
@@ -61,13 +64,16 @@
 
         </ListView>
 
-        </StackLayout>
+    </StackLayout>
 
     <ContentPage.Resources>
+        
         <!-- データあり -->
         <DataTemplate x:Key="ExistDataTemplate">
             <ViewCell>
-                <Grid>
+                <Grid 
+                    StyleClass="list_grid"
+                    >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -84,21 +90,19 @@
                         Grid.Row="0"
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
-                        VerticalOptions="Center"
                         Text="連絡日" 
-                        TextColor="#2E2E2E"
-                        Margin="8, 0, 8, 0"
+                        VerticalOptions="End"
+                        StyleClass="list_label"
                         />
                     <Label 
                         Grid.Column="1"
                         Grid.Row="0"
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
-                        LineBreakMode="TailTruncation"
-                        VerticalOptions="Center"
                         Text="{Binding AddDate}" 
-                        TextColor="#2E2E2E"
-                        Margin="8, 0, 8, 0"
+                        LineBreakMode="TailTruncation"
+                        VerticalOptions="End"
+                        StyleClass="list_label"
                         />
 
                     <!-- 件名 -->
@@ -107,21 +111,19 @@
                         Grid.Row="1"
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
-                        VerticalOptions="Center"
                         Text="件　名" 
-                        TextColor="#2E2E2E"
-                        Margin="8, 0, 8, 0"
+                        VerticalOptions="Start"
+                        StyleClass="list_label"
                         />
                     <Label 
                         Grid.Column="1"
                         Grid.Row="1"
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
-                        LineBreakMode="TailTruncation"
-                        VerticalOptions="Center"
                         Text="{Binding Subject}" 
-                        TextColor="#2E2E2E"
-                        Margin="8, 0, 8, 0"
+                        LineBreakMode="TailTruncation"
+                        VerticalOptions="Start"
+                        StyleClass="list_label"
                         />
 
                     <!-- マーク -->
@@ -130,10 +132,9 @@
                         Grid.Row="0"
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="2"
-                        VerticalOptions="Center"
                         Text="〉" 
-                        TextColor="#2E2E2E"
-                        Margin="8, 0, 8, 0"
+                        VerticalOptions="Center"
+                        StyleClass="list_label"
                         />
                 </Grid>
             </ViewCell>
@@ -157,11 +158,10 @@
                         Grid.Row="0"
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="2"
+                        Text="連絡事項はありません" 
                         HorizontalTextAlignment="Center"
                         VerticalOptions="Center"
-                        Text="連絡事項はありません" 
-                        TextColor="#2E2E2E"
-                        Margin="8, 0, 8, 0"
+                        StyleClass="list_label"
                         />
                 </Grid>
             </ViewCell>
@@ -170,6 +170,9 @@
         <local:MyDataTemplateSelector
             x:Key="myDataTemplateSelector"
             ExistDataTemplate="{StaticResource ExistDataTemplate}"
-            NoDataTemplate="{StaticResource NoDataTemplate}" />
+            NoDataTemplate="{StaticResource NoDataTemplate}" 
+        />
+    
     </ContentPage.Resources>
+    
 </ContentPage>

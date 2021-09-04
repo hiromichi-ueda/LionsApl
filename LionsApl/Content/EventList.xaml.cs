@@ -51,5 +51,18 @@ namespace LionsApl.Content
             Navigation.PushAsync(new EventPage("",0,0));
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// タップ処理
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (e.Item == null)
+                return;
+
+            Navigation.PushAsync(new EventPage("", 0, 0));
+
+        }
     }
 }
