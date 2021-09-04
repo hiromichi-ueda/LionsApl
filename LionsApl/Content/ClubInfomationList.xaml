@@ -22,7 +22,7 @@
             CachingStrategy="RecycleElement"
             RowHeight="68"
             HasUnevenRows="True"
-            ItemTemplate="{StaticResource myDataTemplateSelector}"
+            ItemTemplate="{StaticResource myInfomationTemplateSelector}"
             ItemsSource="{Binding Items}"
             >
 
@@ -167,8 +167,8 @@
             </ViewCell>
         </DataTemplate>
 
-        <local:MyDataTemplateSelector
-            x:Key="myDataTemplateSelector"
+        <local:MyInfomationTemplateSelector
+            x:Key="myInfomationTemplateSelector"
             ExistDataTemplate="{StaticResource ExistDataTemplate}"
             NoDataTemplate="{StaticResource NoDataTemplate}" 
         />

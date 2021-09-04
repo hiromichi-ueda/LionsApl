@@ -170,7 +170,7 @@ namespace LionsApl.Content
         public string Subject { get; set; }
     }
 
-    public class MyDataTemplateSelector : DataTemplateSelector
+    public class MyInfomationTemplateSelector : DataTemplateSelector
     {
         //切り替えるテンプレートを保持するプロパティを用意する
         public DataTemplate ExistDataTemplate { get; set; }
