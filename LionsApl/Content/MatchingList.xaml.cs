@@ -37,5 +37,24 @@ namespace LionsApl.Content
 
 
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// タップ処理
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (e.Item == null)
+                return;
+
+            //MemberRow item = e.Item as MemberRow;
+
+            //Navigation.PushAsync(new ClubMemberPage(item.MemberCode));
+
+            //Deselect Item
+            ((ListView)sender).SelectedItem = null;
+        }
+    
     }
 }

@@ -1,182 +1,200 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LionsApl.Content.MagazineList">
+             x:Class="LionsApl.Content.MagazineList"
+             >
 
     <!-- 
     +++++++++++++++++++++++++++++++++++++
     　画面名: 地区誌一覧画面
     +++++++++++++++++++++++++++++++++++++
     -->
-    <StackLayout>
-        <ListView x:Name="MagazineListView"
-                  ItemTapped="Handle_ItemTapped"
-                  CachingStrategy="RecycleElement"
-                  RowHeight="60">
 
-            <ListView.Header>
+    <ContentPage.Content>
+        <StackLayout>
+            
+            <ListView 
+                x:Name="MagazineListView"
+                ItemTapped="Handle_ItemTapped"
+                CachingStrategy="RecycleElement"
+                RowHeight="68"
+                >
+
                 <!-- HEADER -->
-                <StackLayout
+                <ListView.Header>
+                    <StackLayout>
+
+                        <StackLayout 
+                            HeightRequest="18"
+                            Margin="2"
+                            >
+                            <!-- ログイン情報 -->
+                            <Label
+                                x:Name="LoginInfo"
+                                FontSize="Small"
+                                TextColor="#2E2E2E"
+                                VerticalOptions="Center"
+                                Background="#FFFFFF"
+                                HorizontalTextAlignment="End" 
+                            />
+                        </StackLayout>
+
+                        <!-- タイトル -->
+                        <StackLayout
+                            Margin="4,0,4,0"
+                            HorizontalOptions="FillAndExpand"
+                            >
+                            <Label
+                                Text="地区誌" 
+                                FontSize="Default"
+                                TextColor="#2E2E2E"
+                                Background="#58ACFA"
+                                HorizontalTextAlignment="Center"
+                            />
+                        </StackLayout>
+
+                    </StackLayout>
+                </ListView.Header>
+
+                <!-- LIST -->
+                <ListView.ItemTemplate>
+                    
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid 
+                                StyleClass="list_grid"
+                                >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1.*"/>
+                                </Grid.RowDefinitions>
+                                <!-- 地区誌名 -->
+                                <Label 
+                                    Grid.Column="0"
+                                    Grid.Row="0"
+                                    Grid.ColumnSpan="1"                                   
+                                    Text="{Binding Magazine}" 
+                                    LineBreakMode="TailTruncation"
+                                    VerticalOptions="Center"
+                                    StyleClass="list_label"
+                                />
+                                <!-- 購入済み -->
+                                <Label 
+                                    Grid.Column="1"
+                                    Grid.Row="0"
+                                    Grid.ColumnSpan="1"
+                                    Text="{Binding MagazineBuy}" 
+                                    VerticalOptions="Center"
+                                    StyleClass="list_label"
+                                />
+                                <!-- マーク -->
+                                <Label 
+                                    Grid.Column="2"
+                                    Grid.Row="0"
+                                    Grid.ColumnSpan="1"
+                                    Text="〉" 
+                                    VerticalOptions="Center"
+                                    StyleClass="list_label"
+                                />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+            <!-- 地区誌購入 -->
+            <StackLayout
+                x:Name="MagazineBuy"
                 Margin="4"
                 HorizontalOptions="FillAndExpand"
                 >
-                    <!-- ログイン情報 -->
-                    <Label
-                        x:Name="LoginInfo"
-                        FontSize="Small"
-                        TextColor="#2E2E2E"
-                        VerticalOptions="Center"
-                        Background="White"
-                        HorizontalTextAlignment="End" 
-                    />
-                    <!-- タイトル -->
-                    <Label 
-                    Text="地区誌"
-                    HorizontalOptions="Fill"
+                <Label
+                    Text="地区誌購入" 
+                    TextColor="#2E2E2E"
                     VerticalOptions="Center"
-                    HorizontalTextAlignment="Center" 
-                    TextColor="Black"
-                    BackgroundColor="#81BEF7" 
-                   />
+                    Background="White"
+                    HorizontalTextAlignment="Start" 
+                />
+                <StackLayout>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1.*"/>
+                        </Grid.RowDefinitions>
+                        <Picker 
+                                x:Name="MagazinePicker"
+                                Grid.Column="0"
+                                Grid.Row="0"
+                                FontSize="Body"
+                                Title="地区誌名選択"
+                                TitleColor="GRAY"
+                                TextColor="#2E2E2E"
+                                ItemDisplayBinding="{Binding Name}"
+                                Margin="0,0,8,0"
+                                >
+                        </Picker>
+                        <Picker 
+                                x:Name="BuyNumberPicker"
+                                Grid.Column="1"
+                                Grid.Row="0"
+                                FontSize="Body"
+                                Title="冊子数選択"
+                                TitleColor="GRAY"
+                                TextColor="#2E2E2E"
+                                Margin="0,0,8,0"
+                                >
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>1</x:String>
+                                    <x:String>2</x:String>
+                                    <x:String>3</x:String>
+                                    <x:String>4</x:String>
+                                    <x:String>5</x:String>
+                                    <x:String>6</x:String>
+                                    <x:String>7</x:String>
+                                    <x:String>8</x:String>
+                                    <x:String>9</x:String>
+                                    <x:String>10</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                        <Label 
+                                Grid.Column="2"
+                                Grid.Row="0"
+                                Grid.ColumnSpan="1"
+                                Text="冊" 
+                                HorizontalTextAlignment="Start"
+                                VerticalTextAlignment="Center"
+                                TextColor="#2E2E2E"
+                                Margin="0, 0, 8, 0"
+                                />
+                        <Button 
+                                Grid.Column="3"
+                                Grid.Row="0"
+                                Text="購入する" 
+                                Padding="8,0,8,0" 
+                                BorderWidth="1" 
+                                BorderColor="#00529B"
+                                Background="#FFFFFF"
+                                CornerRadius="6"
+                                >
+                        </Button>
+                    </Grid>
+
                 </StackLayout>
-            </ListView.Header>
-
-            <!-- LIST -->
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="1.*"/>
-                            </Grid.RowDefinitions>
-                            <!-- 地区誌名 -->
-                            <Label 
-                            Grid.Column="0"
-                            Grid.Row="0"
-                            Grid.ColumnSpan="1"
-                            VerticalOptions="FillAndExpand"
-                            Text="{Binding Magazine}" 
-                            VerticalTextAlignment="Center"
-                            TextColor="#2E2E2E"
-                            Margin="8, 0, 8, 0"
-                            />
-                            <!-- 購入済み -->
-                            <Label 
-                            Grid.Column="1"
-                            Grid.Row="0"
-                            Grid.ColumnSpan="1"
-                            VerticalOptions="FillAndExpand"
-                            Text="{Binding MagazineBuy}" 
-                            VerticalTextAlignment="Center"
-                            TextColor="#2E2E2E"
-                            Margin="8, 0, 8, 0"
-                            />
-                            <!-- マーク -->
-                            <Label 
-                            Grid.Column="2"
-                            Grid.Row="0"
-                            Grid.ColumnSpan="1"
-                            VerticalOptions="FillAndExpand"
-                            Text="〉" 
-                            VerticalTextAlignment="Center"
-                            TextColor="#2E2E2E"
-                            Margin="8, 0, 8, 0"
-                            />
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-
-        </ListView>
-        
-        <StackLayout
-            x:Name="MagazineBuy"
-            Margin="4"
-            HorizontalOptions="FillAndExpand"
-            >
-            <Label
-                Text="地区誌購入" 
-                TextColor="#2E2E2E"
-                VerticalOptions="Center"
-                Background="White"
-                HorizontalTextAlignment="Start" 
-            />
-            <StackLayout>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="50"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1.*"/>
-                    </Grid.RowDefinitions>
-                    <Picker 
-                        x:Name="MagazinePicker"
-                        Grid.Column="0"
-                        Grid.Row="0"
-                        FontSize="Body"
-                        Title="地区誌名選択"
-                        TitleColor="GRAY"
-                        TextColor="#2E2E2E"
-                        ItemDisplayBinding="{Binding Name}"
-                        Margin="0,0,8,0"
-                        >
-                    </Picker>
-                    <Picker 
-                        x:Name="BuyNumberPicker"
-                        Grid.Column="1"
-                        Grid.Row="0"
-                        FontSize="Body"
-                        Title="冊子数選択"
-                        TitleColor="GRAY"
-                        TextColor="#2E2E2E"
-                        Margin="0,0,8,0"
-                        >
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>1</x:String>
-                                <x:String>2</x:String>
-                                <x:String>3</x:String>
-                                <x:String>4</x:String>
-                                <x:String>5</x:String>
-                                <x:String>6</x:String>
-                                <x:String>7</x:String>
-                                <x:String>8</x:String>
-                                <x:String>9</x:String>
-                                <x:String>10</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
-                    </Picker>
-                    <Label 
-                        Grid.Column="2"
-                        Grid.Row="0"
-                        Grid.ColumnSpan="1"
-                        Text="冊" 
-                        HorizontalTextAlignment="Start"
-                        VerticalTextAlignment="Center"
-                        TextColor="#2E2E2E"
-                        Margin="0, 0, 8, 0"
-                        />
-                    <Button 
-                        Grid.Column="3"
-                        Grid.Row="0"
-                        Text="購入する" 
-                        Padding="8,0,8,0" 
-                        BorderWidth="1" 
-                        BorderColor="#00529B"
-                        Background="#FFFFFF"
-                        CornerRadius="6"
-                        >
-                    </Button>
-                </Grid>
             </StackLayout>
-        </StackLayout>
-    </StackLayout>
+            
+        </StackLayout>  
+    </ContentPage.Content>
+    
 </ContentPage>

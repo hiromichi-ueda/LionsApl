@@ -34,7 +34,7 @@ namespace LionsApl.Content
             Title = _sqlite.Db_A_Setting.CabinetName;
 
             // ツールバーに一覧ボタンを設定
-            ToolbarItems.Add(new ToolbarItem { Text = "一覧", Command = new Command(Push_MagazineList) });
+            //ToolbarItems.Add(new ToolbarItem { Text = "一覧", Command = new Command(Push_MagazineList) });
 
             // A_FILEPATHデータ取得
             _sqlite.GetFilePath(_sqlite.DATACLASS_MAGAZINE);

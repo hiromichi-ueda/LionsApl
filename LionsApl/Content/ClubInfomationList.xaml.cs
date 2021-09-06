@@ -13,11 +13,11 @@ namespace LionsApl.Content
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ClubInfomationList : ContentPage
     {
-        private SQLiteManager _sqlite;                      // SQLiteマネージャークラス
+        // SQLiteマネージャークラス
+        private SQLiteManager _sqlite;
 
-        public ObservableCollection<string> Items { get; set; }
-
-        public List<MyItem> ItemList { get; set; }
+        // リストビュー設定内容
+        public List<ClubInfomationRow> Items { get; set; }
 
 
         public ClubInfomationList()
@@ -43,57 +43,123 @@ namespace LionsApl.Content
             GetInfomation();
         }
 
+        void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (e.Item == null)
+                return;
+
+            ClubInfomationRow item = e.Item as ClubInfomationRow;
+
+            // 連絡事項が1件もない(メッセージ行のみ表示している)場合は処理しない
+            if (string.IsNullOrEmpty(item.ClubCode))
+            {
+                ((ListView)sender).SelectedItem = null;
+                return;
+            }
+
+            Navigation.PushAsync(new ClubInfomationPage(item.ClubCode, item.AddDate));
+
+            //await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
+
+            //Deselect Item
+            ((ListView)sender).SelectedItem = null;
+        }
+
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// キャビネットレター情報をSQLiteファイルから取得して画面に設定する。
+        /// 連絡事項情報をSQLiteファイルから取得して画面に設定する。
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetInfomation()
         {
-            string WorkCode;
-            string WorkDate;
-            string WorkSubject;
-            List<InfomationRow> items = new List<InfomationRow>();
+            string WorkTypeCode = string.Empty;
+            string WorkClubCode = string.Empty;
+            string WorkDate = string.Empty;
+            string WorkSubject = string.Empty;
+            string WorkFlg = string.Empty;
+            string[] WorkCodeList = null;
+            bool AddListFlg = false;
+            Items = new List<ClubInfomationRow>();
 
             try
             {
-                //foreach (Table.T_INFOMATION row in _sqlite.Get_T_INFOMATION("SELECT * " +
-                //                                                            "FROM T_INFOMATION " +
-                //                                                            "ORDER BY AddDate DESC"))
-                //{
-                //    WorkCode = row.ClubCode;
-                //    WorkDate = row.AddDate.Substring(0, 10);
-                //    WorkSubject = row.Subject;
-                //    items.Add(new InfomationRow(WorkCode, WorkDate, WorkSubject));
-                //}
-                if(items.Count > 0)
+                // 会員マスタよりログインユーザーの会員情報を取得
+                foreach (Table.M_MEMBER row in _sqlite.Get_M_MEMBER(
+                                                                 "SELECT * " +
+                                                                 "FROM M_MEMBER " +
+                                                                 "WHERE MemberCode = '" + _sqlite.Db_A_Account.MemberCode + "' "))
                 {
-                    ClubInfomationListView.ItemsSource = items;
+                    // 会員種別を保持
+                    WorkTypeCode = row.TypeCode;
                 }
-                else
+
+                // 連絡事項(クラブ)のデータを全件取得
+                foreach (Table.T_INFOMATION_CLUB row in _sqlite.Get_T_INFOMATION_CLUB(
+                                                                 "SELECT * " +
+                                                                 "FROM T_INFOMATION_CLUB " +
+                                                                 "ORDER BY AddDate DESC"))
                 {
-                    ItemList = new List<MyItem>();
-                    ItemList.Add(new MyItem { TemplateId = 1 });
-                    this.BindingContext = this;
-                    //items.Add(new InfomationRow("", "連絡事項がありません。", ""));
-                    //ClubInfomationListView.ItemsSource = items;
+                    AddListFlg = false;
+                    WorkFlg = row.InfoFlg;
+
+                    // 全会員の場合
+                    if (WorkFlg == "1")
+                    {
+                        WorkCodeList = row.TypeCode.Split(',');
+                        foreach (string code in WorkCodeList)
+                        {
+                            // 会員種別を条件にログインユーザーが対象か判定
+                            if (WorkTypeCode.Equals(code))
+                            {
+                                AddListFlg = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    // 個別設定の場合
+                    else
+                    {
+                        WorkCodeList = row.InfoUser.Split(',');
+                        foreach (string code in WorkCodeList)
+                        {
+                            // 連絡者(会員番号)を条件にログインユーザーが対象か判定
+                            if (_sqlite.Db_A_Account.MemberCode.Equals(code))
+                            {
+                                AddListFlg = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    // ログインユーザーが対象の連絡事項を設定
+                    if (AddListFlg)
+                    {
+                        WorkClubCode = row.ClubCode;
+                        WorkDate = row.AddDate.Substring(0, 10);
+                        WorkSubject = row.Subject;
+                        Items.Add(new ClubInfomationRow(WorkClubCode, WorkDate, WorkSubject));
+                    }
                 }
+
+                // ログインユーザーが対象の連絡事項が1件もない場合
+                if (Items.Count == 0)
+                {
+                    // メッセージ表示のため空行を追加
+                    Items.Add(new ClubInfomationRow(WorkClubCode,WorkDate,WorkSubject));
+                }
+                this.BindingContext = this;
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(T_INFOMATION) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(T_INFOMATION_CLUB) : &{ex.Message}", "OK");
             }
-        }
-
-        private void Initialize()
-        {
-            
         }
     }
 
-    public sealed class InfomationRow
+    public sealed class ClubInfomationRow
     {
-        public InfomationRow(string clubCode, string addDate, string subject)
+        public ClubInfomationRow(string clubCode, string addDate, string subject)
         {
             ClubCode = clubCode;
             AddDate = addDate;
@@ -104,26 +170,23 @@ namespace LionsApl.Content
         public string Subject { get; set; }
     }
 
-    public class MyDataTemplateSelector : DataTemplateSelector
+    public class MyInfomationTemplateSelector : DataTemplateSelector
     {
         //切り替えるテンプレートを保持するプロパティを用意する
-        public DataTemplate FirstTemplate { get; set; }
-        public DataTemplate SecondTemplate { get; set; }
+        public DataTemplate ExistDataTemplate { get; set; }
+        public DataTemplate NoDataTemplate { get; set; }
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            //ここに条件を書き
-            //条件にマッチするプロパティ(DataTemplate)を返す
-            return ((MyItem)item).TemplateId == 0 ? FirstTemplate : SecondTemplate;
-
-            //itemパラメータにはXaml側から各項目にバインドされたオブジェクト
-            //今回はMyItemオブジェクトが入ってくる
-            //今回はそれを利用してテンプレートを切り替える
+            // 条件より該当するテンプレートを返す
+            var info = (ClubInfomationRow)item;
+            if (!String.IsNullOrEmpty(info.ClubCode)){
+                return ExistDataTemplate;
+            }
+            else
+            {
+                return NoDataTemplate;
+            }
         }
-    }
-
-    public class MyItem
-    {
-        public int TemplateId { get; set; }
     }
 }

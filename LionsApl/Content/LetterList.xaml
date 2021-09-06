@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LionsApl.Content.LetterList">
+             x:Class="LionsApl.Content.LetterList"
+             >
 
     <!-- 
     +++++++++++++++++++++++++++++++++++++
@@ -11,21 +12,23 @@
 
     <ContentPage.Content>
         <StackLayout>
+            
             <ListView 
-                    x:Name="LetterListView"
-                    ItemTapped="List_Tapped"
-                    CachingStrategy="RecycleElement"
-                    RowHeight="60">
+                x:Name="LetterListView"
+                ItemTapped="Handle_ItemTapped"
+                CachingStrategy="RecycleElement"
+                RowHeight="68"
+                >
 
                 <!-- HEADER -->
                 <ListView.Header>
-
                     <StackLayout>
-                        <!-- ログイン情報 -->
+
                         <StackLayout 
                             HeightRequest="18"
                             Margin="2"
                             >
+                            <!-- ログイン情報 -->
                             <Label
                                 x:Name="LoginInfo"
                                 FontSize="Small"
@@ -35,36 +38,32 @@
                                 HorizontalTextAlignment="End" 
                             />
                         </StackLayout>
+
                         <!-- タイトル -->
                         <StackLayout
                             Margin="4,0,4,0"
                             HorizontalOptions="FillAndExpand"
                             >
-                            <!--<Label
-                                Text="キャビネットレター" 
-                                FontSize="Default"
-                                VerticalTextAlignment="Center"
-                                StyleClass="title_blue"
-                            />-->
                             <Label
                                 Text="キャビネットレター" 
                                 FontSize="Default"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 TextColor="#2E2E2E"
                                 Background="#58ACFA"
-                                HeightRequest="20"
+                                HorizontalTextAlignment="Center"
                             />
                         </StackLayout>
 
                     </StackLayout>
                 </ListView.Header>
-                
-                <!-- BODY -->
+
+                <!-- LIST -->
                 <ListView.ItemTemplate>
+                    
                     <DataTemplate>
                         <ViewCell>
-                            <Grid>
+                            <Grid 
+                                StyleClass="list_grid"
+                                >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
@@ -80,21 +79,19 @@
                                     Grid.Row="0"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
-                                    VerticalOptions="Center"
                                     Text="開催日" 
-                                    TextColor="#2E2E2E"
-                                    Margin="8, 0, 8, 0"
+                                    VerticalOptions="End"
+                                    StyleClass="list_label"
                                     />
                                 <Label 
                                     Grid.Column="1"
                                     Grid.Row="0"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
-                                    LineBreakMode="TailTruncation"
-                                    VerticalOptions="Center"
                                     Text="{Binding DateTime}" 
-                                    TextColor="#2E2E2E"
-                                    Margin="8, 0, 8, 0"
+                                    LineBreakMode="TailTruncation"
+                                    VerticalOptions="End"
+                                    StyleClass="list_label"
                                     />
                                 <!-- 件名 -->
                                 <Label 
@@ -102,21 +99,19 @@
                                     Grid.Row="1"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
-                                    VerticalOptions="Center"
                                     Text="件　名" 
-                                    TextColor="#2E2E2E"
-                                    Margin="8, 0, 8, 0"
+                                    VerticalOptions="Start"
+                                    StyleClass="list_label"
                                     />
                                 <Label 
                                     Grid.Column="1"
                                     Grid.Row="1"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
-                                    LineBreakMode="TailTruncation"
-                                    VerticalOptions="Center"
                                     Text="{Binding Title}" 
-                                    TextColor="#2E2E2E"
-                                    Margin="8, 0, 8, 0"
+                                    LineBreakMode="TailTruncation"
+                                    VerticalOptions="Start"
+                                    StyleClass="list_label"
                                     />
                                 <!-- マーク -->
                                 <Label 
@@ -124,10 +119,9 @@
                                     Grid.Row="0"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="2"
-                                    VerticalOptions="Center"
                                     Text="〉" 
-                                    TextColor="#2E2E2E"
-                                    Margin="8, 0, 8, 0"
+                                    VerticalOptions="Center"
+                                    StyleClass="list_label"
                                     />
                             </Grid>
                         </ViewCell>

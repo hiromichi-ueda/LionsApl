@@ -54,7 +54,7 @@ namespace LionsApl
                 ResultText.Text += "Send SQLite file Error : " + ex.Message;
 
             }
-            
+
             // HOME画面表示
             Application.Current.MainPage = new Content.MainTabPage();
         }

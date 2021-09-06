@@ -60,7 +60,7 @@
                             />
 
                             <!-- 詳細 -->
-                            <Grid>
+                            <Grid Padding="0,20,0,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
@@ -77,8 +77,6 @@
                                     Grid.Row="0"
                                     Grid.Column="0"
                                     Text ="リジョン"
-                                    FontSize="Default"
-                                    TextColor="#2E2E2E"
                                     Padding="10,0,10,0"
                                     VerticalOptions="Center"
                                     >
@@ -89,7 +87,6 @@
                                     x:Name="RegionPicker"
                                     Title="リジョン選択"
                                     TitleColor="GRAY"
-                                    TextColor="#2E2E2E"
                                     ItemDisplayBinding="{Binding Name}"
                                     SelectedIndexChanged="RegionPicker_SelectedIndexChanged"
                                     Margin="0,0,10,0"
@@ -102,7 +99,6 @@
                                     Grid.Column="0"
                                     Text="ゾーン"
                                     FontSize="Default"
-                                    TextColor="#2E2E2E"
                                     Padding="10,0,10,0"
                                     VerticalOptions="Center"
                                     >
@@ -113,7 +109,6 @@
                                     x:Name="ZonePicker"
                                     Title="ゾーン選択"
                                     TitleColor="GRAY"
-                                    TextColor="#2E2E2E"
                                     ItemDisplayBinding="{Binding Name}"
                                     SelectedIndexChanged="ZonePicker_SelectedIndexChanged"
                                     Margin="0,0,8,0"
@@ -126,7 +121,6 @@
                                     Grid.Column="0"
                                     Text="クラブ"
                                     FontSize="Default"
-                                    TextColor="#2E2E2E"
                                     Padding="10,0,10,0"
                                     VerticalOptions="Center"
                                     >
@@ -137,7 +131,6 @@
                                     x:Name="ClubPicker"
                                     Title="クラブ選択"
                                     TitleColor="GRAY"
-                                    TextColor="#2E2E2E"
                                     ItemDisplayBinding="{Binding Name}"
                                     SelectedIndexChanged="ClubPicker_SelectedIndexChanged"
                                     Margin="0,0,8,0"
@@ -150,7 +143,6 @@
                                     Grid.Column="0"
                                     Text="会員名"
                                     FontSize="Default"
-                                    TextColor="#2E2E2E"
                                     Padding="10,0,10,0"
                                     VerticalOptions="Center"
                                     >
@@ -161,7 +153,6 @@
                                     x:Name="MemberPicker"
                                     Title="会員選択"
                                     TitleColor="GRAY"
-                                    TextColor="#2E2E2E"
                                     ItemDisplayBinding="{Binding Name}"
                                     SelectedIndexChanged="MemberPicker_SelectedIndexChanged"
                                     Margin="0,0,8,0"
@@ -187,11 +178,6 @@
                                     Grid.Column="0"
                                     Text="戻　る" 
                                     Clicked="Button_Back_Clicked"
-                                    Padding="8,0,8,0" 
-                                    BorderWidth="1" 
-                                    BorderColor="#00529B"
-                                    Background="#FFFFFF"
-                                    CornerRadius="6"
                                     >
                                 </Button>
                                 <Button 
@@ -199,11 +185,6 @@
                                     Grid.Column="1"
                                     Text="アカウント登録" 
                                     Clicked="Button_AccountSet_Clicked"
-                                    Padding="8,0,8,0" 
-                                    BorderWidth="1" 
-                                    BorderColor="#00529B"
-                                    Background="#FFFFFF"
-                                    CornerRadius="6"
                                     >
                                 </Button>
                             </Grid>

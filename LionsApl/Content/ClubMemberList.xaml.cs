@@ -68,7 +68,7 @@ namespace LionsApl.Content
                     wkMemberCode = row.MemberCode;
                     wkJoinDate = row.JoinDate.Substring(0, 10);
                     wkExecutiveName = row.ExecutiveName;
-                    wkMemberName = row.MemberFirstName + " " + row.MemberLastName + "(" + row.TypeName + ")";
+                    wkMemberName = row.MemberFirstName + " " + row.MemberLastName + " (" + row.TypeName + ")";
                     wkCommitteeName = row.CommitteeName;
                     items.Add(new MemberRow(wkMemberCode, wkJoinDate, wkExecutiveName, wkMemberName, wkCommitteeName));
                 }
