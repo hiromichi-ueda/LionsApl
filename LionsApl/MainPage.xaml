@@ -63,9 +63,10 @@
                                 Clicked="Button_Account_Clicked" 
                                 >
                             </Button>
+                            
+
                         </StackLayout>
-
-
+                        
                         <!-- 
                         ************************************
                          開発用領域 (終了後コメント) 
