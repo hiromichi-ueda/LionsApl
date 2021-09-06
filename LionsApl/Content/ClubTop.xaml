@@ -99,7 +99,7 @@
                                 </Label.GestureRecognizers>
                             </Label>
                         </Grid>
-                        <BoxView BackgroundColor="#d3d3d3" HeightRequest="0.1" />
+                        <BoxView BackgroundColor="#d3d3d3" HeightRequest="1" />
 
                         <!-- 理事・委員会 -->
                         <Grid>
@@ -133,7 +133,7 @@
                                 </Label.GestureRecognizers>
                             </Label>
                         </Grid>
-                        <BoxView BackgroundColor="#d3d3d3" HeightRequest="0.1" />
+                        <BoxView BackgroundColor="#d3d3d3" HeightRequest="1" />
 
                         <!-- 例会プログラム -->
                         <Grid>
@@ -167,7 +167,7 @@
                                 </Label.GestureRecognizers>
                             </Label>
                         </Grid>
-                        <BoxView BackgroundColor="#d3d3d3" HeightRequest="0.1" />
+                        <BoxView BackgroundColor="#d3d3d3" HeightRequest="1" />
 
                         <!-- 連絡事項 -->
                         <Grid>
@@ -201,7 +201,7 @@
                                 </Label.GestureRecognizers>
                             </Label>
                         </Grid>
-                        <BoxView BackgroundColor="#d3d3d3" HeightRequest="0.1" />
+                        <BoxView BackgroundColor="#d3d3d3" HeightRequest="1" />
 
                         <!-- 会員情報 -->
                         <Grid>
@@ -235,7 +235,7 @@
                                 </Label.GestureRecognizers>
                             </Label>
                         </Grid>
-                        <BoxView BackgroundColor="#d3d3d3" HeightRequest="0.1" />
+                        <BoxView BackgroundColor="#d3d3d3" HeightRequest="1" />
 
                     </StackLayout>
                                        
