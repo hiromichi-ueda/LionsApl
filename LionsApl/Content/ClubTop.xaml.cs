@@ -31,6 +31,16 @@ namespace LionsApl.Content
             // タイトル設定
             Title = _sqlite.Db_A_Setting.CabinetName;
 
+            // A_ACCOUNTデータ取得
+            _sqlite.SetAccount();
+
+            // ログイン情報設定
+            LoginInfo.Text = _sqlite.Db_A_Account.ClubName + " " + _sqlite.Db_A_Account.MemberFirstName + _sqlite.Db_A_Account.MemberLastName;
+
+            // クラブスローガン設定
+            Sel_T_CLUBSLOGAN();
+
+
         }
 
         //-------------------------------------------
@@ -83,6 +93,39 @@ namespace LionsApl.Content
             Navigation.PushAsync(new ClubMemberList());
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 選択したテーブルの内容を表示する。(T_CLUBSLOGAN)
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void Sel_T_CLUBSLOGAN()
+        {
+            // データ取得
+            try
+            {
+                using (var db = new SQLite.SQLiteConnection(_sqlite.DbPath))
+                {
+                    foreach (var row in db.Query<Table.T_CLUBSLOGAN>("Select * From T_CLUBSLOGAN"))
+                    {
+                        // クラブスローガン設定
+                        if (row.ClubSlogan != null)
+                        {
+                            ClubSlogan.Text = row.ClubSlogan;
+                        }
+                        // 会長名設定
+                        if (row.ExecutiveName != null)
+                        {
+                            ExecutiveName.Text = "会長 " + row.ExecutiveName;
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Alert", $"SQLite検索エラー(クラブスローガン) : &{ex.Message}", "OK");
+            }
+        }
 
     }
 

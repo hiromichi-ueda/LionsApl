@@ -41,6 +41,13 @@ namespace LionsApl.Content
 
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// リストタップ時の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             if (e.Item == null)
@@ -90,7 +97,11 @@ namespace LionsApl.Content
     }
 
 
-
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// キャビネットレター行情報クラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////
     public sealed class LetterRow
     {
         public LetterRow(int dataNo, string dateTime, string title)

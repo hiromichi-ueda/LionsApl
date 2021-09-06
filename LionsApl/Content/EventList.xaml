@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LionsApl.Content.EventList">
+             x:Class="LionsApl.Content.EventList"
+             >
 
     <!-- 
     +++++++++++++++++++++++++++++++++++++
@@ -10,43 +11,45 @@
     -->
 
     <ContentPage.Content>
-        
         <StackLayout>
 
-            <ListView x:Name="EventListView"
-              CachingStrategy="RecycleElement">
+            <ListView 
+                x:Name="EventListView"
+                ItemTapped="Handle_ItemTapped"
+                CachingStrategy="RecycleElement"
+                RowHeight="68"
+                >
 
                 <!-- HEADER -->
                 <ListView.Header>
                     <StackLayout>
 
-                        <!-- ログイン情報 -->
                         <StackLayout 
                             HeightRequest="18"
                             Margin="2"
-                            StyleClass="lg"
                             >
+                            <!-- ログイン情報 -->
                             <Label
                                 x:Name="LoginInfo"
                                 FontSize="Small"
-                                Background="#FFFFFF"
+                                TextColor="#2E2E2E"
                                 VerticalOptions="Center"
+                                Background="#FFFFFF"
                                 HorizontalTextAlignment="End" 
                             />
                         </StackLayout>
 
                         <!-- タイトル -->
                         <StackLayout
-                            Margin="4"
+                            Margin="4,0,4,0"
+                            HorizontalOptions="FillAndExpand"
                             >
                             <Label
                                 Text="出欠確認" 
                                 FontSize="Default"
                                 TextColor="#2E2E2E"
-                                BackgroundColor="#58ACFA"
+                                Background="#58ACFA"
                                 HorizontalTextAlignment="Center"
-                                VerticalTextAlignment="Center"
-                                HeightRequest="20"
                             />
                         </StackLayout>
 
@@ -58,7 +61,9 @@
 
                     <DataTemplate>
                         <ViewCell>
-                            <Grid>
+                            <Grid 
+                                StyleClass="list_grid"
+                                >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="Auto"/>
@@ -77,8 +82,8 @@
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     Text="開催日" 
-                                    TextColor="#2E2E2E"
-                                    Margin="8, 0, 8, 0"
+                                    VerticalOptions="End"
+                                    StyleClass="list_label"
                                 />
                                 <Label 
                                     Grid.Column="1"
@@ -86,8 +91,8 @@
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     Text="" 
-                                    TextColor="#2E2E2E"
-                                    Margin="8, 0, 8, 0"
+                                    VerticalOptions="End"
+                                    StyleClass="list_label"
                                 />
 
                                 <!-- 件名 -->
@@ -97,8 +102,9 @@
                                     Grid.ColumnSpan="2"
                                     Grid.RowSpan="1"
                                     Text="" 
-                                    TextColor="#2E2E2E"
-                                    Margin="8, 0, 8, 0"
+                                    LineBreakMode="TailTruncation"
+                                    VerticalOptions="Start"
+                                    StyleClass="list_label"
                                 />
 
                                 <!-- 出席・欠席・未登録 -->
@@ -107,10 +113,9 @@
                                     Grid.Row="0"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="2"
-                                    VerticalOptions="Center"
                                     Text="" 
-                                    TextColor="#2E2E2E"
-                                    Margin="8, 0, 8, 0"
+                                    VerticalOptions="Center"
+                                    StyleClass="list_label"
                                 />
                                 
                                 <!-- マーク -->
@@ -119,10 +124,9 @@
                                     Grid.Row="0"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="2"
-                                    VerticalOptions="Center"
                                     Text="〉" 
-                                    TextColor="#2E2E2E"
-                                    Margin="8, 0, 8, 0"
+                                    VerticalOptions="Center"
+                                    StyleClass="list_label"
                                 />
                             </Grid>
                         </ViewCell>

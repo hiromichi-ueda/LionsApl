@@ -21,7 +21,7 @@
                             StyleClass="login"
                             >
                         <Label
-                            Text="岐阜南LC 池田 昌二" 
+                            x:Name="LoginInfo"
                             VerticalTextAlignment="Center"
                             />
                     </StackLayout>
@@ -40,12 +40,157 @@
                     </StackLayout>
 
                     <!-- BODY -->
+                    
+                    <!-- 会員情報 -->
                     <StackLayout>
+                        <Grid
+                            Padding="10"
+                            >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
+                            <!-- 会員番号 -->
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="会員番号"
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                x:Name="MemberCode" 
+                                Text=""
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
 
+                            <!-- 会員種別 -->
+                            <Label 
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Text="会員種別"
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+                            <Label 
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                x:Name="TypeName" 
+                                Text=""
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
 
+                            <!-- 会員名 -->
+                            <Label 
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Text="会員名"
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+                            <Label 
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                x:Name="MemberName" 
+                                Text=""
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
 
+                            <!-- 性別 -->
+                            <Label 
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                Text="性別"
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+                            <Label 
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                x:Name="Sex" 
+                                Text=""
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
 
+                            <!-- 入会日 -->
+                            <Label 
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                Text="入会日"
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+                            <Label 
+                                Grid.Row="4"
+                                Grid.Column="1"
+                                x:Name="JoinDate" 
+                                Text=""
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+
+                        </Grid>
+                    </StackLayout>
+
+                    <!-- 地区役員、クラブ役職・委員会 -->
+                    <StackLayout 
+                        Margin="8,0,0,0"
+                        HorizontalOptions="FillAndExpand"
+                        Background="#FFF"
+                        >
+                        <Grid BackgroundColor="#FFFFFF" Margin="10" HorizontalOptions="Start">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="【地区役員、クラブ役職・委員会】" 
+                                FontSize="Default"
+                                HorizontalTextAlignment="Start"
+                                VerticalTextAlignment="Center"
+                                Margin="4"
+                            />
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                x:Name="Obligation"
+                                Text="" 
+                                FontSize="Default"
+                                HorizontalTextAlignment="Start"
+                                VerticalTextAlignment="Center"
+                                Margin="6"
+                            />
+
+                        </Grid>
                     </StackLayout>
 
                 </StackLayout>

@@ -18,12 +18,12 @@ namespace LionsApl
 
         private static SQLiteManager _single = null;
         private HttpClient _httpClient = null;
-        private string usrId = null;
+        //private string usrId = null;
 
         public Table.A_SETTING Db_A_Setting;                 // A_SETTINGテーブルクラス
         public Table.A_ACCOUNT Db_A_Account;                 // A_ACCOUNTテーブルクラス
         public Table.A_FILEPATH Db_A_FilePath;               // A_FILEPATHテーブルクラス
-        public Table.T_SLOGAN  Db_T_Slogan;                  // T_SLOGANテーブルクラス
+        //public Table.T_SLOGAN  Db_T_Slogan;                  // T_SLOGANテーブルクラス
         public List<Table.T_LETTER> DbList_T_Letter = new List<Table.T_LETTER>();   // T_LETTERテーブルクラスリスト
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -112,19 +112,24 @@ namespace LionsApl
                 // Create Table
                 _ = db.CreateTable<Table.A_APLLOG>();
                 _ = db.CreateTable<Table.A_SETTING>();
-                _ = db.CreateTable<Table.M_MEMBER>();
                 _ = db.CreateTable<Table.A_ACCOUNT>();
                 _ = db.CreateTable<Table.A_FILEPATH>();
                 _ = db.CreateTable<Table.T_SLOGAN>();
                 _ = db.CreateTable<Table.T_LETTER>();
                 _ = db.CreateTable<Table.T_EVENTRET>();
                 _ = db.CreateTable<Table.T_EVENT>();
-                _ = db.CreateTable<Table.T_MEETINGSCHEDULE>();
+                _ = db.CreateTable<Table.T_INFOMATION_CABI>();
                 _ = db.CreateTable<Table.T_MAGAZINE>();
                 _ = db.CreateTable<Table.T_MAGAZINEBUY>();
-                _ = db.CreateTable<Table.M_DISTRICTOFFICER>();
+                //_ = db.CreateTable<Table.M_DISTRICTOFFICER>();
                 _ = db.CreateTable<Table.M_CABINET>();
                 _ = db.CreateTable<Table.M_CLUB>();
+                _ = db.CreateTable<Table.T_CLUBSLOGAN>();
+                _ = db.CreateTable<Table.T_MEETINGSCHEDULE>();
+                _ = db.CreateTable<Table.T_DIRECTOR>();
+                _ = db.CreateTable<Table.T_MEETINGPROGRAM>();
+                _ = db.CreateTable<Table.T_INFOMATION_CLUB>();
+                _ = db.CreateTable<Table.M_MEMBER>();
                 //_ = db.CreateTable<Table.T_CLUBSLOGAN>();
             }
         }
@@ -302,14 +307,14 @@ namespace LionsApl
         /// データベーステーブル作成（M_DISTRICTOFFICER）
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public void CreateTable_M_DISTRICTOFFICER()
-        {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
-            {
-                // Create Table
-                db.CreateTable<Table.M_DISTRICTOFFICER>();
-            }
-        }
+        //public void CreateTable_M_DISTRICTOFFICER()
+        //{
+        //    using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+        //    {
+        //        // Create Table
+        //        db.CreateTable<Table.M_DISTRICTOFFICER>();
+        //    }
+        //}
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -359,19 +364,24 @@ namespace LionsApl
                 // Create Table
                 db.DropTable<Table.A_APLLOG>();
                 db.DropTable<Table.A_SETTING>();
-                db.DropTable<Table.M_MEMBER>();
                 db.DropTable<Table.A_ACCOUNT>();
                 db.DropTable<Table.A_FILEPATH>();
                 db.DropTable<Table.T_SLOGAN>();
                 db.DropTable<Table.T_LETTER>();
                 db.DropTable<Table.T_EVENTRET>();
                 db.DropTable<Table.T_EVENT>();
-                db.DropTable<Table.T_MEETINGSCHEDULE>();
+                db.DropTable<Table.T_INFOMATION_CABI>();
                 db.DropTable<Table.T_MAGAZINE>();
                 db.DropTable<Table.T_MAGAZINEBUY>();
-                db.DropTable<Table.M_DISTRICTOFFICER>();
+                //db.DropTable<Table.M_DISTRICTOFFICER>();
                 db.DropTable<Table.M_CABINET>();
                 db.DropTable<Table.M_CLUB>();
+                db.DropTable<Table.T_CLUBSLOGAN>();
+                db.DropTable<Table.T_MEETINGSCHEDULE>();
+                db.DropTable<Table.T_DIRECTOR>();
+                db.DropTable<Table.T_MEETINGPROGRAM>();
+                db.DropTable<Table.T_INFOMATION_CLUB>();
+                db.DropTable<Table.M_MEMBER>();
             }
         }
 
@@ -517,6 +527,20 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
+        /// データベーステーブル削除（T_MEETINGPROGRAM）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void DropTable_T_MEETINGPROGRAM()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            {
+                // Drop Table
+                db.DropTable<Table.T_MEETINGPROGRAM>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
         /// データベーステーブル削除（T_MAGAZINE）
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -548,14 +572,14 @@ namespace LionsApl
         /// データベーステーブル削除（M_DISTRICTOFFICER）
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public void DropTable_M_DISTRICTOFFICER()
-        {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
-            {
-                // Drop Table
-                db.DropTable<Table.M_DISTRICTOFFICER>();
-            }
-        }
+        //public void DropTable_M_DISTRICTOFFICER()
+        //{
+        //    using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+        //    {
+        //        // Drop Table
+        //        db.DropTable<Table.M_DISTRICTOFFICER>();
+        //    }
+        //}
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -584,6 +608,7 @@ namespace LionsApl
                 db.DropTable<Table.M_CLUB>();
             }
         }
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -853,6 +878,58 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
+        /// T_MEETINGPROGRAMテーブルデータ取得
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.T_MEETINGPROGRAM[] Get_T_MEETINGPROGRAM(string command)
+        {
+            List<Table.T_MEETINGPROGRAM> items = new List<Table.T_MEETINGPROGRAM>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                {   // Select
+                    items = db.Query<Table.T_MEETINGPROGRAM>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.T_MEETINGPROGRAM[0]);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// T_MEETINGPROGRAMテーブルデータ取得
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.T_DIRECTOR[] Get_T_DIRECTOR(string command)
+        {
+            List<Table.T_DIRECTOR> items = new List<Table.T_DIRECTOR>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                {   // Select
+                    items = db.Query<Table.T_DIRECTOR>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.T_DIRECTOR[0]);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
         /// HOME_EVENT(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE)テーブルデータ取得
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -957,19 +1034,19 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// M_DISTRICTOFFICERテーブルデータ取得
+        /// T_INFOMATION_CLUBテーブルデータ取得
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public Table.M_DISTRICTOFFICER[] Get_M_DISTRICTOFFICER(string command)
+        public Table.T_INFOMATION_CLUB[] Get_T_INFOMATION_CLUB(string command)
         {
-            List<Table.M_DISTRICTOFFICER> items = new List<Table.M_DISTRICTOFFICER>();
+            List<Table.T_INFOMATION_CLUB> items = new List<Table.T_INFOMATION_CLUB>();
 
             try
             {
                 // データ取得
                 using (SQLiteConnection db = new SQLiteConnection(DbPath))
                 {   // Select
-                    items = db.Query<Table.M_DISTRICTOFFICER>(command);
+                    items = db.Query<Table.T_INFOMATION_CLUB>(command);
                 }
             }
             catch
@@ -977,9 +1054,35 @@ namespace LionsApl
                 throw;
             }
 
-            return items.Count > 0 ? items.ToArray() : (new Table.M_DISTRICTOFFICER[0]);
+            return items.Count > 0 ? items.ToArray() : (new Table.T_INFOMATION_CLUB[0]);
 
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// M_DISTRICTOFFICERテーブルデータ取得
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        //public Table.M_DISTRICTOFFICER[] Get_M_DISTRICTOFFICER(string command)
+        //{
+        //    List<Table.M_DISTRICTOFFICER> items = new List<Table.M_DISTRICTOFFICER>();
+
+        //    try
+        //    {
+        //        // データ取得
+        //        using (SQLiteConnection db = new SQLiteConnection(DbPath))
+        //        {   // Select
+        //            items = db.Query<Table.M_DISTRICTOFFICER>(command);
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        throw;
+        //    }
+
+        //    return items.Count > 0 ? items.ToArray() : (new Table.M_DISTRICTOFFICER[0]);
+
+        //}
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>

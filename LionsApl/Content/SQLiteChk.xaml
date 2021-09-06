@@ -1,40 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:content="clr-namespace:LionsApl.Content" 
+             x:DataType="content:MainTabPage"
              x:Class="LionsApl.Content.SQLiteChk">
-  <ContentPage.Padding>
-    <OnPlatform x:TypeArguments="Thickness">
-      <On Platform="iOS" Value="0,40,0,0" />
-      <On Platform="Android, UWP" Value="0,0,0,0" />
-    </OnPlatform>
-  </ContentPage.Padding>
-  <ContentPage.Content>
-    <StackLayout>
-      <Label Text="SQLite確認画面"
-             BackgroundColor="#F2F2F2"
-             VerticalOptions="Center"
-             HorizontalOptions="Fill"
-             HorizontalTextAlignment="Center"/>
-      <Label Text ="対象テーブル"
-             Padding="8,0,0,0"
-             VerticalOptions="Center"/>
-      <Picker x:Name="TablePicker"
-              Title="テーブル選択"
-              TitleColor="GRAY"
-              ItemDisplayBinding="{Binding Name}"
-              SelectedIndexChanged="TablePicker_SelectedIndexChanged"
-              Margin="0,0,8,0">
-      </Picker>
-      <ScrollView x:Name="ResultScroll" 
-                  BackgroundColor="White" 
-                  Orientation="Both">
-        <Label x:Name="ResultLabel"
-             Text="検索結果"
-             VerticalOptions="StartAndExpand" 
-             HorizontalOptions="FillAndExpand"
-             BackgroundColor="AliceBlue"  
-             TextColor="Black"/>
-      </ScrollView>
-    </StackLayout>
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS" Value="0,40,0,0" />
+            <On Platform="Android, UWP" Value="0,0,0,0" />
+        </OnPlatform>
+    </ContentPage.Padding>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="SQLite確認画面"
+                   BackgroundColor="#F2F2F2"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Fill"
+                   HorizontalTextAlignment="Center"/>
+            <Button 
+                    x:Name="BackButton"
+                    Text="戻る" 
+                    BorderWidth="1" 
+                    CornerRadius="6"
+                    Clicked="Back_Button_Clicked"
+                    Background="#D8D8D8"/>
+            <Label  Text ="対象テーブル"
+                    Padding="8,0,0,0"
+                    VerticalOptions="Center"/>
+            <Picker x:Name="TablePicker"
+                    Title="テーブル選択"
+                    TitleColor="GRAY"
+                    ItemDisplayBinding="{Binding TableName}"
+                    SelectedIndexChanged="TablePicker_SelectedIndexChanged"
+                    Margin="0,0,8,0">
+            </Picker>
+            <ScrollView x:Name="ResultScroll" 
+                      BackgroundColor="White" 
+                      Orientation="Both">
+                <Label x:Name="ResultLabel"
+                     Text="検索結果"
+                     VerticalOptions="StartAndExpand" 
+                     HorizontalOptions="FillAndExpand"
+                     BackgroundColor="AliceBlue"  
+                     TextColor="Black"/>
+            </ScrollView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -34,7 +34,7 @@ namespace LionsApl.Content
             Title = _sqlite.Db_A_Setting.CabinetName;
 
             // ツールバーに一覧ボタンを設定
-            ToolbarItems.Add(new ToolbarItem { Text = "一覧", Command = new Command(Push_MagazineList) });
+            //ToolbarItems.Add(new ToolbarItem { Text = "一覧", Command = new Command(Push_MagazineList) });
 
             // A_FILEPATHデータ取得
             _sqlite.GetFilePath(_sqlite.DATACLASS_MAGAZINE);
@@ -61,19 +61,19 @@ namespace LionsApl.Content
                 {
                     if (row.FileName != null)
                     {
-                        string urlStr = ((App)Application.Current).AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/").Replace("\r\n", "") + "/" + row.FileName;
+                        string urlStr = ((App)Application.Current).AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/").Replace("\r\n", "") + 
+                                        "/" + row.DataNo.ToString() + "/" + row.FileName;
                         //string encodeUrl = System.Net.WebUtility.UrlEncode(urlStr);
                         //string source = "https://docs.google.com/viewer?url=" + encodeUrl + "&embedded=true";
                         string source = urlStr;
                         Pdf.Source = source;
 
-
-                        PdfLabel.Text = _sqlite.Db_A_FilePath.FilePath + "/" + row.FileName + "\r\n" + source;
+                        //PdfLabel.Text = _sqlite.Db_A_FilePath.FilePath + "/" + row.FileName + "\r\n" + source;
 
                     }
                     else
                     {
-                        PdfLabel.Text = "写真なし";
+                        PdfLabel.Text = "ファイルなし";
                     }
                 }
             }

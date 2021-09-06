@@ -295,18 +295,7 @@
                                 VerticalTextAlignment="Center"
                                 Margin="4"
                             />
-                            <Label
-                                Grid.Row="2"
-                                Grid.Column="0"
-                                x:Name="Club"
-                                Text="" 
-                                FontSize="18"
-                                TextColor="#2E2E2E"
-                                Background="#FFF"
-                                HorizontalTextAlignment="Start"
-                                VerticalTextAlignment="Center"
-                                Margin="4"
-                            />
+                            
                         </Grid>
                     </StackLayout>
 
