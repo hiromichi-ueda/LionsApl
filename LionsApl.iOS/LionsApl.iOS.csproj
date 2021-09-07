@@ -185,6 +185,6 @@
     <BundleResource Include="Resources\account.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\matching.png" />
+    <BundleResource Include="Resources\event.png" />
   </ItemGroup>
 </Project>

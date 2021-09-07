@@ -17,7 +17,7 @@
                 x:Name="ClubScheduleListView"
                 ItemTapped="List_Tapped"
                 CachingStrategy="RecycleElement"
-                RowHeight="60"
+                RowHeight="68"
                 >
 
                 <!-- HEADER -->
