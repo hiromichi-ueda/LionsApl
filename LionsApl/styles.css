@@ -140,3 +140,16 @@ button {
     height: 30;
     margin: 8,0,8,0; /* 余白 */
 }
+
+.page_member_red {
+    color: #FF0000; /* 文字色 */
+    text-align: start; /* 位置(左寄せ) */
+    height: 30;
+    margin: 8,0,8,0; /* 余白 */
+}
+
+.page_member_hfree {
+    color: #151515; /* 文字色 */
+    text-align: start; /* 位置(左寄せ) */
+    margin: 8,0,8,0; /* 余白 */
+}

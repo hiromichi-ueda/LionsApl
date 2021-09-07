@@ -44,7 +44,8 @@
                         <!-- 詳細 -->
                         <StackLayout>
                             <Grid
-                            Padding="10"
+                                x:Name="DetailGrid"
+                                Padding="10"
                             >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -52,8 +53,10 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
@@ -76,7 +79,16 @@
                                 VerticalOptions="Center" 
                                 StyleClass="page_member"
                              />
-
+                                <Label 
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                x:Name="Cancel" 
+                                Text=""
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member_red"
+                             />
+                                
                                 <!-- 時間 -->
                                 <Label 
                                 Grid.Row="1"
@@ -89,6 +101,7 @@
                                 <Label 
                                 Grid.Row="1"
                                 Grid.Column="1"
+                                Grid.ColumnSpan="2"
                                 x:Name="MeetingTime" 
                                 Text=""
                                 FontSize="Default"
@@ -108,6 +121,7 @@
                                 <Label 
                                 Grid.Row="2"
                                 Grid.Column="1"
+                                Grid.ColumnSpan="2"
                                 x:Name="MeetingName" 
                                 Text=""
                                 FontSize="Default"
@@ -127,6 +141,7 @@
                                 <Label 
                                 Grid.Row="3"
                                 Grid.Column="1"
+                                Grid.ColumnSpan="2"
                                 x:Name="MeetingPlace" 
                                 Text=""
                                 FontSize="Default"
@@ -146,7 +161,184 @@
                                 <Label 
                                 Grid.Row="4"
                                 Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                x:Name="RemarksItems" 
+                                Text=""
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member_hfree"
+                             />
+                                <!--<Label 
+                                Grid.Row="5"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
                                 x:Name="Remarks" 
+                                Text=""
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member_hfree"
+                             />-->
+
+                            </Grid>
+                        </StackLayout>
+                        <!-- 例会オプション -->
+                        <StackLayout>
+                            <!--<Grid
+                            Padding="10"
+                            >-->
+                            <Grid
+                                x:Name="OptGrid"
+                                >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!--<Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                x:Name="OptionName1"
+                                Text=""
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+                                <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                x:Name="OptionRadio1" 
+                                Text=""
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+                                <Label 
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                x:Name="OptionName2"
+                                Text=""
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+                                <Label
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                x:Name="OptionRadio2" 
+                                Text=""
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+                                <Label 
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                x:Name="OptionName3"
+                                Text=""
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+                                <Label
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                x:Name="OptionRadio3" 
+                                Text=""
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+                                <Label 
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                x:Name="OptionName4"
+                                Text=""
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+                                <Label
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                x:Name="OptionRadio4" 
+                                Text=""
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+                                <Label 
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                x:Name="OptionName5"
+                                Text=""
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+                                <Label
+                                Grid.Row="4"
+                                Grid.Column="1"
+                                x:Name="OptionRadio5" 
+                                Text=""
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />-->
+                            </Grid>
+                        </StackLayout>
+                        <StackLayout>
+                            <Grid
+                            Padding="10"
+                            >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <!-- お酒 -->
+                                <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="お酒"
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+                                <Label 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                x:Name="Sake" 
+                                Text=""
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+
+                                <!-- 本人以外の参加 -->
+                                <Label 
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Text="本人以外の参加"
+                                FontSize="Default"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+                                <Label 
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                x:Name="OtherUser" 
                                 Text=""
                                 FontSize="Default"
                                 VerticalOptions="Center" 
@@ -155,9 +347,6 @@
 
                             </Grid>
                         </StackLayout>
-
-
-
 
                     </StackLayout>
 

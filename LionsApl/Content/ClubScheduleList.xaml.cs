@@ -55,9 +55,9 @@ namespace LionsApl.Content
 
             ClubScheduleRow item = e.Item as ClubScheduleRow;
 
-            Navigation.PushAsync(new ClubSchedulePage(item.Title, item.DataNo));
+            Navigation.PushAsync(new ClubSchedulePage(item.DataNo));
 
-            //await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
+            //DisplayAlert("List Tap", "DataNo:" + item.DataNo , "OK");
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
