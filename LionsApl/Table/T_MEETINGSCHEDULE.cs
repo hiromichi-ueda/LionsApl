@@ -17,6 +17,7 @@
         public string AnswerDate { get; set; }
         public string AnswerTime { get; set; }
         public string RemarksCheck { get; set; }
+        public string RemarksItems { get; set; }
         public string Remarks { get; set; }
         public string OptionName1 { get; set; }
         public string OptionRadio1 { get; set; }
