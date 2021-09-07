@@ -311,14 +311,13 @@ namespace LionsApl
             CommandText.Text = "Get File Names";
             MessageText.Text = "";
             ResultText.Text = "";
-            FileText.Text = "";
 
             //sqliteManager = SQLiteManager.GetInstance();
             string[] names = sqliteManager.GetFileName();
             foreach (string name in names)
             {
                 var lwTime = System.IO.File.GetLastWriteTime(name);
-                FileText.Text += name + " " + lwTime + "\r\n";
+                ResultText.Text += name + " " + lwTime + "\r\n";
             }
 
             /// 終了時間表示
@@ -343,7 +342,6 @@ namespace LionsApl
             CommandText.Text = "Get DB Table Names";
             MessageText.Text = "";
             ResultText.Text = "";
-            FileText.Text = "";
 
             //sqliteManager = SQLiteManager.GetInstance();
 

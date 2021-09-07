@@ -77,51 +77,51 @@
                             >
                             <Label Text="＜各画面遷移関連＞" />
                             <Button 
-                                Text="Account Setting" 
+                                Text="アカウント設定（Webアクセスなし）" 
                                 Clicked="Button_AccountSetting_Clicked" 
                                 >
                             </Button>
 
                             <Button 
-                                Text="Main Tab Page" 
+                                Text="ホーム（Webアクセスなし）" 
                                 Clicked="Button_MainTabPage_Clicked" 
                                 >
                             </Button>
 
                             <Button 
-                                Text="SQLite Check" 
+                                Text="SQLiteDB検索" 
                                 Clicked="Button_SQLiteCheck_Clicked" 
                                 >
                             </Button>
 
                             <Label Text="＜SQLite関連（ファイル操作）＞" />
                             <Button 
-                                Text="Create SQLite File(DB3)" 
+                                Text="SQLiteファイル（空）作成" 
                                 Clicked="Button_CreateTable_Clicked"
                                 >
                             </Button>
                             <Button 
-                                Text="Get ACCOUNT Data (Send SQLite File)" 
+                                Text="アカウント情報取得" 
                                 Clicked="Button_SendSQLite_Clicked" 
                                 >
                             </Button>
                             <Button 
-                                Text="Get HOME Data (Send SQLite File)" 
+                                Text="その他表示情報取得" 
                                 Clicked="Button_SendSQLite_HOME_Clicked" 
                                 >
                             </Button>
                             <Button 
-                                Text="Get File Names" 
+                                Text="SQLiteファイル名表示" 
                                 Clicked="Button_GetFileName_Clicked" 
                                 >
                             </Button>
                             <Button 
-                                Text="Get DB Table Names" 
+                                Text="SQLiteDBテーブル名表示" 
                                 Clicked="Button_GetDBTableName_Clicked" 
                                 >
                             </Button>
                             <Button 
-                                Text="Delete DB3" 
+                                Text="SQLiteファイル削除" 
                                 Clicked="Button_DeleteDB3_Clicked" 
                                 >
                             </Button>
@@ -142,7 +142,7 @@
                                 BackgroundColor="AliceBlue"  
                                 FontSize="16"
                                 />
-                            <Label 
+                            <!--<Label 
                                 x:Name="FileText"  
                                 Text="File..." 
                                 HorizontalTextAlignment="left" 
@@ -150,7 +150,7 @@
                                 LineBreakMode="CharacterWrap"
                                 BackgroundColor="AliceBlue"   
                                 FontSize="16"
-                                />
+                                />-->
                             <Label 
                                 x:Name="CommandText"  
                                 Text="Command..." 
