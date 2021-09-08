@@ -131,7 +131,7 @@ namespace LionsApl.Content
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// 出欠登録ボタン押下
+        /// マッチングボタン押下
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
