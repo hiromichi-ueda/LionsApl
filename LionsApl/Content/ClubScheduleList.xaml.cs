@@ -15,7 +15,9 @@ namespace LionsApl.Content
     {
         private SQLiteManager _sqlite;                      // SQLiteマネージャークラス
 
-        public ObservableCollection<string> Items { get; set; }
+        public List<ClubScheduleRow> Items { get; set; }
+
+        //public ObservableCollection<string> Items { get; set; }
 
         public ClubScheduleList()
         {
@@ -55,12 +57,17 @@ namespace LionsApl.Content
 
             ClubScheduleRow item = e.Item as ClubScheduleRow;
 
-            Navigation.PushAsync(new ClubSchedulePage(item.DataNo));
+            if (string.IsNullOrEmpty(item.Title))
+            {
+                ((ListView)sender).SelectedItem = null;
+                return;
+            }
 
-            //DisplayAlert("List Tap", "DataNo:" + item.DataNo , "OK");
+            Navigation.PushAsync(new ClubSchedulePage(item.DataNo));
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
+
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -70,10 +77,11 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetClubSchedule()
         {
-            int WorkDataNo;
-            string WorkDate;
-            string WorkTitle;
-            List<ClubScheduleRow> items = new List<ClubScheduleRow>();
+            int WorkDataNo = 0;
+            string WorkDate = string.Empty;
+            string WorkTitle = string.Empty;
+//            List<ClubScheduleRow> items = new List<ClubScheduleRow>();
+            Items = new List<ClubScheduleRow>();
 
             try
             {
@@ -84,9 +92,15 @@ namespace LionsApl.Content
                     WorkDataNo = row.DataNo;
                     WorkDate = row.MeetingDate.Substring(0, 10) + "  " + row.MeetingTime;
                     WorkTitle = row.MeetingName;
-                    items.Add(new ClubScheduleRow(WorkDataNo, WorkDate, WorkTitle));
+                    Items.Add(new ClubScheduleRow(WorkDataNo, WorkDate, WorkTitle));
                 }
-                ClubScheduleListView.ItemsSource = items;
+                if (Items.Count == 0)
+                {
+                    // メッセージ表示のため空行を追加
+                    Items.Add(new ClubScheduleRow(0, WorkDate, WorkTitle));
+                }
+                //ClubScheduleListView.ItemsSource = items;
+                BindingContext = this;
             }
             catch (Exception ex)
             {
@@ -113,4 +127,24 @@ namespace LionsApl.Content
         public string Title { get; set; }
     }
 
+    public class MyScheduleTemplateSelector : DataTemplateSelector
+    {
+        //切り替えるテンプレートを保持するプロパティを用意する
+        public DataTemplate ExistDataTemplate { get; set; }
+        public DataTemplate NoDataTemplate { get; set; }
+
+        protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
+        {
+            // 条件より該当するテンプレートを返す
+            var info = (ClubScheduleRow)item;
+            if (!String.IsNullOrEmpty(info.Title))
+            {
+                return ExistDataTemplate;
+            }
+            else
+            {
+                return NoDataTemplate;
+            }
+        }
+    }
 }

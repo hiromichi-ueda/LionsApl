@@ -21,7 +21,7 @@
                             StyleClass="login"
                             >
                         <Label
-                            Text="岐阜南LC 池田 昌二" 
+                            x:Name="LoginInfo"
                             VerticalTextAlignment="Center"
                             />
                     </StackLayout>
@@ -41,10 +41,169 @@
 
                     <!-- BODY -->
                     <StackLayout>
+                        <!-- 出欠タイトル -->
+                        <Label
+                            x:Name="DirectorTitle"
+                            Text=""
+                            HorizontalTextAlignment="Center"
+                            VerticalTextAlignment="Center"
+                            />
 
+                        <StackLayout>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
 
+                                <!-- 開催日 -->
+                                <Label 
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Text="開催日"
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member"
+                                />
+                                <Label 
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    x:Name="EventDate" 
+                                    Text=""
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member"
+                                 />
+                                <Label 
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    x:Name="Cancel" 
+                                    Text=""
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member_red"
+                                 />
+                                <!-- 区分 -->
+                                <Label 
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Text="区分"
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member"
+                                />
+                                <Label 
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="2"
+                                    x:Name="Season" 
+                                    Text=""
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member"
+                                 />
+                                <!-- 開催場所 -->
+                                <Label 
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Text="開催場所"
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member"
+                                />
+                                <Label 
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="2"
+                                    x:Name="EventPlace" 
+                                    Text=""
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member"
+                                 />
+                                <!-- 議題・内容 -->
+                                <Label 
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="3"
+                                    Text="議題・内容"
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member"
+                                />
+                                <Label 
+                                    Grid.Row="4"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="3"
+                                    x:Name="Agenda" 
+                                    Text=""
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member_hfree"
+                                 />
+                                <!-- 回答期限 -->
+                                <Label 
+                                    Grid.Row="5"
+                                    Grid.Column="0"
+                                    Text="回答期限"
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member_red"
+                                />
+                                <Label 
+                                    Grid.Row="5"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="2"
+                                    x:Name="AnswerDate" 
+                                    Text=""
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member_red"
+                                 />
+                            </Grid>
+                        </StackLayout>
 
+                        <StackLayout>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1.*"/>
+                                    <ColumnDefinition Width="1.*"/>
+                                </Grid.ColumnDefinitions>
 
+                                <!-- 出席 -->
+                                <Button 
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    x:Name="btn_attendance"
+                                    Text="出席"
+                                    BorderWidth="1" 
+                                    CornerRadius="6"
+                                    Clicked="Attendance_Button_Clicked"
+                                />
+                                <!-- 欠席 -->
+                                <Button 
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    x:Name="btn_absence"
+                                    Text="欠席"
+                                    BorderWidth="1" 
+                                    CornerRadius="6"
+                                    Clicked="Absence_Button_Clicked"
+                                />
+                            </Grid>
+                        </StackLayout>
 
                     </StackLayout>
 

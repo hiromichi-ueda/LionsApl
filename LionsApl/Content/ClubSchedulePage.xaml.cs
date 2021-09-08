@@ -53,6 +53,7 @@ namespace LionsApl.Content
             // ログイン情報設定
             LoginInfo.Text = _sqlite.LoginInfo;
 
+            // 年間例会スケジュール情報を取得する
             GetMeetingScheduleInfo();
 
         }
@@ -91,6 +92,8 @@ namespace LionsApl.Content
             string OtherStr = "本人以外の参加";
             string OtherVal = string.Empty;
 
+            string WrkStr = string.Empty;
+
             int rowCount = 0;
 
             Table.TableUtil Util = new Table.TableUtil();
@@ -128,10 +131,12 @@ namespace LionsApl.Content
                     MeetingPlace.Text = Util.GetString(row.MeetingPlace);
 
                     // 備考（項目名）
-                    RemarksItems.Text = Util.GetString(row.RemarksItems);
+                    WrkStr = Util.GetString(row.RemarksItems).TrimEnd(',');
+                    RemarksItems.Text = WrkStr.Replace(",", "、");
 
                     // 備考（備考欄）
                     RemarksStr = Util.GetString(row.Remarks);
+
                     //RemarksStr = "テスト用文字列を設定しています。テスト用文字列を設定しています。テスト用文字列を設定しています。テスト用文字列を設定しています。";
                     if (RemarksStr != string.Empty)
                     {
