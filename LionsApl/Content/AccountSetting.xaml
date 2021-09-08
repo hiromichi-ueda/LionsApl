@@ -53,7 +53,6 @@
 
                         <!-- タイトル -->
                         <Label 
-                            x:Name="title"
                             Text="アカウント設定"
                             VerticalTextAlignment="Center"
                             StyleClass="title_grey"
@@ -177,7 +176,6 @@
                                 <Button 
                                     Grid.Row="0"
                                     Grid.Column="0"
-                                    x:Name="btn_back"
                                     Text="戻　る" 
                                     Clicked="Button_Back_Clicked"
                                     >
@@ -185,7 +183,6 @@
                                 <Button 
                                     Grid.Row="0"
                                     Grid.Column="1"
-                                    x:Name="btn_save"
                                     Text="アカウント登録" 
                                     Clicked="Button_AccountSet_Clicked"
                                     >

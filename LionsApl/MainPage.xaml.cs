@@ -24,11 +24,6 @@ namespace LionsApl
         {
             InitializeComponent();
 
-            // font-size
-            this.apl_title.FontSize = 38.0;                                                 //APLタイトル
-            this.home.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Button));      //HOMEボタン
-            this.account.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Button));   //ACCOUNTボタン
-
             // SQLクラス
             sqliteManager = SQLiteManager.GetInstance();
 

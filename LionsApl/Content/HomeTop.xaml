@@ -33,7 +33,6 @@
                         HorizontalOptions="FillAndExpand"                       
                         >
                         <Label 
-                            x:Name="title_slogan"
                             Text="地区スローガン"
                             VerticalTextAlignment="Center"
                             StyleClass="title_liteblue"
@@ -59,7 +58,6 @@
                         >
                         <!-- タイトル -->
                         <Label 
-                            x:Name="title_letter"
                             Text="キャビネットレター"
                             VerticalTextAlignment="Center"
                             StyleClass="title_green"
@@ -231,7 +229,6 @@
                         HorizontalOptions="FillAndExpand"
                         >
                         <Label
-                            x:Name="title_event"
                             Text="参加予定一覧" 
                             VerticalTextAlignment="Center"
                             StyleClass="title_yellow"
@@ -511,7 +508,6 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     Grid.ColumnSpan="1"
-                    x:Name="btn_infometion"
                     Text="連絡事項" 
                     BorderWidth="1" 
                     CornerRadius="6"
@@ -523,7 +519,6 @@
                     Grid.Row="0"
                     Grid.Column="1"
                     Grid.ColumnSpan="1"
-                    x:Name="btn_magazine"
                     Text="地区誌" 
                     BorderWidth="1" 
                     CornerRadius="6"
@@ -535,7 +530,6 @@
                     Grid.Row="0"
                     Grid.Column="2"
                     Grid.ColumnSpan="1"
-                    x:Name="btn_lcif"
                     Text="LCIF" 
                     BorderWidth="1" 
                     CornerRadius="6"
@@ -548,7 +542,6 @@
                     Grid.Row="0"
                     Grid.Column="3"
                     Grid.ColumnSpan="1"
-                    x:Name="btn_matching"
                     Text="マッチング"
                     BorderWidth="1" 
                     CornerRadius="6"

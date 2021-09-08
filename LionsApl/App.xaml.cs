@@ -13,6 +13,7 @@ namespace LionsApl
     {
         public string AppServer;
         public string WebServiceUrl;
+        public string AndroidPdf;
 
         public App()
         {
@@ -21,6 +22,7 @@ namespace LionsApl
             // Configファイルより値を取得
             AppServer = PCLAppConfig.ConfigurationManager.AppSettings["ApplicationServer"];
             WebServiceUrl = PCLAppConfig.ConfigurationManager.AppSettings["WebServiceUrl"];
+            AndroidPdf = PCLAppConfig.ConfigurationManager.AppSettings["AndroidPdfViewer"];
 
             // MainPage起動
             MainPage = new MainPage();

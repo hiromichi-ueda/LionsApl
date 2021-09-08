@@ -13,7 +13,6 @@
         <StackLayout>
 
             <ScrollView>
-
                 <StackLayout>
 
                     <!-- ログイン情報 -->
@@ -39,9 +38,7 @@
                         />
                     </StackLayout>
 
-                    <!-- BODY -->
-                    
-                    <!-- 会員情報 -->
+                    <!-- BODY(会員情報) -->
                     <StackLayout>
                         <Grid
                             Padding="10"
@@ -188,7 +185,6 @@
                     </StackLayout>
 
                 </StackLayout>
-
             </ScrollView>
 
         </StackLayout>

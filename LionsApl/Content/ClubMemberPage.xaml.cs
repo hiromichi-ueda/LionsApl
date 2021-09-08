@@ -12,7 +12,6 @@ namespace LionsApl.Content
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ClubMemberPage : ContentPage
     {
-
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
@@ -31,8 +30,6 @@ namespace LionsApl.Content
             InitializeComponent();
 
             // font-size
-            this.LoginInfo.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));      //Login
-            this.title.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));        //Title
             this.lbl_MemberCode.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.MemberCode.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.lbl_TypeName.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
@@ -63,8 +60,7 @@ namespace LionsApl.Content
             _sqlite.SetAccount();
 
             // ログイン情報設定
-            LoginInfo.Text = _sqlite.Db_A_Account.ClubName + " " + _sqlite.Db_A_Account.MemberFirstName + _sqlite.Db_A_Account.MemberLastName;
-
+            LoginInfo.Text = _sqlite.LoginInfo;
 
             // 会員情報設定
             GetMemberInfo();

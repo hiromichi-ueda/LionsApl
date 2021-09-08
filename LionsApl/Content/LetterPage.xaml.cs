@@ -22,14 +22,11 @@ namespace LionsApl.Content
         private string _titleName;  // タイトル
         private int _dataNo;        // データNo.
 
-
         public LetterPage(string title, int dataNo)
         {
             InitializeComponent();
 
             // font-size
-            this.LoginInfo.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));      //Login
-            this.title.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));        //Title
             this.lbl_EventDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.DateLabel.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.lbl_Title.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
@@ -55,7 +52,7 @@ namespace LionsApl.Content
             _sqlite.SetAccount();
 
             // ログイン情報設定
-            LoginInfo.Text = _sqlite.Db_A_Account.ClubName + " " + _sqlite.Db_A_Account.MemberFirstName + _sqlite.Db_A_Account.MemberLastName;
+            LoginInfo.Text = _sqlite.LoginInfo;
 
             // A_FILEPATHデータ取得
             _sqlite.GetFilePath(_sqlite.DATACLASS_LETTER);

@@ -8,11 +8,11 @@
     　画面名: 連絡事項(キャビネット)画面
     +++++++++++++++++++++++++++++++++++++
     -->
+    
     <ContentPage.Content>
         <StackLayout>
 
             <ScrollView>
-
                 <StackLayout>
 
                     <!-- ログイン情報 -->
@@ -24,7 +24,7 @@
                             VerticalTextAlignment="Center"
                             />
                     </StackLayout>
-                    
+
                     <!-- タイトル -->
                     <StackLayout 
                             Margin="4,0,4,0"
@@ -38,7 +38,7 @@
                         />
                     </StackLayout>
 
-                    <!-- BODY -->
+                    <!-- BODY(連絡事項) -->
                     <StackLayout>
 
 
@@ -47,7 +47,6 @@
                     </StackLayout>
 
                 </StackLayout>
-
             </ScrollView>
 
         </StackLayout>

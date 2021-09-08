@@ -36,11 +36,8 @@ namespace LionsApl.Content
             InitializeComponent();
 
             // font-size
-            this.LoginInfo.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));
-            this.title_slogan.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.LabelSlogun.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.LabelDistrictGovernor.FontSize = Device.GetNamedSize(NamedSize.Caption, typeof(Label));
-            this.title_letter.FontSize = Device.GetNamedSize(NamedSize.Caption, typeof(Label));
             this.LetterDate0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.LetterTitle0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.LetterMark0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
@@ -53,7 +50,6 @@ namespace LionsApl.Content
             this.LetterDate3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.LetterTitle3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.LetterMark3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            this.title_event.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.EventDate0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.EventTitle0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.EventCount0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
@@ -71,11 +67,7 @@ namespace LionsApl.Content
             this.EventCount3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.EventMsg3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.EventMark3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            this.btn_infometion.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));
-            this.btn_magazine.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));
-            this.btn_lcif.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));
-            this.btn_matching.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));
-
+            
 
             // 画面表示の初期化
             // Slogan

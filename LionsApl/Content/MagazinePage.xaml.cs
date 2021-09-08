@@ -16,8 +16,9 @@ namespace LionsApl.Content
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
-        // url取得
-        public static String AppServer = ((App)Application.Current).AppServer;
+        // Config取得
+        public static String AppServer = ((App)Application.Current).AppServer;      //Url
+        public static String AndroidPdf = ((App)Application.Current).AndroidPdf;    //PdfViewer
 
         // 前画面からのデータNo取得情報
         private int _dataNo;
@@ -25,10 +26,6 @@ namespace LionsApl.Content
         public MagazinePage(int InDataNo)
         {
             InitializeComponent();
-
-            // font-size
-            this.LoginInfo.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));      //Login
-            this.title.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));        //Title
 
             // DataNo取得(Key)
             _dataNo = InDataNo;
@@ -42,17 +39,14 @@ namespace LionsApl.Content
             // タイトル設定
             Title = _sqlite.Db_A_Setting.CabinetName;
 
-            // ツールバーに一覧ボタンを設定
-            //ToolbarItems.Add(new ToolbarItem { Text = "一覧", Command = new Command(Push_MagazineList) });
-
-            // A_FILEPATHデータ取得
-            _sqlite.GetFilePath(_sqlite.DATACLASS_MAGAZINE);
-
             // A_ACCOUNTデータ取得
             _sqlite.SetAccount();
 
             // ログイン情報設定
-            LoginInfo.Text = _sqlite.Db_A_Account.ClubName + " " + _sqlite.Db_A_Account.MemberFirstName + _sqlite.Db_A_Account.MemberLastName;
+            LoginInfo.Text = _sqlite.LoginInfo;
+
+            // A_FILEPATHデータ取得
+            _sqlite.GetFilePath(_sqlite.DATACLASS_MAGAZINE);
 
             // 地区誌情報設定
             GetMagazine();
@@ -65,6 +59,7 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetMagazine()
         {
+
             try
             {
                 foreach (Table.T_MAGAZINE row in _sqlite.Get_T_MAGAZINE("Select * " +
@@ -73,13 +68,22 @@ namespace LionsApl.Content
                 {
                     if (row.FileName != null)
                     {
-                        string urlStr = AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/").Replace("\r\n", "") + 
-                                        "/" + row.DataNo.ToString() + "/" + row.FileName;
-                        string source = urlStr;
-                        Pdf.Source = source;
+                        // 地区誌パス
+                        var pdfUrl = AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/").Replace("\r\n", "") +
+                                     "/" + row.DataNo.ToString() + "/" + row.FileName;
 
-                        PdfLabel.Text = urlStr;
+                        // AndroidPDF Viewer
+                        var googleUrl = AndroidPdf + "?embedded=true&url=";
 
+                        if (Device.RuntimePlatform == Device.iOS)
+                        {
+                            Pdf.Source = pdfUrl;
+                        }
+                        else if (Device.RuntimePlatform == Device.Android)
+                        {
+                            Pdf.Source = new UrlWebViewSource() { Url = googleUrl + pdfUrl };
+                        }
+                        PdfLabel.Text = pdfUrl;
                     }
                     else
                     {
@@ -89,7 +93,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(T_LETTER) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(T_MAGAZINE) : &{ex.Message}", "OK");
             }
         }
 

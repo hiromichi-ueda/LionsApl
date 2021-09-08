@@ -37,17 +37,14 @@
                         >
                         <Label
                             Text="クラブスローガン" 
-                            FontSize="Default"
                             VerticalTextAlignment="Center"
                             StyleClass="title_blue"
                         />
                         <Label x:Name="ClubSlogan"
-                            FontSize="Default"
                             HorizontalTextAlignment="Center"
                             Margin="4"
                         />
                         <Label x:Name="ExecutiveName"
-                            FontSize="Caption"
                             HorizontalTextAlignment="End"
                             Margin="0"
                         />
@@ -61,11 +58,10 @@
                             HorizontalOptions="FillAndExpand"
                             >
                             <Label
-                            Text="メニュー" 
-                            FontSize="Default"
-                            VerticalTextAlignment="Center"
-                            StyleClass="title_grey"
-                        />
+                                Text="メニュー" 
+                                VerticalTextAlignment="Center"
+                                StyleClass="title_grey"
+                            />
                         </StackLayout>
 
                         <!-- 年間例会スケジュール -->

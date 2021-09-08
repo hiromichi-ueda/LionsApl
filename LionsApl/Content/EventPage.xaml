@@ -13,7 +13,6 @@
         <StackLayout>
 
             <ScrollView>
-
                 <StackLayout>
 
                     <!-- ログイン情報 -->
@@ -49,7 +48,6 @@
                     </StackLayout>
 
                 </StackLayout>
-
             </ScrollView>
 
         </StackLayout>

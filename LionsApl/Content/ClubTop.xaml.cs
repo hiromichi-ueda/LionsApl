@@ -21,6 +21,11 @@ namespace LionsApl.Content
         {
             InitializeComponent();
 
+            // font-size
+            this.ClubSlogan.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.ExecutiveName.FontSize = Device.GetNamedSize(NamedSize.Caption, typeof(Label));
+            this.ExecutiveName.FontSize = Device.GetNamedSize(NamedSize.Caption, typeof(Label));
+
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
 
@@ -87,12 +92,9 @@ namespace LionsApl.Content
         /// 会員情報一覧画面へ
         /// </summary>
         //-------------------------------------------
-        private async void Label_Member_Taped(object sender, EventArgs e)
+        private void Label_Member_Taped(object sender, EventArgs e)
         {
-            // 処理中ダイアログ表示
-            await((App)Application.Current).DispLoadingDialog();
-
-            await Navigation.PushAsync(new ClubMemberList());
+            Navigation.PushAsync(new ClubMemberList());
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////

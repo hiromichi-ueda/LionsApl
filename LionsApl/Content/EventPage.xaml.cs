@@ -12,7 +12,8 @@ namespace LionsApl.Content
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EventPage : ContentPage
     {
-        private SQLiteManager _sqlite;                      // SQLiteマネージャークラス
+        // SQLiteマネージャークラス
+        private SQLiteManager _sqlite;
 
         // 前画面からの取得情報
         private string _titleName;                           // タイトル
@@ -22,10 +23,6 @@ namespace LionsApl.Content
         public EventPage(string title, int dataNo, int eventDataNo)
         {
             InitializeComponent();
-
-            // font-size
-            this.LoginInfo.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));      //Login
-            this.title.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));        //Title
 
             _titleName = title;
             _dataNo = dataNo;
@@ -44,7 +41,7 @@ namespace LionsApl.Content
             _sqlite.SetAccount();
 
             // ログイン情報設定
-            LoginInfo.Text = _sqlite.Db_A_Account.ClubName + " " + _sqlite.Db_A_Account.MemberFirstName + _sqlite.Db_A_Account.MemberLastName;
+            LoginInfo.Text = _sqlite.LoginInfo;
 
             // イベント情報データ取得
 

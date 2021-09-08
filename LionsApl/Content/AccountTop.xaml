@@ -20,7 +20,6 @@
         <StackLayout>
 
             <ScrollView>
-
                 <StackLayout>
 
                     <!-- ログイン情報 -->
@@ -41,15 +40,12 @@
                         <Label 
                             x:Name="title"
                             Text="アカウント設定"
-                            FontSize="Default"
                             VerticalTextAlignment="Center"
-                            StyleClass="title_gery"
+                            StyleClass="title_grey"
                         />
                     </StackLayout>
-                    
-                    <!-- BODY -->
-                    
-                    <!-- 会員情報 -->
+
+                    <!-- BODY(会員情報) -->
                     <StackLayout 
                         Margin="6,20,0,0"
                         HorizontalOptions="FillAndExpand"
@@ -59,209 +55,157 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1.*" />
-                                <ColumnDefinition Width="1.*" />
-                                <ColumnDefinition Width="1.*" />
-                                <ColumnDefinition Width="1.*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
                             <!-- リジョン -->
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="0"
-                                x:Name="lbl_region"
+                                x:Name="lbl_Region"
                                 Text="リジョン" 
-                                TextColor="#2E2E2E"
-                                HorizontalTextAlignment="Start"
-                                VerticalTextAlignment="Center"
-                                Margin="4"
+                                VerticalOptions="Center" 
+                                StyleClass="page_account"
                             />
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 x:Name="Region" 
                                 Text="" 
-                                TextColor="#2E2E2E"
-                                HorizontalTextAlignment="Start"
-                                Margin="4"
+                                VerticalOptions="Center" 
+                                StyleClass="page_account"
                             />
-                            
+
                             <!-- ゾーン -->
                             <Label
-                                Grid.Row="0"
-                                Grid.Column="2"
-                                x:Name="lbl_zone"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                x:Name="lbl_Zone"
                                 Text="ゾーン" 
-                                TextColor="#2E2E2E"
-                                HorizontalTextAlignment="Start"
-                                VerticalTextAlignment="Center"
-                                Margin="4"
+                                VerticalOptions="Center" 
+                                StyleClass="page_account"
                             />
                             <Label
-                                Grid.Row="0"
-                                Grid.Column="3"
+                                Grid.Row="1"
+                                Grid.Column="1"
                                 x:Name="Zone" 
                                 Text="" 
-                                TextColor="#2E2E2E"
-                                HorizontalTextAlignment="Start"
-                                Margin="4"
+                                VerticalOptions="Center" 
+                                StyleClass="page_account"
                             />
-                        </Grid>
-                    </StackLayout>
-
-                    <StackLayout 
-                        Margin="0,0,0,0"
-                        HorizontalOptions="FillAndExpand"
-                        >
-                        <Grid BackgroundColor="#FFF" Margin="6,0,0,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-
+                            
                             <!-- クラブ名 -->
                             <Label
-                                Grid.Row="0"
+                                Grid.Row="2"
                                 Grid.Column="0"
-                                x:Name="lbl_clubname"
+                                x:Name="lbl_ClubName"
                                 Text="クラブ名" 
-                                TextColor="#2E2E2E"
-                                HorizontalTextAlignment="Start"
-                                VerticalTextAlignment="Center"
-                                Margin="4"
+                                VerticalOptions="Center" 
+                                StyleClass="page_account"
                             />
                             <Label
-                                Grid.Row="0"
+                                Grid.Row="2"
                                 Grid.Column="1"
                                 x:Name="ClubName" 
                                 Text="" 
-                                TextColor="#2E2E2E"
-                                HorizontalTextAlignment="Start"
-                                Margin="4"
+                                VerticalOptions="Center" 
+                                StyleClass="page_account"
                             />
-                        </Grid>
-                    </StackLayout>
 
-                    <StackLayout 
-                        Margin="0,0,0,0"
-                        HorizontalOptions="FillAndExpand"
-                        >
-                        <Grid BackgroundColor="#FFF" Margin="6,0,0,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="80" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-
-                            <!-- 会員No/会員名 -->
+                            <!-- 会員No -->
                             <Label
-                                Grid.Row="0"
+                                Grid.Row="3"
                                 Grid.Column="0"
-                                x:Name="lbl_memberno"
-                                Text="会員名" 
-                                TextColor="#2E2E2E"
-                                HorizontalTextAlignment="Start"
-                                VerticalTextAlignment="Center"
-                                Margin="4"
+                                x:Name="lbl_MemberNo"
+                                Text="会員番号" 
+                                VerticalOptions="Center" 
+                                StyleClass="page_account"
                             />
                             <Label
-                                Grid.Row="0"
+                                Grid.Row="3"
                                 Grid.Column="1"
                                 x:Name="MemberNo" 
                                 Text="" 
-                                TextColor="#2E2E2E"
-                                HorizontalTextAlignment="Start"
-                                Margin="4"
+                                VerticalOptions="Center" 
+                                StyleClass="page_account"
+                            />
+
+                            <!-- 会員名 -->
+                            <Label
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                x:Name="lbl_MemberName"
+                                Text="会員名" 
+                                VerticalOptions="Center" 
+                                StyleClass="page_account"
                             />
                             <Label
-                                Grid.Row="0"
-                                Grid.Column="2"
+                                Grid.Row="4"
+                                Grid.Column="1"
                                 x:Name="MemberName" 
                                 Text="" 
-                                TextColor="#2E2E2E"
-                                HorizontalTextAlignment="Start"
-                                Margin="4"
+                                VerticalOptions="Center" 
+                                StyleClass="page_account"
                             />
-                        </Grid>
-                    </StackLayout>
-
-                    <StackLayout 
-                        Margin="0,0,0,0"
-                        HorizontalOptions="FillAndExpand"
-                        >
-                        <Grid BackgroundColor="#FFF" Margin="6,0,0,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
 
                             <!-- 会員種別 -->
                             <Label
-                                Grid.Row="0"
+                                Grid.Row="5"
                                 Grid.Column="0"
                                 Text="会員種別" 
-                                x:Name="lbl_typename"
-                                TextColor="#2E2E2E"
-                                HorizontalTextAlignment="Start"
-                                VerticalTextAlignment="Center"
-                                Margin="4"
+                                x:Name="lbl_TypeName"
+                                VerticalOptions="Center" 
+                                StyleClass="page_account"
                             />
                             <Label
-                                Grid.Row="0"
+                                Grid.Row="5"
                                 Grid.Column="1"
                                 x:Name="TypeName" 
                                 Text="正会員" 
-                                TextColor="#2E2E2E"
-                                HorizontalTextAlignment="Start"
-                                Margin="4"
-                        />
-                        </Grid>
-                    </StackLayout>
-
-                    <StackLayout 
-                        Margin="0,0,0,0"
-                        HorizontalOptions="FillAndExpand"
-                        >
-                        <Grid BackgroundColor="#FFF" Margin="6,0,0,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-
+                                VerticalOptions="Center" 
+                                StyleClass="page_account"
+                            />
+                            
                             <!-- 入会日 -->
                             <Label
-                                Grid.Row="0"
+                                Grid.Row="6"
                                 Grid.Column="0"
                                 Text="入会日" 
-                                x:Name="lbl_joindate"
-                                TextColor="#2E2E2E"
-                                HorizontalTextAlignment="Start"
-                                VerticalTextAlignment="Center"
-                                Margin="4"
+                                x:Name="lbl_JoinDate"
+                                VerticalOptions="Center" 
+                                StyleClass="page_account"
                             />
                             <Label
-                                Grid.Row="0"
+                                Grid.Row="6"
                                 Grid.Column="1"
                                 x:Name="JoinDate" 
                                 Text="" 
-                                TextColor="#2E2E2E"
-                                HorizontalTextAlignment="Start"
-                                Margin="4"
+                                VerticalOptions="Center" 
+                                StyleClass="page_account"
                             />
+
+                            <!-- 性別 -->
+                            <Label
+                                Grid.Row="6"
+                                Grid.Column="0"
+                                Text="性別" 
+                                x:Name="lbl_Sex"
+                                VerticalOptions="Center" 
+                                StyleClass="page_account"
+                            />
+                            <Label
+                                Grid.Row="6"
+                                Grid.Column="1"
+                                x:Name="Sex" 
+                                Text="" 
+                                VerticalOptions="Center" 
+                                StyleClass="page_account"
+                            />
+                            
                         </Grid>
                     </StackLayout>
+
 
                     <!-- 地区役員、クラブ役職・委員会 -->
                     <StackLayout 
@@ -293,18 +237,14 @@
                                 Grid.Column="0"
                                 x:Name="Cabinet"
                                 Text="" 
-                                TextColor="#2E2E2E"
-                                Background="#FFF"
-                                HorizontalTextAlignment="Start"
-                                VerticalTextAlignment="Center"
-                                Margin="4"
+                                VerticalOptions="Center" 
+                                StyleClass="page_account"
                             />
-                            
+
                         </Grid>
                     </StackLayout>
 
                 </StackLayout>
-
             </ScrollView>
 
             <!-- 編集ボタン -->
@@ -327,7 +267,6 @@
                     Grid.Column="3"
                     Grid.ColumnSpan="1"
                     Text="編　集" 
-                    x:Name="btn_edit"
                     Padding="5,0,5,0" 
                     BorderWidth="1" 
                     BorderColor="#00529B"

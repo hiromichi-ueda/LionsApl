@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,15 +16,13 @@ namespace LionsApl.Content
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
-        public ObservableCollection<string> Items { get; set; }
-
         public MatchingList()
         {
             InitializeComponent();
 
-            // font-size
-            this.LoginInfo.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));      //Login
-            this.title.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));        //Title
+            // font-size(<ListView>はCSSが効かないのでここで設定)
+            this.LoginInfo.FontSize = 16.0;
+            this.title.FontSize = 16.0;
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
@@ -35,6 +32,12 @@ namespace LionsApl.Content
 
             // タイトル設定
             Title = _sqlite.Db_A_Setting.CabinetName;
+
+            // A_ACCOUNTデータ取得
+            _sqlite.SetAccount();
+
+            // ログイン情報設定
+            LoginInfo.Text = _sqlite.LoginInfo;
 
             // マッチング情報データ取得
 

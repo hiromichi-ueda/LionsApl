@@ -33,25 +33,24 @@ namespace LionsApl.Content
             InitializeComponent();
 
             // font-size
-            this.LoginInfo.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));          //Login
-            this.title.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));            //Title
-            this.lbl_region.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_Region.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.Region.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            this.lbl_zone.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_Zone.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.Zone.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            this.lbl_clubname.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_ClubName.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.ClubName.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            this.lbl_memberno.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_MemberNo.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.MemberNo.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.MemberName.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            this.lbl_typename.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_TypeName.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.TypeName.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            this.lbl_joindate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_JoinDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.JoinDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_Sex.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.Sex.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.lbl_cabnet.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.Cabinet.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            this.btn_edit.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Button));        //編集ボタン
-
+            
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
 
@@ -65,7 +64,7 @@ namespace LionsApl.Content
             _sqlite.SetAccount();
 
             // ログイン情報設定
-            LoginInfo.Text = _sqlite.Db_A_Account.ClubName + " " + _sqlite.Db_A_Account.MemberFirstName + _sqlite.Db_A_Account.MemberLastName;
+            LoginInfo.Text = _sqlite.LoginInfo;
 
             // アカウント情報データ取得
             GetAccount();
@@ -88,10 +87,10 @@ namespace LionsApl.Content
             wkMemberName = _sqlite.Db_A_Account.MemberFirstName + " " + _sqlite.Db_A_Account.MemberLastName;
 
             // アカウント情報設定
-            Region.Text = _sqlite.Db_A_Account.Region;          //リジョン
-            Zone.Text = _sqlite.Db_A_Account.Zone;              //ゾーン
-            ClubName.Text = _sqlite.Db_A_Account.ClubName;      //クラブ名
-            MemberNo.Text = _sqlite.Db_A_Account.MemberCode;    //会員№
+            Region.Text = _sqlite.Db_A_Account.Region + "R";          //リジョン
+            Zone.Text = _sqlite.Db_A_Account.Zone + "Z";              //ゾーン
+            ClubName.Text = _sqlite.Db_A_Account.ClubName;          //クラブ名
+            MemberNo.Text = _sqlite.Db_A_Account.MemberCode;        //会員№
             
             // 会員情報取得
             try
@@ -103,20 +102,23 @@ namespace LionsApl.Content
                     //入会日
                     JoinDate.Text = row.JoinDate.Substring(0, 10);
 
-                    //会員名 + 性別
+                    //性別
                     if (row.Sex == "1")
                     {
-                        wkSex = "（男性）";
+                        wkSex = "男性";
                     } 
                     else if (row.Sex == "2")
                     {
-                        wkSex = "（女性）";
+                        wkSex = "女性";
                     }
                     else
                     {
-                        wkSex = "（その他）";
+                        wkSex = "その他";
                     }
-                    MemberName.Text = wkMemberName + wkSex;
+                    Sex.Text = wkSex;
+
+                    //会員名
+                    MemberName.Text = wkMemberName;
 
                     // --------------------------
                     // クラブ役職・委員会取得

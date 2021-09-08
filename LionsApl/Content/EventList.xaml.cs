@@ -22,9 +22,9 @@ namespace LionsApl.Content
         {
             InitializeComponent();
 
-            // font-size
-            this.LoginInfo.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));
-            this.title.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            // font-size(<ListView>はCSSが効かないのでここで設定)
+            this.LoginInfo.FontSize = 16.0;
+            this.title.FontSize = 16.0;
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
@@ -39,8 +39,7 @@ namespace LionsApl.Content
             _sqlite.SetAccount();
 
             // ログイン情報設定
-            LoginInfo.Text = _sqlite.Db_A_Account.ClubName + " " + _sqlite.Db_A_Account.MemberFirstName + _sqlite.Db_A_Account.MemberLastName;
-
+            LoginInfo.Text = _sqlite.LoginInfo;
 
 
             // イベント情報データ取得
