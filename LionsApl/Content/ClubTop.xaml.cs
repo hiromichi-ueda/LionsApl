@@ -87,9 +87,12 @@ namespace LionsApl.Content
         /// 会員情報一覧画面へ
         /// </summary>
         //-------------------------------------------
-        private void Label_Member_Taped(object sender, EventArgs e)
+        private async void Label_Member_Taped(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new ClubMemberList());
+            // 処理中ダイアログ表示
+            await((App)Application.Current).DispLoadingDialog();
+
+            await Navigation.PushAsync(new ClubMemberList());
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
