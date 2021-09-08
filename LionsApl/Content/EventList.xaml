@@ -24,14 +24,13 @@
                 <ListView.Header>
                     <StackLayout>
 
+                        <!-- ログイン情報 -->
                         <StackLayout 
                             HeightRequest="18"
                             Margin="2"
                             >
-                            <!-- ログイン情報 -->
                             <Label
                                 x:Name="LoginInfo"
-                                FontSize="Small"
                                 TextColor="#2E2E2E"
                                 VerticalOptions="Center"
                                 Background="#FFFFFF"
@@ -45,8 +44,8 @@
                             HorizontalOptions="FillAndExpand"
                             >
                             <Label
+                                x:Name="title"
                                 Text="出欠確認" 
-                                FontSize="Default"
                                 TextColor="#2E2E2E"
                                 Background="#58ACFA"
                                 HorizontalTextAlignment="Center"
@@ -147,6 +146,7 @@
                     <TapGestureRecognizer Tapped="Label_List_Taped"/>
                 </Label.GestureRecognizers>
             </Label>
+            <!-- 仮(削除) -->
             
         </StackLayout>
     </ContentPage.Content>

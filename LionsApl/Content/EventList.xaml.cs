@@ -22,6 +22,10 @@ namespace LionsApl.Content
         {
             InitializeComponent();
 
+            // font-size
+            this.LoginInfo.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));
+            this.title.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
 

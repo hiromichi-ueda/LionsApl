@@ -22,10 +22,8 @@ namespace LionsApl
             AppServer = PCLAppConfig.ConfigurationManager.AppSettings["ApplicationServer"];
             WebServiceUrl = PCLAppConfig.ConfigurationManager.AppSettings["WebServiceUrl"];
 
+            // MainPage起動
             MainPage = new MainPage();
-
-            //起動画面(確認用)
-            //MainPage = new Content.MagazineList();
 
         }
 
@@ -41,6 +39,9 @@ namespace LionsApl
         {
         }
 
+        //-----------------------------------
+        // Loading画面
+        //-----------------------------------
         public async Task DispLoadingDialog()
         {
             // ダイアログの初期設定

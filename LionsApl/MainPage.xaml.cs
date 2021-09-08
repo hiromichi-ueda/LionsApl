@@ -24,11 +24,17 @@ namespace LionsApl
         {
             InitializeComponent();
 
+            // font-size
+            this.apl_title.FontSize = 38.0;                                                 //APLタイトル
+            this.home.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Button));      //HOMEボタン
+            this.account.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Button));   //ACCOUNTボタン
+
+            // SQLクラス
             sqliteManager = SQLiteManager.GetInstance();
 
         }
 
- 
+
         // ===============================
         // ボタン押下処理
         // ===============================
@@ -46,13 +52,10 @@ namespace LionsApl
             try
             {
                 Task<HttpResponseMessage> response = sqliteManager.AsyncPostFileForWebAPI(MessageText, sqliteManager.GetSendFileContent_HOME());
-
-                ResultText.Text += "Send SQLite file Finish : " + response.Result.StatusCode.ToString();
             }
             catch (Exception ex)
             {
-                ResultText.Text += "Send SQLite file Error : " + ex.Message;
-
+                ResultText.Text += "HOME処理（エラー） : " + ex.Message;
             }
 
             // HOME画面表示
@@ -67,11 +70,6 @@ namespace LionsApl
             // 処理中ダイアログ表示
             await ((App)Application.Current).DispLoadingDialog();
 
-            DateTime stDt = DateTime.Now;
-            StartText.Text = stDt.ToString();
-
-            ResultText.Text = "";
-
             try
             {
                 // 空DB作成処理
@@ -79,18 +77,13 @@ namespace LionsApl
 
                 // アカウント情報取得
                 Task<HttpResponseMessage> response = sqliteManager.AsyncPostFileForWebAPI(MessageText, sqliteManager.GetSendFileContent());
-                ResultText.Text = "Create Table Finish : \r\n" + sqliteManager.DbPath;
+                
             }
             catch (Exception ex)
             {
-                ResultText.Text = "アカウント設定 : \r\n" + ex.Message;
+                ResultText.Text = "アカウント設定処理（エラー） : " + ex.Message;
             }
-            ResultText.Text = "アカウント設定 OK";
-
-            /// 終了時間表示
-            DateTime edDt = DateTime.Now;
-            EndText.Text = edDt.ToString();
-
+            
             // アカウント設定画面表示
             Application.Current.MainPage = new Content.AccountSetting();
 

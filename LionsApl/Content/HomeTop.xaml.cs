@@ -35,6 +35,48 @@ namespace LionsApl.Content
         {
             InitializeComponent();
 
+            // font-size
+            this.LoginInfo.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));
+            this.title_slogan.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.LabelSlogun.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.LabelDistrictGovernor.FontSize = Device.GetNamedSize(NamedSize.Caption, typeof(Label));
+            this.title_letter.FontSize = Device.GetNamedSize(NamedSize.Caption, typeof(Label));
+            this.LetterDate0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.LetterTitle0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.LetterMark0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.LetterDate1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.LetterTitle1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.LetterMark1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.LetterDate2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.LetterTitle2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.LetterMark2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.LetterDate3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.LetterTitle3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.LetterMark3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.title_event.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.EventDate0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.EventTitle0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.EventCount0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.EventMsg0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.EventMark0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.EventTitle1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.EventCount1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.EventMsg1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.EventMark1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.EventTitle2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.EventCount2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.EventMsg2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.EventMark2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.EventTitle3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.EventCount3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.EventMsg3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.EventMark3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.btn_infometion.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));
+            this.btn_magazine.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));
+            this.btn_lcif.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));
+            this.btn_matching.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));
+
+
             // 画面表示の初期化
             // Slogan
             LabelSlogun.Text = "スローガン情報はありません。";

@@ -12,15 +12,30 @@ namespace LionsApl.Content
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LetterPage : ContentPage
     {
-        private SQLiteManager _sqlite;                      // SQLiteマネージャークラス
+        // SQLiteマネージャークラス
+        private SQLiteManager _sqlite;
+
+        // url取得
+        public static String AppServer = ((App)Application.Current).AppServer;
 
         // 前画面からの取得情報
-        private string _titleName;                           // タイトル
-        private int _dataNo;                                 // データNo.
+        private string _titleName;  // タイトル
+        private int _dataNo;        // データNo.
+
 
         public LetterPage(string title, int dataNo)
         {
             InitializeComponent();
+
+            // font-size
+            this.LoginInfo.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));      //Login
+            this.title.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));        //Title
+            this.lbl_EventDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.DateLabel.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_Title.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.TitleLabel.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.BodyLabel.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+
 
             _titleName = title;
             _dataNo = dataNo;
@@ -71,26 +86,13 @@ namespace LionsApl.Content
                     BodyLabel.Text = row.Body;
                     if (row.Image1FileName != null)
                     {
-                        string uriStr = "http://ap.insat.co.jp" + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/") + "/" + row.Image1FileName;
+                        string uriStr = AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/") + "/" + row.Image1FileName;
                         Image1.Source = ImageSource.FromUri(new Uri(uriStr));
-
-                        //Image1Label.Text = _sqlite.Db_A_FilePath.FilePath + "/" + row.Image1FileName + "\r\n" + uriStr;
-
-                    }
-                    else
-                    {
-                        Image1Label.Text = "写真なし";
                     }
                     if (row.Image2FileName != null)
                     {
-                        string uriStr = "http://ap.insat.co.jp" + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/") + "/" + row.Image2FileName;
+                        string uriStr = AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/") + "/" + row.Image2FileName;
                         Image2.Source = ImageSource.FromUri(new Uri(uriStr));
-
-                        //Image2Label.Text = _sqlite.Db_A_FilePath.FilePath + "/" + row.Image2FileName + "\r\n" + uriStr;
-                    }
-                    else
-                    {
-                        //Image2Label.Text = "NULL";
                     }
                 }
             }

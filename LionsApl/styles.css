@@ -37,7 +37,7 @@ frame {
 /* <button> */
 button {
     color: #151515; /* 文字色 */
-    font-size: small; /* 文字サイズ */
+    /*font-size: small;  文字サイズ */
     border-color: #00529B; /* 線色 */
     background-color: #FFFFFF; /* 背景 */
     border-width: 1; /* 線太さ */
@@ -76,7 +76,6 @@ button {
     }
     .aplhedaer > label {
         color: #FFFFFF; /* 文字色 */
-        font-size: 38; /* 文字サイズ */
         background-color: #2196F3; /* 背景 */
         Padding: 6,0,0,0; /* 余白 */
     }
@@ -87,7 +86,7 @@ button {
     margin: 2; /* 余白 */
 }
     .login > label {
-        font-size: small; /* 文字サイズ */
+        /*font-size: small;  文字サイズ */
         text-align: end; /* 位置(右寄せ) */
     }
 
@@ -151,5 +150,12 @@ button {
 .page_member_hfree {
     color: #151515; /* 文字色 */
     text-align: start; /* 位置(左寄せ) */
+    margin: 8,0,8,0; /* 余白 */
+}
+
+.page_letter {
+    color: #151515; /* 文字色 */
+    text-align: start; /* 位置(左寄せ) */
+    height: 30;
     margin: 8,0,8,0; /* 余白 */
 }

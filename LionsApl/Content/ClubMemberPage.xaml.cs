@@ -30,6 +30,23 @@ namespace LionsApl.Content
         {
             InitializeComponent();
 
+            // font-size
+            this.LoginInfo.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));      //Login
+            this.title.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));        //Title
+            this.lbl_MemberCode.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.MemberCode.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_TypeName.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.TypeName.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_MemberName.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.MemberName.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_Sex.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.Sex.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_JoinDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.JoinDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_Obligation.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.Obligation.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+
+
             // 一覧から取得（会員番号）
             _MemberCode = memberno;
 

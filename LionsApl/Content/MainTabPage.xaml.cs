@@ -23,6 +23,10 @@ namespace LionsApl.Content
             base.OnCurrentPageChanged();
 
             var navigationPage = CurrentPage as NavigationPage;
+            
+            //タイトルバー背景・文字色
+            navigationPage.BarBackgroundColor = Color.FromRgb(33, 150, 243);
+            navigationPage.BarTextColor = Color.White;
 
             // ナビゲーションのルートに戻る
             navigationPage.PopToRootAsync();

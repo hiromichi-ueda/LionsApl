@@ -53,8 +53,8 @@
 
                         <!-- タイトル -->
                         <Label 
+                            x:Name="title"
                             Text="アカウント設定"
-                            FontSize="Default"
                             VerticalTextAlignment="Center"
                             StyleClass="title_grey"
                             />
@@ -76,6 +76,7 @@
                                 <Label 
                                     Grid.Row="0"
                                     Grid.Column="0"
+                                    x:Name="lbl_region"
                                     Text ="リジョン"
                                     Padding="10,0,10,0"
                                     VerticalOptions="Center"
@@ -97,8 +98,8 @@
                                 <Label 
                                     Grid.Row="1"
                                     Grid.Column="0"
+                                    x:Name="lbl_zone"
                                     Text="ゾーン"
-                                    FontSize="Default"
                                     Padding="10,0,10,0"
                                     VerticalOptions="Center"
                                     >
@@ -119,8 +120,8 @@
                                 <Label 
                                     Grid.Row="2"
                                     Grid.Column="0"
+                                    x:Name="lbl_club"
                                     Text="クラブ"
-                                    FontSize="Default"
                                     Padding="10,0,10,0"
                                     VerticalOptions="Center"
                                     >
@@ -141,8 +142,8 @@
                                 <Label 
                                     Grid.Row="3"
                                     Grid.Column="0"
+                                    x:Name="lbl_member"
                                     Text="会員名"
-                                    FontSize="Default"
                                     Padding="10,0,10,0"
                                     VerticalOptions="Center"
                                     >
@@ -176,6 +177,7 @@
                                 <Button 
                                     Grid.Row="0"
                                     Grid.Column="0"
+                                    x:Name="btn_back"
                                     Text="戻　る" 
                                     Clicked="Button_Back_Clicked"
                                     >
@@ -183,6 +185,7 @@
                                 <Button 
                                     Grid.Row="0"
                                     Grid.Column="1"
+                                    x:Name="btn_save"
                                     Text="アカウント登録" 
                                     Clicked="Button_AccountSet_Clicked"
                                     >

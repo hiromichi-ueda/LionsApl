@@ -9,8 +9,14 @@
     +++++++++++++++++++++++++++++++++++++
     -->
 
-    <ContentPage.Content>
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS" Value="0,40,0,0" />
+            <On Platform="Android, UWP" Value="0,0,0,0" />
+        </OnPlatform>
+    </ContentPage.Padding>
 
+    <ContentPage.Content>
         <StackLayout>
 
             <ScrollView>
@@ -22,21 +28,27 @@
                         StyleClass="login"
                         >
                         <Label
-                        Text="岐阜南LC 池田 昌二" 
-                        VerticalTextAlignment="Center"
-                        />
+                            x:Name="LoginInfo"
+                            VerticalTextAlignment="Center"
+                            />
                     </StackLayout>
 
                     <!-- タイトル -->
-                    <Label 
+                    <StackLayout 
+                            Margin="4,0,4,0"
+                            HorizontalOptions="FillAndExpand"
+                            >
+                        <Label 
+                            x:Name="title"
                             Text="アカウント設定"
                             FontSize="Default"
                             VerticalTextAlignment="Center"
-                            StyleClass="title_grey"
-                            >
-                    </Label>
+                            StyleClass="title_gery"
+                        />
+                    </StackLayout>
                     
                     <!-- BODY -->
+                    
                     <!-- 会員情報 -->
                     <StackLayout 
                         Margin="6,20,0,0"
@@ -57,8 +69,8 @@
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="0"
+                                x:Name="lbl_region"
                                 Text="リジョン" 
-                                FontSize="18"
                                 TextColor="#2E2E2E"
                                 HorizontalTextAlignment="Start"
                                 VerticalTextAlignment="Center"
@@ -69,7 +81,6 @@
                                 Grid.Column="1"
                                 x:Name="Region" 
                                 Text="" 
-                                FontSize="18"
                                 TextColor="#2E2E2E"
                                 HorizontalTextAlignment="Start"
                                 Margin="4"
@@ -79,8 +90,8 @@
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="2"
+                                x:Name="lbl_zone"
                                 Text="ゾーン" 
-                                FontSize="18"
                                 TextColor="#2E2E2E"
                                 HorizontalTextAlignment="Start"
                                 VerticalTextAlignment="Center"
@@ -91,7 +102,6 @@
                                 Grid.Column="3"
                                 x:Name="Zone" 
                                 Text="" 
-                                FontSize="18"
                                 TextColor="#2E2E2E"
                                 HorizontalTextAlignment="Start"
                                 Margin="4"
@@ -116,8 +126,8 @@
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="0"
+                                x:Name="lbl_clubname"
                                 Text="クラブ名" 
-                                FontSize="18"
                                 TextColor="#2E2E2E"
                                 HorizontalTextAlignment="Start"
                                 VerticalTextAlignment="Center"
@@ -128,7 +138,6 @@
                                 Grid.Column="1"
                                 x:Name="ClubName" 
                                 Text="" 
-                                FontSize="18"
                                 TextColor="#2E2E2E"
                                 HorizontalTextAlignment="Start"
                                 Margin="4"
@@ -154,8 +163,8 @@
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="0"
+                                x:Name="lbl_memberno"
                                 Text="会員名" 
-                                FontSize="18"
                                 TextColor="#2E2E2E"
                                 HorizontalTextAlignment="Start"
                                 VerticalTextAlignment="Center"
@@ -166,7 +175,6 @@
                                 Grid.Column="1"
                                 x:Name="MemberNo" 
                                 Text="" 
-                                FontSize="18"
                                 TextColor="#2E2E2E"
                                 HorizontalTextAlignment="Start"
                                 Margin="4"
@@ -176,7 +184,6 @@
                                 Grid.Column="2"
                                 x:Name="MemberName" 
                                 Text="" 
-                                FontSize="18"
                                 TextColor="#2E2E2E"
                                 HorizontalTextAlignment="Start"
                                 Margin="4"
@@ -202,7 +209,7 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 Text="会員種別" 
-                                FontSize="18"
+                                x:Name="lbl_typename"
                                 TextColor="#2E2E2E"
                                 HorizontalTextAlignment="Start"
                                 VerticalTextAlignment="Center"
@@ -213,7 +220,6 @@
                                 Grid.Column="1"
                                 x:Name="TypeName" 
                                 Text="正会員" 
-                                FontSize="18"
                                 TextColor="#2E2E2E"
                                 HorizontalTextAlignment="Start"
                                 Margin="4"
@@ -239,7 +245,7 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 Text="入会日" 
-                                FontSize="18"
+                                x:Name="lbl_joindate"
                                 TextColor="#2E2E2E"
                                 HorizontalTextAlignment="Start"
                                 VerticalTextAlignment="Center"
@@ -250,7 +256,6 @@
                                 Grid.Column="1"
                                 x:Name="JoinDate" 
                                 Text="" 
-                                FontSize="18"
                                 TextColor="#2E2E2E"
                                 HorizontalTextAlignment="Start"
                                 Margin="4"
@@ -275,8 +280,8 @@
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="0"
+                                x:Name="lbl_cabnet"
                                 Text="＜地区役員、クラブ役職・委員会＞" 
-                                FontSize="18"
                                 TextColor="#2E2E2E"
                                 Background="#FFF"
                                 HorizontalTextAlignment="Center"
@@ -288,7 +293,6 @@
                                 Grid.Column="0"
                                 x:Name="Cabinet"
                                 Text="" 
-                                FontSize="18"
                                 TextColor="#2E2E2E"
                                 Background="#FFF"
                                 HorizontalTextAlignment="Start"
@@ -323,11 +327,11 @@
                     Grid.Column="3"
                     Grid.ColumnSpan="1"
                     Text="編　集" 
+                    x:Name="btn_edit"
                     Padding="5,0,5,0" 
                     BorderWidth="1" 
                     BorderColor="#00529B"
                     Background="#FFFFFF"
-                    FontSize="Default"
                     Clicked="Button_Edit_Clicked"
                     >
                 </Button>

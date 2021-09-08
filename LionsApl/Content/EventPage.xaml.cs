@@ -23,6 +23,10 @@ namespace LionsApl.Content
         {
             InitializeComponent();
 
+            // font-size
+            this.LoginInfo.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));      //Login
+            this.title.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));        //Title
+
             _titleName = title;
             _dataNo = dataNo;
             _eventDataNo = eventDataNo;

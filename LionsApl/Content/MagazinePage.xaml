@@ -17,17 +17,12 @@
 
                 <!-- ログイン情報 -->
                 <StackLayout 
-                        HeightRequest="18"
-                        Margin="2"
-                        >
+                    StyleClass="login"
+                    >
                     <Label
-                        Text="岐阜南LC 池田 昌二" 
-                        FontSize="Caption"
-                        TextColor="#2E2E2E"
-                        VerticalOptions="Center"
-                        Background="White"
-                        HorizontalTextAlignment="End" 
-                        />
+                        x:Name="LoginInfo"
+                        VerticalTextAlignment="Center"
+                    />
                 </StackLayout>
 
                 <!-- タイトル -->
@@ -36,13 +31,11 @@
                         HorizontalOptions="FillAndExpand"
                         >
                     <Label 
+                        x:Name="title"
                         Text="地区誌"
-                        HorizontalOptions="Fill"
-                        VerticalOptions="Center"
-                        HorizontalTextAlignment="Center" 
-                        TextColor="#2E2E2E"
-                        BackgroundColor="#81BEF7" 
-                    />
+                        VerticalTextAlignment="Center"
+                        StyleClass="title_blue"
+                        />
                 </StackLayout>
 
                 <!-- BODY -->
