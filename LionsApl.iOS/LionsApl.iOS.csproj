@@ -69,11 +69,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Distribution: INSAT Inc.</CodesignKey>
+    <CodesignKey>Apple Development: 上田 裕達 (697Q2HZ9CA)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchDebug>false</MtouchDebug>
     <BuildIpa>true</BuildIpa>
-    <CodesignProvision>LionsApl-Ad-Hoc</CodesignProvision>
+    <CodesignProvision>VS: WildCard Development</CodesignProvision>
     <OptimizePNGs>false</OptimizePNGs>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchLink>None</MtouchLink>

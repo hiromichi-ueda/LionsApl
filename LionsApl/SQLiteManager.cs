@@ -16,6 +16,8 @@ namespace LionsApl
         public string DATACLASS_EVENT     = "2";
         public string DATACLASS_MAGAZINE  = "3";
 
+        public string LoginInfo;                             // ログイン情報（ユーザ文字列（クラブ名＋氏名））
+
         private static SQLiteManager _single = null;
         private HttpClient _httpClient = null;
         //private string usrId = null;
@@ -23,8 +25,9 @@ namespace LionsApl
         public Table.A_SETTING Db_A_Setting;                 // A_SETTINGテーブルクラス
         public Table.A_ACCOUNT Db_A_Account;                 // A_ACCOUNTテーブルクラス
         public Table.A_FILEPATH Db_A_FilePath;               // A_FILEPATHテーブルクラス
-        //public Table.T_SLOGAN  Db_T_Slogan;                  // T_SLOGANテーブルクラス
+        //public Table.T_SLOGAN  Db_T_Slogan;                // T_SLOGANテーブルクラス
         public List<Table.T_LETTER> DbList_T_Letter = new List<Table.T_LETTER>();   // T_LETTERテーブルクラスリスト
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// テーブル作成
@@ -1203,6 +1206,7 @@ namespace LionsApl
                     };
 
                 }
+                LoginInfo = Db_A_Account.ClubName + "　" + Db_A_Account.MemberFirstName + " " + Db_A_Account.MemberLastName;
             }
             catch (Exception ex)
             {

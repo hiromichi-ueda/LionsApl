@@ -8,6 +8,16 @@ namespace LionsApl.Content
         private readonly string OnStr = "有り";
         private readonly string OffStr = "無し";
 
+        public string GetString(string str)
+        {
+            string retStr = string.Empty;
+            if (str != null)
+            {
+                retStr = str;
+            }
+            return retStr;
+        }
+
         public string LabelOnOff(string item)
         {
             string retStr = string.Empty;

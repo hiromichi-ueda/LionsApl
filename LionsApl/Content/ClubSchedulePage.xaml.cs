@@ -51,7 +51,7 @@ namespace LionsApl.Content
             _sqlite.SetAccount();
 
             // ログイン情報設定
-            LoginInfo.Text = _sqlite.Db_A_Account.ClubName + " " + _sqlite.Db_A_Account.MemberFirstName + _sqlite.Db_A_Account.MemberLastName;
+            LoginInfo.Text = _sqlite.LoginInfo;
 
             GetMeetingScheduleInfo();
 
@@ -61,27 +61,37 @@ namespace LionsApl.Content
         {
             Label Remarks;
             Label OptionName1;
-            Label OptionName2;
-            Label OptionName3;
-            Label OptionName4;
-            Label OptionName5;
             Label OptionRadio1;
+            Label OptionName2;
             Label OptionRadio2;
+            Label OptionName3;
             Label OptionRadio3;
+            Label OptionName4;
             Label OptionRadio4;
+            Label OptionName5;
             Label OptionRadio5;
+            Label SakeTitle;
+            Label SakeRadio;
+            Label OtherTitle;
+            Label OtherRadio;
 
             string RemarksStr = string.Empty;
             string OptName1 = string.Empty;
-            string OptName2 = string.Empty;
-            string OptName3 = string.Empty;
-            string OptName4 = string.Empty;
-            string OptName5 = string.Empty;
             string OptRadio1 = string.Empty;
+            string OptName2 = string.Empty;
             string OptRadio2 = string.Empty;
+            string OptName3 = string.Empty;
             string OptRadio3 = string.Empty;
+            string OptName4 = string.Empty;
             string OptRadio4 = string.Empty;
+            string OptName5 = string.Empty;
             string OptRadio5 = string.Empty;
+            string SakeStr = "お酒";
+            string SakeVal = string.Empty;
+            string OtherStr = "本人以外の参加";
+            string OtherVal = string.Empty;
+
+            int rowCount = 0;
 
             Table.TableUtil Util = new Table.TableUtil();
 
@@ -92,7 +102,6 @@ namespace LionsApl.Content
                                                                     "From T_MEETINGSCHEDULE " +
                                                                     "Where DataNo = '" + _DataNo + "'"))
                 {
-                    //DisplayAlert("List Tap", "MeetingDate:" + row.MeetingDate, "OK");
 
                     // 例会日
                     MeetingDate.Text = Util.GetString(row.MeetingDate).Substring(0, 10);
@@ -102,11 +111,9 @@ namespace LionsApl.Content
                     {
                         Cancel.Text = CancelStr;
                     }
-                    Cancel.Text = CancelStr;
 
-                    //DisplayAlert("List Tap", "MeetingTime:" + row.MeetingTime, "OK");
                     // 時間
-                    MeetingTime.Text = Util.GetString(row.MeetingTime) + "～" + OnlineStr;
+                    MeetingTime.Text = Util.GetString(row.MeetingTime) + "～";
 
                     // オンライン
                     if (Util.GetString(row.Online) == "1")
@@ -124,10 +131,8 @@ namespace LionsApl.Content
                     RemarksItems.Text = Util.GetString(row.RemarksItems);
 
                     // 備考（備考欄）
-                    //Remarks.Text = Util.GetString(row.Remarks);
-                    //RemarksStr = Util.GetString(row.Remarks);
-                    RemarksStr = "テスト用文字列を設定しています。テスト用文字列を設定しています。テスト用文字列を設定しています。テスト用文字列を設定しています。";
-                    //Remarks.Text = RemarksStr;
+                    RemarksStr = Util.GetString(row.Remarks);
+                    //RemarksStr = "テスト用文字列を設定しています。テスト用文字列を設定しています。テスト用文字列を設定しています。テスト用文字列を設定しています。";
                     if (RemarksStr != string.Empty)
                     {
                         Remarks = _contUtl.LabelCreate(RemarksStr,
@@ -135,16 +140,6 @@ namespace LionsApl.Content
                                                        LayoutOptions.Center,
                                                        "page_member_hfree",
                                                        5, 1, 2);
-                        //Remarks = new Label
-                        //{
-                        //    Text = RemarksStr,
-                        //    FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label)),
-                        //    VerticalOptions = LayoutOptions.Center,
-                        //    StyleClass = new[] { "page_member_hfree" }
-                        //};
-                        //Grid.SetRow(Remarks, 5);
-                        //Grid.SetColumn(Remarks, 1);
-                        //Grid.SetColumnSpan(Remarks, 2);
                         DetailGrid.Children.Add(Remarks);
                     }
 
@@ -153,21 +148,22 @@ namespace LionsApl.Content
                     // --------------------------
 
                     // Option1
-                    // Opt1Name = _contUtl.GetString(row.OptionName1);
-                    // OptRadio1 = _contUtl.GetString(row.OptionRadio1);
-                    OptName1 = "テスト１";
-                    OptRadio1 = "0";
-                    if (OptName1 != string.Empty)
+                    // 項目名取得
+                    OptName1 = _contUtl.GetString(row.OptionName1);
+                    // 項目値取得
+                    OptRadio1 = _contUtl.GetString(row.OptionRadio1);
+                    // 項目有、及び項目値=有りの場合のみ表示する
+                    if ((OptName1 != string.Empty) && (OptRadio1 == "1"))
                     {
                         // GridのPadding設定
-                        OptGrid.Padding = new Thickness(10);
+                        OptGrid.Padding = new Thickness(10.0, 10.0, 10.0, 0.0);
 
                         // 例会オプション１（項目名）
                         OptionName1 = _contUtl.LabelCreate(OptName1,
                                                            NamedSize.Default,
                                                            LayoutOptions.Center,
                                                            "page_member",
-                                                           0, 0, 1);
+                                                           rowCount, 0, 1);
                         OptGrid.Children.Add(OptionName1);
 
                         // 例会オプション１（入力）
@@ -176,23 +172,27 @@ namespace LionsApl.Content
                                                             NamedSize.Default,
                                                             LayoutOptions.Center,
                                                             "page_member",
-                                                            0, 1, 1);
+                                                            rowCount, 1, 1);
                         OptGrid.Children.Add(OptionRadio1);
+
+                        // 出力行カウント
+                        rowCount++;
                     }
 
                     // Option2
-                    // OptName2 = _contUtl.GetString(row.OptionName2);
-                    // OptRadio2 = _contUtl.GetString(row.OptionRadio2);
-                    OptName2 = "テスト２";
-                    OptRadio2 = "1";
-                    if (OptName2 != string.Empty)
+                    // 項目名取得
+                    OptName2 = _contUtl.GetString(row.OptionName2);
+                    // 項目値取得
+                    OptRadio2 = _contUtl.GetString(row.OptionRadio2);
+                    // 項目有、及び項目値=有りの場合のみ表示する
+                    if ((OptName2 != string.Empty) && (OptRadio2 == "1"))
                     {
                         // 例会オプション２（項目名）
                         OptionName2 = _contUtl.LabelCreate(OptName2,
                                                            NamedSize.Default,
                                                            LayoutOptions.Center,
                                                            "page_member",
-                                                           1, 0, 1);
+                                                           rowCount, 0, 1);
                         OptGrid.Children.Add(OptionName2);
 
                         // 例会オプション２（入力）
@@ -201,23 +201,27 @@ namespace LionsApl.Content
                                                             NamedSize.Default,
                                                             LayoutOptions.Center,
                                                             "page_member",
-                                                            1, 1, 1);
+                                                            rowCount, 1, 1);
                         OptGrid.Children.Add(OptionRadio2);
+
+                        // 出力行カウント
+                        rowCount++;
                     }
 
                     // Option3
-                    // OptName3 = _contUtl.GetString(row.OptionName3);
-                    // OptRadio3 = _contUtl.GetString(row.OptionRadio3);
-                    OptName3 = "テスト３";
-                    OptRadio3 = "0";
-                    if (OptName3 != string.Empty)
+                    // 項目名取得
+                    OptName3 = _contUtl.GetString(row.OptionName3);
+                    // 項目値取得
+                    OptRadio3 = _contUtl.GetString(row.OptionRadio3);
+                    // 項目有、及び項目値=有りの場合のみ表示する
+                    if ((OptName3 != string.Empty) && (OptRadio3 == "1"))
                     {
                         // 例会オプション３（項目名）
                         OptionName3 = _contUtl.LabelCreate(OptName3,
                                                            NamedSize.Default,
                                                            LayoutOptions.Center,
                                                            "page_member",
-                                                           2, 0, 1);
+                                                           rowCount, 0, 1);
                         OptGrid.Children.Add(OptionName3);
 
                         // 例会オプション３（入力）
@@ -226,23 +230,27 @@ namespace LionsApl.Content
                                                             NamedSize.Default,
                                                             LayoutOptions.Center,
                                                             "page_member",
-                                                            2, 1, 1);
+                                                            rowCount, 1, 1);
                         OptGrid.Children.Add(OptionRadio3);
+
+                        // 出力行カウント
+                        rowCount++;
                     }
 
                     // Option4
-                    // OptName4 = _contUtl.GetString(row.OptionName4);
-                    // OptRadio4 = _contUtl.GetString(row.OptionRadio4);
-                    OptName4 = "テスト４";
-                    OptRadio4 = "0";
-                    if (OptName4 != string.Empty)
+                    // 項目名取得
+                    OptName4 = _contUtl.GetString(row.OptionName4);
+                    // 項目値取得
+                    OptRadio4 = _contUtl.GetString(row.OptionRadio4);
+                    // 項目有、及び項目値=有りの場合
+                    if ((OptName4 != string.Empty) && (OptRadio4 == "1"))
                     {
                         // 例会オプション４（項目名）
                         OptionName4 = _contUtl.LabelCreate(OptName4,
                                                            NamedSize.Default,
                                                            LayoutOptions.Center,
                                                            "page_member",
-                                                           3, 0, 1);
+                                                           rowCount, 0, 1);
                         OptGrid.Children.Add(OptionName4);
 
                         // 例会オプション４（入力）
@@ -251,23 +259,27 @@ namespace LionsApl.Content
                                                             NamedSize.Default,
                                                             LayoutOptions.Center,
                                                             "page_member",
-                                                            3, 1, 1);
+                                                            rowCount, 1, 1);
                         OptGrid.Children.Add(OptionRadio4);
+
+                        // 出力行カウント
+                        rowCount++;
                     }
 
                     // Option5
-                    // OptName5 = _contUtl.GetString(row.OptionName5);
-                    // OptRadio5 = _contUtl.GetString(row.OptionRadio5);
-                    OptName5 = "テスト５";
-                    OptRadio5 = "0";
-                    if (OptName5 != string.Empty)
+                    // 項目名取得
+                    OptName5 = _contUtl.GetString(row.OptionName5);
+                    // 項目値取得
+                    OptRadio5 = _contUtl.GetString(row.OptionRadio5);
+                    // 項目有、及び項目値=有りの場合のみ表示する
+                    if ((OptName5 != string.Empty) && (OptRadio5 == "1"))
                     {
                         // 例会オプション５（項目名）
                         OptionName5 = _contUtl.LabelCreate(OptName5,
                                                            NamedSize.Default,
                                                            LayoutOptions.Center,
                                                            "page_member",
-                                                           4, 0, 1);
+                                                           rowCount, 0, 1);
                         OptGrid.Children.Add(OptionName5);
 
                         // 例会オプション５（入力）
@@ -276,16 +288,54 @@ namespace LionsApl.Content
                                                             NamedSize.Default,
                                                             LayoutOptions.Center,
                                                             "page_member",
-                                                            4, 1, 1);
+                                                            rowCount, 1, 1);
                         OptGrid.Children.Add(OptionRadio5);
+
+                        // 出力行カウント
+                        rowCount++;
                     }
 
                     // お酒
-                    Sake.Text = _contUtl.LabelOnOff(Util.GetString(row.Sake));
+                    // 項目名
+                    SakeTitle = _contUtl.LabelCreate(SakeStr,
+                                                     NamedSize.Default,
+                                                     LayoutOptions.Center,
+                                                     "page_member",
+                                                     rowCount, 0, 1);
+                    OptGrid.Children.Add(SakeTitle);
 
+                    // 項目値
+                    SakeVal = _contUtl.LabelOnOff(Util.GetString(row.Sake));
+                    SakeRadio = _contUtl.LabelCreate(SakeVal,
+                                                     NamedSize.Default,
+                                                     LayoutOptions.Center,
+                                                     "page_member",
+                                                     rowCount, 1, 1);
+                    OptGrid.Children.Add(SakeRadio);
+
+                    // 出力行カウント
+                    rowCount++;
 
                     // 本人以外の参加
-                    OtherUser.Text = _contUtl.LabelOnOff(Util.GetString(row.OtherUser));
+                    // 項目名
+                    OtherTitle = _contUtl.LabelCreate(OtherStr,
+                                                      NamedSize.Default,
+                                                      LayoutOptions.Center,
+                                                      "page_member",
+                                                      rowCount, 0, 1);
+                    OptGrid.Children.Add(OtherTitle);
+
+                    // 項目値
+                    OtherVal = _contUtl.LabelOnOff(Util.GetString(row.OtherUser));
+                    OtherRadio = _contUtl.LabelCreate(OtherVal,
+                                                      NamedSize.Default,
+                                                      LayoutOptions.Center,
+                                                      "page_member",
+                                                      rowCount, 1, 1);
+                    OptGrid.Children.Add(OtherRadio);
+
+                    // 出力行カウント
+                    rowCount++;
 
                 }
             }

@@ -34,7 +34,7 @@ namespace LionsApl.Content
             _sqlite.SetAccount();
 
             // ログイン情報設定
-            LoginInfo.Text = _sqlite.Db_A_Account.ClubName + " " + _sqlite.Db_A_Account.MemberFirstName + _sqlite.Db_A_Account.MemberLastName;
+            LoginInfo.Text = _sqlite.LoginInfo;
 
             // クラブスローガン設定
             Sel_T_CLUBSLOGAN();
@@ -87,9 +87,12 @@ namespace LionsApl.Content
         /// 会員情報一覧画面へ
         /// </summary>
         //-------------------------------------------
-        private void Label_Member_Taped(object sender, EventArgs e)
+        private async void Label_Member_Taped(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new ClubMemberList());
+            // 処理中ダイアログ表示
+            await((App)Application.Current).DispLoadingDialog();
+
+            await Navigation.PushAsync(new ClubMemberList());
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////

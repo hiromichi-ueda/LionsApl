@@ -107,18 +107,20 @@ namespace LionsApl.Content
         /// タップ処理
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        private async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
+            // 処理中ダイアログ表示
+            await ((App)Application.Current).DispLoadingDialog();
+
             if (e.Item == null)
                 return;
 
             MemberRow item = e.Item as MemberRow;
 
-            Navigation.PushAsync(new ClubMemberPage(item.MemberCode));
-
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
-        }
 
+            await Navigation.PushAsync(new ClubMemberPage(item.MemberCode));
+        }
     }
 }
