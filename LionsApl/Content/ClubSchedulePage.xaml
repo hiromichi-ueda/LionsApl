@@ -63,121 +63,111 @@
 
                                 <!-- 例会日 -->
                                 <Label 
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                Text="例会日"
-                                FontSize="Default"
-                                VerticalOptions="Center" 
-                                StyleClass="page_member"
-                             />
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Text="例会日"
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member"
+                                 />
                                 <Label 
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                x:Name="MeetingDate" 
-                                Text=""
-                                FontSize="Default"
-                                VerticalOptions="Center" 
-                                StyleClass="page_member"
-                             />
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    x:Name="MeetingDate" 
+                                    Text=""
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member"
+                                 />
                                 <Label 
-                                Grid.Row="0"
-                                Grid.Column="2"
-                                x:Name="Cancel" 
-                                Text=""
-                                FontSize="Default"
-                                VerticalOptions="Center" 
-                                StyleClass="page_member_red"
-                             />
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    x:Name="Cancel" 
+                                    Text=""
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member_red"
+                                 />
                                 
                                 <!-- 時間 -->
                                 <Label 
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                Text="時間"
-                                FontSize="Default"
-                                VerticalOptions="Center" 
-                                StyleClass="page_member"
-                             />
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Text="時間"
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member"
+                                 />
                                 <Label 
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Grid.ColumnSpan="2"
-                                x:Name="MeetingTime" 
-                                Text=""
-                                FontSize="Default"
-                                VerticalOptions="Center" 
-                                StyleClass="page_member"
-                             />
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="2"
+                                    x:Name="MeetingTime" 
+                                    Text=""
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member"
+                                 />
 
                                 <!-- 例会名 -->
                                 <Label 
-                                Grid.Row="2"
-                                Grid.Column="0"
-                                Text="例会名"
-                                FontSize="Default"
-                                VerticalOptions="Center" 
-                                StyleClass="page_member"
-                             />
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Text="例会名"
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member"
+                                 />
                                 <Label 
-                                Grid.Row="2"
-                                Grid.Column="1"
-                                Grid.ColumnSpan="2"
-                                x:Name="MeetingName" 
-                                Text=""
-                                FontSize="Default"
-                                VerticalOptions="Center" 
-                                StyleClass="page_member"
-                             />
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="2"
+                                    x:Name="MeetingName" 
+                                    Text=""
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member"
+                                 />
 
                                 <!-- 会場 -->
                                 <Label 
-                                Grid.Row="3"
-                                Grid.Column="0"
-                                Text="会場"
-                                FontSize="Default"
-                                VerticalOptions="Center" 
-                                StyleClass="page_member"
-                             />
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    Text="会場"
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member"
+                                 />
                                 <Label 
-                                Grid.Row="3"
-                                Grid.Column="1"
-                                Grid.ColumnSpan="2"
-                                x:Name="MeetingPlace" 
-                                Text=""
-                                FontSize="Default"
-                                VerticalOptions="Center" 
-                                StyleClass="page_member"
-                             />
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="2"
+                                    x:Name="MeetingPlace" 
+                                    Text=""
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member"
+                                 />
 
                                 <!-- 備考 -->
                                 <Label 
-                                Grid.Row="4"
-                                Grid.Column="0"
-                                Text="備考"
-                                FontSize="Default"
-                                VerticalOptions="Center" 
-                                StyleClass="page_member"
-                             />
+                                    Grid.Row="4"
+                                    Grid.Column="0"
+                                    Text="備考"
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member"
+                                 />
                                 <Label 
-                                Grid.Row="4"
-                                Grid.Column="1"
-                                Grid.ColumnSpan="2"
-                                x:Name="RemarksItems" 
-                                Text=""
-                                FontSize="Default"
-                                VerticalOptions="Center" 
-                                StyleClass="page_member_hfree"
-                             />
-                                <!--<Label 
-                                Grid.Row="5"
-                                Grid.Column="1"
-                                Grid.ColumnSpan="2"
-                                x:Name="Remarks" 
-                                Text=""
-                                FontSize="Default"
-                                VerticalOptions="Center" 
-                                StyleClass="page_member_hfree"
-                             />-->
+                                    Grid.Row="4"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="2"
+                                    x:Name="RemarksItems" 
+                                    Text=""
+                                    FontSize="Default"
+                                    VerticalOptions="Center" 
+                                    StyleClass="page_member_hfree"
+                                 />
 
                             </Grid>
                         </StackLayout>

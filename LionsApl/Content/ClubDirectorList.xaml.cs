@@ -36,7 +36,7 @@ namespace LionsApl.Content
             _sqlite.SetAccount();
 
             // ログイン情報設定
-            LoginInfo.Text = _sqlite.Db_A_Account.ClubName + " " + _sqlite.Db_A_Account.MemberFirstName + " " + _sqlite.Db_A_Account.MemberLastName;
+            LoginInfo.Text = _sqlite.LoginInfo;
 
             // 理事・委員会データ取得
             GetClubDirector();
@@ -119,7 +119,7 @@ namespace LionsApl.Content
                 return;
             }
 
-            Navigation.PushAsync(new ClubDirectorPage());
+            Navigation.PushAsync(new ClubDirectorPage(item.DataNo));
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
