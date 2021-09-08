@@ -34,6 +34,7 @@
                         Source="icon_white.png"
                         />
                     <Label 
+                        x:Name="apl_title"
                         Text="Lions Apl"
                         VerticalOptions="Center"
                         />
@@ -51,6 +52,7 @@
                             >
                             <!-- HOMEボタン -->
                             <Button 
+                                x:Name="home"
                                 Text="ホーム" 
                                 FontSize="Default"
                                 Clicked="Button_Home_Clicked" 
@@ -58,6 +60,7 @@
                             </Button>
                             <!-- アカウント設定ボタン -->
                             <Button 
+                                x:Name="account"
                                 Text="アカウント設定" 
                                 FontSize="Default"
                                 Clicked="Button_Account_Clicked" 
@@ -75,7 +78,7 @@
                         <StackLayout
                             Padding="48,0,48,10"
                             >
-                            <Label Text="＜各画面遷移関連＞" />
+                            <Label x:Name="title" Text="＜各画面遷移関連＞" />
                             <Button 
                                 Text="アカウント設定（Webアクセスなし）" 
                                 Clicked="Button_AccountSetting_Clicked" 

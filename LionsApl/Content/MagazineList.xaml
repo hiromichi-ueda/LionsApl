@@ -24,14 +24,13 @@
                 <ListView.Header>
                     <StackLayout>
 
+                        <!-- ログイン情報 -->
                         <StackLayout 
                             HeightRequest="18"
                             Margin="2"
                             >
-                            <!-- ログイン情報 -->
                             <Label
                                 x:Name="LoginInfo"
-                                FontSize="Small"
                                 TextColor="#2E2E2E"
                                 VerticalOptions="Center"
                                 Background="#FFFFFF"
@@ -45,8 +44,8 @@
                             HorizontalOptions="FillAndExpand"
                             >
                             <Label
+                                x:Name="title"
                                 Text="地区誌" 
-                                FontSize="Default"
                                 TextColor="#2E2E2E"
                                 Background="#58ACFA"
                                 HorizontalTextAlignment="Center"
@@ -114,6 +113,7 @@
                 HorizontalOptions="FillAndExpand"
                 >
                 <Label
+                    x:Name="magazine"
                     Text="地区誌購入" 
                     TextColor="#2E2E2E"
                     VerticalOptions="Center"
@@ -169,25 +169,27 @@
                             </Picker.ItemsSource>
                         </Picker>
                         <Label 
-                                Grid.Column="2"
-                                Grid.Row="0"
-                                Grid.ColumnSpan="1"
-                                Text="冊" 
-                                HorizontalTextAlignment="Start"
-                                VerticalTextAlignment="Center"
-                                TextColor="#2E2E2E"
-                                Margin="0, 0, 8, 0"
-                                />
+                            Grid.Column="2"
+                            Grid.Row="0"
+                            Grid.ColumnSpan="1"
+                            x:Name="count"
+                            Text="冊" 
+                            HorizontalTextAlignment="Start"
+                            VerticalTextAlignment="Center"
+                            TextColor="#2E2E2E"
+                            Margin="0, 0, 8, 0"
+                            />
                         <Button 
-                                Grid.Column="3"
-                                Grid.Row="0"
-                                Text="購入する" 
-                                Padding="8,0,8,0" 
-                                BorderWidth="1" 
-                                BorderColor="#00529B"
-                                Background="#FFFFFF"
-                                CornerRadius="6"
-                                >
+                            Grid.Column="3"
+                            Grid.Row="0"
+                            x:Name="btn_buy"
+                            Text="購入する" 
+                            Padding="8,0,8,0" 
+                            BorderWidth="1" 
+                            BorderColor="#00529B"
+                            Background="#FFFFFF"
+                            CornerRadius="6"
+                            >
                         </Button>
                     </Grid>
 

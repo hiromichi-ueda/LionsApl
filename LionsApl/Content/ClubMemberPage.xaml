@@ -18,8 +18,8 @@
 
                     <!-- ログイン情報 -->
                     <StackLayout 
-                            StyleClass="login"
-                            >
+                        StyleClass="login"
+                        >
                         <Label
                             x:Name="LoginInfo"
                             VerticalTextAlignment="Center"
@@ -32,8 +32,8 @@
                             HorizontalOptions="FillAndExpand"
                             >
                         <Label 
+                            x:Name="title"
                             Text="会員情報"
-                            FontSize="Default"
                             VerticalTextAlignment="Center"
                             StyleClass="title_blue"
                         />
@@ -62,8 +62,8 @@
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="0"
+                                x:Name="lbl_MemberCode"
                                 Text="会員番号"
-                                FontSize="Default"
                                 VerticalOptions="Center" 
                                 StyleClass="page_member"
                              />
@@ -72,7 +72,6 @@
                                 Grid.Column="1"
                                 x:Name="MemberCode" 
                                 Text=""
-                                FontSize="Default"
                                 VerticalOptions="Center" 
                                 StyleClass="page_member"
                              />
@@ -81,8 +80,8 @@
                             <Label 
                                 Grid.Row="1"
                                 Grid.Column="0"
+                                x:Name="lbl_TypeName"
                                 Text="会員種別"
-                                FontSize="Default"
                                 VerticalOptions="Center" 
                                 StyleClass="page_member"
                              />
@@ -91,7 +90,6 @@
                                 Grid.Column="1"
                                 x:Name="TypeName" 
                                 Text=""
-                                FontSize="Default"
                                 VerticalOptions="Center" 
                                 StyleClass="page_member"
                              />
@@ -100,8 +98,8 @@
                             <Label 
                                 Grid.Row="2"
                                 Grid.Column="0"
+                                x:Name="lbl_MemberName"
                                 Text="会員名"
-                                FontSize="Default"
                                 VerticalOptions="Center" 
                                 StyleClass="page_member"
                              />
@@ -110,7 +108,6 @@
                                 Grid.Column="1"
                                 x:Name="MemberName" 
                                 Text=""
-                                FontSize="Default"
                                 VerticalOptions="Center" 
                                 StyleClass="page_member"
                              />
@@ -119,8 +116,8 @@
                             <Label 
                                 Grid.Row="3"
                                 Grid.Column="0"
+                                x:Name="lbl_Sex"
                                 Text="性別"
-                                FontSize="Default"
                                 VerticalOptions="Center" 
                                 StyleClass="page_member"
                              />
@@ -129,7 +126,6 @@
                                 Grid.Column="1"
                                 x:Name="Sex" 
                                 Text=""
-                                FontSize="Default"
                                 VerticalOptions="Center" 
                                 StyleClass="page_member"
                              />
@@ -138,8 +134,8 @@
                             <Label 
                                 Grid.Row="4"
                                 Grid.Column="0"
+                                x:Name="lbl_JoinDate"
                                 Text="入会日"
-                                FontSize="Default"
                                 VerticalOptions="Center" 
                                 StyleClass="page_member"
                              />
@@ -148,7 +144,6 @@
                                 Grid.Column="1"
                                 x:Name="JoinDate" 
                                 Text=""
-                                FontSize="Default"
                                 VerticalOptions="Center" 
                                 StyleClass="page_member"
                              />
@@ -173,8 +168,8 @@
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="0"
+                                x:Name="lbl_Obligation"
                                 Text="【地区役員、クラブ役職・委員会】" 
-                                FontSize="Default"
                                 HorizontalTextAlignment="Start"
                                 VerticalTextAlignment="Center"
                                 Margin="4"
@@ -184,7 +179,6 @@
                                 Grid.Column="0"
                                 x:Name="Obligation"
                                 Text="" 
-                                FontSize="Default"
                                 HorizontalTextAlignment="Start"
                                 VerticalTextAlignment="Center"
                                 Margin="6"

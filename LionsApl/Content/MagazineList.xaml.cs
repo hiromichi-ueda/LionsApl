@@ -21,6 +21,15 @@ namespace LionsApl.Content
         {
             InitializeComponent();
 
+            // font-size
+            this.LoginInfo.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));              //Login
+            this.title.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));                //Title
+            this.magazine.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));             //地区誌購入
+            this.MagazinePicker.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Picker));      //地区誌名選択
+            this.BuyNumberPicker.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Picker));     //冊子数選択
+            this.count.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Picker));               //冊
+            this.btn_buy.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Button));             //購入ボタン
+
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
 

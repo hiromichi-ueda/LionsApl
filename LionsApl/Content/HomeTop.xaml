@@ -33,22 +33,20 @@
                         HorizontalOptions="FillAndExpand"                       
                         >
                         <Label 
+                            x:Name="title_slogan"
                             Text="地区スローガン"
-                            FontSize="Default"
                             VerticalTextAlignment="Center"
                             StyleClass="title_liteblue"
                             />
                         <Label 
                             x:Name="LabelSlogun"
                             Text="データが取得できません。"
-                            FontSize="Default"
                             HorizontalTextAlignment="Center" 
                             Margin="4,0,4,0"
                             />
                         <Label 
                             x:Name="LabelDistrictGovernor"
                             Text=""
-                            FontSize="Caption"
                             HorizontalTextAlignment="End" 
                             Margin="0"
                             />
@@ -61,8 +59,8 @@
                         >
                         <!-- タイトル -->
                         <Label 
+                            x:Name="title_letter"
                             Text="キャビネットレター"
-                            FontSize="Default"
                             VerticalTextAlignment="Center"
                             StyleClass="title_green"
                             />
@@ -85,7 +83,6 @@
                                 Grid.Column="0"
                                 x:Name="LetterDate0"
                                 Text=""
-                                FontSize="15"
                                 HorizontalTextAlignment="Start" 
                                 VerticalTextAlignment="Center"
                                />
@@ -94,7 +91,6 @@
                                 Grid.Column="1"
                                 x:Name="LetterTitle0"
                                 Text="データが取得できません。"
-                                FontSize="15"
                                 HorizontalTextAlignment="Start" 
                                 VerticalTextAlignment="Center"
                                 />
@@ -103,7 +99,6 @@
                                 Grid.Column="2"
                                 x:Name="LetterMark0"
                                 Text=""
-                                FontSize="15"
                                 HorizontalTextAlignment="End" 
                                 HeightRequest="18"
                                 />
@@ -128,7 +123,6 @@
                                 Grid.Column="0"
                                 x:Name="LetterDate1"
                                 Text=""
-                                FontSize="15"
                                 HorizontalTextAlignment="Start" 
                                 VerticalTextAlignment="Center"
                                 />
@@ -137,7 +131,6 @@
                                 Grid.Column="1"
                                 x:Name="LetterTitle1"
                                 Text=""
-                                FontSize="15"
                                 HorizontalTextAlignment="Start" 
                                 VerticalTextAlignment="Center"
                                 />
@@ -146,7 +139,6 @@
                                 Grid.Column="2"
                                 x:Name="LetterMark1"
                                 Text=""
-                                FontSize="15"
                                 HorizontalTextAlignment="End" 
                                 HeightRequest="18"
                                 />
@@ -170,7 +162,6 @@
                                 Grid.Column="0"
                                 x:Name="LetterDate2"
                                 Text=""
-                                FontSize="15"
                                 HorizontalTextAlignment="Start" 
                                 VerticalTextAlignment="Center"
                                 />
@@ -179,7 +170,6 @@
                                 Grid.Column="1"
                                 x:Name="LetterTitle2"
                                 Text=""
-                                FontSize="15"
                                 HorizontalTextAlignment="Start" 
                                 VerticalTextAlignment="Center"
                                 />
@@ -188,7 +178,6 @@
                                 Grid.Column="2"
                                 x:Name="LetterMark2"
                                 Text=""
-                                FontSize="15"
                                 HorizontalTextAlignment="End" 
                                 HeightRequest="18"
                                 />
@@ -212,7 +201,6 @@
                                 Grid.Column="0"
                                 x:Name="LetterDate3"
                                 Text=""
-                                FontSize="15"
                                 HorizontalTextAlignment="Start" 
                                 VerticalTextAlignment="Center"
                                 />
@@ -221,7 +209,6 @@
                                 Grid.Column="1"
                                 x:Name="LetterTitle3"
                                 Text=""
-                                FontSize="15"
                                 HorizontalTextAlignment="Start" 
                                 VerticalTextAlignment="Center"
                                 />
@@ -230,7 +217,6 @@
                                 Grid.Column="2"
                                 x:Name="LetterMark3"
                                 Text=""
-                                FontSize="15"
                                 HorizontalTextAlignment="End" 
                                 HeightRequest="18"
                                 />
@@ -245,8 +231,8 @@
                         HorizontalOptions="FillAndExpand"
                         >
                         <Label
+                            x:Name="title_event"
                             Text="参加予定一覧" 
-                            FontSize="Default"
                             VerticalTextAlignment="Center"
                             StyleClass="title_yellow"
                         />
@@ -271,7 +257,6 @@
                                 Grid.Column="0"
                                 x:Name="EventDate0"
                                 Text=""
-                                FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
@@ -281,7 +266,6 @@
                                 Grid.Column="1"
                                 x:Name="EventTitle0"
                                 Text="データが取得できません。"
-                                FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
@@ -291,7 +275,6 @@
                                 Grid.Column="2"
                                 x:Name="EventCount0"
                                 Text=""
-                                FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
@@ -301,7 +284,6 @@
                                 Grid.Column="3"
                                 x:Name="EventMsg0"
                                 Text=""
-                                FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
@@ -311,7 +293,6 @@
                                 Grid.Column="4"
                                 x:Name="EventMark0"
                                 Text=""
-                                FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
@@ -339,7 +320,6 @@
                                 Grid.Column="0"
                                 x:Name="EventDate1"
                                 Text=""
-                                FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
@@ -349,7 +329,6 @@
                                 Grid.Column="1"
                                 x:Name="EventTitle1"
                                 Text=""
-                                FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
@@ -359,7 +338,6 @@
                                 Grid.Column="2"
                                 x:Name="EventCount1"
                                 Text=""
-                                FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
@@ -369,7 +347,6 @@
                                 Grid.Column="3"
                                 x:Name="EventMsg1"
                                 Text=""
-                                FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
@@ -379,7 +356,6 @@
                                 Grid.Column="4"
                                 x:Name="EventMark1"
                                 Text=""
-                                FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
@@ -407,7 +383,6 @@
                                 Grid.Column="0"
                                 x:Name="EventDate2"
                                 Text=""
-                                FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
@@ -417,7 +392,6 @@
                                 Grid.Column="1"
                                 x:Name="EventTitle2"
                                 Text=""
-                                FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
@@ -427,7 +401,6 @@
                                 Grid.Column="2"
                                 x:Name="EventCount2"
                                 Text=""
-                                FontSize="15"
                                 VerticalOptions="Center"
                                 />
                             <!-- 4列目(前) -->
@@ -436,7 +409,6 @@
                                 Grid.Column="3"
                                 x:Name="EventMsg2"
                                 Text=""
-                                FontSize="15"
                                 VerticalOptions="Center"
                                 />
                             <!-- 5列目(マーク) -->
@@ -445,7 +417,6 @@
                                 Grid.Column="4"
                                 x:Name="EventMark2"
                                 Text=""
-                                FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
@@ -473,7 +444,6 @@
                                 Grid.Column="0"
                                 x:Name="EventDate3"
                                 Text=""
-                                FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
@@ -483,7 +453,6 @@
                                 Grid.Column="1"
                                 x:Name="EventTitle3"
                                 Text=""
-                                FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
@@ -493,7 +462,6 @@
                                 Grid.Column="2"
                                 x:Name="EventCount3"
                                 Text=""
-                                FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
@@ -503,7 +471,6 @@
                                 Grid.Column="3"
                                 x:Name="EventMsg3"
                                 Text=""
-                                FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
@@ -513,7 +480,6 @@
                                 Grid.Column="4"
                                 x:Name="EventMark3"
                                 Text=""
-                                FontSize="15"
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
@@ -545,6 +511,7 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     Grid.ColumnSpan="1"
+                    x:Name="btn_infometion"
                     Text="連絡事項" 
                     BorderWidth="1" 
                     CornerRadius="6"
@@ -556,6 +523,7 @@
                     Grid.Row="0"
                     Grid.Column="1"
                     Grid.ColumnSpan="1"
+                    x:Name="btn_magazine"
                     Text="地区誌" 
                     BorderWidth="1" 
                     CornerRadius="6"
@@ -567,6 +535,7 @@
                     Grid.Row="0"
                     Grid.Column="2"
                     Grid.ColumnSpan="1"
+                    x:Name="btn_lcif"
                     Text="LCIF" 
                     BorderWidth="1" 
                     CornerRadius="6"
@@ -579,6 +548,7 @@
                     Grid.Row="0"
                     Grid.Column="3"
                     Grid.ColumnSpan="1"
+                    x:Name="btn_matching"
                     Text="マッチング"
                     BorderWidth="1" 
                     CornerRadius="6"

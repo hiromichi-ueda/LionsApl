@@ -13,15 +13,24 @@ namespace LionsApl.Content
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MagazinePage : ContentPage
     {
-        private SQLiteManager _sqlite;                      // SQLiteマネージャークラス
+        // SQLiteマネージャークラス
+        private SQLiteManager _sqlite;
 
-        // 前画面からの取得情報
-        private int _dataNo;                                 // データNo.
+        // url取得
+        public static String AppServer = ((App)Application.Current).AppServer;
+
+        // 前画面からのデータNo取得情報
+        private int _dataNo;
 
         public MagazinePage(int InDataNo)
         {
             InitializeComponent();
 
+            // font-size
+            this.LoginInfo.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));      //Login
+            this.title.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));        //Title
+
+            // DataNo取得(Key)
             _dataNo = InDataNo;
 
             // SQLite マネージャークラス生成
@@ -42,6 +51,9 @@ namespace LionsApl.Content
             // A_ACCOUNTデータ取得
             _sqlite.SetAccount();
 
+            // ログイン情報設定
+            LoginInfo.Text = _sqlite.Db_A_Account.ClubName + " " + _sqlite.Db_A_Account.MemberFirstName + _sqlite.Db_A_Account.MemberLastName;
+
             // 地区誌情報設定
             GetMagazine();
         }
@@ -61,19 +73,17 @@ namespace LionsApl.Content
                 {
                     if (row.FileName != null)
                     {
-                        string urlStr = ((App)Application.Current).AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/").Replace("\r\n", "") + 
+                        string urlStr = AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/").Replace("\r\n", "") + 
                                         "/" + row.DataNo.ToString() + "/" + row.FileName;
-                        //string encodeUrl = System.Net.WebUtility.UrlEncode(urlStr);
-                        //string source = "https://docs.google.com/viewer?url=" + encodeUrl + "&embedded=true";
                         string source = urlStr;
                         Pdf.Source = source;
 
-                        //PdfLabel.Text = _sqlite.Db_A_FilePath.FilePath + "/" + row.FileName + "\r\n" + source;
+                        PdfLabel.Text = urlStr;
 
                     }
                     else
                     {
-                        PdfLabel.Text = "ファイルなし";
+                        PdfLabel.Text = "地区誌ファイルなし";
                     }
                 }
             }

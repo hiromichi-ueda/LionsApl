@@ -35,7 +35,19 @@ namespace LionsApl.Content
         {
             InitializeComponent();
 
-            //DisplayAlert("Alert", "コンストラクタ開始", "OK");
+            // font-size
+            this.title.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));            //Login
+            this.lbl_region.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.RegionPicker.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Picker));
+            this.lbl_zone.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.ZonePicker.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Picker));
+            this.lbl_club.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.ClubPicker.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Picker));
+            this.lbl_member.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.MemberPicker.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Picker));
+            this.btn_back.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Button));          //戻るボタン
+            this.btn_save.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Button));          //登録ボタン
+
 
             // ピッカーセレクト処理OFF
             _pickerSelect = false;

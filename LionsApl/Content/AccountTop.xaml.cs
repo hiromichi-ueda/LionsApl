@@ -32,6 +32,26 @@ namespace LionsApl.Content
         {
             InitializeComponent();
 
+            // font-size
+            this.LoginInfo.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));          //Login
+            this.title.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));            //Title
+            this.lbl_region.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.Region.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_zone.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.Zone.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_clubname.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.ClubName.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_memberno.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.MemberNo.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.MemberName.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_typename.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.TypeName.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_joindate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.JoinDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_cabnet.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.Cabinet.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.btn_edit.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Button));        //編集ボタン
+
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
 
@@ -43,6 +63,9 @@ namespace LionsApl.Content
 
             // A_ACCOUNTデータ取得
             _sqlite.SetAccount();
+
+            // ログイン情報設定
+            LoginInfo.Text = _sqlite.Db_A_Account.ClubName + " " + _sqlite.Db_A_Account.MemberFirstName + _sqlite.Db_A_Account.MemberLastName;
 
             // アカウント情報データ取得
             GetAccount();
