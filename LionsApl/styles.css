@@ -75,6 +75,7 @@ button {
         height: 38; /* 高さ */
     }
     .aplhedaer > label {
+        font-size: 38; /* 文字サイズ */
         color: #FFFFFF; /* 文字色 */
         background-color: #2196F3; /* 背景 */
         Padding: 6,0,0,0; /* 余白 */
