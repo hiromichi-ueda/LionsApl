@@ -110,7 +110,7 @@ namespace LionsApl.Content
                 return;
             }
 
-            Navigation.PushAsync(new ClubMeetingProgramPage());
+            Navigation.PushAsync(new ClubMeetingProgramPage(item.DataNo));
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;

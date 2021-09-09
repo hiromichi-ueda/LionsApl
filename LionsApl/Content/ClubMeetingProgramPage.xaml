@@ -21,7 +21,7 @@
                             StyleClass="login"
                             >
                         <Label
-                            Text="岐阜南LC 池田 昌二" 
+                            x:Name="LoginInfo"
                             VerticalTextAlignment="Center"
                             />
                     </StackLayout>
@@ -32,6 +32,7 @@
                             HorizontalOptions="FillAndExpand"
                             >
                         <Label 
+                            x:Name="title"
                             Text="例会プログラム"
                             FontSize="Default"
                             VerticalTextAlignment="Center"
@@ -42,7 +43,133 @@
                     <!-- BODY -->
                     <StackLayout>
 
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
+                            <!-- 例会日 -->
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                x:Name="lbl_MeetingDate"
+                                Text="例会日"
+                                StyleClass="page_member"
+                            />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="3"
+                                x:Name="MeetingDate" 
+                                Text=""
+                                StyleClass="page_member"
+                                />
+                            <!-- 例会名 -->
+                            <Label 
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                x:Name="lbl_MeetingName"
+                                Text="例会名"
+                                StyleClass="page_member"
+                            />
+                            <Label 
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="3"
+                                x:Name="MeetingName" 
+                                Text=""
+                                StyleClass="page_member"
+                                />
+                            <!-- 例会方法 -->
+                            <Label 
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                x:Name="lbl_Meeting" 
+                                Text="例会方法"
+                                StyleClass="page_member"
+                                />
+                            <Label 
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="3"
+                                x:Name="Meeting" 
+                                Text=""
+                                StyleClass="page_member"
+                                />
+                            <!-- URL -->
+                            <Label 
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                x:Name="lbl_MeetingUrl" 
+                                Text="URL"
+                                StyleClass="page_member"
+                                />
+                            <Label 
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="3"
+                                x:Name="MeetingUrl" 
+                                Text=""
+                                StyleClass="page_member"
+                                />
+                            <!-- ID -->
+                            <Label 
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                x:Name="lbl_MeetingID" 
+                                Text="ID"
+                                StyleClass="page_member"
+                                />
+                            <Label 
+                                Grid.Row="4"
+                                Grid.Column="1"
+                                x:Name="MeetingID" 
+                                Text=""
+                                StyleClass="page_member"
+                                />
+                            <!-- PW -->
+                            <Label 
+                                Grid.Row="4"
+                                Grid.Column="2"
+                                x:Name="lbl_MeetingPW" 
+                                Text="PW"
+                                StyleClass="page_member"
+                                />
+                            <Label 
+                                Grid.Row="4"
+                                Grid.Column="3"
+                                x:Name="MeetingPW" 
+                                Text=""
+                                StyleClass="page_member"
+                                />
+                            <!-- 備考 -->
+                            <Label 
+                                Grid.Row="5"
+                                Grid.Column="0"
+                                x:Name="lbl_MeetingOther"
+                                Text="備考"
+                                StyleClass="page_member"
+                                />
+                            <Label 
+                                Grid.Row="5"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="3"
+                                x:Name="MeetingOther" 
+                                Text=""
+                                StyleClass="page_member_hfree"
+                                />
+                        </Grid>
 
 
 

@@ -35,14 +35,18 @@
                         HeightRequest="18"
                         Margin="2"
                         >
-                        <Label
+                        <!--<Label
                             x:Name="LoginInfo" 
                             FontSize="Small"
                             TextColor="#2E2E2E"
                             VerticalOptions="Center"
                             Background="#FFFFFF"
                             HorizontalTextAlignment="End" 
-                        />
+                        />-->
+                        <Label
+                            x:Name="LoginInfo"
+                            Style="{StaticResource Login}"
+                            />
                     </StackLayout>
 
                     <!-- タイトル -->
@@ -50,14 +54,19 @@
                         Margin="4,0,4,0"
                         HorizontalOptions="FillAndExpand"
                         >
-                        <Label
+                        <!--<Label
                             x:Name="title"
                             Text="理事・委員会" 
                             FontSize="Default"
                             TextColor="#2E2E2E"
                             Background="#58ACFA"
                             HorizontalTextAlignment="Center"
-                        />
+                        />-->
+                        <Label
+                            x:Name="title"
+                            Text="理事・委員会" 
+                            Style="{StaticResource Title_Blue}"
+                            />
                     </StackLayout>
 
                 </StackLayout>

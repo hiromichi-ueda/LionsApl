@@ -6,6 +6,151 @@
     <!-- Style Sheet-->
     <Application.Resources>
         <StyleSheet Source="/styles.css" />
+
+        <Style 
+            x:Key="Login"
+            TargetType="Label"
+            >
+            <!--<Setter
+                Property="FontSize"
+                Value="14.0"
+                />
+            <Setter
+                Property="TextColor"
+                Value="#2E2E2E"
+                />-->
+            <Setter
+                Property="FontSize"
+                Value="32.0"
+                />
+            <Setter
+                Property="TextColor"
+                Value="#FF0000"
+                />
+            <Setter
+                Property="Background"
+                Value="#FFFFFF"
+                />
+            <Setter
+                Property="HorizontalTextAlignment"
+                Value="End"
+                />
+            <Setter
+                Property="VerticalOptions"
+                Value="Center"
+                />
+        </Style>
+
+        <Style 
+            x:Key="Title_Blue"
+            TargetType="Label"
+            >
+            <Setter
+                Property="FontSize"
+                Value="16.0"
+                />
+            <Setter 
+                Property="TextColor"
+                Value="#2E2E2E"
+                />
+            <Setter 
+                Property="Background"
+                Value="#58ACFA"
+                />
+            <Setter 
+                Property="HorizontalTextAlignment"
+                Value="Center"
+                />
+            <Setter 
+                Property="HeightRequest"
+                Value="20.0"
+                />
+        </Style>
+
+        <Style 
+            x:Key="Page_Member"
+            TargetType="Label"
+            >
+            <Setter 
+                Property="TextColor"
+                Value="#151515"
+                />
+            <Setter 
+                Property="HorizontalTextAlignment"
+                Value="Start"
+                />
+            <Setter 
+                Property="HeightRequest"
+                Value="30"
+                />
+            <Setter 
+                Property="Margin"
+                Value="8,0,8,0"
+                />
+        </Style>
+
+        <Style 
+            x:Key="Page_Member_Red"
+            TargetType="Label"
+            >
+            <Setter 
+                Property="TextColor"
+                Value="Red"
+                />
+            <Setter 
+                Property="HorizontalTextAlignment"
+                Value="Start"
+                />
+            <Setter 
+                Property="HeightRequest"
+                Value="30"
+                />
+            <Setter 
+                Property="Margin"
+                Value="8,0,8,0"
+                />
+        </Style>
+
+        <Style 
+            x:Key="Page_Member_HFree"
+            TargetType="Label"
+            >
+            <Setter 
+                Property="TextColor"
+                Value="#151515"
+                />
+            <Setter 
+                Property="HorizontalTextAlignment"
+                Value="Start"
+                />
+            <Setter 
+                Property="Margin"
+                Value="8,0,8,0"
+                />
+        </Style>
+
+        <Style 
+            x:Key="Page_Member_C"
+            TargetType="Label"
+            >
+            <Setter 
+                Property="TextColor"
+                Value="#151515"
+                />
+            <Setter 
+                Property="HorizontalTextAlignment"
+                Value="Center"
+                />
+            <Setter 
+                Property="HeightRequest"
+                Value="30"
+                />
+            <Setter 
+                Property="Margin"
+                Value="8,0,8,0"
+                />
+        </Style>
+
     </Application.Resources>
-    
+
 </Application>

@@ -17,25 +17,24 @@
                 <StackLayout>
 
                     <!-- ログイン情報 -->
-                    <StackLayout 
-                            StyleClass="login"
-                            >
+                    <StackLayout
+                        HeightRequest="18"
+                        Margin="2"
+                        >
                         <Label
                             x:Name="LoginInfo"
-                            VerticalTextAlignment="Center"
+                            Style="{StaticResource Login}"
                             />
                     </StackLayout>
 
                     <!-- タイトル -->
                     <StackLayout 
-                            Margin="4,0,4,0"
-                            HorizontalOptions="FillAndExpand"
-                            >
+                        Margin="4,0,4,0"
+                        HorizontalOptions="FillAndExpand"
+                        >
                         <Label 
                             Text="理事・委員会"
-                            FontSize="Default"
-                            VerticalTextAlignment="Center"
-                            StyleClass="title_blue"
+                            Style="{StaticResource Title_Blue}"
                         />
                     </StackLayout>
 
@@ -45,8 +44,7 @@
                         <Label
                             x:Name="DirectorTitle"
                             Text=""
-                            HorizontalTextAlignment="Center"
-                            VerticalTextAlignment="Center"
+                            Style="{StaticResource Page_Member_C}"
                             />
 
                         <StackLayout>
@@ -61,8 +59,8 @@
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
                                 <!-- 開催日 -->
@@ -70,36 +68,29 @@
                                     Grid.Row="0"
                                     Grid.Column="0"
                                     Text="開催日"
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member"
+                                    Style="{StaticResource Page_Member}"
                                 />
                                 <Label 
                                     Grid.Row="0"
                                     Grid.Column="1"
                                     x:Name="EventDate" 
-                                    Text=""
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member"
+                                    Text="xxxx/xx/xx"
+                                    Style="{StaticResource Page_Member}"
                                  />
                                 <Label 
                                     Grid.Row="0"
-                                    Grid.Column="1"
+                                    Grid.Column="2"
                                     x:Name="Cancel" 
-                                    Text=""
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member_red"
+                                    Text="xxxx"
+                                    TextColor="Red"
+                                    Style="{StaticResource Page_Member}"
                                  />
                                 <!-- 区分 -->
                                 <Label 
                                     Grid.Row="1"
                                     Grid.Column="0"
                                     Text="区分"
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member"
+                                    Style="{StaticResource Page_Member}"
                                 />
                                 <Label 
                                     Grid.Row="1"
@@ -107,57 +98,46 @@
                                     Grid.ColumnSpan="2"
                                     x:Name="Season" 
                                     Text=""
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member"
-                                 />
+                                    Style="{StaticResource Page_Member}"
+                                  />
                                 <!-- 開催場所 -->
                                 <Label 
                                     Grid.Row="2"
                                     Grid.Column="0"
                                     Text="開催場所"
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member"
-                                />
+                                    Style="{StaticResource Page_Member}"
+                                 />
                                 <Label 
                                     Grid.Row="2"
                                     Grid.Column="1"
                                     Grid.ColumnSpan="2"
                                     x:Name="EventPlace" 
                                     Text=""
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member"
-                                 />
+                                    Style="{StaticResource Page_Member}"
+                                  />
                                 <!-- 議題・内容 -->
                                 <Label 
                                     Grid.Row="3"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="3"
                                     Text="議題・内容"
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member"
-                                />
+                                    Style="{StaticResource Page_Member}"
+                                 />
                                 <Label 
                                     Grid.Row="4"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="3"
                                     x:Name="Agenda" 
                                     Text=""
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member_hfree"
-                                 />
+                                    Style="{StaticResource Page_Member_HFree}"
+                                />
                                 <!-- 回答期限 -->
                                 <Label 
                                     Grid.Row="5"
                                     Grid.Column="0"
+                                    x:Name="lbl_AnswerDate"
                                     Text="回答期限"
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member_red"
+                                    Style="{StaticResource Page_Member_Red}"
                                 />
                                 <Label 
                                     Grid.Row="5"
@@ -165,14 +145,14 @@
                                     Grid.ColumnSpan="2"
                                     x:Name="AnswerDate" 
                                     Text=""
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member_red"
+                                    Style="{StaticResource Page_Member_Red}"
                                  />
                             </Grid>
                         </StackLayout>
 
-                        <StackLayout>
+                        <StackLayout
+                            Margin="4,0,4,0"
+                            >
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -188,8 +168,6 @@
                                     Grid.Column="0"
                                     x:Name="btn_attendance"
                                     Text="出席"
-                                    BorderWidth="1" 
-                                    CornerRadius="6"
                                     Clicked="Attendance_Button_Clicked"
                                 />
                                 <!-- 欠席 -->
@@ -198,8 +176,6 @@
                                     Grid.Column="1"
                                     x:Name="btn_absence"
                                     Text="欠席"
-                                    BorderWidth="1" 
-                                    CornerRadius="6"
                                     Clicked="Absence_Button_Clicked"
                                 />
                             </Grid>

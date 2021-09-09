@@ -14,7 +14,7 @@
     <AssemblyName>LionsApl.iOS</AssemblyName>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
-    <ProvisioningType>automatic</ProvisioningType>
+    <ProvisioningType>manual</ProvisioningType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -27,9 +27,8 @@
     <MtouchArch>x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignKey>iPhone Developer</CodesignKey>
-    <CodesignProvision>
-    </CodesignProvision>
+    <CodesignKey>Apple Development: 上田 裕達 (697Q2HZ9CA)</CodesignKey>
+    <CodesignProvision>VS: WildCard Development</CodesignProvision>
     <MtouchFloat32>false</MtouchFloat32>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
   </PropertyGroup>
@@ -69,11 +68,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>Apple Development: 上田 裕達 (697Q2HZ9CA)</CodesignKey>
+    <CodesignKey>iPhone Distribution: INSAT Inc.</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchDebug>false</MtouchDebug>
     <BuildIpa>true</BuildIpa>
-    <CodesignProvision>VS: WildCard Development</CodesignProvision>
+    <CodesignProvision>LionsApl-Ad-Hoc</CodesignProvision>
     <OptimizePNGs>false</OptimizePNGs>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchLink>None</MtouchLink>
