@@ -51,6 +51,7 @@
                         HorizontalOptions="FillAndExpand"
                         >
                         <Label
+                            x:Name="title"
                             Text="例会プログラム" 
                             FontSize="Default"
                             TextColor="#2E2E2E"
@@ -91,6 +92,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
                         Text="例会日" 
+                        LineBreakMode="TailTruncation"
                         VerticalOptions="End"
                         StyleClass="list_label"
                     />
@@ -100,6 +102,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
                         Text="{Binding MeetingDate}" 
+                        LineBreakMode="TailTruncation"
                         VerticalOptions="End"
                         StyleClass="list_label"
                     />
@@ -111,6 +114,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
                         Text="例会名" 
+                        LineBreakMode="TailTruncation"
                         VerticalOptions="Start"
                         StyleClass="list_label"
                     />
@@ -158,6 +162,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="2"
                         Text="例会プログラムはありません" 
+                        LineBreakMode="TailTruncation"
                         HorizontalTextAlignment="Center"
                         VerticalOptions="Center"
                         StyleClass="list_label"

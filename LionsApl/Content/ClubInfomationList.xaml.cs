@@ -24,6 +24,10 @@ namespace LionsApl.Content
         {
             InitializeComponent();
 
+            // font-size(<ListView>はCSSが効かないのでここで設定)
+            this.LoginInfo.FontSize = 16.0;
+            this.title.FontSize = 16.0;
+
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
 
@@ -37,7 +41,7 @@ namespace LionsApl.Content
             _sqlite.SetAccount();
 
             // ログイン情報設定
-            LoginInfo.Text = _sqlite.Db_A_Account.ClubName + " " + _sqlite.Db_A_Account.MemberFirstName + " " + _sqlite.Db_A_Account.MemberLastName;
+            LoginInfo.Text = _sqlite.LoginInfo;
 
             // 連絡事項データ取得
             GetInfomation();

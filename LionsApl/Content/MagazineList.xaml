@@ -87,6 +87,7 @@
                                     Grid.Row="0"
                                     Grid.ColumnSpan="1"
                                     Text="{Binding MagazineBuy}" 
+                                    LineBreakMode="TailTruncation"
                                     VerticalOptions="Center"
                                     StyleClass="list_label"
                                 />
@@ -115,6 +116,7 @@
                 <Label
                     x:Name="magazine"
                     Text="地区誌購入" 
+                    LineBreakMode="TailTruncation"
                     TextColor="#2E2E2E"
                     VerticalOptions="Center"
                     Background="White"

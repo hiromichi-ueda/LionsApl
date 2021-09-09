@@ -51,6 +51,7 @@
                         HorizontalOptions="FillAndExpand"
                         >
                         <Label
+                            x:Name="title"
                             Text="理事・委員会" 
                             FontSize="Default"
                             TextColor="#2E2E2E"
@@ -93,6 +94,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
                         Text="{Binding EventClass}" 
+                        LineBreakMode="TailTruncation"
                         VerticalOptions="End"
                         StyleClass="list_label"
                     />
@@ -104,6 +106,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
                         Text="{Binding EventDate}" 
+                        LineBreakMode="TailTruncation"
                         VerticalOptions="End"
                         StyleClass="list_label"
                     />
@@ -115,6 +118,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
                         Text="{Binding CancelFlg}" 
+                        LineBreakMode="TailTruncation"
                         VerticalOptions="End"
                         StyleClass="list_label"
                         TextColor="Red"
@@ -148,6 +152,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="2"
                         Text="{Binding Answer}" 
+                        LineBreakMode="TailTruncation"
                         VerticalOptions="Center"
                         StyleClass="list_label"
                     />
@@ -185,6 +190,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="2"
                         Text="理事・委員会情報はありません" 
+                        LineBreakMode="TailTruncation"
                         HorizontalTextAlignment="Center"
                         VerticalOptions="Center"
                         StyleClass="list_label"

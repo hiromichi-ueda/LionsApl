@@ -49,6 +49,7 @@
                         HorizontalOptions="FillAndExpand"
                         >
                         <Label
+                            x:Name="title"
                             Text="年間例会スケジュール" 
                             FontSize="Default"
                             TextColor="#2E2E2E"
@@ -85,66 +86,70 @@
 
                     <!-- 例会日 -->
                     <Label 
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="1"
-                                Grid.RowSpan="1"
-                                Text="例会日" 
-                                VerticalOptions="End"
-                                StyleClass="list_label"
-                            />
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="例会日" 
+                        LineBreakMode="TailTruncation"
+                        VerticalOptions="End"
+                        StyleClass="list_label"
+                    />
                     <Label 
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                Grid.ColumnSpan="1"
-                                Grid.RowSpan="1"
-                                Text="{Binding DateTime}" 
-                                VerticalOptions="End"
-                                StyleClass="list_label"
-                            />
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="{Binding DateTime}" 
+                        LineBreakMode="TailTruncation"
+                        VerticalOptions="End"
+                        StyleClass="list_label"
+                    />
                     <!-- 中止 -->
                     <Label 
-                                Grid.Row="0"
-                                Grid.Column="2"
-                                Grid.ColumnSpan="1"
-                                Grid.RowSpan="1"
-                                Text="{Binding Cancel}" 
-                                VerticalOptions="End"
-                                TextColor="RED"
-                                StyleClass="list_label"
-                            />
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="{Binding Cancel}" 
+                        LineBreakMode="TailTruncation"
+                        VerticalOptions="End"
+                        TextColor="RED"
+                        StyleClass="list_label"
+                    />
 
                     <!-- 例会名 -->
                     <Label 
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="1"
-                                Grid.RowSpan="1"
-                                Text="例会名" 
-                                VerticalOptions="Start"
-                                StyleClass="list_label"
-                            />
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="例会名" 
+                        LineBreakMode="TailTruncation"
+                        VerticalOptions="Start"
+                        StyleClass="list_label"
+                    />
                     <Label 
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Grid.ColumnSpan="2"
-                                Grid.RowSpan="1"
-                                Text="{Binding Title}" 
-                                LineBreakMode="TailTruncation"
-                                VerticalOptions="Start"
-                                StyleClass="list_label"
-                            />
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Grid.RowSpan="1"
+                        Text="{Binding Title}" 
+                        LineBreakMode="TailTruncation"
+                        VerticalOptions="Start"
+                        StyleClass="list_label"
+                    />
 
                     <!-- マーク -->
                     <Label 
-                                Grid.Row="0"
-                                Grid.Column="2"
-                                Grid.ColumnSpan="1"
-                                Grid.RowSpan="2"
-                                Text="〉" 
-                                VerticalOptions="Center"
-                                StyleClass="list_label"
-                            />
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="2"
+                        Text="〉" 
+                        VerticalOptions="Center"
+                        StyleClass="list_label"
+                    />
                 </Grid>
             </ViewCell>
         </DataTemplate>
@@ -167,6 +172,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="2"
                         Text="年間例会スケジュール情報はありません" 
+                        LineBreakMode="TailTruncation"
                         HorizontalTextAlignment="Center"
                         VerticalOptions="Center"
                         StyleClass="list_label"

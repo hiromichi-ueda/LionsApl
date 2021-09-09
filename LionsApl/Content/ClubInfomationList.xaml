@@ -51,6 +51,7 @@
                         HorizontalOptions="FillAndExpand"
                         >
                         <Label
+                            x:Name="title"
                             Text="連絡事項（クラブ）" 
                             FontSize="Default"
                             TextColor="#2E2E2E"
@@ -159,6 +160,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="2"
                         Text="連絡事項はありません" 
+                        LineBreakMode="TailTruncation"
                         HorizontalTextAlignment="Center"
                         VerticalOptions="Center"
                         StyleClass="list_label"

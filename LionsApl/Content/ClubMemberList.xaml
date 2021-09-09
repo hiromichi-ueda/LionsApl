@@ -80,6 +80,7 @@
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     Text="入会日" 
+                                    LineBreakMode="TailTruncation"
                                     VerticalOptions="End"
                                     StyleClass="list_label"
                                     />
@@ -89,6 +90,7 @@
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     Text="{Binding JoinDate}" 
+                                    LineBreakMode="TailTruncation"
                                     VerticalOptions="End"
                                     StyleClass="list_label"
                                     />
