@@ -140,7 +140,7 @@ namespace LionsApl.Content
                     //RemarksStr = "テスト用文字列を設定しています。テスト用文字列を設定しています。テスト用文字列を設定しています。テスト用文字列を設定しています。";
                     if (RemarksStr != string.Empty)
                     {
-                        Remarks = _contUtl.LabelCreate(RemarksStr,
+                        Remarks = _contUtl.CreateLabel_Styleclass(RemarksStr,
                                                        NamedSize.Default,
                                                        LayoutOptions.Center,
                                                        "page_member_hfree",
@@ -164,7 +164,7 @@ namespace LionsApl.Content
                         OptGrid.Padding = new Thickness(10.0, 10.0, 10.0, 0.0);
 
                         // 例会オプション１（項目名）
-                        OptionName1 = _contUtl.LabelCreate(OptName1,
+                        OptionName1 = _contUtl.CreateLabel_Styleclass(OptName1,
                                                            NamedSize.Default,
                                                            LayoutOptions.Center,
                                                            "page_member",
@@ -172,8 +172,8 @@ namespace LionsApl.Content
                         OptGrid.Children.Add(OptionName1);
 
                         // 例会オプション１（入力）
-                        OptRadio1 = _contUtl.LabelOnOff(Util.GetString(OptRadio1));
-                        OptionRadio1 = _contUtl.LabelCreate(OptRadio1,
+                        OptRadio1 = _contUtl.StrOnOff(Util.GetString(OptRadio1));
+                        OptionRadio1 = _contUtl.CreateLabel_Styleclass(OptRadio1,
                                                             NamedSize.Default,
                                                             LayoutOptions.Center,
                                                             "page_member",
@@ -193,7 +193,7 @@ namespace LionsApl.Content
                     if ((OptName2 != string.Empty) && (OptRadio2 == "1"))
                     {
                         // 例会オプション２（項目名）
-                        OptionName2 = _contUtl.LabelCreate(OptName2,
+                        OptionName2 = _contUtl.CreateLabel_Styleclass(OptName2,
                                                            NamedSize.Default,
                                                            LayoutOptions.Center,
                                                            "page_member",
@@ -201,8 +201,8 @@ namespace LionsApl.Content
                         OptGrid.Children.Add(OptionName2);
 
                         // 例会オプション２（入力）
-                        OptRadio2 = _contUtl.LabelOnOff(Util.GetString(OptRadio2));
-                        OptionRadio2 = _contUtl.LabelCreate(OptRadio2,
+                        OptRadio2 = _contUtl.StrOnOff(Util.GetString(OptRadio2));
+                        OptionRadio2 = _contUtl.CreateLabel_Styleclass(OptRadio2,
                                                             NamedSize.Default,
                                                             LayoutOptions.Center,
                                                             "page_member",
@@ -222,7 +222,7 @@ namespace LionsApl.Content
                     if ((OptName3 != string.Empty) && (OptRadio3 == "1"))
                     {
                         // 例会オプション３（項目名）
-                        OptionName3 = _contUtl.LabelCreate(OptName3,
+                        OptionName3 = _contUtl.CreateLabel_Styleclass(OptName3,
                                                            NamedSize.Default,
                                                            LayoutOptions.Center,
                                                            "page_member",
@@ -230,8 +230,8 @@ namespace LionsApl.Content
                         OptGrid.Children.Add(OptionName3);
 
                         // 例会オプション３（入力）
-                        OptRadio3 = _contUtl.LabelOnOff(Util.GetString(OptRadio3));
-                        OptionRadio3 = _contUtl.LabelCreate(OptRadio3,
+                        OptRadio3 = _contUtl.StrOnOff(Util.GetString(OptRadio3));
+                        OptionRadio3 = _contUtl.CreateLabel_Styleclass(OptRadio3,
                                                             NamedSize.Default,
                                                             LayoutOptions.Center,
                                                             "page_member",
@@ -251,7 +251,7 @@ namespace LionsApl.Content
                     if ((OptName4 != string.Empty) && (OptRadio4 == "1"))
                     {
                         // 例会オプション４（項目名）
-                        OptionName4 = _contUtl.LabelCreate(OptName4,
+                        OptionName4 = _contUtl.CreateLabel_Styleclass(OptName4,
                                                            NamedSize.Default,
                                                            LayoutOptions.Center,
                                                            "page_member",
@@ -259,8 +259,8 @@ namespace LionsApl.Content
                         OptGrid.Children.Add(OptionName4);
 
                         // 例会オプション４（入力）
-                        OptRadio4 = _contUtl.LabelOnOff(Util.GetString(OptRadio4));
-                        OptionRadio4 = _contUtl.LabelCreate(OptRadio4,
+                        OptRadio4 = _contUtl.StrOnOff(Util.GetString(OptRadio4));
+                        OptionRadio4 = _contUtl.CreateLabel_Styleclass(OptRadio4,
                                                             NamedSize.Default,
                                                             LayoutOptions.Center,
                                                             "page_member",
@@ -280,7 +280,7 @@ namespace LionsApl.Content
                     if ((OptName5 != string.Empty) && (OptRadio5 == "1"))
                     {
                         // 例会オプション５（項目名）
-                        OptionName5 = _contUtl.LabelCreate(OptName5,
+                        OptionName5 = _contUtl.CreateLabel_Styleclass(OptName5,
                                                            NamedSize.Default,
                                                            LayoutOptions.Center,
                                                            "page_member",
@@ -288,8 +288,8 @@ namespace LionsApl.Content
                         OptGrid.Children.Add(OptionName5);
 
                         // 例会オプション５（入力）
-                        OptRadio5 = _contUtl.LabelOnOff(Util.GetString(OptRadio5));
-                        OptionRadio5 = _contUtl.LabelCreate(OptRadio5,
+                        OptRadio5 = _contUtl.StrOnOff(Util.GetString(OptRadio5));
+                        OptionRadio5 = _contUtl.CreateLabel_Styleclass(OptRadio5,
                                                             NamedSize.Default,
                                                             LayoutOptions.Center,
                                                             "page_member",
@@ -302,7 +302,7 @@ namespace LionsApl.Content
 
                     // お酒
                     // 項目名
-                    SakeTitle = _contUtl.LabelCreate(SakeStr,
+                    SakeTitle = _contUtl.CreateLabel_Styleclass(SakeStr,
                                                      NamedSize.Default,
                                                      LayoutOptions.Center,
                                                      "page_member",
@@ -310,8 +310,8 @@ namespace LionsApl.Content
                     OptGrid.Children.Add(SakeTitle);
 
                     // 項目値
-                    SakeVal = _contUtl.LabelOnOff(Util.GetString(row.Sake));
-                    SakeRadio = _contUtl.LabelCreate(SakeVal,
+                    SakeVal = _contUtl.StrOnOff(Util.GetString(row.Sake));
+                    SakeRadio = _contUtl.CreateLabel_Styleclass(SakeVal,
                                                      NamedSize.Default,
                                                      LayoutOptions.Center,
                                                      "page_member",
@@ -323,7 +323,7 @@ namespace LionsApl.Content
 
                     // 本人以外の参加
                     // 項目名
-                    OtherTitle = _contUtl.LabelCreate(OtherStr,
+                    OtherTitle = _contUtl.CreateLabel_Styleclass(OtherStr,
                                                       NamedSize.Default,
                                                       LayoutOptions.Center,
                                                       "page_member",
@@ -331,8 +331,8 @@ namespace LionsApl.Content
                     OptGrid.Children.Add(OtherTitle);
 
                     // 項目値
-                    OtherVal = _contUtl.LabelOnOff(Util.GetString(row.OtherUser));
-                    OtherRadio = _contUtl.LabelCreate(OtherVal,
+                    OtherVal = _contUtl.StrOnOff(Util.GetString(row.OtherUser));
+                    OtherRadio = _contUtl.CreateLabel_Styleclass(OtherVal,
                                                       NamedSize.Default,
                                                       LayoutOptions.Center,
                                                       "page_member",

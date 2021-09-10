@@ -123,7 +123,7 @@
                                     Grid.Column="0"
                                     x:Name="lbl_Agenda" 
                                     Text="議題・内容"
-                                    Style="{StaticResource Page_Member_HFree}"
+                                    Style="{StaticResource Page_Member}"
                                  />
                                 <Label 
                                     Grid.Row="3"
@@ -131,7 +131,7 @@
                                     Grid.ColumnSpan="2"
                                     x:Name="Agenda" 
                                     Text=""
-                                    MinimumHeightRequest="30"
+                                    VerticalTextAlignment="Start"
                                     Style="{StaticResource Page_Member_HFree}"
                                 />
                                 <!-- 回答期限 -->

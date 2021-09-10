@@ -68,12 +68,14 @@ namespace LionsApl.Content
                                                                  "ORDER BY MeetingDate DESC"))
                 {
                     wkDataNo = row.DataNo;
-                    if(row.Meeting == "2")
+                    if (row.Meeting == "2")
                     {
                         wkMeeting = "[オンライン]";
                     }
-                    wkMeetingDate = row.MeetingDate.Substring(0, 10) + "  " + wkMeeting;
-                    wkMeetingName = row.MeetingName;
+                    //wkMeetingDate = row.MeetingDate.Substring(0, 10) + "  " + wkMeeting;
+                    //wkMeetingName = row.MeetingName;
+                    wkMeetingDate = "";
+                    wkMeetingName = "";
                     Items.Add(new MeetingProgramRow(wkDataNo, wkMeetingDate, wkMeetingName));
                 }
                 if (Items.Count == 0)
@@ -90,6 +92,64 @@ namespace LionsApl.Content
             }
 
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 例会プログラム情報をSQLiteファイルから取得して画面に設定する。
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        //private void GetMeetingProgram()
+        //{
+        //    int wkDataNo;
+        //    string wkMeetingDate = string.Empty;
+        //    string wkMeetingName = string.Empty;
+        //    string wkMeeting = string.Empty;
+        //    Items = new List<MeetingProgramRow>();
+
+        //    try
+        //    {
+        //        foreach (Table.CLUB_MPROG row in _sqlite.CLUB_MPROG(
+        //                                                        "SELECT " +
+        //                                                            "t1.DataNo, " +
+        //                                                            "t1.ScheduleDataNo, " +
+        //                                                            "t1.ClubCode, " +
+        //                                                            "t1.ClubNameShort, " +
+        //                                                            "t1.Meeting, " +
+        //                                                            "t2.MeetingDate, " +
+        //                                                            "t2.MeetingTime, " +
+        //                                                            "t2.MeetingPlace, " +
+        //                                                            "t2.MeetingName " +
+        //                                                        "FROM " +
+        //                                                            "T_MEETINGPROGRAM t1 " +
+        //                                                        "LEFT OUTER JOIN " +
+        //                                                            "T_MEETINGSCHEDULE t2 " +
+        //                                                        "ON " +
+        //                                                            "t1.ScheduleDataNo = t2.DataNo " +
+        //                                                        "ORDER BY t2.MeetingDate DESC"))
+        //        {
+        //            wkDataNo = row.DataNo;
+        //            if (row.Meeting == "2")
+        //            {
+        //                wkMeeting = "[オンライン]";
+        //            }
+        //            wkMeetingDate = row.MeetingDate.Substring(0, 10) + "  " + wkMeeting;
+        //            wkMeetingName = row.MeetingName;
+        //            Items.Add(new MeetingProgramRow(wkDataNo, wkMeetingDate, wkMeetingName));
+        //        }
+        //        if (Items.Count == 0)
+        //        {
+        //            // メッセージ表示のため空行を追加
+        //            Items.Add(new MeetingProgramRow(0, wkMeetingDate, wkMeetingName));
+        //            //DisplayAlert("Alert", $"Data Nothing", "OK");
+        //        }
+        //        this.BindingContext = this;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        DisplayAlert("Alert", $"SQLite検索エラー(CLUB_MPROG) : &{ex.Message}", "OK");
+        //    }
+
+        //}
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>

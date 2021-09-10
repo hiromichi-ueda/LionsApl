@@ -70,7 +70,8 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetDirectorInfo()
         {
-            Table.TableUtil Utl = new Table.TableUtil();
+            Table.TableUtil TUtl = new Table.TableUtil();
+            ContentUtil CUtl = new ContentUtil();
 
             string eventDate = string.Empty;        // 開催日
             string seasonFlg = string.Empty;        // シーズン区分
@@ -85,7 +86,7 @@ namespace LionsApl.Content
                                                                         "Where DataNo = '" + _DataNo + "'"))
                 {
                     // 出欠タイトル
-                    if (Utl.GetString(row.EventClass) == "1")
+                    if (TUtl.GetString(row.EventClass) == "1")
                     {
                         DirectorTitle.Text = "理事会出欠の確認";
                     }
@@ -95,7 +96,7 @@ namespace LionsApl.Content
                     }
 
                     // 中止
-                    cancelFlg = Utl.GetString(row.CancelFlg);
+                    cancelFlg = TUtl.GetString(row.CancelFlg);
                     //cancelFlg = "1";
                     if (cancelFlg == "1")
                     {
@@ -103,11 +104,11 @@ namespace LionsApl.Content
                     }
 
                     // 開催日
-                    eventDate = Utl.GetString(row.EventDate).Substring(0, 10) + " " + Utl.GetString(row.EventTime);
+                    eventDate = TUtl.GetString(row.EventDate).Substring(0, 10) + " " + TUtl.GetString(row.EventTime);
                     EventDate.Text = eventDate;
 
                     // 区分
-                    seasonFlg = Utl.GetString(row.Season);
+                    seasonFlg = TUtl.GetString(row.Season);
                     if (seasonFlg == "1")
                     {
                         Season.Text = "今期";
@@ -118,15 +119,16 @@ namespace LionsApl.Content
                     }
 
                     // 開催場所
-                    EventPlace.Text = Utl.GetString(row.EventPlace);
+                    EventPlace.Text = TUtl.GetString(row.EventPlace);
 
                     // 議題・内容
-                    agendaStr = Utl.GetString(row.Agenda);
-                    agendaStr = "テスト用文字列\r\nテスト用文字列\nテスト用文字\n列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列";
+                    //agendaStr = $"テスト用文字列\rテスト用文字列\nテスト用文字列\r\nテスト用文字列{Environment.NewLine}テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列";
+                    agendaStr = TUtl.GetString(row.Agenda);
+                    agendaStr = CUtl.DelNewLine(agendaStr);
                     Agenda.Text = agendaStr;
 
                     // 回答期限
-                    AnswerDate.Text = Utl.GetString(row.AnswerDate).Substring(0, 10);
+                    AnswerDate.Text = TUtl.GetString(row.AnswerDate).Substring(0, 10);
 
                 }
             }
@@ -161,6 +163,8 @@ namespace LionsApl.Content
                 if (_EventRet == null)
                 {
                     DisplayAlert("理事・委員会", "イベント情報がありません。", "OK");
+                    btn_attendance.IsEnabled = false;
+                    btn_absence.IsEnabled = false;
                 }
             }
             catch (Exception ex)

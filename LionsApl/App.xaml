@@ -113,7 +113,7 @@
             x:Key="Page_Member_HFree"
             TargetType="Label"
             >
-            <Setter 
+            <!--<Setter 
                 Property="TextColor"
                 Value="#151515"
                 />
@@ -121,6 +121,10 @@
                 Property="HorizontalTextAlignment"
                 Value="Start"
                 />
+            <Setter 
+                Property="VerticalTextAlignment"
+                Value="Start"
+                />-->
             <Setter 
                 Property="MinimumHeightRequest"
                 Value="30"

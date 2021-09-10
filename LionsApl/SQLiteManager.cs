@@ -907,7 +907,7 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// T_MEETINGPROGRAMテーブルデータ取得
+        /// T_DIRECTORテーブルデータ取得
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
         public Table.T_DIRECTOR[] Get_T_DIRECTOR(string command)
@@ -928,32 +928,6 @@ namespace LionsApl
             }
 
             return items.Count > 0 ? items.ToArray() : (new Table.T_DIRECTOR[0]);
-
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// HOME_EVENT(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE)テーブルデータ取得
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        public Table.HOME_EVENT[] Get_HOME_EVENT(string command)
-        {
-            List<Table.HOME_EVENT> items = new List<Table.HOME_EVENT>();
-
-            try
-            {
-                // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
-                {   // Select
-                    items = db.Query<Table.HOME_EVENT>(command);
-                }
-            }
-            catch
-            {
-                throw;
-            }
-
-            return items.Count > 0 ? items.ToArray() : (new Table.HOME_EVENT[0]);
 
         }
 
@@ -1006,32 +980,6 @@ namespace LionsApl
             }
 
             return items.Count > 0 ? items.ToArray() : (new Table.T_MAGAZINEBUY[0]);
-
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// MAGAZINE_LIST(T_MAGAZINE/T_MAGAZINEBUY)テーブルデータ取得
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        public Table.MAGAZINE_LIST[] Get_MAGAZINE_LIST(string command)
-        {
-            List<Table.MAGAZINE_LIST> items = new List<Table.MAGAZINE_LIST>();
-
-            try
-            {
-                // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
-                {   // Select
-                    items = db.Query<Table.MAGAZINE_LIST>(command);
-                }
-            }
-            catch
-            {
-                throw;
-            }
-
-            return items.Count > 0 ? items.ToArray() : (new Table.MAGAZINE_LIST[0]);
 
         }
 
@@ -1136,6 +1084,88 @@ namespace LionsApl
             }
 
             return items.Count > 0 ? items.ToArray() : (new Table.M_CLUB[0]);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// 複数テーブルからの取得
+        ///////////////////////////////////////////////////////////////////////////////////////////
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// HOME_EVENT(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE)テーブルデータ取得
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.HOME_EVENT[] Get_HOME_EVENT(string command)
+        {
+            List<Table.HOME_EVENT> items = new List<Table.HOME_EVENT>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                {   // Select
+                    items = db.Query<Table.HOME_EVENT>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.HOME_EVENT[0]);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// MAGAZINE_LIST(T_MAGAZINE/T_MAGAZINEBUY)テーブルデータ取得
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.MAGAZINE_LIST[] Get_MAGAZINE_LIST(string command)
+        {
+            List<Table.MAGAZINE_LIST> items = new List<Table.MAGAZINE_LIST>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                {   // Select
+                    items = db.Query<Table.MAGAZINE_LIST>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.MAGAZINE_LIST[0]);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// CLUB_MPROG(T_MEETINGPROGRAM/T_MEETINGSCHEDULE)テーブルデータ取得
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.CLUB_MPROG[] CLUB_MPROG(string command)
+        {
+            List<Table.CLUB_MPROG> items = new List<Table.CLUB_MPROG>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                {   // Select
+                    items = db.Query<Table.CLUB_MPROG>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.CLUB_MPROG[0]);
 
         }
 

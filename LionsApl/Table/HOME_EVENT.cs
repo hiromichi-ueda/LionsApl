@@ -20,8 +20,5 @@ namespace LionsApl.Table
         public string Title { get; set; }
         // T_MEETINGSCHEDULE
         public string MeetingName { get; set; }
-        // 日数算出結果
-        //public int CountDate { get; set; }
-
     }
 }
