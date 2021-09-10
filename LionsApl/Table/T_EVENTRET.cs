@@ -21,6 +21,7 @@
         public string Option4 { get; set; }
         public string Option5 { get; set; }
         public int OtherCount { get; set; }
+        public string TargetFlg { get; set; }
         public string CancelFlg { get; set; }
 //        public string UpFlg { get; set; }
     }

@@ -7,6 +7,9 @@
     <Application.Resources>
         <StyleSheet Source="/styles.css" />
 
+        <!-- 注意：CSSのContentPage、LabelにてColorが設定されている場合、
+             　　　下記Styleで設定されているLabelのTextColorは無効となります。 -->
+
         <Style 
             x:Key="Login"
             TargetType="Label"
@@ -15,13 +18,9 @@
                 Property="FontSize"
                 Value="14.0"
                 />
-            <!--<Setter
-                Property="TextColor"
-                Value="#2E2E2E"
-                />-->
             <Setter
                 Property="TextColor"
-                Value="#FF0000"
+                Value="#151515"
                 />
             <Setter
                 Property="Background"
@@ -47,7 +46,7 @@
                 />
             <Setter 
                 Property="TextColor"
-                Value="#2E2E2E"
+                Value="#151515"
                 />
             <Setter 
                 Property="Background"
@@ -85,7 +84,10 @@
                 />
         </Style>
 
-        <Style 
+        <!-- CSSでColor設定しているので、
+             StyleでのTextColorが無効となるため、
+             下記設定をコメントアウト -->
+        <!--<Style 
             x:Key="Page_Member_Red"
             TargetType="Label"
             >
@@ -105,7 +107,7 @@
                 Property="Margin"
                 Value="8,0,8,0"
                 />
-        </Style>
+        </Style>-->
 
         <Style 
             x:Key="Page_Member_HFree"
@@ -118,6 +120,10 @@
             <Setter 
                 Property="HorizontalTextAlignment"
                 Value="Start"
+                />
+            <Setter 
+                Property="MinimumHeightRequest"
+                Value="30"
                 />
             <Setter 
                 Property="Margin"

@@ -24,7 +24,18 @@ namespace LionsApl.Content
         {
             InitializeComponent();
 
+            DirectorTitle.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            lbl_EventDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            EventDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            Cancel.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            lbl_Season.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            Season.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            lbl_EventPlace.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            EventPlace.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            lbl_Agenda.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            Agenda.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             lbl_AnswerDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            AnswerDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
 
             // 対象データNo.設定
             _DataNo = dataNo;
@@ -64,6 +75,7 @@ namespace LionsApl.Content
             string eventDate = string.Empty;        // 開催日
             string seasonFlg = string.Empty;        // シーズン区分
             string cancelFlg = string.Empty;        // 中止フラグ
+            string agendaStr = string.Empty;        // 議題・内容
 
             // 会員情報取得
             try
@@ -83,8 +95,8 @@ namespace LionsApl.Content
                     }
 
                     // 中止
-                    //cancelFlg = Utl.GetString(row.CancelFlg);
-                    cancelFlg = "1";
+                    cancelFlg = Utl.GetString(row.CancelFlg);
+                    //cancelFlg = "1";
                     if (cancelFlg == "1")
                     {
                         Cancel.Text = "中止";
@@ -109,7 +121,9 @@ namespace LionsApl.Content
                     EventPlace.Text = Utl.GetString(row.EventPlace);
 
                     // 議題・内容
-                    Agenda.Text = Utl.GetString(row.Agenda);
+                    agendaStr = Utl.GetString(row.Agenda);
+                    //agendaStr = "テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列";
+                    Agenda.Text = agendaStr;
 
                     // 回答期限
                     AnswerDate.Text = Utl.GetString(row.AnswerDate).Substring(0, 10);

@@ -354,7 +354,8 @@ namespace LionsApl.Content
                     {
                         ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
                                             $"{row.Id}, {row.DataNo}, {row.EventClass}, {row.EventClass}, {row.EventDataNo}, {row.EventDate},\r\n" +
-                                            $"{row.ClubCode}, {row.ClubNameShort}, {row.MemberCode}, {row.MemberName}, {row.Answer}\r\n";
+                                            $"{row.ClubCode}, {row.ClubNameShort}, {row.MemberCode}, {row.MemberName},\r\n" +
+                                            $"{row.Answer}, {row.AnswerLate}, {row.AnswerEarly}, {row.Option1}, {row.Option2}, {row.Option3}, {row.Option4}, {row.Option5}, {row.OtherCount}, {row.TargetFlg}, {row.CancelFlg}, \r\n";
                     }
                 }
             }
@@ -386,7 +387,10 @@ namespace LionsApl.Content
                                             $"{row.Id}, {row.DataNo}, {row.EventDate}, {row.EventTimeStart}, {row.EventTimeEnd}, {row.ReceptionTime},\r\n" +
                                             $"{row.EventPlace},\r\n" +
                                             $"{row.Title},\r\n" +
-                                            $"{row.Body}\r\n";
+                                            $"{row.Body},\r\n" +
+                                            $"{row.OptionName1}, {row.OptionRadio1}, {row.OptionName2}, {row.OptionRadio2}, {row.OptionName3}, {row.OptionRadio3}, {row.OptionName4}, {row.OptionRadio4}, {row.OptionName5}, {row.OptionRadio5},\r\n" +
+                                            $"{row.Sake}, {row.Meeting}, {row.MeetingUrl}, {row.MeetingID}, {row.MeetingPW}, {row.MeetingOther}, {row.AnswerDate}, {row.FileName},\r\n" +
+                                            $"{row.CabinetUser}, {row.ClubUser}, {row.NoticeFlg},\r\n";
                     }
                 }
             }
@@ -668,6 +672,7 @@ namespace LionsApl.Content
                                             $"{row.Subject},\r\n" +
                                             $"{row.Agenda},\r\n" +
                                             $"{row.Member},\r\n" +
+                                            $"{row.MemberAdd},\r\n" +
                                             $"{row.AnswerDate},{row.CancelFlg},{row.NoticeFlg},\r\n";
                     }
                 }
@@ -697,8 +702,7 @@ namespace LionsApl.Content
                     foreach (var row in db.Query<Table.T_MEETINGPROGRAM>("Select * From T_MEETINGPROGRAM"))
                     {
                         ResultLabel.Text += $"----------------------------------------------------------------\r\n" +
-                                            $"{row.Id}, {row.DataNo}, {row.ClubCode}, {row.ClubNameShort},\r\n" +
-                                            $"{row.Fiscal}, {row.MeetingDate},{row.MeetingCount}, {row.MeetingName},\r\n" +
+                                            $"{row.Id}, {row.DataNo}, {row.ScheduleDataNo}, {row.ClubCode}, {row.ClubNameShort}, {row.Fiscal},\r\n" +
                                             $"{row.FileName},\r\n" +
                                             $"{row.FileName1},\r\n" +
                                             $"{row.FileName2},\r\n" +

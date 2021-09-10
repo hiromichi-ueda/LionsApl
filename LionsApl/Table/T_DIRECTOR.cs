@@ -21,6 +21,7 @@ namespace LionsApl.Table
         public string Subject { get; set; }
         public string Agenda { get; set; }
         public string Member { get; set; }
+        public string MemberAdd { get; set; }
         public string AnswerDate { get; set; }
         public string CancelFlg { get; set; }
         public string NoticeFlg { get; set; }

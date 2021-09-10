@@ -67,6 +67,7 @@
                                 <Label 
                                     Grid.Row="0"
                                     Grid.Column="0"
+                                    x:Name="lbl_EventDate" 
                                     Text="開催日"
                                     Style="{StaticResource Page_Member}"
                                 />
@@ -89,6 +90,7 @@
                                 <Label 
                                     Grid.Row="1"
                                     Grid.Column="0"
+                                    x:Name="lbl_Season" 
                                     Text="区分"
                                     Style="{StaticResource Page_Member}"
                                 />
@@ -104,6 +106,7 @@
                                 <Label 
                                     Grid.Row="2"
                                     Grid.Column="0"
+                                    x:Name="lbl_EventPlace" 
                                     Text="開催場所"
                                     Style="{StaticResource Page_Member}"
                                  />
@@ -120,8 +123,9 @@
                                     Grid.Row="3"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="3"
+                                    x:Name="lbl_Agenda" 
                                     Text="議題・内容"
-                                    Style="{StaticResource Page_Member}"
+                                    Style="{StaticResource Page_Member_HFree}"
                                  />
                                 <Label 
                                     Grid.Row="4"
@@ -129,6 +133,7 @@
                                     Grid.ColumnSpan="3"
                                     x:Name="Agenda" 
                                     Text=""
+                                    MinimumHeightRequest="30"
                                     Style="{StaticResource Page_Member_HFree}"
                                 />
                                 <!-- 回答期限 -->
@@ -137,7 +142,8 @@
                                     Grid.Column="0"
                                     x:Name="lbl_AnswerDate"
                                     Text="回答期限"
-                                    Style="{StaticResource Page_Member_Red}"
+                                    TextColor="Red"
+                                    Style="{StaticResource Page_Member}"
                                 />
                                 <Label 
                                     Grid.Row="5"
@@ -145,7 +151,8 @@
                                     Grid.ColumnSpan="2"
                                     x:Name="AnswerDate" 
                                     Text=""
-                                    Style="{StaticResource Page_Member_Red}"
+                                    TextColor="Red"
+                                    Style="{StaticResource Page_Member}"
                                  />
                             </Grid>
                         </StackLayout>
