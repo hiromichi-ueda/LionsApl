@@ -107,10 +107,10 @@ namespace LionsApl.Content
         /// タップ処理
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        private void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             // 処理中ダイアログ表示
-            await ((App)Application.Current).DispLoadingDialog();
+            //await ((App)Application.Current).DispLoadingDialog();
 
             if (e.Item == null)
                 return;
@@ -120,7 +120,8 @@ namespace LionsApl.Content
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
 
-            await Navigation.PushAsync(new ClubMemberPage(item.MemberCode));
+            // 会員情報画面へ
+            Navigation.PushAsync(new ClubMemberPage(item.MemberCode));
         }
     }
 }

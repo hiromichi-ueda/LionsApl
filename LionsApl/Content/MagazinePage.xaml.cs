@@ -17,8 +17,9 @@ namespace LionsApl.Content
         private SQLiteManager _sqlite;
 
         // Config取得
-        public static String AppServer = ((App)Application.Current).AppServer;      //Url
-        public static String AndroidPdf = ((App)Application.Current).AndroidPdf;    //PdfViewer
+        public static String AppServer = ((App)Application.Current).AppServer;                      //Url
+        public static String AndroidPdf = ((App)Application.Current).AndroidPdf;                    //PdfViewer
+        public static String FilePath_Magazine = ((App)Application.Current).FilePath_Magazine;      //地区誌PATH
 
         // 前画面からのデータNo取得情報
         private int _dataNo;
@@ -46,7 +47,7 @@ namespace LionsApl.Content
             LoginInfo.Text = _sqlite.LoginInfo;
 
             // A_FILEPATHデータ取得
-            _sqlite.GetFilePath(_sqlite.DATACLASS_MAGAZINE);
+            _sqlite.GetFilePath(FilePath_Magazine);
 
             // 地区誌情報設定
             GetMagazine();
