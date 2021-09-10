@@ -40,13 +40,113 @@
 
                     <!-- BODY -->
                     <StackLayout>
+                        <Grid
+                            Padding="10"
+                            >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
+                            <!-- 連絡日 -->
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                x:Name="lbl_AddDate"
+                                Text="連絡日"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                x:Name="AddDate" 
+                                Text=""
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
 
+                            <!-- 件名 -->
+                            <Label 
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                x:Name="lbl_Subject"
+                                Text="件　名"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+                            <Label 
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                x:Name="Subject" 
+                                Text=""
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
 
+                            <!-- 連絡事項 -->
+                            <Label 
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                x:Name="lbl_Detail"
+                                Text="連絡事項"
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
+                            <Label 
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                x:Name="Detail" 
+                                Text=""
+                                VerticalOptions="Center" 
+                                StyleClass="page_member"
+                             />
 
+                        </Grid>
 
                     </StackLayout>
 
+                    <StackLayout>
+                        <Grid
+                            Padding="10"
+                            >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="500"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- 添付ファイル -->
+                            <WebView
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="1"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand"
+                                x:Name="FileName">
+                            </WebView>
+                            <Label 
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="1"
+                                x:Name="lbl_FileName" 
+                                Text=""
+                                VerticalOptions="Center" 
+                                HorizontalTextAlignment="Start" 
+                                Margin="8"
+                                />
+                        </Grid>
+                    </StackLayout>
+                    
                 </StackLayout>
 
             </ScrollView>

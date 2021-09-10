@@ -61,9 +61,8 @@ namespace LionsApl.Content
                 return;
             }
 
-            Navigation.PushAsync(new ClubInfomationPage(item.ClubCode, item.AddDate));
-
-            //await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
+            //Navigation.PushAsync(new ClubInfomationPage(item.ClubCode));
+            Navigation.PushAsync(new ClubInfomationPage(1));
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
