@@ -16,8 +16,9 @@ namespace LionsApl.Content
         private SQLiteManager _sqlite;
 
         // Config取得
-        public static String AppServer = ((App)Application.Current).AppServer;      //Url
-        public static String AndroidPdf = ((App)Application.Current).AndroidPdf;    //PdfViewer
+        public static String AppServer = ((App)Application.Current).AppServer;                              //Url
+        public static String AndroidPdf = ((App)Application.Current).AndroidPdf;                            //PdfViewer
+        public static String FilePath_ClubInfometion = ((App)Application.Current).FilePath_ClubInfometion;  //連絡事項(CLUB)
 
         // 前画面からの取得情報
         private int _DataNo;
@@ -52,6 +53,9 @@ namespace LionsApl.Content
             // ログイン情報設定
             LoginInfo.Text = _sqlite.LoginInfo;
 
+            // A_FILEPATHデータ取得
+            _sqlite.GetFilePath(FilePath_ClubInfometion);
+
             // 連絡事項（クラブ）情報設定
             GetClubInfometion();
 
@@ -66,6 +70,7 @@ namespace LionsApl.Content
         {
 
             // 変数宣言
+            string wkClubCode;
 
             // 連絡事項情報取得
             try
@@ -75,33 +80,37 @@ namespace LionsApl.Content
                                                                     "Where DataNo='" + _DataNo + "'"))
                 {
 
+                    wkClubCode = row.ClubCode;
                     AddDate.Text = row.AddDate.Substring(0, 10);
                     Subject.Text = row.Subject;
                     Detail.Text = row.Detail;
 
                     if (row.FileName != null)
                     {
-                        // 地区誌パス
-                        var FileUrl = "";
-                        //var pdfUrl = AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/").Replace("\r\n", "") +
-                        //             "/" + row.DataNo.ToString() + "/" + row.FileName;
+                        // FILEPATH取得
+                        var filepath = _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/").Replace("\r\n", "");
+                        
+                        // FILEPATH生成([ClubCode]変換)
+                        var fileUrl = AppServer + filepath.Replace("[ClubCode]", wkClubCode).Replace("\\", "/").Replace("\r\n", "") +
+                                     "/" + row.DataNo.ToString() + "/" + row.FileName;
 
                         // AndroidPDF Viewer
                         var googleUrl = AndroidPdf + "?embedded=true&url=";
 
                         if (Device.RuntimePlatform == Device.iOS)
                         {
-                            FileName.Source = FileUrl;
+                            FileName.Source = fileUrl;
                         }
                         else if (Device.RuntimePlatform == Device.Android)
                         {
-                            FileName.Source = new UrlWebViewSource() { Url = googleUrl + FileUrl };
+                            FileName.Source = new UrlWebViewSource() { Url = googleUrl + fileUrl };
                         }
-                        lbl_FileName.Text = FileUrl;
+                        lbl_FileName.Text = fileUrl;
                     }
                     else
                     {
-                        lbl_FileName.Text = "連絡事項―添付ファイルなし";
+                        //lbl_FileName.Text = "連絡事項―添付ファイルなし";
+                        this.FileName.IsEnabled = false;
                     }
 
                 }

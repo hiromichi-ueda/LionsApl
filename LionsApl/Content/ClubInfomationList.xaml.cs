@@ -61,8 +61,8 @@ namespace LionsApl.Content
                 return;
             }
 
-            //Navigation.PushAsync(new ClubInfomationPage(item.ClubCode));
-            Navigation.PushAsync(new ClubInfomationPage(1));
+            // 連絡事項(クラブ)画面へ
+            Navigation.PushAsync(new ClubInfomationPage(item.DataNo));
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
@@ -75,6 +75,7 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetInfomation()
         {
+            int wkDataNo;
             string WorkTypeCode = string.Empty;
             string WorkClubCode = string.Empty;
             string WorkDate = string.Empty;
@@ -104,6 +105,9 @@ namespace LionsApl.Content
                 {
                     AddListFlg = false;
                     WorkFlg = row.InfoFlg;
+
+                    // データ№
+                    wkDataNo = row.DataNo;
 
                     // 全会員の場合
                     if (WorkFlg == "1")
@@ -141,7 +145,7 @@ namespace LionsApl.Content
                         WorkClubCode = row.ClubCode;
                         WorkDate = row.AddDate.Substring(0, 10);
                         WorkSubject = row.Subject;
-                        Items.Add(new ClubInfomationRow(WorkClubCode, WorkDate, WorkSubject));
+                        Items.Add(new ClubInfomationRow(wkDataNo, WorkClubCode, WorkDate, WorkSubject));
                     }
                 }
 
@@ -149,7 +153,7 @@ namespace LionsApl.Content
                 if (Items.Count == 0)
                 {
                     // メッセージ表示のため空行を追加
-                    Items.Add(new ClubInfomationRow(WorkClubCode,WorkDate,WorkSubject));
+                    Items.Add(new ClubInfomationRow(0, WorkClubCode, WorkDate, WorkSubject));
                 }
                 this.BindingContext = this;
             }
@@ -162,12 +166,14 @@ namespace LionsApl.Content
 
     public sealed class ClubInfomationRow
     {
-        public ClubInfomationRow(string clubCode, string addDate, string subject)
+        public ClubInfomationRow(int datano, string clubCode, string addDate, string subject)
         {
+            DataNo = datano;
             ClubCode = clubCode;
             AddDate = addDate;
             Subject = subject;
         }
+        public int DataNo { get; set; }
         public string ClubCode { get; set; }
         public string AddDate { get; set; }
         public string Subject { get; set; }

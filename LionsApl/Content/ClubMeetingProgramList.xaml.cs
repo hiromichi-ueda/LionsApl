@@ -72,8 +72,8 @@ namespace LionsApl.Content
                     {
                         wkMeeting = "[オンライン]";
                     }
-                    wkMeetingDate = row.MeetingDate.Substring(0, 10) + "  " + wkMeeting;
-                    wkMeetingName = row.MeetingName;
+                    //wkMeetingDate = row.MeetingDate.Substring(0, 10) + "  " + wkMeeting;
+                    //wkMeetingName = row.MeetingName;
                     Items.Add(new MeetingProgramRow(wkDataNo, wkMeetingDate, wkMeetingName));
                 }
                 if (Items.Count == 0)
