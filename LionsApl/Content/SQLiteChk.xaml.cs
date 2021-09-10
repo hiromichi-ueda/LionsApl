@@ -737,7 +737,7 @@ namespace LionsApl.Content
                     foreach (var row in db.Query<Table.T_INFOMATION_CLUB>("Select * From T_INFOMATION_CLUB"))
                     {
                         ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
-                                            $"{row.Id}, {row.ClubCode}, {row.ClubNameShort}, {row.AddDate},\r\n" +
+                                            $"{row.Id}, {row.DataNo}, {row.ClubCode}, {row.ClubNameShort}, {row.AddDate},\r\n" +
                                             $"{row.Subject},\r\n" +
                                             $"{row.Detail},\r\n" +
                                             $"{row.FileName},\r\n" +
