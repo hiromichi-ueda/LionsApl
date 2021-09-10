@@ -8,6 +8,7 @@ namespace LionsApl.Table
     {
         [SQLite.PrimaryKey, SQLite.AutoIncrement]
         public int Id { get; set; }
+        public int DataNo { get; set; }
         public string ClubCode { get; set; }
         public string ClubNameShort { get; set; }
         public string AddDate { get; set; }

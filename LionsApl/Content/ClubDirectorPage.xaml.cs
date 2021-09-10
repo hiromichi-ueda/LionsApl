@@ -18,7 +18,7 @@ namespace LionsApl.Content
         // 対象データNo.
         private int _DataNo;
         // 対象EbentRetデータ
-        private Table.T_EVENTRET _EventRet;
+        private Table.T_EVENTRET _EventRet = null;
 
         public ClubDirectorPage(int dataNo)
         {
@@ -122,7 +122,7 @@ namespace LionsApl.Content
 
                     // 議題・内容
                     agendaStr = Utl.GetString(row.Agenda);
-                    //agendaStr = "テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列";
+                    agendaStr = "テスト用文字列\r\nテスト用文字列\nテスト用文字\n列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列";
                     Agenda.Text = agendaStr;
 
                     // 回答期限
@@ -157,6 +157,10 @@ namespace LionsApl.Content
                 {
                     _EventRet = row;
                     wDataNo = _EventRet.DataNo;
+                }
+                if (_EventRet == null)
+                {
+                    DisplayAlert("理事・委員会", "イベント情報がありません。", "OK");
                 }
             }
             catch (Exception ex)

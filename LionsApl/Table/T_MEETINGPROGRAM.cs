@@ -13,9 +13,6 @@ namespace LionsApl.Table
         public string ClubCode { get; set; }
         public string ClubNameShort { get; set; }
         public string Fiscal { get; set; }
-        public string MeetingDate { get; set; }
-        public int MeetingCount { get; set; }
-        public string MeetingName { get; set; }
         public string FileName { get; set; }
         public string FileName1 { get; set; }
         public string FileName2 { get; set; }

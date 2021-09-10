@@ -55,7 +55,6 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -82,7 +81,7 @@
                                     Grid.Row="0"
                                     Grid.Column="2"
                                     x:Name="Cancel" 
-                                    Text="xxxx"
+                                    Text=""
                                     TextColor="Red"
                                     Style="{StaticResource Page_Member}"
                                  />
@@ -122,15 +121,14 @@
                                 <Label 
                                     Grid.Row="3"
                                     Grid.Column="0"
-                                    Grid.ColumnSpan="3"
                                     x:Name="lbl_Agenda" 
                                     Text="議題・内容"
                                     Style="{StaticResource Page_Member_HFree}"
                                  />
                                 <Label 
-                                    Grid.Row="4"
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="3"
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="2"
                                     x:Name="Agenda" 
                                     Text=""
                                     MinimumHeightRequest="30"
@@ -138,7 +136,7 @@
                                 />
                                 <!-- 回答期限 -->
                                 <Label 
-                                    Grid.Row="5"
+                                    Grid.Row="4"
                                     Grid.Column="0"
                                     x:Name="lbl_AnswerDate"
                                     Text="回答期限"
@@ -146,7 +144,7 @@
                                     Style="{StaticResource Page_Member}"
                                 />
                                 <Label 
-                                    Grid.Row="5"
+                                    Grid.Row="4"
                                     Grid.Column="1"
                                     Grid.ColumnSpan="2"
                                     x:Name="AnswerDate" 
