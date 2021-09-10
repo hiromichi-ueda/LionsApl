@@ -23,8 +23,8 @@ namespace LionsApl.Content
             InitializeComponent();
 
             // font-size(<ListView>はCSSが効かないのでここで設定)
-            this.LoginInfo.FontSize = 16.0;
-            this.title.FontSize = 16.0;
+            //this.LoginInfo.FontSize = 16.0;
+            //this.title.FontSize = 16.0;
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();

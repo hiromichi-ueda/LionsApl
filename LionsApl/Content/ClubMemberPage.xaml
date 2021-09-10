@@ -17,24 +17,23 @@
 
                     <!-- ログイン情報 -->
                     <StackLayout 
-                        StyleClass="login"
+                        HeightRequest="18"
+                        Margin="2"
                         >
                         <Label
                             x:Name="LoginInfo"
-                            VerticalTextAlignment="Center"
+                            Style="{StaticResource Login}"
                             />
                     </StackLayout>
 
                     <!-- タイトル -->
                     <StackLayout 
-                            Margin="4,0,4,0"
-                            HorizontalOptions="FillAndExpand"
-                            >
+                        Margin="4,0,4,0"
+                        HorizontalOptions="FillAndExpand"
+                        >
                         <Label 
-                            x:Name="title"
                             Text="会員情報"
-                            VerticalTextAlignment="Center"
-                            StyleClass="title_blue"
+                            Style="{StaticResource Title_Blue}"
                         />
                     </StackLayout>
 

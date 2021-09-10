@@ -18,24 +18,23 @@
 
                     <!-- ログイン情報 -->
                     <StackLayout 
-                            StyleClass="login"
-                            >
+                        HeightRequest="18"
+                        Margin="2"
+                        >
                         <Label
-                            Text="岐阜南LC 池田 昌二" 
-                            VerticalTextAlignment="Center"
+                            x:Name="LoginInfo"
+                            Style="{StaticResource Login}"
                             />
                     </StackLayout>
 
                     <!-- タイトル -->
                     <StackLayout 
-                            Margin="4,0,4,0"
-                            HorizontalOptions="FillAndExpand"
-                            >
+                        Margin="4,0,4,0"
+                        HorizontalOptions="FillAndExpand"
+                        >
                         <Label 
                             Text="連絡事項（クラブ）"
-                            FontSize="Default"
-                            VerticalTextAlignment="Center"
-                            StyleClass="title_blue"
+                            Style="{StaticResource Title_Blue}"
                         />
                     </StackLayout>
 

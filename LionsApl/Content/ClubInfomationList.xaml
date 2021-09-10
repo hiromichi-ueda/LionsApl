@@ -36,12 +36,8 @@
                         Margin="2"
                         >
                         <Label
-                            x:Name="LoginInfo" 
-                            FontSize="Small"
-                            TextColor="#2E2E2E"
-                            VerticalOptions="Center"
-                            Background="#FFFFFF"
-                            HorizontalTextAlignment="End" 
+                            x:Name="LoginInfo"
+                            Style="{StaticResource Login}"
                         />
                     </StackLayout>
 

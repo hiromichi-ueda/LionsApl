@@ -31,10 +31,7 @@
                             >
                             <Label
                                 x:Name="LoginInfo"
-                                TextColor="#2E2E2E"
-                                VerticalOptions="Center"
-                                Background="#FFFFFF"
-                                HorizontalTextAlignment="End" 
+                                Style="{StaticResource Login}"
                             />
                         </StackLayout>
 

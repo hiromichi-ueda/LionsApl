@@ -11,18 +11,14 @@
             x:Key="Login"
             TargetType="Label"
             >
-            <!--<Setter
+            <Setter
                 Property="FontSize"
                 Value="14.0"
                 />
-            <Setter
+            <!--<Setter
                 Property="TextColor"
                 Value="#2E2E2E"
                 />-->
-            <Setter
-                Property="FontSize"
-                Value="32.0"
-                />
             <Setter
                 Property="TextColor"
                 Value="#FF0000"
