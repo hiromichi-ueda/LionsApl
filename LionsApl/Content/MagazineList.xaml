@@ -1,7 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              x:Class="LionsApl.Content.MagazineList"
+             xmlns:local="clr-namespace:LionsApl.Content"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
              >
 
     <!-- 
@@ -31,10 +35,7 @@
                             >
                             <Label
                                 x:Name="LoginInfo"
-                                TextColor="#2E2E2E"
-                                VerticalOptions="Center"
-                                Background="#FFFFFF"
-                                HorizontalTextAlignment="End" 
+                                Style="{StaticResource Login}"
                             />
                         </StackLayout>
 
@@ -46,9 +47,7 @@
                             <Label
                                 x:Name="title"
                                 Text="地区誌" 
-                                TextColor="#2E2E2E"
-                                Background="#58ACFA"
-                                HorizontalTextAlignment="Center"
+                                Style="{StaticResource Title_Blue}"
                             />
                         </StackLayout>
 
@@ -77,9 +76,7 @@
                                     Grid.Row="0"
                                     Grid.ColumnSpan="1"                                   
                                     Text="{Binding Magazine}" 
-                                    LineBreakMode="TailTruncation"
-                                    VerticalOptions="Center"
-                                    StyleClass="list_label"
+                                    Style="{StaticResource List_Base}"
                                 />
                                 <!-- 購入済み -->
                                 <Label 
@@ -87,9 +84,7 @@
                                     Grid.Row="0"
                                     Grid.ColumnSpan="1"
                                     Text="{Binding MagazineBuy}" 
-                                    LineBreakMode="TailTruncation"
-                                    VerticalOptions="Center"
-                                    StyleClass="list_label"
+                                    Style="{StaticResource List_Base}"
                                 />
                                 <!-- マーク -->
                                 <Label 
@@ -97,8 +92,7 @@
                                     Grid.Row="0"
                                     Grid.ColumnSpan="1"
                                     Text="〉" 
-                                    VerticalOptions="Center"
-                                    StyleClass="list_label"
+                                    Style="{StaticResource List_Base}"
                                 />
                             </Grid>
                         </ViewCell>

@@ -44,148 +44,157 @@
                         <Label
                             x:Name="DirectorTitle"
                             Text=""
-                            Style="{StaticResource Page_Member_C}"
+                            Style="{StaticResource Page_Base_Center}"
+                            />
+                    </StackLayout>
+                    
+                    <StackLayout>
+                        <Grid
+                            Padding="10"
+                            >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- 開催日 -->
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                x:Name="lbl_EventDate" 
+                                Text="開催日"
+                                Style="{StaticResource Page_Base}"
+                            />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                x:Name="EventDate" 
+                                Text="xxxx/xx/xx"
+                                Style="{StaticResource Page_Base}"
                             />
 
-                        <StackLayout>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                            <!-- 中止 -->
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                x:Name="Cancel" 
+                                Text=""
+                                TextColor="Red"
+                                Style="{StaticResource Page_Base}"
+                            />
+                                
+                            <!-- 区分 -->
+                            <Label 
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                x:Name="lbl_Season" 
+                                Text="区分"
+                                Style="{StaticResource Page_Base}"
+                            />
+                            <Label 
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                x:Name="Season" 
+                                Text=""
+                                Style="{StaticResource Page_Base}"
+                                />
+                                
+                            <!-- 開催場所 -->
+                            <Label 
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                x:Name="lbl_EventPlace" 
+                                Text="開催場所"
+                                Style="{StaticResource Page_Base}"
+                                />
+                            <Label 
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                x:Name="EventPlace" 
+                                Text=""
+                                Style="{StaticResource Page_Base}"
+                                />
+                                
+                            <!-- 議題・内容 -->
+                            <Label 
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                x:Name="lbl_Agenda" 
+                                Text="議題・内容"
+                                Style="{StaticResource Page_Base}"
+                                />
+                            <Label 
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                x:Name="Agenda" 
+                                Text=""
+                                VerticalTextAlignment="Start"
+                                Style="{StaticResource Page_HeightFree}"
+                            />
+                                
+                            <!-- 回答期限 -->
+                            <Label 
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                x:Name="lbl_AnswerDate"
+                                Text="回答期限"
+                                TextColor="Red"
+                                Style="{StaticResource Page_Base}"
+                            />
+                            <Label 
+                                Grid.Row="4"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                x:Name="AnswerDate" 
+                                Text=""
+                                TextColor="Red"
+                                Style="{StaticResource Page_Base}"
+                                />
+                                
+                        </Grid>
+                    </StackLayout>
 
-                                <!-- 開催日 -->
-                                <Label 
-                                    Grid.Row="0"
-                                    Grid.Column="0"
-                                    x:Name="lbl_EventDate" 
-                                    Text="開催日"
-                                    Style="{StaticResource Page_Member}"
-                                />
-                                <Label 
-                                    Grid.Row="0"
-                                    Grid.Column="1"
-                                    x:Name="EventDate" 
-                                    Text="xxxx/xx/xx"
-                                    Style="{StaticResource Page_Member}"
-                                 />
-                                <Label 
-                                    Grid.Row="0"
-                                    Grid.Column="2"
-                                    x:Name="Cancel" 
-                                    Text=""
-                                    TextColor="Red"
-                                    Style="{StaticResource Page_Member}"
-                                 />
-                                <!-- 区分 -->
-                                <Label 
-                                    Grid.Row="1"
-                                    Grid.Column="0"
-                                    x:Name="lbl_Season" 
-                                    Text="区分"
-                                    Style="{StaticResource Page_Member}"
-                                />
-                                <Label 
-                                    Grid.Row="1"
-                                    Grid.Column="1"
-                                    Grid.ColumnSpan="2"
-                                    x:Name="Season" 
-                                    Text=""
-                                    Style="{StaticResource Page_Member}"
-                                  />
-                                <!-- 開催場所 -->
-                                <Label 
-                                    Grid.Row="2"
-                                    Grid.Column="0"
-                                    x:Name="lbl_EventPlace" 
-                                    Text="開催場所"
-                                    Style="{StaticResource Page_Member}"
-                                 />
-                                <Label 
-                                    Grid.Row="2"
-                                    Grid.Column="1"
-                                    Grid.ColumnSpan="2"
-                                    x:Name="EventPlace" 
-                                    Text=""
-                                    Style="{StaticResource Page_Member}"
-                                  />
-                                <!-- 議題・内容 -->
-                                <Label 
-                                    Grid.Row="3"
-                                    Grid.Column="0"
-                                    x:Name="lbl_Agenda" 
-                                    Text="議題・内容"
-                                    Style="{StaticResource Page_Member}"
-                                 />
-                                <Label 
-                                    Grid.Row="3"
-                                    Grid.Column="1"
-                                    Grid.ColumnSpan="2"
-                                    x:Name="Agenda" 
-                                    Text=""
-                                    VerticalTextAlignment="Start"
-                                    Style="{StaticResource Page_Member_HFree}"
-                                />
-                                <!-- 回答期限 -->
-                                <Label 
-                                    Grid.Row="4"
-                                    Grid.Column="0"
-                                    x:Name="lbl_AnswerDate"
-                                    Text="回答期限"
-                                    TextColor="Red"
-                                    Style="{StaticResource Page_Member}"
-                                />
-                                <Label 
-                                    Grid.Row="4"
-                                    Grid.Column="1"
-                                    Grid.ColumnSpan="2"
-                                    x:Name="AnswerDate" 
-                                    Text=""
-                                    TextColor="Red"
-                                    Style="{StaticResource Page_Member}"
-                                 />
-                            </Grid>
-                        </StackLayout>
+                    <StackLayout
+                        Margin="8,0,8,0"
+                        >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.*"/>
+                                <ColumnDefinition Width="1.*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <StackLayout
-                            Margin="4,0,4,0"
-                            >
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1.*"/>
-                                    <ColumnDefinition Width="1.*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <!-- 出席 -->
-                                <Button 
-                                    Grid.Row="0"
-                                    Grid.Column="0"
-                                    x:Name="btn_attendance"
-                                    Text="出席"
-                                    Clicked="Attendance_Button_Clicked"
-                                />
-                                <!-- 欠席 -->
-                                <Button 
-                                    Grid.Row="0"
-                                    Grid.Column="1"
-                                    x:Name="btn_absence"
-                                    Text="欠席"
-                                    Clicked="Absence_Button_Clicked"
-                                />
-                            </Grid>
-                        </StackLayout>
-
+                            <!-- 出席 -->
+                            <Button 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                x:Name="btn_attendance"
+                                Text="出席"
+                                Clicked="Attendance_Button_Clicked"
+                            />
+                            <!-- 欠席 -->
+                            <Button 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                x:Name="btn_absence"
+                                Text="欠席"
+                                Clicked="Absence_Button_Clicked"
+                            />
+                            
+                        </Grid>
                     </StackLayout>
 
                 </StackLayout>

@@ -38,7 +38,7 @@ namespace LionsApl.Content
             LoginInfo.Text = _sqlite.LoginInfo;
 
             // A_FILEPATHデータ取得
-            _sqlite.GetFilePath(_sqlite.DATACLASS_MAGAZINE);
+            //_sqlite.GetFilePath();
 
             // マッチング情報設定
 

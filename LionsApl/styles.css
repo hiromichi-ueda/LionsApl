@@ -45,22 +45,16 @@ button {
     border-radius: 8; /* 角の丸み*/
 }
 
-/* ListView */
-.list_grid {
-    background-color: #FFFFFF; /* 背景 */
-    margin: 10; /* 余白 */
-}
-.list_label {
-    background-color: #FFFFFF; /* 背景 */
-    color: #151515; /* 文字色 */
-    margin: 8,0,8,0; /* 余白 */
-}
 
 /* ======================================================================
     < オリジナルエリア > 
 =======================================================================*/
 
-/* APLヘッダー */
+/* アプリヘッダー */
+/*
+  ・[AccountSetting]画面
+  ・[MainPage]画面
+*/
 .aplheaderbg {
     background-color: #2196F3; /* 背景 */
     height: 80; /* 高さ */
@@ -81,98 +75,7 @@ button {
         Padding: 6,0,0,0; /* 余白 */
     }
 
-/* ログイン情報 */
-.login {
-    height: 18; /* 高さ */
-    margin: 2; /* 余白 */
-}
-    .login > label {
-        font-size: 14; /* 文字サイズ */
-        text-align: end; /* 位置(右寄せ) */
-    }
 
-/* 共通-タイトル(BLUE) */
-.title_blue {
-    font-size: 16; /* 文字サイズ */
-    color: #151515; /* 文字色 */
-    background-color: #58ACFA; /* 背景 */
-    text-align: center; /* 位置 */
-    height: 20;
-}
 
-/* TOP-スローガンタイトル(LITEBLUE) */
-.title_liteblue {
-    font-size: 16; /* 文字サイズ */
-    color: #151515; /* 文字色 */
-    background-color: #CEECF5; /* 背景 */
-    text-align: center; /* 位置 */
-}
 
-/* TOP-キャビネットレタータイトル(Green) */
-.title_green {
-    font-size: 16; /* 文字サイズ */
-    color: #151515; /* 文字色 */
-    background-color: #E1F5A9; /* 背景 */
-    text-align: center; /* 位置 */
-}
 
-/* TOP-参加予定一覧タイトル(Yellow) */
-.title_yellow {
-    font-size: 16; /* 文字サイズ */
-    color: #151515; /* 文字色 */
-    background-color: #F3F781; /* 背景 */
-    text-align: center; /* 位置 */
-}
-
-/* アカウント-タイトル(Grey) */
-.title_grey {
-    font-size: 16; /* 文字サイズ */
-    color: #151515; /* 文字色 */
-    background-color: #BDBDBD; /* 背景 */
-    text-align: center; /* 位置 */
-}
-
-/* CLUB MENU */
-.club_menu {
-    color: #151515; /* 文字色 */
-    font-size: 18; /* 文字サイズ */
-    background-color: #FFFFFF; /* 背景 */
-    margin: 12, 10, 10, 8; /* 文字の余白 */
-}
-
-/* CLUB(会員情報) */
-.page_member {
-    color: #151515; /* 文字色 */
-    text-align: start; /* 位置(左寄せ) */
-    height: 30;
-    margin: 8,0,8,0; /* 余白 */
-}
-
-.page_member_red {
-    color: #FF0000; /* 文字色 */
-    text-align: start; /* 位置(左寄せ) */
-    height: 30;
-    margin: 8,0,8,0; /* 余白 */
-}
-
-.page_member_hfree {
-    color: #151515; /* 文字色 */
-    text-align: start; /* 位置(左寄せ) */
-    margin: 8,0,8,0; /* 余白 */
-}
-
-/* キャビネットレター */
-.page_letter {
-    color: #151515; /* 文字色 */
-    text-align: start; /* 位置(左寄せ) */
-    height: 30;
-    margin: 8,0,8,0; /* 余白 */
-}
-
-/* アカウント情報 */
-.page_account {
-    color: #151515; /* 文字色 */
-    text-align: start; /* 位置(左寄せ) */
-    height: 30;
-    margin: 8,0,8,0; /* 余白 */
-}

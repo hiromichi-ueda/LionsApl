@@ -12,16 +12,16 @@ namespace LionsApl
     class SQLiteManager
     {
         // A_FILEPATTH / DataClass
-        public string DATACLASS_LETTER    = "1";
-        public string DATACLASS_EVENT     = "2";
-        public string DATACLASS_MAGAZINE  = "3";
+        //public string DATACLASS_LETTER    = "1";
+        //public string DATACLASS_EVENT     = "2";
+        //public string DATACLASS_MAGAZINE  = "3";
 
-        public string LoginInfo;                             // ログイン情報（ユーザ文字列（クラブ名＋氏名））
+        // ログイン情報（ユーザ文字列（クラブ名＋氏名））
+        public string LoginInfo;
 
         private static SQLiteManager _single = null;
         private HttpClient _httpClient = null;
-        //private string usrId = null;
-
+        
         public Table.A_SETTING Db_A_Setting;                 // A_SETTINGテーブルクラス
         public Table.A_ACCOUNT Db_A_Account;                 // A_ACCOUNTテーブルクラス
         public Table.A_FILEPATH Db_A_FilePath;               // A_FILEPATHテーブルクラス
@@ -980,6 +980,32 @@ namespace LionsApl
             }
 
             return items.Count > 0 ? items.ToArray() : (new Table.T_MAGAZINEBUY[0]);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// T_INFOMATION_CABIテーブルデータ取得
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.T_INFOMATION_CABI[] Get_T_INFOMATION_CABI(string command)
+        {
+            List<Table.T_INFOMATION_CABI> items = new List<Table.T_INFOMATION_CABI>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                {   // Select
+                    items = db.Query<Table.T_INFOMATION_CABI>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.T_INFOMATION_CABI[0]);
 
         }
 

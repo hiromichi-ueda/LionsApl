@@ -54,8 +54,7 @@
                         <!-- タイトル -->
                         <Label 
                             Text="アカウント設定"
-                            VerticalTextAlignment="Center"
-                            StyleClass="title_grey"
+                            Style="{StaticResource Title_Grey}"
                             />
 
                             <!-- 詳細 -->
@@ -77,8 +76,7 @@
                                     Grid.Column="0"
                                     x:Name="lbl_region"
                                     Text ="リジョン"
-                                    Padding="10,0,10,0"
-                                    VerticalOptions="Center"
+                                    Style="{StaticResource Page_Base}"
                                     >
                                 </Label>
                                 <Picker 
@@ -89,7 +87,7 @@
                                     TitleColor="GRAY"
                                     ItemDisplayBinding="{Binding Name}"
                                     SelectedIndexChanged="RegionPicker_SelectedIndexChanged"
-                                    Margin="0,0,10,0"
+                                    Style="{StaticResource Page_Base}"
                                     >
                                 </Picker>
 
@@ -99,8 +97,7 @@
                                     Grid.Column="0"
                                     x:Name="lbl_zone"
                                     Text="ゾーン"
-                                    Padding="10,0,10,0"
-                                    VerticalOptions="Center"
+                                    Style="{StaticResource Page_Base}"
                                     >
                                 </Label>
                                 <Picker 
@@ -111,7 +108,7 @@
                                     TitleColor="GRAY"
                                     ItemDisplayBinding="{Binding Name}"
                                     SelectedIndexChanged="ZonePicker_SelectedIndexChanged"
-                                    Margin="0,0,8,0"
+                                    Style="{StaticResource Page_Base}"
                                     >
                                 </Picker>
 
@@ -121,8 +118,7 @@
                                     Grid.Column="0"
                                     x:Name="lbl_club"
                                     Text="クラブ"
-                                    Padding="10,0,10,0"
-                                    VerticalOptions="Center"
+                                    Style="{StaticResource Page_Base}"
                                     >
                                 </Label>
                                 <Picker 
@@ -133,7 +129,7 @@
                                     TitleColor="GRAY"
                                     ItemDisplayBinding="{Binding Name}"
                                     SelectedIndexChanged="ClubPicker_SelectedIndexChanged"
-                                    Margin="0,0,8,0"
+                                    Style="{StaticResource Page_Base}"
                                         >
                                 </Picker>
 
@@ -143,8 +139,7 @@
                                     Grid.Column="0"
                                     x:Name="lbl_member"
                                     Text="会員名"
-                                    Padding="10,0,10,0"
-                                    VerticalOptions="Center"
+                                    Style="{StaticResource Page_Base}"
                                     >
                                 </Label>
                                 <Picker 
@@ -155,7 +150,7 @@
                                     TitleColor="GRAY"
                                     ItemDisplayBinding="{Binding Name}"
                                     SelectedIndexChanged="MemberPicker_SelectedIndexChanged"
-                                    Margin="0,0,8,0"
+                                    Style="{StaticResource Page_Base}"
                                 >
                                 </Picker>
                             </Grid>

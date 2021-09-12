@@ -60,16 +60,14 @@
                                 Grid.Column="0"
                                 x:Name="lbl_MemberCode"
                                 Text="会員番号"
-                                VerticalOptions="Center" 
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                              />
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 x:Name="MemberCode" 
                                 Text=""
-                                VerticalOptions="Center" 
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                              />
 
                             <!-- 会員種別 -->
@@ -78,16 +76,14 @@
                                 Grid.Column="0"
                                 x:Name="lbl_TypeName"
                                 Text="会員種別"
-                                VerticalOptions="Center" 
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                              />
                             <Label 
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 x:Name="TypeName" 
                                 Text=""
-                                VerticalOptions="Center" 
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                              />
 
                             <!-- 会員名 -->
@@ -96,16 +92,14 @@
                                 Grid.Column="0"
                                 x:Name="lbl_MemberName"
                                 Text="会員名"
-                                VerticalOptions="Center" 
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                              />
                             <Label 
                                 Grid.Row="2"
                                 Grid.Column="1"
                                 x:Name="MemberName" 
                                 Text=""
-                                VerticalOptions="Center" 
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                              />
 
                             <!-- 性別 -->
@@ -114,16 +108,14 @@
                                 Grid.Column="0"
                                 x:Name="lbl_Sex"
                                 Text="性別"
-                                VerticalOptions="Center" 
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                              />
                             <Label 
                                 Grid.Row="3"
                                 Grid.Column="1"
                                 x:Name="Sex" 
                                 Text=""
-                                VerticalOptions="Center" 
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                              />
 
                             <!-- 入会日 -->
@@ -132,16 +124,14 @@
                                 Grid.Column="0"
                                 x:Name="lbl_JoinDate"
                                 Text="入会日"
-                                VerticalOptions="Center" 
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                              />
                             <Label 
                                 Grid.Row="4"
                                 Grid.Column="1"
                                 x:Name="JoinDate" 
                                 Text=""
-                                VerticalOptions="Center" 
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                              />
 
                         </Grid>

@@ -16,15 +16,12 @@ namespace LionsApl.Content
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
-        public ObservableCollection<string> Items { get; set; }
+        // リストビュー設定内容
+        public List<EventRow> Items { get; set; }
 
         public EventList()
         {
             InitializeComponent();
-
-            // font-size(<ListView>はCSSが効かないのでここで設定)
-            this.LoginInfo.FontSize = 16.0;
-            this.title.FontSize = 16.0;
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
@@ -43,15 +40,21 @@ namespace LionsApl.Content
 
 
             // イベント情報データ取得
-
-
-
+            GetEventData();
 
         }
 
-        private void Label_List_Taped(object sender, EventArgs e)
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// イベント情報をSQLiteファイルから取得して画面に設定する。
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void GetEventData()
         {
-            Navigation.PushAsync(new EventPage("",0,0));
+
+
+
+
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -64,8 +67,56 @@ namespace LionsApl.Content
             if (e.Item == null)
                 return;
 
-            Navigation.PushAsync(new EventPage("", 0, 0));
+            EventRow item = e.Item as EventRow;
 
+            // 1件もない(メッセージ行のみ表示している)場合は処理しない
+            if (string.IsNullOrEmpty(item.EventClass))
+            {
+                ((ListView)sender).SelectedItem = null;
+                return;
+            }
+
+            // 出欠確認画面へ
+            //Navigation.PushAsync(new EventPage(item.DataNo));
+
+            //Deselect Item
+            ((ListView)sender).SelectedItem = null;
+        }
+
+    }
+
+    public sealed class EventRow
+    {
+        public EventRow(int datano, string eventclass, string eventdate)
+        {
+            DataNo = datano;
+            EventClass = eventclass;
+            EventDate = eventdate;
+        }
+        public int DataNo { get; set; }
+        public string EventClass { get; set; }
+        public string EventDate { get; set; }
+    }
+
+    public class MyEventSelector : DataTemplateSelector
+    {
+        //切り替えるテンプレートを保持するプロパティを用意する
+        public DataTemplate ExistDataTemplate { get; set; }
+        public DataTemplate NoDataTemplate { get; set; }
+
+        protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
+        {
+            // 条件より該当するテンプレートを返す
+            var info = (EventRow)item;
+            if (!String.IsNullOrEmpty(info.EventClass))
+            {
+                return ExistDataTemplate;
+            }
+            else
+            {
+                return NoDataTemplate;
+            }
         }
     }
+
 }

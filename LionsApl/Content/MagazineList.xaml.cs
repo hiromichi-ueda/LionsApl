@@ -13,17 +13,18 @@ namespace LionsApl.Content
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MagazineList : ContentPage
     {
-        private SQLiteManager _sqlite;                      // SQLiteマネージャークラス
+        // SQLiteマネージャークラス
+        private SQLiteManager _sqlite;
 
+        // リストビュー設定内容
+        public List<MagazineListRow> Items { get; set; }
+
+        // Magazineピッカークラス
         public ObservableCollection<CMagazinePicker> _magazinePk = new ObservableCollection<CMagazinePicker>();
 
         public MagazineList()
         {
             InitializeComponent();
-
-            // font-size(<ListView>はCSSが効かないのでここで設定)
-            this.LoginInfo.FontSize = 16.0;
-            this.title.FontSize = 16.0;
 
             // font-size
             this.magazine.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));             //地区誌購入
@@ -53,20 +54,6 @@ namespace LionsApl.Content
             SetMagazineInfo();
         }
 
-        void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            if (e.Item == null)
-                return;
-
-            MagazineListRow item = e.Item as MagazineListRow;
-
-            Navigation.PushAsync(new MagazinePage(item.DataNo));
-
-            //await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
-
-            //Deselect Item
-            ((ListView)sender).SelectedItem = null;
-        }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -76,15 +63,16 @@ namespace LionsApl.Content
         private void GetMagazine()
         {
             int WorkDataNo;
-            string WorkMagazine;
+            string WorkMagazine = string.Empty;
             int WorkMagazineDataNo;
             string WorkBuy = string.Empty;
-            List<MagazineListRow> items = new List<MagazineListRow>();
-            
+            //List<MagazineListRow> items = new List<MagazineListRow>();
+            Items = new List<MagazineListRow>();
+
             try
             {
                 foreach (Table.MAGAZINE_LIST row in _sqlite.Get_MAGAZINE_LIST("SELECT TM.*, " +
-                                                                                     "IFNULL(TMB.MagazineDataNo, 0) " +
+                                                                              "IFNULL(TMB.MagazineDataNo, 0) " +
                                                                               "FROM T_MAGAZINE TM " +
                                                                               "LEFT OUTER JOIN T_MAGAZINEBUY TMB " +
                                                                               "ON TM.DataNo = TMB.MagazineDataNo " +
@@ -97,9 +85,9 @@ namespace LionsApl.Content
                     {
                         WorkBuy = "購入済み";
                     }
-                    items.Add(new MagazineListRow(WorkDataNo, WorkMagazine, WorkBuy));
+                    Items.Add(new MagazineListRow(WorkDataNo, WorkMagazine, WorkBuy));
                 }
-                MagazineListView.ItemsSource = items;
+                MagazineListView.ItemsSource = Items;
             }
             catch (Exception ex)
             {
@@ -141,8 +129,41 @@ namespace LionsApl.Content
                 DisplayAlert("Alert", $"SQLite検索エラー(T_MAGAZINE) : &{ex.Message}", "OK");
             }
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// タップ処理
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (e.Item == null)
+                return;
+
+            MagazineListRow item = e.Item as MagazineListRow;
+
+            // 1件もない(メッセージ行のみ表示している)場合は処理しない
+            if (string.IsNullOrEmpty(item.Magazine))
+            {
+                ((ListView)sender).SelectedItem = null;
+                return;
+            }
+
+            // 地区誌画面へ
+            Navigation.PushAsync(new MagazinePage(item.DataNo));
+
+            //Deselect Item
+            ((ListView)sender).SelectedItem = null;
+        }
+
     }
 
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// 地区誌 行クラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////
     public sealed class MagazineListRow
     {
         public MagazineListRow(int dataNo, string magazine, string magazineBuy)

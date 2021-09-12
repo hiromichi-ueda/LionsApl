@@ -143,7 +143,7 @@ namespace LionsApl.Content
                         Remarks = _contUtl.CreateLabel_Styleclass(RemarksStr,
                                                        NamedSize.Default,
                                                        LayoutOptions.Center,
-                                                       "page_member_hfree",
+                                                       "Page_HeightFree",
                                                        5, 1, 2);
                         DetailGrid.Children.Add(Remarks);
                     }

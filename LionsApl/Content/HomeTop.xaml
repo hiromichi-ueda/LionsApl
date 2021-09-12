@@ -14,16 +14,16 @@
         <StackLayout>
 
             <ScrollView>
-
                 <StackLayout>
 
                     <!-- ログイン情報 -->
                     <StackLayout 
-                        StyleClass="login"
+                        HeightRequest="18"
+                        Margin="2"
                         >
                         <Label
                             x:Name="LoginInfo"
-                            VerticalTextAlignment="Center"
+                            Style="{StaticResource Login}"
                             />
                     </StackLayout>
                     
@@ -34,8 +34,7 @@
                         >
                         <Label 
                             Text="地区スローガン"
-                            VerticalTextAlignment="Center"
-                            StyleClass="title_liteblue"
+                            Style="{StaticResource Title_LiteBlue}"
                             />
                         <Label 
                             x:Name="LabelSlogun"
@@ -59,8 +58,7 @@
                         <!-- タイトル -->
                         <Label 
                             Text="キャビネットレター"
-                            VerticalTextAlignment="Center"
-                            StyleClass="title_green"
+                            Style="{StaticResource Title_Green}"
                             />
                         
                         <!-- 1行目 -->
@@ -230,8 +228,7 @@
                         >
                         <Label
                             Text="参加予定一覧" 
-                            VerticalTextAlignment="Center"
-                            StyleClass="title_yellow"
+                            Style="{StaticResource Title_Yellow}"
                         />
                         <!-- 1行目 -->
                         <Grid

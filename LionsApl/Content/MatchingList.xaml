@@ -32,9 +32,7 @@
                             <Label
                                 x:Name="LoginInfo"
                                 TextColor="#2E2E2E"
-                                VerticalOptions="Center"
-                                Background="#FFFFFF"
-                                HorizontalTextAlignment="End" 
+                                Style="{StaticResource Login}"
                             />
                         </StackLayout>
 
@@ -46,9 +44,7 @@
                             <Label
                                 x:Name="title"
                                 Text="マッチング" 
-                                TextColor="#2E2E2E"
-                                Background="#58ACFA"
-                                HorizontalTextAlignment="Center"
+                                Style="{StaticResource Title_Blue}"
                             />
                         </StackLayout>
 

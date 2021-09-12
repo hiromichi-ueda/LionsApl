@@ -14,19 +14,18 @@
     ++++++++++++++++++++++++++++++++++++++++++
     -->
 
+    <!-- HEADER -->
     <StackLayout>
-
         <ListView 
             x:Name="ClubMeetingProgramListView"
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement"
             RowHeight="68"
             HasUnevenRows="True"
-            ItemTemplate="{StaticResource myMeetingProgramSelector}"
+            ItemTemplate="{StaticResource myClubMeetingProgramSelector}"
             ItemsSource="{Binding Items}"
             >
 
-            <!-- HEADER -->
             <ListView.Header>
                 <StackLayout>
 
@@ -49,10 +48,7 @@
                         <Label
                             x:Name="title"
                             Text="例会プログラム" 
-                            FontSize="Default"
-                            TextColor="#2E2E2E"
-                            Background="#58ACFA"
-                            HorizontalTextAlignment="Center"
+                            Style="{StaticResource Title_Blue}"
                         />
                     </StackLayout>
 
@@ -60,16 +56,16 @@
             </ListView.Header>
 
         </ListView>
-
     </StackLayout>
 
+    <!-- BODY -->
     <ContentPage.Resources>
 
         <!-- データあり -->
         <DataTemplate x:Key="ExistDataTemplate">
             <ViewCell>
                 <Grid 
-                    StyleClass="list_grid"
+                    Style="{StaticResource ListGrid_Base}"
                     >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -88,9 +84,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
                         Text="例会日" 
-                        LineBreakMode="TailTruncation"
-                        VerticalOptions="End"
-                        StyleClass="list_label"
+                        Style="{StaticResource List_Base_End}"
                     />
                     <Label 
                         Grid.Row="0"
@@ -98,9 +92,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
                         Text="{Binding MeetingDate}" 
-                        LineBreakMode="TailTruncation"
-                        VerticalOptions="End"
-                        StyleClass="list_label"
+                        Style="{StaticResource List_Base_End}"
                     />
 
                     <!-- 例会名 -->
@@ -110,9 +102,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
                         Text="例会名" 
-                        LineBreakMode="TailTruncation"
-                        VerticalOptions="Start"
-                        StyleClass="list_label"
+                        Style="{StaticResource List_Base_Start}"
                     />
                     <Label 
                         Grid.Row="1"
@@ -120,9 +110,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
                         Text="{Binding MeetingName}" 
-                        LineBreakMode="TailTruncation"
-                        VerticalOptions="Start"
-                        StyleClass="list_label"
+                        Style="{StaticResource List_Base_Start}"
                     />
 
                     <!-- マーク -->
@@ -133,7 +121,7 @@
                         Grid.RowSpan="2"
                         VerticalOptions="Center"
                         Text="〉" 
-                        StyleClass="list_label"
+                        Style="{StaticResource List_Base}"
                     />
                 </Grid>
             </ViewCell>
@@ -158,17 +146,15 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="2"
                         Text="例会プログラムはありません" 
-                        LineBreakMode="TailTruncation"
                         HorizontalTextAlignment="Center"
-                        VerticalOptions="Center"
-                        StyleClass="list_label"
+                        Style="{StaticResource List_Base}"
                         />
                 </Grid>
             </ViewCell>
         </DataTemplate>
 
-        <local:MyMeetingProgramSelector
-            x:Key="myMeetingProgramSelector"
+        <local:MyClubMeetingProgramSelector
+            x:Key="myClubMeetingProgramSelector"
             ExistDataTemplate="{StaticResource ExistDataTemplate}"
             NoDataTemplate="{StaticResource NoDataTemplate}" 
         />

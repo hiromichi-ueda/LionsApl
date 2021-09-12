@@ -19,14 +19,9 @@ namespace LionsApl.Content
         // リストビュー設定内容
         public List<ClubInfomationRow> Items { get; set; }
 
-
         public ClubInfomationList()
         {
             InitializeComponent();
-
-            // font-size(<ListView>はCSSが効かないのでここで設定)
-            //this.LoginInfo.FontSize = 16.0;
-            //this.title.FontSize = 16.0;
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
@@ -44,36 +39,16 @@ namespace LionsApl.Content
             LoginInfo.Text = _sqlite.LoginInfo;
 
             // 連絡事項データ取得
-            GetInfomation();
+            GetClubInfomation();
         }
 
-        void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            if (e.Item == null)
-                return;
-
-            ClubInfomationRow item = e.Item as ClubInfomationRow;
-
-            // 連絡事項が1件もない(メッセージ行のみ表示している)場合は処理しない
-            if (string.IsNullOrEmpty(item.ClubCode))
-            {
-                ((ListView)sender).SelectedItem = null;
-                return;
-            }
-
-            // 連絡事項(クラブ)画面へ
-            Navigation.PushAsync(new ClubInfomationPage(item.DataNo));
-
-            //Deselect Item
-            ((ListView)sender).SelectedItem = null;
-        }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// 連絡事項情報をSQLiteファイルから取得して画面に設定する。
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private void GetInfomation()
+        private void GetClubInfomation()
         {
             int wkDataNo;
             string WorkTypeCode = string.Empty;
@@ -162,6 +137,33 @@ namespace LionsApl.Content
                 DisplayAlert("Alert", $"SQLite検索エラー(T_INFOMATION_CLUB) : &{ex.Message}", "OK");
             }
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// タップ処理
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (e.Item == null)
+                return;
+
+            ClubInfomationRow item = e.Item as ClubInfomationRow;
+
+            // 連絡事項が1件もない(メッセージ行のみ表示している)場合は処理しない
+            if (string.IsNullOrEmpty(item.ClubCode))
+            {
+                ((ListView)sender).SelectedItem = null;
+                return;
+            }
+
+            // 連絡事項(クラブ)画面へ
+            Navigation.PushAsync(new ClubInfomationPage(item.DataNo));
+
+            //Deselect Item
+            ((ListView)sender).SelectedItem = null;
+        }
+
     }
 
     public sealed class ClubInfomationRow
@@ -179,7 +181,7 @@ namespace LionsApl.Content
         public string Subject { get; set; }
     }
 
-    public class MyInfomationTemplateSelector : DataTemplateSelector
+    public class MyClubInfomationSelector : DataTemplateSelector
     {
         //切り替えるテンプレートを保持するプロパティを用意する
         public DataTemplate ExistDataTemplate { get; set; }

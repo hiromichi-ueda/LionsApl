@@ -40,10 +40,11 @@
 
                     <!-- BODY -->
                     <StackLayout>
-
-                        <Grid>
+                        <Grid
+                            Padding="10"
+                            >
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />     
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -63,7 +64,7 @@
                                 Grid.Column="0"
                                 x:Name="lbl_MeetingDate"
                                 Text="例会日"
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                             />
                             <Label 
                                 Grid.Row="0"
@@ -71,15 +72,16 @@
                                 Grid.ColumnSpan="3"
                                 x:Name="MeetingDate" 
                                 Text=""
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                                 />
+                            
                             <!-- 例会名 -->
                             <Label 
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 x:Name="lbl_MeetingName"
                                 Text="例会名"
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                             />
                             <Label 
                                 Grid.Row="1"
@@ -87,15 +89,16 @@
                                 Grid.ColumnSpan="3"
                                 x:Name="MeetingName" 
                                 Text=""
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                                 />
+                            
                             <!-- 例会方法 -->
                             <Label 
                                 Grid.Row="2"
                                 Grid.Column="0"
                                 x:Name="lbl_Meeting" 
                                 Text="例会方法"
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                                 />
                             <Label 
                                 Grid.Row="2"
@@ -103,15 +106,16 @@
                                 Grid.ColumnSpan="3"
                                 x:Name="Meeting" 
                                 Text=""
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                                 />
+                            
                             <!-- URL -->
                             <Label 
                                 Grid.Row="3"
                                 Grid.Column="0"
                                 x:Name="lbl_MeetingUrl" 
                                 Text="URL"
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                                 />
                             <Label 
                                 Grid.Row="3"
@@ -119,45 +123,48 @@
                                 Grid.ColumnSpan="3"
                                 x:Name="MeetingUrl" 
                                 Text=""
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                                 />
+                            
                             <!-- ID -->
                             <Label 
                                 Grid.Row="4"
                                 Grid.Column="0"
                                 x:Name="lbl_MeetingID" 
                                 Text="ID"
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                                 />
                             <Label 
                                 Grid.Row="4"
                                 Grid.Column="1"
                                 x:Name="MeetingID" 
                                 Text=""
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                                 />
+                            
                             <!-- PW -->
                             <Label 
                                 Grid.Row="4"
                                 Grid.Column="2"
                                 x:Name="lbl_MeetingPW" 
                                 Text="PW"
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                                 />
                             <Label 
                                 Grid.Row="4"
                                 Grid.Column="3"
                                 x:Name="MeetingPW" 
                                 Text=""
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                                 />
+                            
                             <!-- 備考 -->
                             <Label 
                                 Grid.Row="5"
                                 Grid.Column="0"
                                 x:Name="lbl_MeetingOther"
                                 Text="備考"
-                                StyleClass="page_member"
+                                Style="{StaticResource Page_Base}"
                                 />
                             <Label 
                                 Grid.Row="5"
@@ -165,12 +172,47 @@
                                 Grid.ColumnSpan="3"
                                 x:Name="MeetingOther" 
                                 Text=""
-                                StyleClass="page_member_hfree"
+                                Style="{StaticResource Page_HeightFree}"
                                 />
                         </Grid>
 
+                    </StackLayout>
 
+                    <!-- 添付ファイル -->
+                    <StackLayout>
+                        <Grid
+                            x:Name="grid"
+                            Padding="3"
+                            >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
+                            <!-- 添付ファイル名 -->
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="1"
+                                x:Name="lbl_FileName" 
+                                Text=""
+                                VerticalOptions="Center" 
+                                HorizontalTextAlignment="Start" 
+                                />
+                            <!-- 添付ファイル -->
+                            <WebView
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="1"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand"
+                                x:Name="FileName">
+                            </WebView>
+                        
+                        </Grid>
                     </StackLayout>
 
                 </StackLayout>

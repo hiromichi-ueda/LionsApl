@@ -23,10 +23,6 @@ namespace LionsApl.Content
         {
             InitializeComponent();
 
-            // font-size(<ListView>はCSSが効かないのでここで設定)
-            //this.LoginInfo.FontSize = 16.0;
-            //this.title.FontSize = 16.0;
-
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
 
@@ -65,13 +61,14 @@ namespace LionsApl.Content
                 foreach (Table.T_MEETINGPROGRAM row in _sqlite.Get_T_MEETINGPROGRAM(
                                                                  "SELECT * " +
                                                                  "FROM T_MEETINGPROGRAM " +
-                                                                 "ORDER BY MeetingDate DESC"))
+                                                                 "ORDER BY DataNo DESC"))
                 {
                     wkDataNo = row.DataNo;
                     if (row.Meeting == "2")
                     {
                         wkMeeting = "[オンライン]";
                     }
+                    
                     //wkMeetingDate = row.MeetingDate.Substring(0, 10) + "  " + wkMeeting;
                     //wkMeetingName = row.MeetingName;
                     wkMeetingDate = "";
@@ -82,7 +79,6 @@ namespace LionsApl.Content
                 {
                     // メッセージ表示のため空行を追加
                     Items.Add(new MeetingProgramRow(0, wkMeetingDate, wkMeetingName));
-                    //DisplayAlert("Alert", $"Data Nothing", "OK");
                 }
                 this.BindingContext = this;
             }
@@ -170,6 +166,7 @@ namespace LionsApl.Content
                 return;
             }
 
+            // 例会プログラム画面へ
             Navigation.PushAsync(new ClubMeetingProgramPage(item.DataNo));
 
             //Deselect Item
@@ -191,7 +188,7 @@ namespace LionsApl.Content
         public string MeetingName { get; set; }
     }
 
-    public class MyMeetingProgramSelector : DataTemplateSelector
+    public class MyClubMeetingProgramSelector : DataTemplateSelector
     {
         //切り替えるテンプレートを保持するプロパティを用意する
         public DataTemplate ExistDataTemplate { get; set; }

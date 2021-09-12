@@ -35,7 +35,7 @@ namespace LionsApl.Content
             this.lbl_Detail.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.Detail.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
 
-            // 一覧から取得
+            // 一覧から取得(データ№)
             _DataNo = datano;
 
             // SQLite マネージャークラス生成
@@ -63,7 +63,7 @@ namespace LionsApl.Content
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// 連絡事項情報をSQLiteファイルから取得して画面に設定する。
+        /// 連絡事項(CLUB)情報をSQLiteファイルから取得して画面に設定する。
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetClubInfometion()
@@ -80,13 +80,18 @@ namespace LionsApl.Content
                                                                     "Where DataNo='" + _DataNo + "'"))
                 {
 
-                    wkClubCode = row.ClubCode;
-                    AddDate.Text = row.AddDate.Substring(0, 10);
-                    Subject.Text = row.Subject;
-                    Detail.Text = row.Detail;
+                    // 各項目情報取得
+                    wkClubCode = row.ClubCode;                      //クラブコード
+                    AddDate.Text = row.AddDate.Substring(0, 10);    //連絡日
+                    Subject.Text = row.Subject;                     //件名
+                    Detail.Text = row.Detail;                       //内容
 
+                    // 添付ファイル
                     if (row.FileName != null)
                     {
+                        // ファイル表示高さ設定
+                        this.grid.HeightRequest = 800;
+
                         // FILEPATH取得
                         var filepath = _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/").Replace("\r\n", "");
                         
@@ -105,12 +110,14 @@ namespace LionsApl.Content
                         {
                             FileName.Source = new UrlWebViewSource() { Url = googleUrl + fileUrl };
                         }
-                        lbl_FileName.Text = fileUrl;
+                        lbl_FileName.Text = fileUrl;            //FileName表示
+                        this.lbl_FileName.HeightRequest = 0;    //非表示設定
                     }
                     else
                     {
-                        //lbl_FileName.Text = "連絡事項―添付ファイルなし";
-                        this.FileName.IsEnabled = false;
+                        // WebViewの高さ消す
+                        this.grid.HeightRequest = 0;
+                        lbl_FileName.Text = "連絡事項―添付ファイルなし";
                     }
 
                 }

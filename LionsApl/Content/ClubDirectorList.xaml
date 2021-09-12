@@ -14,19 +14,18 @@
     ++++++++++++++++++++++++++++++++++++++++++
     -->
 
+    <!-- HEADER -->
     <StackLayout>
-        
         <ListView 
             x:Name="ClubDirectorListView"
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement"
             RowHeight="68"
             HasUnevenRows="True"
-            ItemTemplate="{StaticResource myDirectorTemplateSelector}"
+            ItemTemplate="{StaticResource myClubDirectorSelector}"
             ItemsSource="{Binding Items}"
             >
 
-            <!-- HEADER -->
             <ListView.Header>
                 <StackLayout>
 
@@ -35,14 +34,6 @@
                         HeightRequest="18"
                         Margin="2"
                         >
-                        <!--<Label
-                            x:Name="LoginInfo" 
-                            FontSize="Small"
-                            TextColor="#2E2E2E"
-                            VerticalOptions="Center"
-                            Background="#FFFFFF"
-                            HorizontalTextAlignment="End" 
-                        />-->
                         <Label
                             x:Name="LoginInfo"
                             Style="{StaticResource Login}"
@@ -54,14 +45,6 @@
                         Margin="4,0,4,0"
                         HorizontalOptions="FillAndExpand"
                         >
-                        <!--<Label
-                            x:Name="title"
-                            Text="理事・委員会" 
-                            FontSize="Default"
-                            TextColor="#2E2E2E"
-                            Background="#58ACFA"
-                            HorizontalTextAlignment="Center"
-                        />-->
                         <Label
                             x:Name="title"
                             Text="理事・委員会" 
@@ -73,16 +56,16 @@
             </ListView.Header>
 
         </ListView>
-
     </StackLayout>
 
+    <!-- BODY -->
     <ContentPage.Resources>
 
         <!-- データあり -->
         <DataTemplate x:Key="ExistDataTemplate">
             <ViewCell>
                 <Grid 
-                    StyleClass="list_grid"
+                    Style="{StaticResource ListGrid_Base}"
                     >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -103,9 +86,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
                         Text="{Binding EventClass}" 
-                        LineBreakMode="TailTruncation"
-                        VerticalOptions="End"
-                        StyleClass="list_label"
+                        Style="{StaticResource List_Base_End}"
                     />
 
                     <!-- 開催日時 -->
@@ -115,9 +96,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
                         Text="{Binding EventDate}" 
-                        LineBreakMode="TailTruncation"
-                        VerticalOptions="End"
-                        StyleClass="list_label"
+                        Style="{StaticResource List_Base_End}"
                     />
 
                     <!-- 中止 -->
@@ -127,10 +106,8 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
                         Text="{Binding CancelFlg}" 
-                        LineBreakMode="TailTruncation"
-                        VerticalOptions="End"
-                        StyleClass="list_label"
                         TextColor="Red"
+                        Style="{StaticResource List_Base_End}"
                     />
 
                     <!-- 件名 -->
@@ -140,8 +117,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
                         Text="件　名" 
-                        VerticalOptions="Start"
-                        StyleClass="list_label"
+                        Style="{StaticResource List_Base_Start}"
                     />
                     <Label 
                         Grid.Row="1"
@@ -149,9 +125,7 @@
                         Grid.ColumnSpan="3"
                         Grid.RowSpan="1"
                         Text="{Binding Subject}" 
-                        LineBreakMode="TailTruncation"
-                        VerticalOptions="Start"
-                        StyleClass="list_label"
+                        Style="{StaticResource List_Base_Start}"
                     />
 
                     <!-- 出席・欠席・未登録 -->
@@ -161,9 +135,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="2"
                         Text="{Binding Answer}" 
-                        LineBreakMode="TailTruncation"
-                        VerticalOptions="Center"
-                        StyleClass="list_label"
+                        Style="{StaticResource List_Base}"
                     />
 
                     <!-- マーク -->
@@ -173,8 +145,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="2"
                         Text="〉" 
-                        VerticalOptions="Center"
-                        StyleClass="list_label"
+                        Style="{StaticResource List_Base}"
                     />
                 </Grid>
             </ViewCell>
@@ -199,17 +170,15 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="2"
                         Text="理事・委員会情報はありません" 
-                        LineBreakMode="TailTruncation"
                         HorizontalTextAlignment="Center"
-                        VerticalOptions="Center"
-                        StyleClass="list_label"
+                        Style="{StaticResource List_Base}"
                         />
                 </Grid>
             </ViewCell>
         </DataTemplate>
 
-        <local:MyDirectorTemplateSelector
-            x:Key="myDirectorTemplateSelector"
+        <local:MyClubDirectorSelector
+            x:Key="myClubDirectorSelector"
             ExistDataTemplate="{StaticResource ExistDataTemplate}"
             NoDataTemplate="{StaticResource NoDataTemplate}" 
         />

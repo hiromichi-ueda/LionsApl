@@ -1,7 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              x:Class="LionsApl.Content.LetterList"
+             xmlns:local="clr-namespace:LionsApl.Content"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
              >
 
     <!-- 
@@ -10,129 +14,151 @@
     +++++++++++++++++++++++++++++++++++++
     -->
 
-    <ContentPage.Content>
-        <StackLayout>
-            
-            <ListView 
-                x:Name="LetterListView"
-                ItemTapped="Handle_ItemTapped"
-                CachingStrategy="RecycleElement"
-                RowHeight="68"
-                >
+    <!-- HEADER -->
+    <StackLayout>
+        <ListView 
+            x:Name="LetterListView"
+            ItemTapped="Handle_ItemTapped"
+            CachingStrategy="RecycleElement"
+            RowHeight="68"
+            HasUnevenRows="True"
+            ItemTemplate="{StaticResource myLetterSelector}"
+            ItemsSource="{Binding Items}"
+            >
 
-                <!-- HEADER -->
-                <ListView.Header>
-                    <StackLayout>
+            <!-- HEADER -->
+            <ListView.Header>
+                <StackLayout>
 
-                        <!-- ログイン情報 -->
-                        <StackLayout 
-                            HeightRequest="18"
-                            Margin="2"
-                            >
-                            <Label
-                                x:Name="LoginInfo"
-                                TextColor="#2E2E2E"
-                                VerticalOptions="Center"
-                                Background="#FFFFFF"
-                                HorizontalTextAlignment="End" 
-                            />
-                        </StackLayout>
-
-                        <!-- タイトル -->
-                        <StackLayout
-                            Margin="4,0,4,0"
-                            HorizontalOptions="FillAndExpand"
-                            >
-                            <Label
-                                x:Name="title"
-                                Text="キャビネットレター" 
-                                TextColor="#2E2E2E"
-                                Background="#58ACFA"
-                                HorizontalTextAlignment="Center"
-                            />
-                        </StackLayout>
-
+                    <!-- ログイン情報 -->
+                    <StackLayout 
+                        HeightRequest="18"
+                        Margin="2"
+                        >
+                        <Label
+                            x:Name="LoginInfo"
+                            Style="{StaticResource Login}"
+                        />
                     </StackLayout>
-                </ListView.Header>
 
-                <!-- LIST -->
-                <ListView.ItemTemplate>
+                    <!-- タイトル -->
+                    <StackLayout
+                        Margin="4,0,4,0"
+                        HorizontalOptions="FillAndExpand"
+                        >
+                        <Label
+                            Text="キャビネットレター" 
+                            Style="{StaticResource Title_Blue}"
+                        />
+                    </StackLayout>
+
+                </StackLayout>
+            </ListView.Header>
+
+        </ListView>
+    </StackLayout>
+            
+    <!-- BODY -->
+    <ContentPage.Resources>
+
+        <!-- データあり -->
+        <DataTemplate x:Key="ExistDataTemplate">
+            <ViewCell>
+                <Grid 
+                    Style="{StaticResource ListGrid_Base}"
+                    >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.*"/>
+                        <RowDefinition Height="1.*"/>
+                    </Grid.RowDefinitions>
                     
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid 
-                                StyleClass="list_grid"
-                                >
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1.*"/>
-                                    <RowDefinition Height="1.*"/>
-                                </Grid.RowDefinitions>
-                                <!-- 開催日 -->
-                                <Label 
-                                    Grid.Column="0"
-                                    Grid.Row="0"
-                                    Grid.ColumnSpan="1"
-                                    Grid.RowSpan="1"
-                                    Text="開催日" 
-                                    LineBreakMode="TailTruncation"
-                                    VerticalOptions="End"
-                                    StyleClass="list_label"
-                                    />
-                                <Label 
-                                    Grid.Column="1"
-                                    Grid.Row="0"
-                                    Grid.ColumnSpan="1"
-                                    Grid.RowSpan="1"
-                                    Text="{Binding DateTime}" 
-                                    LineBreakMode="TailTruncation"
-                                    VerticalOptions="End"
-                                    StyleClass="list_label"
-                                    />
-                                <!-- 件名 -->
-                                <Label 
-                                    Grid.Column="0"
-                                    Grid.Row="1"
-                                    Grid.ColumnSpan="1"
-                                    Grid.RowSpan="1"
-                                    Text="件　名" 
-                                    LineBreakMode="TailTruncation"
-                                    VerticalOptions="Start"
-                                    StyleClass="list_label"
-                                    />
-                                <Label 
-                                    Grid.Column="1"
-                                    Grid.Row="1"
-                                    Grid.ColumnSpan="1"
-                                    Grid.RowSpan="1"
-                                    Text="{Binding Title}" 
-                                    LineBreakMode="TailTruncation"
-                                    VerticalOptions="Start"
-                                    StyleClass="list_label"
-                                    />
-                                <!-- マーク -->
-                                <Label 
-                                    Grid.Column="2"
-                                    Grid.Row="0"
-                                    Grid.ColumnSpan="1"
-                                    Grid.RowSpan="2"
-                                    Text="〉" 
-                                    VerticalOptions="Center"
-                                    StyleClass="list_label"
-                                    />
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
+                    <!-- 開催日 -->
+                    <Label 
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="開催日" 
+                        Style="{StaticResource List_Base_End}"
+                        />
+                    <Label 
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="{Binding DateTime}" 
+                        Style="{StaticResource List_Base_End}"
+                    />
+                    
+                    <!-- 件名 -->
+                    <Label 
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="件　名" 
+                        Style="{StaticResource List_Base_Start}"
+                    />
+                    <Label 
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="{Binding Title}" 
+                        Style="{StaticResource List_Base_Start}"
+                    />
+                    
+                    <!-- マーク -->
+                    <Label 
+                        Grid.Column="2"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="2"
+                        Text="〉" 
+                        Style="{StaticResource List_Base}"
+                    />
+                    
+                </Grid>
+            </ViewCell>
+        </DataTemplate>
 
-                </ListView.ItemTemplate>
+        <!-- データなし -->
+        <DataTemplate x:Key="NoDataTemplate">
+            <ViewCell>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
 
-            </ListView>
+                    <!-- メッセージ -->
+                    <Label 
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="2"
+                        Text="キャビネットレター情報はありません" 
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource List_Base}"
+                        />
+                </Grid>
+            </ViewCell>
+        </DataTemplate>
 
-        </StackLayout>
-    </ContentPage.Content>
-    
+        <local:MyLetterSelector
+            x:Key="myLetterSelector"
+            ExistDataTemplate="{StaticResource ExistDataTemplate}"
+            NoDataTemplate="{StaticResource NoDataTemplate}" 
+        />
+
+    </ContentPage.Resources>
+
 </ContentPage>

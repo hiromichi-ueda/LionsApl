@@ -15,12 +15,14 @@ namespace LionsApl.Content
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
-        // url取得
-        public static String AppServer = ((App)Application.Current).AppServer;
+        // Config取得
+        public static String AppServer = ((App)Application.Current).AppServer;                      //Url
+        public static String AndroidPdf = ((App)Application.Current).AndroidPdf;                    //PdfViewer
+        public static String FilePath_Letter = ((App)Application.Current).FilePath_Letter;          //連絡事項(CLUB)
 
-        // 前画面からの取得情報
-        private string _titleName;  // タイトル
-        private int _dataNo;        // データNo.
+        // 前画面からの取得情報-
+        private string _titleName;  // タイトル 
+        private int _DataNo;        // データNo.
 
         public LetterPage(string title, int dataNo)
         {
@@ -35,7 +37,7 @@ namespace LionsApl.Content
 
 
             _titleName = title;
-            _dataNo = dataNo;
+            _DataNo = dataNo;
 
             TitleLabel.Text = _titleName;
 
@@ -55,7 +57,7 @@ namespace LionsApl.Content
             LoginInfo.Text = _sqlite.LoginInfo;
 
             // A_FILEPATHデータ取得
-            _sqlite.GetFilePath(_sqlite.DATACLASS_LETTER);
+            _sqlite.GetFilePath(FilePath_Letter);
 
             // キャビネットレター情報設定
             GetLetter();
@@ -77,18 +79,24 @@ namespace LionsApl.Content
             {
                 foreach (Table.T_LETTER row in _sqlite.Get_T_LETTER("Select * " +
                                                                     "From T_LETTER " +
-                                                                    "Where DataNo='" + _dataNo + "'"))
+                                                                    "Where DataNo='" + _DataNo + "'"))
                 {
                     DateLabel.Text = row.EventDate.Substring(0, 10) + " " + row.EventTime;
                     BodyLabel.Text = row.Body;
+
+                    //画像ファイル①
                     if (row.Image1FileName != null)
                     {
-                        string uriStr = AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/") + "/" + row.Image1FileName;
+                        string uriStr = AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/") +
+                                        "/" + row.DataNo.ToString() + "/" + row.Image1FileName;
                         Image1.Source = ImageSource.FromUri(new Uri(uriStr));
                     }
+
+                    //画像ファイル②
                     if (row.Image2FileName != null)
                     {
-                        string uriStr = AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/") + "/" + row.Image2FileName;
+                        string uriStr = AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/") +
+                                        "/" + row.DataNo.ToString() + "/" + row.Image2FileName;
                         Image2.Source = ImageSource.FromUri(new Uri(uriStr));
                     }
                 }

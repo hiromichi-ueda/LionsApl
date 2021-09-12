@@ -14,19 +14,19 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-
         <StackLayout>
 
             <ScrollView>
-
                 <StackLayout>
 
                     <!-- ログイン情報 -->
                     <StackLayout 
-                        StyleClass="login"
+                        HeightRequest="18"
+                        Margin="2"
                         >
-                        <Label x:Name="LoginInfo"
-                            VerticalTextAlignment="Center"
+                        <Label 
+                            x:Name="LoginInfo"
+                            Style="{StaticResource Login}"
                         />
                     </StackLayout>
 
@@ -37,8 +37,7 @@
                         >
                         <Label
                             Text="クラブスローガン" 
-                            VerticalTextAlignment="Center"
-                            StyleClass="title_blue"
+                            Style="{StaticResource Title_Blue}"
                         />
                         <Label x:Name="ClubSlogan"
                             HorizontalTextAlignment="Center"
@@ -59,8 +58,7 @@
                             >
                             <Label
                                 Text="メニュー" 
-                                VerticalTextAlignment="Center"
-                                StyleClass="title_grey"
+                                Style="{StaticResource Title_Grey}"
                             />
                         </StackLayout>
 
@@ -77,8 +75,7 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 Text="年間例会スケジュール" 
-                                VerticalOptions="FillAndExpand"
-                                StyleClass="club_menu"
+                                Style="{StaticResource ClubManu}"
                                 >
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="Label_ClubSchedule_Taped"/>
@@ -88,8 +85,7 @@
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 Text="〉" 
-                                VerticalOptions="FillAndExpand"
-                                StyleClass="club_menu"
+                                Style="{StaticResource ClubManu}"
                                 >
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="Label_ClubSchedule_Taped"/>
@@ -111,8 +107,7 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 Text="理事・委員会" 
-                                VerticalOptions="FillAndExpand"
-                                StyleClass="club_menu"
+                                Style="{StaticResource ClubManu}"
                                 >
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="Label_Director_Taped"/>
@@ -122,8 +117,7 @@
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 Text="〉" 
-                                VerticalOptions="FillAndExpand"
-                                StyleClass="club_menu"
+                                Style="{StaticResource ClubManu}"
                                 >
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="Label_Director_Taped"/>
@@ -145,8 +139,7 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 Text="例会プログラム" 
-                                VerticalOptions="FillAndExpand"
-                                StyleClass="club_menu"
+                                Style="{StaticResource ClubManu}"
                                 >
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="Label_MeetingProgram_Taped"/>
@@ -156,8 +149,7 @@
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 Text="〉" 
-                                VerticalOptions="FillAndExpand"
-                                StyleClass="club_menu"
+                                Style="{StaticResource ClubManu}"
                                 >
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="Label_MeetingProgram_Taped"/>
@@ -179,8 +171,7 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 Text="連絡事項" 
-                                VerticalOptions="FillAndExpand"
-                                StyleClass="club_menu"
+                                Style="{StaticResource ClubManu}"
                                 >
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="Label_Infomation_Taped"/>
@@ -190,8 +181,7 @@
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 Text="〉" 
-                                VerticalOptions="FillAndExpand"
-                                StyleClass="club_menu"
+                                Style="{StaticResource ClubManu}"
                                 >
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="Label_Infomation_Taped"/>
@@ -213,8 +203,7 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 Text="会員情報" 
-                                VerticalOptions="FillAndExpand"
-                                StyleClass="club_menu"
+                                Style="{StaticResource ClubManu}"
                                 >
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="Label_Member_Taped"/>
@@ -224,8 +213,7 @@
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 Text="〉" 
-                                VerticalOptions="FillAndExpand"
-                                StyleClass="club_menu"
+                                Style="{StaticResource ClubManu}"
                                 >
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="Label_Member_Taped"/>

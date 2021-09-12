@@ -17,11 +17,12 @@
 
                     <!-- ログイン情報 -->
                     <StackLayout 
-                            StyleClass="login"
-                            >
+                        HeightRequest="18"
+                        Margin="2"
+                        >
                         <Label
                             x:Name="LoginInfo"
-                            VerticalTextAlignment="Center"
+                            Style="{StaticResource Login}"
                             />
                     </StackLayout>
 
@@ -31,10 +32,8 @@
                             HorizontalOptions="FillAndExpand"
                             >
                         <Label 
-                            x:Name="title"
                             Text="キャビネットレター"
-                            VerticalTextAlignment="Center"
-                            StyleClass="title_blue"
+                            Style="{StaticResource Title_Blue}"
                         />
                     </StackLayout>
 
@@ -63,34 +62,32 @@
                                 Grid.Column="0"
                                 x:Name="lbl_EventDate"
                                 Text="開催日"
-                                VerticalOptions="Center" 
-                                StyleClass="page_letter"
+                                Style="{StaticResource Page_Base}"
                              />
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 x:Name="DateLabel" 
                                 Text=""
-                                VerticalOptions="Center" 
-                                StyleClass="page_letter"
+                                Style="{StaticResource Page_Base}"
                              />
+                            
                             <!-- 件名 -->
                             <Label 
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 x:Name="lbl_Title" 
                                 Text="タイトル"
-                                VerticalOptions="Center" 
-                                StyleClass="page_letter"
+                                Style="{StaticResource Page_Base}"
                              />
                             <Label 
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 x:Name="TitleLabel" 
                                 Text=""
-                                VerticalOptions="Center" 
-                                StyleClass="page_letter"
+                                Style="{StaticResource Page_HeightFree}"
                              />
+                            
                             <!-- 内容 -->
                             <Label 
                                 Grid.Row="2"
@@ -98,9 +95,9 @@
                                 Grid.ColumnSpan="2"
                                 x:Name="BodyLabel" 
                                 Text=""
-                                VerticalOptions="Center" 
-                                StyleClass="page_letter"
+                                Style="{StaticResource Page_HeightFree}"
                              />
+                            
                             <!-- 画像① -->
                             <Image
                                 Grid.Row="3"
@@ -109,6 +106,7 @@
                                 Aspect="AspectFill"
                                 x:Name="Image1">
                             </Image>
+                            
                             <!-- 画像② -->
                             <Image
                                 Grid.Row="4"
@@ -117,26 +115,7 @@
                                 Aspect="AspectFill"
                                 x:Name="Image2">
                             </Image>
-                            <!--
-                            <Label 
-                                Grid.Row="5"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="2"
-                                x:Name="Image1Label" 
-                                Text=""
-                                VerticalOptions="Center" 
-                                StyleClass="page_letter"
-                            />
-                            <Label 
-                                Grid.Row="6"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="2"
-                                x:Name="Image2Label" 
-                                Text=""
-                                VerticalOptions="Center" 
-                                StyleClass="page_letter"
-                            />
-                            -->
+                            
                         </Grid>
                     </StackLayout>
 

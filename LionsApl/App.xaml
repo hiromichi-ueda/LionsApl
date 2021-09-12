@@ -10,6 +10,8 @@
         <!-- 注意：CSSのContentPage、LabelにてColorが設定されている場合、
              　　　下記Styleで設定されているLabelのTextColorは無効となります。 -->
 
+
+        <!-- ログイン情報 -->
         <Style 
             x:Key="Login"
             TargetType="Label"
@@ -36,6 +38,7 @@
                 />
         </Style>
 
+        <!-- タイトル共通(BLUE) -->
         <Style 
             x:Key="Title_Blue"
             TargetType="Label"
@@ -62,8 +65,213 @@
                 />
         </Style>
 
+        <!-- タイトル(LITEBLUE) -->
         <Style 
-            x:Key="Page_Member"
+            x:Key="Title_LiteBlue"
+            TargetType="Label"
+            >
+            <Setter
+                Property="FontSize"
+                Value="16.0"
+                />
+            <Setter 
+                Property="TextColor"
+                Value="#151515"
+                />
+            <Setter 
+                Property="Background"
+                Value="#CEECF5"
+                />
+            <Setter 
+                Property="HorizontalTextAlignment"
+                Value="Center"
+                />
+            <Setter 
+                Property="HeightRequest"
+                Value="20.0"
+                />
+        </Style>
+        
+        <!-- タイトル(YELLOW) -->
+        <Style 
+            x:Key="Title_Yellow"
+            TargetType="Label"
+            >
+            <Setter
+                Property="FontSize"
+                Value="16.0"
+                />
+            <Setter 
+                Property="TextColor"
+                Value="#151515"
+                />
+            <Setter 
+                Property="Background"
+                Value="#F3F781"
+                />
+            <Setter 
+                Property="HorizontalTextAlignment"
+                Value="Center"
+                />
+            <Setter 
+                Property="HeightRequest"
+                Value="20.0"
+                />
+        </Style>
+
+        <!-- タイトル(GREEN) -->
+        <Style 
+            x:Key="Title_Green"
+            TargetType="Label"
+            >
+            <Setter
+                Property="FontSize"
+                Value="16.0"
+                />
+            <Setter 
+                Property="TextColor"
+                Value="#151515"
+                />
+            <Setter 
+                Property="Background"
+                Value="#E1F5A9"
+                />
+            <Setter 
+                Property="HorizontalTextAlignment"
+                Value="Center"
+                />
+            <Setter 
+                Property="HeightRequest"
+                Value="20.0"
+                />
+        </Style>
+
+        <!-- タイトル(GREY) -->
+        <Style 
+            x:Key="Title_Grey"
+            TargetType="Label"
+            >
+            <Setter
+                Property="FontSize"
+                Value="16.0"
+                />
+            <Setter 
+                Property="TextColor"
+                Value="#151515"
+                />
+            <Setter 
+                Property="Background"
+                Value="#BDBDBD"
+                />
+            <Setter 
+                Property="HorizontalTextAlignment"
+                Value="Center"
+                />
+            <Setter 
+                Property="HeightRequest"
+                Value="20.0"
+                />
+        </Style>
+
+        <!-- List_Grid -->
+        <Style
+            x:Key="ListGrid_Base"
+            TargetType="Grid"
+            >
+            <Setter 
+                Property="Margin"
+                Value="10"
+                />
+            <Setter
+                Property="BackgroundColor"
+                Value="#FFFFFF"
+                />
+        </Style>
+        
+        <!-- List画面(ベース) -->
+        <Style
+            x:Key="List_Base"
+            TargetType="Label"
+            >
+            <Setter 
+                Property="TextColor"
+                Value="#151515"
+                />
+            <Setter
+                Property="VerticalOptions"
+                Value="Center"
+                />
+            <Setter
+                Property="HorizontalTextAlignment"
+                Value="Start"
+                />
+            <Setter
+                Property="LineBreakMode"
+                Value="TailTruncation"
+                />
+            <Setter
+                Property="Margin"
+                Value="8,0,8,0"
+                />
+        </Style>
+
+        <!-- List画面(Start) -->
+        <Style
+            x:Key="List_Base_Start"
+            TargetType="Label"
+            >
+            <Setter 
+                Property="TextColor"
+                Value="#151515"
+                />
+            <Setter
+                Property="VerticalOptions"
+                Value="Start"
+                />
+            <Setter
+                Property="HorizontalTextAlignment"
+                Value="Start"
+                />
+            <Setter
+                Property="LineBreakMode"
+                Value="TailTruncation"
+                />
+            <Setter
+                Property="Margin"
+                Value="8,0,8,0"
+                />
+        </Style>
+
+        <!-- List画面(End) -->
+        <Style
+            x:Key="List_Base_End"
+            TargetType="Label"
+            >
+            <Setter 
+                Property="TextColor"
+                Value="#151515"
+                />
+            <Setter
+                Property="VerticalOptions"
+                Value="End"
+                />
+            <Setter
+                Property="HorizontalTextAlignment"
+                Value="Start"
+                />
+            <Setter
+                Property="LineBreakMode"
+                Value="TailTruncation"
+                />
+            <Setter
+                Property="Margin"
+                Value="8,0,8,0"
+                />
+        </Style>
+        
+        <!-- Page画面(ベース) -->
+        <Style 
+            x:Key="Page_Base"
             TargetType="Label"
             >
             <Setter 
@@ -84,20 +292,18 @@
                 />
         </Style>
 
-        <!-- CSSでColor設定しているので、
-             StyleでのTextColorが無効となるため、
-             下記設定をコメントアウト -->
-        <!--<Style 
-            x:Key="Page_Member_Red"
+        <!-- Page画面(Center) -->
+        <Style 
+            x:Key="Page_Base_Center"
             TargetType="Label"
             >
             <Setter 
                 Property="TextColor"
-                Value="Red"
+                Value="#151515"
                 />
             <Setter 
                 Property="HorizontalTextAlignment"
-                Value="Start"
+                Value="Center"
                 />
             <Setter 
                 Property="HeightRequest"
@@ -107,10 +313,10 @@
                 Property="Margin"
                 Value="8,0,8,0"
                 />
-        </Style>-->
+        </Style>
 
         <Style 
-            x:Key="Page_Member_HFree"
+            x:Key="Page_HeightFree"
             TargetType="Label"
             >
             <!--<Setter 
@@ -135,28 +341,34 @@
                 />
         </Style>
 
-        <Style 
-            x:Key="Page_Member_C"
+        <!-- CLUB MENU -->
+        <Style
+            x:Key="ClubManu"
             TargetType="Label"
             >
             <Setter 
                 Property="TextColor"
                 Value="#151515"
                 />
-            <Setter 
-                Property="HorizontalTextAlignment"
-                Value="Center"
+            <Setter
+                Property="FontSize"
+                Value="18.0"
+                />
+            <Setter
+                Property="BackgroundColor"
+                Value="#FFFFFF"
                 />
             <Setter 
-                Property="HeightRequest"
-                Value="30"
+                Property="VerticalOptions"
+                Value="FillAndExpand"
                 />
-            <Setter 
+            <Setter
                 Property="Margin"
-                Value="8,0,8,0"
+                Value="12, 10, 10, 8"
                 />
         </Style>
-
+        
+        
     </Application.Resources>
 
 </Application>

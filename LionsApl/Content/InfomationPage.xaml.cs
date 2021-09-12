@@ -15,9 +15,20 @@ namespace LionsApl.Content
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
-        public InfomationPage()
+        // Config取得
+        public static String AppServer = ((App)Application.Current).AppServer;                      //Url
+        public static String AndroidPdf = ((App)Application.Current).AndroidPdf;                    //PdfViewer
+        public static String FilePath_Infometion = ((App)Application.Current).FilePath_Infometion;  //連絡事項(CABINET)
+
+        // 前画面からの取得情報-
+        private int _DataNo;        // データNo.
+
+        public InfomationPage(int dataNo)
         {
             InitializeComponent();
+
+            // 一覧から取得(データ№)
+            _DataNo = dataNo;
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
@@ -34,9 +45,71 @@ namespace LionsApl.Content
             // ログイン情報設定
             LoginInfo.Text = _sqlite.LoginInfo;
 
-            // 連絡事項(キャビネット)情報設定
+            // A_FILEPATHデータ取得
+            _sqlite.GetFilePath(FilePath_Infometion);
 
+            // 連絡事項(キャビネット)情報設定
+            GetCabiInfometion();
 
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 連絡事項(CABINET)情報をSQLiteファイルから取得して画面に設定する。
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void GetCabiInfometion()
+        {
+            try
+            {
+                foreach (Table.T_INFOMATION_CABI row in _sqlite.Get_T_INFOMATION_CABI("Select * " +
+                                                                    "From Get_T_INFOMATION_CABI " +
+                                                                    "Where DataNo='" + _DataNo + "'"))
+                {
+
+                    // 各項目情報取得
+                    AddDate.Text = row.AddDate.Substring(0, 10);    //連絡日
+                    Subject.Text = row.Subject;                     //件名
+                    Detail.Text = row.Detail;                       //内容
+
+                    // 添付ファイル
+                    if (row.FileName != null)
+                    {
+                        // ファイル表示高さ設定
+                        this.grid.HeightRequest = 800;
+
+                        // FILEPATH取得
+                        var fileUrl = AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/").Replace("\r\n", "") +
+                                     "/" + row.DataNo.ToString() + "/" + row.FileName;
+
+                        // AndroidPDF Viewer
+                        var googleUrl = AndroidPdf + "?embedded=true&url=";
+
+                        if (Device.RuntimePlatform == Device.iOS)
+                        {
+                            FileName.Source = fileUrl;
+                        }
+                        else if (Device.RuntimePlatform == Device.Android)
+                        {
+                            FileName.Source = new UrlWebViewSource() { Url = googleUrl + fileUrl };
+                        }
+                        lbl_FileName.Text = fileUrl;            //FileName表示
+                        this.lbl_FileName.HeightRequest = 0;    //非表示設定
+                    }
+                    else
+                    {
+                        // WebViewの高さ消す
+                        this.grid.HeightRequest = 0;
+                        lbl_FileName.Text = "連絡事項―添付ファイルなし";
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Alert", $"SQLite検索エラー(T_INFOMATION_CABI) : &{ex.Message}", "OK");
+            }
+        }
+
     }
 }

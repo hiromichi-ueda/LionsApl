@@ -24,6 +24,7 @@ namespace LionsApl.Content
         {
             InitializeComponent();
 
+            // font-size
             DirectorTitle.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             lbl_EventDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             EventDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));

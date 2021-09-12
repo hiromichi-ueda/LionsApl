@@ -1,8 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:local="clr-namespace:LionsApl.Content"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              x:Class="LionsApl.Content.ClubScheduleList"
+             xmlns:local="clr-namespace:LionsApl.Content"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
              >
 
     <!-- 
@@ -10,22 +13,20 @@
     　画面名: 年間例会スケジュール一覧画面
     ++++++++++++++++++++++++++++++++++++++++++
     -->
-    
-    <StackLayout>
 
+    <!-- HEADER -->
+    <StackLayout>
         <ListView 
             x:Name="ClubScheduleListView"
             ItemTapped="List_Tapped"
             CachingStrategy="RecycleElement"
             RowHeight="68"
             HasUnevenRows="True"
-            ItemTemplate="{StaticResource myScheduleTemplateSelector}"
+            ItemTemplate="{StaticResource myClubScheduleSelector}"
             ItemsSource="{Binding Items}"
             >
 
-            <!-- HEADER -->
             <ListView.Header>
-                
                 <StackLayout>
 
                     <StackLayout 
@@ -33,14 +34,6 @@
                         Margin="2"
                         >
                         <!-- ログイン情報 -->
-                        <!--<Label
-                            x:Name="LoginInfo"
-                            FontSize="Small"
-                            TextColor="#2E2E2E"
-                            VerticalOptions="Center"
-                            Background="#FFFFFF"
-                            HorizontalTextAlignment="End" 
-                        />-->
                         <Label
                             x:Name="LoginInfo"
                             Style="{StaticResource Login}"
@@ -52,14 +45,6 @@
                         Margin="4,0,4,0"
                         HorizontalOptions="FillAndExpand"
                         >
-                        <!--<Label
-                            x:Name="title"
-                            Text="年間例会スケジュール" 
-                            FontSize="Default"
-                            TextColor="#2E2E2E"
-                            Background="#58ACFA"
-                            HorizontalTextAlignment="Center"
-                        />-->
                         <Label
                             x:Name="title"
                             Text="年間例会スケジュール" 
@@ -68,19 +53,19 @@
                     </StackLayout>
 
                 </StackLayout>
-                
             </ListView.Header>
 
         </ListView>
-
     </StackLayout>
+
+    <!-- BODY -->
     <ContentPage.Resources>
 
         <!-- データあり -->
         <DataTemplate x:Key="ExistDataTemplate">
             <ViewCell>
                 <Grid 
-                    StyleClass="list_grid"
+                    Style="{StaticResource ListGrid_Base}"
                     >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -100,9 +85,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
                         Text="例会日" 
-                        LineBreakMode="TailTruncation"
-                        VerticalOptions="End"
-                        StyleClass="list_label"
+                        Style="{StaticResource List_Base_End}"
                     />
                     <Label 
                         Grid.Row="0"
@@ -110,9 +93,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
                         Text="{Binding DateTime}" 
-                        LineBreakMode="TailTruncation"
-                        VerticalOptions="End"
-                        StyleClass="list_label"
+                        Style="{StaticResource List_Base_End}"
                     />
                     <!-- 中止 -->
                     <Label 
@@ -121,10 +102,8 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
                         Text="{Binding Cancel}" 
-                        LineBreakMode="TailTruncation"
-                        VerticalOptions="End"
                         TextColor="RED"
-                        StyleClass="list_label"
+                        Style="{StaticResource List_Base_End}"
                     />
 
                     <!-- 例会名 -->
@@ -134,9 +113,7 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
                         Text="例会名" 
-                        LineBreakMode="TailTruncation"
-                        VerticalOptions="Start"
-                        StyleClass="list_label"
+                        Style="{StaticResource List_Base_Start}"
                     />
                     <Label 
                         Grid.Row="1"
@@ -144,9 +121,7 @@
                         Grid.ColumnSpan="2"
                         Grid.RowSpan="1"
                         Text="{Binding Title}" 
-                        LineBreakMode="TailTruncation"
-                        VerticalOptions="Start"
-                        StyleClass="list_label"
+                        Style="{StaticResource List_Base_Start}"
                     />
 
                     <!-- マーク -->
@@ -156,12 +131,12 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="2"
                         Text="〉" 
-                        VerticalOptions="Center"
-                        StyleClass="list_label"
+                        Style="{StaticResource List_Base}"
                     />
                 </Grid>
             </ViewCell>
         </DataTemplate>
+        
         <!-- データなし -->
         <DataTemplate x:Key="NoDataTemplate">
             <ViewCell>
@@ -181,17 +156,15 @@
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="2"
                         Text="年間例会スケジュール情報はありません" 
-                        LineBreakMode="TailTruncation"
                         HorizontalTextAlignment="Center"
-                        VerticalOptions="Center"
-                        StyleClass="list_label"
+                        Style="{StaticResource List_Base}"
                         />
                 </Grid>
             </ViewCell>
         </DataTemplate>
 
-        <local:MyScheduleTemplateSelector
-            x:Key="myScheduleTemplateSelector"
+        <local:MyClubScheduleSelector
+            x:Key="myClubScheduleSelector"
             ExistDataTemplate="{StaticResource ExistDataTemplate}"
             NoDataTemplate="{StaticResource NoDataTemplate}" 
         />

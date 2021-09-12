@@ -13,19 +13,15 @@ namespace LionsApl.Content
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ClubScheduleList : ContentPage
     {
-        private SQLiteManager _sqlite;                      // SQLiteマネージャークラス
+        // SQLiteマネージャークラス
+        private SQLiteManager _sqlite;
 
+        // リストビュー設定内容
         public List<ClubScheduleRow> Items { get; set; }
-
-        //public ObservableCollection<string> Items { get; set; }
 
         public ClubScheduleList()
         {
             InitializeComponent();
-
-            // font-size(<ListView>はCSSが効かないのでここで設定)
-            //this.LoginInfo.FontSize = 16.0;
-            //this.title.FontSize = 16.0;
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
@@ -49,10 +45,8 @@ namespace LionsApl.Content
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// リストタップ時の処理
+        /// タップ処理
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         ///////////////////////////////////////////////////////////////////////////////////////////
         void List_Tapped(object sender, ItemTappedEventArgs e)
         {
@@ -67,6 +61,7 @@ namespace LionsApl.Content
                 return;
             }
 
+            // 年間例会スケジュール画面へ
             Navigation.PushAsync(new ClubSchedulePage(item.DataNo));
 
             //Deselect Item
@@ -103,7 +98,6 @@ namespace LionsApl.Content
                     // メッセージ表示のため空行を追加
                     Items.Add(new ClubScheduleRow(0, WorkDate, WorkTitle));
                 }
-                //ClubScheduleListView.ItemsSource = items;
                 BindingContext = this;
             }
             catch (Exception ex)
@@ -131,7 +125,7 @@ namespace LionsApl.Content
         public string Title { get; set; }
     }
 
-    public class MyScheduleTemplateSelector : DataTemplateSelector
+    public class MyClubScheduleSelector : DataTemplateSelector
     {
         //切り替えるテンプレートを保持するプロパティを用意する
         public DataTemplate ExistDataTemplate { get; set; }

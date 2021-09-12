@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -13,18 +13,15 @@ namespace LionsApl.Content
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LetterList : ContentPage
     {
-        private SQLiteManager _sqlite;                      // SQLiteマネージャークラス
+        // SQLiteマネージャークラス
+        private SQLiteManager _sqlite;
 
-
-        public ObservableCollection<string> Items { get; set; }
+        // リストビュー設定内容
+        public List<LetterRow> Items { get; set; }
 
         public LetterList()
         {
             InitializeComponent();
-
-            // font-size(<ListView>はCSSが効かないのでここで設定)
-            this.LoginInfo.FontSize = 16.0;
-            this.title.FontSize = 16.0;
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
@@ -41,30 +38,9 @@ namespace LionsApl.Content
             // ログイン情報設定
             LoginInfo.Text = _sqlite.LoginInfo;
 
+            // キャビネットレター情報取得
             GetLetter();
 
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// リストタップ時の処理
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            if (e.Item == null)
-                return;
-
-            LetterRow item = e.Item as LetterRow;
-
-            Navigation.PushAsync(new LetterPage(item.Title, item.DataNo));
-
-            //await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
-
-            //Deselect Item
-            ((ListView)sender).SelectedItem = null;
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -75,9 +51,10 @@ namespace LionsApl.Content
         private void GetLetter()
         {
             int WorkDataNo;
-            string WorkDate;
-            string WorkTitle;
-            List<LetterRow> items = new List<LetterRow>();
+            string WorkDate = string.Empty;
+            string WorkTitle = string.Empty;
+            //List<LetterRow> items = new List<LetterRow>();
+            Items = new List<LetterRow>();
 
             try
             {
@@ -88,9 +65,14 @@ namespace LionsApl.Content
                     WorkDataNo = row.DataNo;
                     WorkDate = row.EventDate.Substring(0, 10) + "  " + row.EventTime;
                     WorkTitle = row.Title;
-                    items.Add(new LetterRow(WorkDataNo, WorkDate, WorkTitle));
+                    Items.Add(new LetterRow(WorkDataNo, WorkDate, WorkTitle));
                 }
-                LetterListView.ItemsSource = items;
+                if (Items.Count == 0)
+                {
+                    // メッセージ表示のため空行を追加
+                    Items.Add(new LetterRow(0, WorkDate, WorkTitle));
+                }
+                this.BindingContext = this;
             }
             catch (Exception ex)
             {
@@ -98,8 +80,33 @@ namespace LionsApl.Content
             }
         }
 
-    }
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// タップ処理
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (e.Item == null)
+                return;
 
+            LetterRow item = e.Item as LetterRow;
+
+            // 1件もない(メッセージ行のみ表示している)場合は処理しない
+            if (string.IsNullOrEmpty(item.Title))
+            {
+                ((ListView)sender).SelectedItem = null;
+                return;
+            }
+
+            // キャビネットレター画面へ
+            Navigation.PushAsync(new LetterPage(item.Title, item.DataNo));
+
+            //Deselect Item
+            ((ListView)sender).SelectedItem = null;
+        }
+
+    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////
     /// <summary>
@@ -118,4 +125,26 @@ namespace LionsApl.Content
         public string DateTime { get; set; }
         public string Title { get; set; }
     }
+
+    public class MyLetterSelector : DataTemplateSelector
+    {
+        //切り替えるテンプレートを保持するプロパティを用意する
+        public DataTemplate ExistDataTemplate { get; set; }
+        public DataTemplate NoDataTemplate { get; set; }
+
+        protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
+        {
+            // 条件より該当するテンプレートを返す
+            var info = (LetterRow)item;
+            if (!String.IsNullOrEmpty(info.Title))
+            {
+                return ExistDataTemplate;
+            }
+            else
+            {
+                return NoDataTemplate;
+            }
+        }
+    }
+
 }

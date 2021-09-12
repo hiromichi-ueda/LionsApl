@@ -40,12 +40,13 @@
 
                     <!-- BODY -->
                     <StackLayout>
+                        
                         <!-- 詳細 -->
                         <StackLayout>
                             <Grid
                                 x:Name="DetailGrid"
                                 Padding="10.0, 10.0, 10.0, 0.0"
-                            >
+                                >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
@@ -65,27 +66,22 @@
                                     Grid.Row="0"
                                     Grid.Column="0"
                                     Text="例会日"
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member"
+                                    Style="{StaticResource Page_Base}"
                                  />
                                 <Label 
                                     Grid.Row="0"
                                     Grid.Column="1"
                                     x:Name="MeetingDate" 
                                     Text=""
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member"
+                                    Style="{StaticResource Page_Base}"
                                  />
                                 <Label 
                                     Grid.Row="0"
                                     Grid.Column="2"
                                     x:Name="Cancel" 
                                     Text=""
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member_red"
+                                    TextColor="red"
+                                    Style="{StaticResource Page_Base}"
                                  />
                                 
                                 <!-- 時間 -->
@@ -93,19 +89,14 @@
                                     Grid.Row="1"
                                     Grid.Column="0"
                                     Text="時間"
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member"
+                                    Style="{StaticResource Page_Base}"
                                  />
                                 <Label 
                                     Grid.Row="1"
                                     Grid.Column="1"
                                     Grid.ColumnSpan="2"
                                     x:Name="MeetingTime" 
-                                    Text=""
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member"
+                                    Style="{StaticResource Page_Base}"
                                  />
 
                                 <!-- 例会名 -->
@@ -113,9 +104,7 @@
                                     Grid.Row="2"
                                     Grid.Column="0"
                                     Text="例会名"
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member"
+                                    Style="{StaticResource Page_Base}"
                                  />
                                 <Label 
                                     Grid.Row="2"
@@ -123,9 +112,7 @@
                                     Grid.ColumnSpan="2"
                                     x:Name="MeetingName" 
                                     Text=""
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member"
+                                    Style="{StaticResource Page_Base}"
                                  />
 
                                 <!-- 会場 -->
@@ -133,9 +120,7 @@
                                     Grid.Row="3"
                                     Grid.Column="0"
                                     Text="会場"
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member"
+                                    Style="{StaticResource Page_Base}"
                                  />
                                 <Label 
                                     Grid.Row="3"
@@ -143,9 +128,7 @@
                                     Grid.ColumnSpan="2"
                                     x:Name="MeetingPlace" 
                                     Text=""
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member"
+                                    Style="{StaticResource Page_Base}"
                                  />
 
                                 <!-- 備考 -->
@@ -153,9 +136,7 @@
                                     Grid.Row="4"
                                     Grid.Column="0"
                                     Text="備考"
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member"
+                                    Style="{StaticResource Page_Base}"
                                  />
                                 <Label 
                                     Grid.Row="4"
@@ -163,19 +144,18 @@
                                     Grid.ColumnSpan="2"
                                     x:Name="RemarksItems" 
                                     Text=""
-                                    FontSize="Default"
-                                    VerticalOptions="Center" 
-                                    StyleClass="page_member_hfree"
+                                    Style="{StaticResource Page_HeightFree}"
                                  />
 
                             </Grid>
                         </StackLayout>
+                        
                         <!-- 例会オプション＆お酒＆本人以外の参加 -->
                         <StackLayout>
                             <Grid
                                 x:Name="OptGrid"
                                 Padding="10.0, 10.0, 10.0, 0.0"
-                            >
+                                >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>

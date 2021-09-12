@@ -23,10 +23,6 @@ namespace LionsApl.Content
         {
             InitializeComponent();
 
-            // font-size(<ListView>はCSSが効かないのでここで設定)
-            //this.LoginInfo.FontSize = 16.0;
-            //this.title.FontSize = 16.0;
-
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
 
@@ -93,7 +89,6 @@ namespace LionsApl.Content
                 {
                     // メッセージ表示のため空行を追加
                     Items.Add(new ClubDirectorRow(0, wkEventClass, wkEventDate, wkSubject));
-                    //DisplayAlert("Alert", $"Data Nothing", "OK");
                 }
                 this.BindingContext = this;
             }
@@ -123,6 +118,7 @@ namespace LionsApl.Content
                 return;
             }
 
+            // 理事・委員会画面へ
             Navigation.PushAsync(new ClubDirectorPage(item.DataNo));
 
             //Deselect Item
@@ -146,7 +142,7 @@ namespace LionsApl.Content
         public string Subject { get; set; }
     }
 
-    public class MyDirectorTemplateSelector : DataTemplateSelector
+    public class MyClubDirectorSelector : DataTemplateSelector
     {
         //切り替えるテンプレートを保持するプロパティを用意する
         public DataTemplate ExistDataTemplate { get; set; }

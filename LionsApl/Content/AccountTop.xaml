@@ -24,11 +24,12 @@
 
                     <!-- ログイン情報 -->
                     <StackLayout 
-                        StyleClass="login"
+                        HeightRequest="18"
+                        Margin="2"
                         >
                         <Label
                             x:Name="LoginInfo"
-                            VerticalTextAlignment="Center"
+                            Style="{StaticResource Login}"
                             />
                     </StackLayout>
 
@@ -38,10 +39,8 @@
                             HorizontalOptions="FillAndExpand"
                             >
                         <Label 
-                            x:Name="title"
                             Text="アカウント設定"
-                            VerticalTextAlignment="Center"
-                            StyleClass="title_grey"
+                            Style="{StaticResource Title_Grey}"
                         />
                     </StackLayout>
 
@@ -65,16 +64,14 @@
                                 Grid.Column="0"
                                 x:Name="lbl_Region"
                                 Text="リジョン" 
-                                VerticalOptions="Center" 
-                                StyleClass="page_account"
+                                Style="{StaticResource Page_Base}"
                             />
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 x:Name="Region" 
                                 Text="" 
-                                VerticalOptions="Center" 
-                                StyleClass="page_account"
+                                Style="{StaticResource Page_Base}"
                             />
 
                             <!-- ゾーン -->
@@ -83,16 +80,14 @@
                                 Grid.Column="0"
                                 x:Name="lbl_Zone"
                                 Text="ゾーン" 
-                                VerticalOptions="Center" 
-                                StyleClass="page_account"
+                                Style="{StaticResource Page_Base}"
                             />
                             <Label
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 x:Name="Zone" 
                                 Text="" 
-                                VerticalOptions="Center" 
-                                StyleClass="page_account"
+                                Style="{StaticResource Page_Base}"
                             />
                             
                             <!-- クラブ名 -->
@@ -101,16 +96,14 @@
                                 Grid.Column="0"
                                 x:Name="lbl_ClubName"
                                 Text="クラブ名" 
-                                VerticalOptions="Center" 
-                                StyleClass="page_account"
+                                Style="{StaticResource Page_Base}"
                             />
                             <Label
                                 Grid.Row="2"
                                 Grid.Column="1"
                                 x:Name="ClubName" 
                                 Text="" 
-                                VerticalOptions="Center" 
-                                StyleClass="page_account"
+                                Style="{StaticResource Page_Base}"
                             />
 
                             <!-- 会員No -->
@@ -119,16 +112,14 @@
                                 Grid.Column="0"
                                 x:Name="lbl_MemberNo"
                                 Text="会員番号" 
-                                VerticalOptions="Center" 
-                                StyleClass="page_account"
+                                Style="{StaticResource Page_Base}"
                             />
                             <Label
                                 Grid.Row="3"
                                 Grid.Column="1"
                                 x:Name="MemberNo" 
                                 Text="" 
-                                VerticalOptions="Center" 
-                                StyleClass="page_account"
+                                Style="{StaticResource Page_Base}"
                             />
 
                             <!-- 会員名 -->
@@ -137,16 +128,14 @@
                                 Grid.Column="0"
                                 x:Name="lbl_MemberName"
                                 Text="会員名" 
-                                VerticalOptions="Center" 
-                                StyleClass="page_account"
+                                Style="{StaticResource Page_Base}"
                             />
                             <Label
                                 Grid.Row="4"
                                 Grid.Column="1"
                                 x:Name="MemberName" 
                                 Text="" 
-                                VerticalOptions="Center" 
-                                StyleClass="page_account"
+                                Style="{StaticResource Page_Base}"
                             />
 
                             <!-- 会員種別 -->
@@ -155,16 +144,14 @@
                                 Grid.Column="0"
                                 Text="会員種別" 
                                 x:Name="lbl_TypeName"
-                                VerticalOptions="Center" 
-                                StyleClass="page_account"
+                                Style="{StaticResource Page_Base}"
                             />
                             <Label
                                 Grid.Row="5"
                                 Grid.Column="1"
                                 x:Name="TypeName" 
                                 Text="正会員" 
-                                VerticalOptions="Center" 
-                                StyleClass="page_account"
+                                Style="{StaticResource Page_Base}"
                             />
                             
                             <!-- 入会日 -->
@@ -173,16 +160,14 @@
                                 Grid.Column="0"
                                 Text="入会日" 
                                 x:Name="lbl_JoinDate"
-                                VerticalOptions="Center" 
-                                StyleClass="page_account"
+                                Style="{StaticResource Page_Base}"
                             />
                             <Label
                                 Grid.Row="6"
                                 Grid.Column="1"
                                 x:Name="JoinDate" 
                                 Text="" 
-                                VerticalOptions="Center" 
-                                StyleClass="page_account"
+                                Style="{StaticResource Page_Base}"
                             />
 
                             <!-- 性別 -->
@@ -191,16 +176,14 @@
                                 Grid.Column="0"
                                 Text="性別" 
                                 x:Name="lbl_Sex"
-                                VerticalOptions="Center" 
-                                StyleClass="page_account"
+                                Style="{StaticResource Page_Base}"
                             />
                             <Label
                                 Grid.Row="6"
                                 Grid.Column="1"
                                 x:Name="Sex" 
                                 Text="" 
-                                VerticalOptions="Center" 
-                                StyleClass="page_account"
+                                Style="{StaticResource Page_Base}"
                             />
                             
                         </Grid>
@@ -226,19 +209,14 @@
                                 Grid.Column="0"
                                 x:Name="lbl_cabnet"
                                 Text="＜地区役員、クラブ役職・委員会＞" 
-                                TextColor="#2E2E2E"
-                                Background="#FFF"
-                                HorizontalTextAlignment="Center"
-                                VerticalTextAlignment="Center"
-                                Margin="4"
+                                Style="{StaticResource Page_Base_Center}"
                             />
                             <Label
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 x:Name="Cabinet"
                                 Text="" 
-                                VerticalOptions="Center" 
-                                StyleClass="page_account"
+                                Style="{StaticResource Page_Base}"
                             />
 
                         </Grid>

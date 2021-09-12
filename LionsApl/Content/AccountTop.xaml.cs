@@ -22,12 +22,6 @@ namespace LionsApl.Content
         private string wkCommitteeFlg;          //委員長・副委員長
         private string wkClubDistrictName;      //クラブ役員
 
-
-        // M_CABINET クラス
-        //public ObservableCollection<class_cabinet> _cabinetLt = new ObservableCollection<class_cabinet>();
-
-        //public ObservableCollection<string> Items { get; set; }
-
         public AccountTop()
         {
             InitializeComponent();
