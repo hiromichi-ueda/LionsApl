@@ -16,5 +16,12 @@ namespace LionsApl.Table
         public string DistrictID { get; set; }
         public string MagazineMoney { get; set; }
         public string EventDataDay { get; set; }
+        public string AdminID { get; set; }
+        public string AdminName { get; set; }
+        public string AdminPassWord { get; set; }
+        public string CabinetEmailAddeess { get; set; }
+        public string AdminEmailAddress { get; set; }
+        public string CabinetTelNo { get; set; }
+        public string AdminTelNo { get; set; }
     }
 }

@@ -25,7 +25,6 @@ namespace LionsApl
         public Table.A_SETTING Db_A_Setting;                 // A_SETTINGテーブルクラス
         public Table.A_ACCOUNT Db_A_Account;                 // A_ACCOUNTテーブルクラス
         public Table.A_FILEPATH Db_A_FilePath;               // A_FILEPATHテーブルクラス
-        //public Table.T_SLOGAN  Db_T_Slogan;                // T_SLOGANテーブルクラス
         public List<Table.T_LETTER> DbList_T_Letter = new List<Table.T_LETTER>();   // T_LETTERテーブルクラスリスト
 
 
@@ -133,7 +132,6 @@ namespace LionsApl
                 _ = db.CreateTable<Table.T_MEETINGPROGRAM>();
                 _ = db.CreateTable<Table.T_INFOMATION_CLUB>();
                 _ = db.CreateTable<Table.M_MEMBER>();
-                //_ = db.CreateTable<Table.T_CLUBSLOGAN>();
             }
         }
 
@@ -162,20 +160,6 @@ namespace LionsApl
             {
                 // Create Table
                 db.CreateTable<Table.A_SETTING>();
-            }
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// データベーステーブル作成（M_MEMBER）
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        public void CreateTable_M_MEMBER()
-        {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
-            {
-                // Create Table
-                db.CreateTable<Table.M_MEMBER>();
             }
         }
 
@@ -265,15 +249,15 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// データベーステーブル作成（T_MEETINGSCHEDULE）
+        /// データベーステーブル作成（T_INFOMATION_CABI）
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public void CreateTable_T_MEETINGSCHEDULE()
+        public void CreateTable_T_INFOMATION_CABI()
         {
             using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
             {
                 // Create Table
-                db.CreateTable<Table.T_MEETINGSCHEDULE>();
+                db.CreateTable<Table.T_INFOMATION_CABI>();
             }
         }
 
@@ -347,6 +331,89 @@ namespace LionsApl
             }
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル作成（T_CLUBSLOGAN）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void CreateTable_T_CLUBSLOGAN()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            {
+                // Create Table
+                db.CreateTable<Table.T_CLUBSLOGAN>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル作成（T_MEETINGSCHEDULE）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void CreateTable_T_MEETINGSCHEDULE()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            {
+                // Create Table
+                db.CreateTable<Table.T_MEETINGSCHEDULE>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル作成（T_DIRECTOR）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void CreateTable_T_DIRECTOR()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            {
+                // Create Table
+                db.CreateTable<Table.T_DIRECTOR>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル作成（T_MEETINGPROGRAM）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void CreateTable_T_MEETINGPROGRAM()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            {
+                // Create Table
+                db.CreateTable<Table.T_MEETINGPROGRAM>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル作成（T_INFOMATION_CLUB）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void CreateTable_T_INFOMATION_CLUB()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            {
+                // Create Table
+                db.CreateTable<Table.T_INFOMATION_CLUB>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル作成（M_MEMBER）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void CreateTable_M_MEMBER()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            {
+                // Create Table
+                db.CreateTable<Table.M_MEMBER>();
+            }
+        }
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -413,20 +480,6 @@ namespace LionsApl
             {
                 // Drop Table
                 db.DropTable<Table.A_SETTING>();
-            }
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// データベーステーブル削除（M_MEMBER）
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        public void DropTable_M_MEMBER()
-        {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
-            {
-                // Drop Table
-                db.DropTable<Table.M_MEMBER>();
             }
         }
 
@@ -516,29 +569,15 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// データベーステーブル削除（T_MEETINGSCHEDULE）
+        /// データベーステーブル削除（T_INFOMATION_CABI）
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public void DropTable_T_MEETINGSCHEDULE()
+        public void DropTable_T_INFOMATION_CABI()
         {
             using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
             {
                 // Drop Table
-                db.DropTable<Table.T_MEETINGSCHEDULE>();
-            }
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// データベーステーブル削除（T_MEETINGPROGRAM）
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        public void DropTable_T_MEETINGPROGRAM()
-        {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
-            {
-                // Drop Table
-                db.DropTable<Table.T_MEETINGPROGRAM>();
+                db.DropTable<Table.T_INFOMATION_CABI>();
             }
         }
 
@@ -612,6 +651,91 @@ namespace LionsApl
             }
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル削除（T_CLUBSLOGAN）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void DropTable_T_CLUBSLOGAN()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            {
+                // Drop Table
+                db.DropTable<Table.T_CLUBSLOGAN>();
+            }
+        }
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル削除（T_MEETINGSCHEDULE）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void DropTable_T_MEETINGSCHEDULE()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            {
+                // Drop Table
+                db.DropTable<Table.T_MEETINGSCHEDULE>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル削除（T_DIRECTOR）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void DropTable_T_DIRECTOR()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            {
+                // Drop Table
+                db.DropTable<Table.T_DIRECTOR>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル削除（T_MEETINGPROGRAM）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void DropTable_T_MEETINGPROGRAM()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            {
+                // Drop Table
+                db.DropTable<Table.T_MEETINGPROGRAM>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル削除（T_INFOMATION_CLUB）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void DropTable_T_INFOMATION_CLUB()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            {
+                // Drop Table
+                db.DropTable<Table.T_INFOMATION_CLUB>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル削除（M_MEMBER）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void DropTable_M_MEMBER()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            {
+                // Drop Table
+                db.DropTable<Table.M_MEMBER>();
+            }
+        }
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -668,32 +792,6 @@ namespace LionsApl
             }
 
             return items.Count > 0 ? items.ToArray() : (new Table.A_ACCOUNT[0]);
-
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// M_MEMBERテーブルデータ取得
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        public Table.M_MEMBER[] Get_M_MEMBER(string command)
-        {
-            List<Table.M_MEMBER> items = new List<Table.M_MEMBER>();
-
-            try
-            {
-                // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
-                {   // Select
-                    items = db.Query<Table.M_MEMBER>(command);
-                }
-            }
-            catch
-            {
-                throw;
-            }
-
-            return items.Count > 0 ? items.ToArray() : (new Table.M_MEMBER[0]);
 
         }
 
@@ -855,19 +953,19 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// T_MEETINGSCHEDULEテーブルデータ取得
+        /// T_INFOMATION_CABIテーブルデータ取得
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public Table.T_MEETINGSCHEDULE[] Get_T_MEETINGSCHEDULE(string command)
+        public Table.T_INFOMATION_CABI[] Get_T_INFOMATION_CABI(string command)
         {
-            List<Table.T_MEETINGSCHEDULE> items = new List<Table.T_MEETINGSCHEDULE>();
+            List<Table.T_INFOMATION_CABI> items = new List<Table.T_INFOMATION_CABI>();
 
             try
             {
                 // データ取得
                 using (SQLiteConnection db = new SQLiteConnection(DbPath))
                 {   // Select
-                    items = db.Query<Table.T_MEETINGSCHEDULE>(command);
+                    items = db.Query<Table.T_INFOMATION_CABI>(command);
                 }
             }
             catch
@@ -875,59 +973,7 @@ namespace LionsApl
                 throw;
             }
 
-            return items.Count > 0 ? items.ToArray() : (new Table.T_MEETINGSCHEDULE[0]);
-
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// T_MEETINGPROGRAMテーブルデータ取得
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        public Table.T_MEETINGPROGRAM[] Get_T_MEETINGPROGRAM(string command)
-        {
-            List<Table.T_MEETINGPROGRAM> items = new List<Table.T_MEETINGPROGRAM>();
-
-            try
-            {
-                // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
-                {   // Select
-                    items = db.Query<Table.T_MEETINGPROGRAM>(command);
-                }
-            }
-            catch
-            {
-                throw;
-            }
-
-            return items.Count > 0 ? items.ToArray() : (new Table.T_MEETINGPROGRAM[0]);
-
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// T_DIRECTORテーブルデータ取得
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        public Table.T_DIRECTOR[] Get_T_DIRECTOR(string command)
-        {
-            List<Table.T_DIRECTOR> items = new List<Table.T_DIRECTOR>();
-
-            try
-            {
-                // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
-                {   // Select
-                    items = db.Query<Table.T_DIRECTOR>(command);
-                }
-            }
-            catch
-            {
-                throw;
-            }
-
-            return items.Count > 0 ? items.ToArray() : (new Table.T_DIRECTOR[0]);
+            return items.Count > 0 ? items.ToArray() : (new Table.T_INFOMATION_CABI[0]);
 
         }
 
@@ -980,58 +1026,6 @@ namespace LionsApl
             }
 
             return items.Count > 0 ? items.ToArray() : (new Table.T_MAGAZINEBUY[0]);
-
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// T_INFOMATION_CABIテーブルデータ取得
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        public Table.T_INFOMATION_CABI[] Get_T_INFOMATION_CABI(string command)
-        {
-            List<Table.T_INFOMATION_CABI> items = new List<Table.T_INFOMATION_CABI>();
-
-            try
-            {
-                // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
-                {   // Select
-                    items = db.Query<Table.T_INFOMATION_CABI>(command);
-                }
-            }
-            catch
-            {
-                throw;
-            }
-
-            return items.Count > 0 ? items.ToArray() : (new Table.T_INFOMATION_CABI[0]);
-
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// T_INFOMATION_CLUBテーブルデータ取得
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        public Table.T_INFOMATION_CLUB[] Get_T_INFOMATION_CLUB(string command)
-        {
-            List<Table.T_INFOMATION_CLUB> items = new List<Table.T_INFOMATION_CLUB>();
-
-            try
-            {
-                // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
-                {   // Select
-                    items = db.Query<Table.T_INFOMATION_CLUB>(command);
-                }
-            }
-            catch
-            {
-                throw;
-            }
-
-            return items.Count > 0 ? items.ToArray() : (new Table.T_INFOMATION_CLUB[0]);
 
         }
 
@@ -1112,6 +1106,164 @@ namespace LionsApl
             return items.Count > 0 ? items.ToArray() : (new Table.M_CLUB[0]);
 
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// T_CLUBSLOGANテーブルデータ取得
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.T_CLUBSLOGAN[] Get_T_CLUBSLOGAN(string command)
+        {
+            List<Table.T_CLUBSLOGAN> items = new List<Table.T_CLUBSLOGAN>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                {   // Select
+                    items = db.Query<Table.T_CLUBSLOGAN>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.T_CLUBSLOGAN[0]);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// T_MEETINGSCHEDULEテーブルデータ取得
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.T_MEETINGSCHEDULE[] Get_T_MEETINGSCHEDULE(string command)
+        {
+            List<Table.T_MEETINGSCHEDULE> items = new List<Table.T_MEETINGSCHEDULE>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                {   // Select
+                    items = db.Query<Table.T_MEETINGSCHEDULE>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.T_MEETINGSCHEDULE[0]);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// T_DIRECTORテーブルデータ取得
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.T_DIRECTOR[] Get_T_DIRECTOR(string command)
+        {
+            List<Table.T_DIRECTOR> items = new List<Table.T_DIRECTOR>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                {   // Select
+                    items = db.Query<Table.T_DIRECTOR>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.T_DIRECTOR[0]);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// T_MEETINGPROGRAMテーブルデータ取得
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.T_MEETINGPROGRAM[] Get_T_MEETINGPROGRAM(string command)
+        {
+            List<Table.T_MEETINGPROGRAM> items = new List<Table.T_MEETINGPROGRAM>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                {   // Select
+                    items = db.Query<Table.T_MEETINGPROGRAM>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.T_MEETINGPROGRAM[0]);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// T_INFOMATION_CLUBテーブルデータ取得
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.T_INFOMATION_CLUB[] Get_T_INFOMATION_CLUB(string command)
+        {
+            List<Table.T_INFOMATION_CLUB> items = new List<Table.T_INFOMATION_CLUB>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                {   // Select
+                    items = db.Query<Table.T_INFOMATION_CLUB>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.T_INFOMATION_CLUB[0]);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// M_MEMBERテーブルデータ取得
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.M_MEMBER[] Get_M_MEMBER(string command)
+        {
+            List<Table.M_MEMBER> items = new List<Table.M_MEMBER>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                {   // Select
+                    items = db.Query<Table.M_MEMBER>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.M_MEMBER[0]);
+
+        }
+
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// 複数テーブルからの取得
