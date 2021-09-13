@@ -76,7 +76,7 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetClubSchedule()
         {
-            int WorkDataNo = 0;
+            string WorkDataNo = string.Empty;
             string WorkDate = string.Empty;
             string WorkTitle = string.Empty;
 //            List<ClubScheduleRow> items = new List<ClubScheduleRow>();
@@ -86,9 +86,9 @@ namespace LionsApl.Content
             {
                 foreach (Table.T_MEETINGSCHEDULE row in _sqlite.Get_T_MEETINGSCHEDULE("Select * " +
                                                                     "From T_MEETINGSCHEDULE " +
-                                                                    "ORDER BY MeetingDate DESC, MeetingTime DESC, DataNo DESC"))
+                                                                    "ORDER BY MeetingDate ASC, MeetingTime ASC"))
                 {
-                    WorkDataNo = row.DataNo;
+                    WorkDataNo = row.DataNo.ToString();
                     WorkDate = row.MeetingDate.Substring(0, 10) + "  " + row.MeetingTime;
                     WorkTitle = row.MeetingName;
                     Items.Add(new ClubScheduleRow(WorkDataNo, WorkDate, WorkTitle));
@@ -96,7 +96,7 @@ namespace LionsApl.Content
                 if (Items.Count == 0)
                 {
                     // メッセージ表示のため空行を追加
-                    Items.Add(new ClubScheduleRow(0, WorkDate, WorkTitle));
+                    Items.Add(new ClubScheduleRow(WorkDataNo, WorkDate, WorkTitle));
                 }
                 BindingContext = this;
             }
@@ -114,13 +114,13 @@ namespace LionsApl.Content
     ///////////////////////////////////////////////////////////////////////////////////////////
     public sealed class ClubScheduleRow
     {
-        public ClubScheduleRow(int dataNo, string dateTime, string title)
+        public ClubScheduleRow(string dataNo, string dateTime, string title)
         {
             DataNo = dataNo;
             DateTime = dateTime;
             Title = title;
         }
-        public int DataNo { get; set; }
+        public string DataNo { get; set; }
         public string DateTime { get; set; }
         public string Title { get; set; }
     }

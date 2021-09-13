@@ -21,9 +21,9 @@ namespace LionsApl.Content
         public static String FilePath_Infometion = ((App)Application.Current).FilePath_Infometion;  //連絡事項(CABINET)
 
         // 前画面からの取得情報-
-        private int _DataNo;        // データNo.
+        private string _DataNo;        // データNo.
 
-        public InfomationPage(int dataNo)
+        public InfomationPage(string dataNo)
         {
             InitializeComponent();
 

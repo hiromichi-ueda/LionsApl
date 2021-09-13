@@ -91,7 +91,7 @@
                         Grid.Row="0"
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
-                        Text="{Binding DateTime}" 
+                        Text="{Binding EventDate}" 
                         Style="{StaticResource List_Base_End}"
                     />
                     
@@ -109,7 +109,7 @@
                         Grid.Row="1"
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
-                        Text="{Binding Title}" 
+                        Text="{Binding LetterTitle}" 
                         Style="{StaticResource List_Base_Start}"
                     />
                     

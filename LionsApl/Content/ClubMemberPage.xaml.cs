@@ -40,6 +40,8 @@ namespace LionsApl.Content
             this.Sex.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.lbl_JoinDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.JoinDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_Tel.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.Tel.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.lbl_Obligation.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.Obligation.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
 
@@ -114,6 +116,8 @@ namespace LionsApl.Content
                     //入会日
                     JoinDate.Text = row.JoinDate.Substring(0, 10);
 
+                    //電話番号
+                    Tel.Text = row.Tel;
 
                     // --------------------------
                     // クラブ役職・委員会取得

@@ -50,10 +50,9 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetLetter()
         {
-            int WorkDataNo;
-            string WorkDate = string.Empty;
-            string WorkTitle = string.Empty;
-            //List<LetterRow> items = new List<LetterRow>();
+            string WorkDataNo = string.Empty;
+            string WorkEventDate = string.Empty;
+            string WorkLetterTitle = string.Empty;
             Items = new List<LetterRow>();
 
             try
@@ -62,15 +61,15 @@ namespace LionsApl.Content
                                                                     "From T_LETTER " +
                                                                     "ORDER BY EventDate DESC, EventTime DESC, DataNo DESC"))
                 {
-                    WorkDataNo = row.DataNo;
-                    WorkDate = row.EventDate.Substring(0, 10) + "  " + row.EventTime;
-                    WorkTitle = row.Title;
-                    Items.Add(new LetterRow(WorkDataNo, WorkDate, WorkTitle));
+                    WorkDataNo = row.DataNo.ToString();
+                    WorkEventDate = row.EventDate.Substring(0, 10) + "  " + row.EventTime;
+                    WorkLetterTitle = row.Title;
+                    Items.Add(new LetterRow(WorkDataNo, WorkEventDate, WorkLetterTitle));
                 }
                 if (Items.Count == 0)
                 {
                     // メッセージ表示のため空行を追加
-                    Items.Add(new LetterRow(0, WorkDate, WorkTitle));
+                    Items.Add(new LetterRow(WorkDataNo, WorkEventDate, WorkLetterTitle));
                 }
                 this.BindingContext = this;
             }
@@ -93,14 +92,14 @@ namespace LionsApl.Content
             LetterRow item = e.Item as LetterRow;
 
             // 1件もない(メッセージ行のみ表示している)場合は処理しない
-            if (string.IsNullOrEmpty(item.Title))
+            if (string.IsNullOrEmpty(item.DataNo))
             {
                 ((ListView)sender).SelectedItem = null;
                 return;
             }
 
             // キャビネットレター画面へ
-            Navigation.PushAsync(new LetterPage(item.Title, item.DataNo));
+            Navigation.PushAsync(new LetterPage(item.DataNo));
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
@@ -115,15 +114,15 @@ namespace LionsApl.Content
     ///////////////////////////////////////////////////////////////////////////////////////////
     public sealed class LetterRow
     {
-        public LetterRow(int dataNo, string dateTime, string title)
+        public LetterRow(string dataNo, string eventdate, string lettertitle)
         {
             DataNo = dataNo;
-            DateTime = dateTime;
-            Title = title;
+            EventDate = eventdate;
+            LetterTitle = lettertitle;
         }
-        public int DataNo { get; set; }
-        public string DateTime { get; set; }
-        public string Title { get; set; }
+        public string DataNo { get; set; }
+        public string EventDate { get; set; }
+        public string LetterTitle { get; set; }
     }
 
     public class MyLetterSelector : DataTemplateSelector
@@ -136,7 +135,7 @@ namespace LionsApl.Content
         {
             // 条件より該当するテンプレートを返す
             var info = (LetterRow)item;
-            if (!String.IsNullOrEmpty(info.Title))
+            if (!String.IsNullOrEmpty(info.DataNo))
             {
                 return ExistDataTemplate;
             }
