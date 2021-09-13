@@ -53,22 +53,61 @@ namespace LionsApl.Content
             int wkDataNo;
             string wkAddDate = string.Empty;
             string wkSubject = string.Empty;
+            string wkFlg = string.Empty;
+            bool AddListFlg = false;
+            string[] wkCodeList = null;
             Items = new List<InfomationRow>();
 
             try
             {
-
-
-
-
-                // ログインユーザーが対象の連絡事項が1件もない場合
-                if (Items.Count == 0)
+                // 連絡事項(クラブ)のデータを全件取得
+                foreach (Table.T_INFOMATION_CABI row in _sqlite.Get_T_INFOMATION_CABI(
+                                                                 "SELECT * " +
+                                                                 "FROM T_INFOMATION_CABI " +
+                                                                 "ORDER BY AddDate DESC"))
                 {
-                    // メッセージ表示のため空行を追加
-                    Items.Add(new InfomationRow(0, wkAddDate, wkSubject));
-                }
-                this.BindingContext = this;
+                    // データセット
+                    wkDataNo = row.DataNo;
+                    wkAddDate = row.AddDate.Substring(0, 10);
+                    wkSubject = row.Subject;
+                    wkFlg = row.InfoFlg;
 
+                    if (wkFlg == "1")
+                    {
+                        //全員対象
+                        AddListFlg = true;
+                        break;
+                    }
+                    else
+                    {
+                        //個別選択
+                        wkCodeList = row.InfoUser.Split(',');
+                        foreach (string code in wkCodeList)
+                        {
+                            // 連絡者(会員番号)を条件にログインユーザーが対象か判定
+                            if (_sqlite.Db_A_Account.MemberCode.Equals(code))
+                            {
+                                AddListFlg = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    // 対象の場合データセット
+                    if (AddListFlg)
+                    {
+                        Items.Add(new InfomationRow(wkDataNo, wkAddDate, wkSubject));
+                    }
+                        
+
+                    // ログインユーザーが対象の連絡事項が1件もない場合
+                    if (Items.Count == 0)
+                    {
+                        // メッセージ表示のため空行を追加
+                        Items.Add(new InfomationRow(0, wkAddDate, wkSubject));
+                    }
+                    this.BindingContext = this;
+                }
             }
             catch (Exception ex)
             {

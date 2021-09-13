@@ -27,6 +27,14 @@ namespace LionsApl.Content
         {
             InitializeComponent();
 
+            // font-size
+            this.lbl_AddDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.AddDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_Subject.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.Subject.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_Detail.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.Detail.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+
             // 一覧から取得(データ№)
             _DataNo = dataNo;
 
@@ -107,7 +115,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(T_INFOMATION_CABI) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(T_INFOMATION) : &{ex.Message}", "OK");
             }
         }
 
