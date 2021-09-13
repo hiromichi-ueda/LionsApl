@@ -1326,7 +1326,7 @@ namespace LionsApl
         /// CLUB_MPROG(T_MEETINGPROGRAM/T_MEETINGSCHEDULE)テーブルデータ取得
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public Table.CLUB_MPROG[] CLUB_MPROG(string command)
+        public Table.CLUB_MPROG[] Get_CLUB_MPROG(string command)
         {
             List<Table.CLUB_MPROG> items = new List<Table.CLUB_MPROG>();
 

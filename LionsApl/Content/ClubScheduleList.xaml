@@ -18,7 +18,7 @@
     <StackLayout>
         <ListView 
             x:Name="ClubScheduleListView"
-            ItemTapped="List_Tapped"
+            ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement"
             RowHeight="68"
             HasUnevenRows="True"

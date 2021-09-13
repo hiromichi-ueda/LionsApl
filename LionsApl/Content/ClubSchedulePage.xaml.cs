@@ -35,11 +35,11 @@ namespace LionsApl.Content
             // 一覧から取得
             _DataNo = dataNo;
 
-            // SQLite マネージャークラス生成
-            _sqlite = SQLiteManager.GetInstance();
-
             // Content Utilクラス生成
             _contUtl = new ContentUtil();
+
+            // SQLite マネージャークラス生成
+            _sqlite = SQLiteManager.GetInstance();
 
             // A_SETTINGデータ取得
             _sqlite.SetSetting();
