@@ -203,7 +203,9 @@ namespace LionsApl.Content
                     {
                         ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
                                             $"{row.Id}, {row.DistrictCode}, {row.DistrictName}, {row.CabinetName},\r\n" +
-                                            $"{row.PeriodStart}, {row.PeriodEnd}, {row.DistrictID}, {row.MagazineMoney}, {row.EventDataDay}\r\n";
+                                            $"{row.PeriodStart}, {row.PeriodEnd}, {row.DistrictID}, {row.MagazineMoney}, {row.EventDataDay},\r\n" +
+                                            $"{row.AdminID}, {row.AdminName}, {row.AdminPassWord},\r\n" +
+                                            $"{row.CabinetEmailAddeess}, {row.AdminEmailAddress}, {row.CabinetTelNo}, {row.AdminTelNo},\r\n";
                     }
                 }
             }
@@ -772,7 +774,20 @@ namespace LionsApl.Content
                     {
                         ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
                                             $"{row.Id}, {row.Region}, {row.Zone}, {row.ClubCode}, {row.ClubNameShort},\r\n" +
-                                            $"{row.MemberCode}, {row.MemberFirstName}, {row.MemberLastName}, {row.MemberNameKana}\r\n";
+                                            $"{row.MemberCode}, {row.MemberFirstName}, {row.MemberLastName}, {row.MemberNameKana}\r\n" +
+                                            $"{row.TypeCode},{row.TypeName},{row.Sex},{row.Tel},\r\n" +
+                                            $"{row.JoinDate},{row.LeaveDate},{row.LeaveFlg},{row.AccountDate},\r\n" +
+                                            $"{row.ExecutiveCode},{row.ExecutiveName},{row.ExecutiveCode1},{row.ExecutiveName1},\r\n" +
+                                            $"{row.CommitteeCode},{row.CommitteeName},{row.CommitteeFlg},\r\n" +
+                                            $"{row.CommitteeCode1},{row.CommitteeName1},{row.CommitteeFlg1},\r\n" +
+                                            $"{row.CommitteeCode2},{row.CommitteeName2},{row.CommitteeFlg2},\r\n" +
+                                            $"{row.CommitteeCode3},{row.CommitteeName3},{row.CommitteeFlg3},\r\n" +
+                                            $"{row.J_ExecutiveCode},{row.J_ExecutiveName},\r\n" +
+                                            $"{row.J_ExecutiveCode1},{row.J_ExecutiveName1},\r\n" +
+                                            $"{row.J_CommitteeCode},{row.J_CommitteeName},{row.J_CommitteeFlg},\r\n" +
+                                            $"{row.J_CommitteeCode1},{row.J_CommitteeName1},{row.J_CommitteeFlg1},\r\n" +
+                                            $"{row.J_CommitteeCode2},{row.J_CommitteeName2},{row.J_CommitteeFlg2},\r\n" +
+                                            $"{row.J_CommitteeCode3},{row.J_CommitteeName3},{row.J_CommitteeFlg3},\r\n";
                     }
                 }
             }

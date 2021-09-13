@@ -19,6 +19,7 @@ namespace LionsApl.Table
         public string TypeCode { get; set; }
         public string TypeName { get; set; }
         public string Sex { get; set; }
+        public string Tel { get; set; }
         public string JoinDate { get; set; }
         public string LeaveDate { get; set; }
         public string LeaveFlg { get; set; }
