@@ -117,7 +117,9 @@ namespace LionsApl.Content
                     {
                         // WebViewの高さ消す
                         this.grid.HeightRequest = 0;
-                        lbl_FileName.Text = "連絡事項―添付ファイルなし";
+                        this.FileName.IsVisible = false;
+                        lbl_FileName.Text = "";
+                        //lbl_FileName.Text = "連絡事項―添付ファイルなし";
                     }
 
                 }
