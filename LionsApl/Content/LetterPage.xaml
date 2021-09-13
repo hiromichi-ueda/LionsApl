@@ -67,7 +67,7 @@
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="1"
-                                x:Name="DateLabel" 
+                                x:Name="EventDate" 
                                 Text=""
                                 Style="{StaticResource Page_Base}"
                              />
@@ -76,14 +76,14 @@
                             <Label 
                                 Grid.Row="1"
                                 Grid.Column="0"
-                                x:Name="lbl_Title" 
+                                x:Name="lbl_Subject" 
                                 Text="タイトル"
                                 Style="{StaticResource Page_Base}"
                              />
                             <Label 
                                 Grid.Row="1"
                                 Grid.Column="1"
-                                x:Name="TitleLabel" 
+                                x:Name="Subject" 
                                 Text=""
                                 Style="{StaticResource Page_HeightFree}"
                              />
@@ -93,7 +93,7 @@
                                 Grid.Row="2"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2"
-                                x:Name="BodyLabel" 
+                                x:Name="Body" 
                                 Text=""
                                 Style="{StaticResource Page_HeightFree}"
                              />

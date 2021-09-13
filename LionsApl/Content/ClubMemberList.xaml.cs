@@ -95,7 +95,7 @@ namespace LionsApl.Content
             ClubMemberRow item = e.Item as ClubMemberRow;
 
             // 1件もない(メッセージ行のみ表示している)場合は処理しない
-            if (string.IsNullOrEmpty(item.MemberName))
+            if (string.IsNullOrEmpty(item.MemberCode))
             {
                 ((ListView)sender).SelectedItem = null;
                 return;

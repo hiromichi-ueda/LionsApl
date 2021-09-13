@@ -21,9 +21,9 @@ namespace LionsApl.Content
         public static String FilePath_ClubInfometion = ((App)Application.Current).FilePath_ClubInfometion;  //連絡事項(CLUB)
 
         // 前画面からの取得情報
-        private int _DataNo;
+        private string _DataNo;
 
-        public ClubInfomationPage(int datano)
+        public ClubInfomationPage(string datano)
         {
             InitializeComponent();
 

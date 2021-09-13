@@ -50,7 +50,7 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetInfomation() 
         {
-            int wkDataNo;
+            string wkDataNo = string.Empty;
             string wkAddDate = string.Empty;
             string wkSubject = string.Empty;
             string wkFlg = string.Empty;
@@ -67,7 +67,7 @@ namespace LionsApl.Content
                                                                  "ORDER BY AddDate DESC"))
                 {
                     // データセット
-                    wkDataNo = row.DataNo;
+                    wkDataNo = row.DataNo.ToString();
                     wkAddDate = row.AddDate.Substring(0, 10);
                     wkSubject = row.Subject;
                     wkFlg = row.InfoFlg;
@@ -104,7 +104,7 @@ namespace LionsApl.Content
                     if (Items.Count == 0)
                     {
                         // メッセージ表示のため空行を追加
-                        Items.Add(new InfomationRow(0, wkAddDate, wkSubject));
+                        Items.Add(new InfomationRow(wkDataNo, wkAddDate, wkSubject));
                     }
                     this.BindingContext = this;
                 }
@@ -128,7 +128,7 @@ namespace LionsApl.Content
             InfomationRow item = e.Item as InfomationRow;
 
             // 連絡事項が1件もない(メッセージ行のみ表示している)場合は処理しない
-            if (string.IsNullOrEmpty(item.AddDate))
+            if (string.IsNullOrEmpty(item.DataNo))
             {
                 ((ListView)sender).SelectedItem = null;
                 return;
@@ -145,13 +145,13 @@ namespace LionsApl.Content
 
     public sealed class InfomationRow
     {
-        public InfomationRow(int datano, string addDate, string subject)
+        public InfomationRow(string datano, string addDate, string subject)
         {
             DataNo = datano;
             AddDate = addDate;
             Subject = subject;
         }
-        public int DataNo { get; set; }
+        public string DataNo { get; set; }
         public string AddDate { get; set; }
         public string Subject { get; set; }
     }
@@ -166,7 +166,7 @@ namespace LionsApl.Content
         {
             // 条件より該当するテンプレートを返す
             var info = (InfomationRow)item;
-            if (!String.IsNullOrEmpty(info.AddDate))
+            if (!String.IsNullOrEmpty(info.DataNo))
             {
                 return ExistDataTemplate;
             }

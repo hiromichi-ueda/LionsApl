@@ -48,6 +48,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -134,6 +135,22 @@
                                 Style="{StaticResource Page_Base}"
                              />
 
+                            <!-- 電話番号 -->
+                            <Label 
+                                Grid.Row="5"
+                                Grid.Column="0"
+                                x:Name="lbl_Tel"
+                                Text="電話番号"
+                                Style="{StaticResource Page_Base}"
+                             />
+                            <Label 
+                                Grid.Row="5"
+                                Grid.Column="1"
+                                x:Name="Tel" 
+                                Text=""
+                                Style="{StaticResource Page_Base}"
+                             />
+                            
                         </Grid>
                     </StackLayout>
 

@@ -62,7 +62,7 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetMagazine()
         {
-            int WorkDataNo;
+            string WorkDataNo = string.Empty;
             string WorkMagazine = string.Empty;
             int WorkMagazineDataNo;
             string WorkBuy = string.Empty;
@@ -78,7 +78,7 @@ namespace LionsApl.Content
                                                                               "ON TM.DataNo = TMB.MagazineDataNo " +
                                                                               "ORDER BY TM.SortNo DESC"))
                 {
-                    WorkDataNo = row.DataNo;
+                    WorkDataNo = row.DataNo.ToString();
                     WorkMagazine = row.Magazine;
                     WorkMagazineDataNo = row.MagazineDataNo;
                     if(WorkMagazineDataNo != 0)
@@ -166,13 +166,13 @@ namespace LionsApl.Content
     ///////////////////////////////////////////////////////////////////////////////////////////
     public sealed class MagazineListRow
     {
-        public MagazineListRow(int dataNo, string magazine, string magazineBuy)
+        public MagazineListRow(string dataNo, string magazine, string magazineBuy)
         {
             DataNo = dataNo;
             Magazine = magazine;
             MagazineBuy = magazineBuy;
         }
-        public int DataNo { get; set; }
+        public string DataNo { get; set; }
         public string Magazine { get; set; }
         public string MagazineBuy { get; set; }
     }
@@ -184,13 +184,14 @@ namespace LionsApl.Content
     ///////////////////////////////////////////////////////////////////////////////////////////
     public class CMagazinePicker
     {
-        public int DataNo { get; set; }
-        public string Name { get; set; }
         public CMagazinePicker(int dataNo, string name)
         {
             DataNo = dataNo;
             Name = name;
         }
+        public int DataNo { get; set; }
+        public string Name { get; set; }
+        
     }
 
 }

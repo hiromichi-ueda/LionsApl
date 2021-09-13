@@ -21,25 +21,25 @@ namespace LionsApl.Content
         public static String FilePath_Letter = ((App)Application.Current).FilePath_Letter;          //連絡事項(CLUB)
 
         // 前画面からの取得情報-
-        private string _titleName;  // タイトル 
-        private int _DataNo;        // データNo.
+        //private string _titleName;      // タイトル 
+        private string _DataNo;        // データNo.
 
-        public LetterPage(string title, int dataNo)
+        public LetterPage(string dataNo)
         {
             InitializeComponent();
 
             // font-size
             this.lbl_EventDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            this.DateLabel.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            this.lbl_Title.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            this.TitleLabel.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            this.BodyLabel.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.EventDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.lbl_Subject.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.Subject.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.Body.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
 
 
-            _titleName = title;
+            //_titleName = title;
             _DataNo = dataNo;
 
-            TitleLabel.Text = _titleName;
+            //TitleLabel.Text = _titleName;
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
@@ -81,8 +81,9 @@ namespace LionsApl.Content
                                                                     "From T_LETTER " +
                                                                     "Where DataNo='" + _DataNo + "'"))
                 {
-                    DateLabel.Text = row.EventDate.Substring(0, 10) + " " + row.EventTime;
-                    BodyLabel.Text = row.Body;
+                    EventDate.Text = row.EventDate.Substring(0, 10) + " " + row.EventTime;
+                    Subject.Text = row.Title;
+                    Body.Text = row.Body;
 
                     //画像ファイル①
                     if (row.Image1FileName != null)

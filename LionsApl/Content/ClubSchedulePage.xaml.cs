@@ -22,13 +22,13 @@ namespace LionsApl.Content
         private ContentUtil _contUtl;
 
         // 年間例会スケジュールのデータNo.
-        private int _DataNo;
+        private string _DataNo;
 
         // 表示定数
         private readonly string CancelStr = "中止";
         private readonly string OnlineStr = "　※オンライン例会";
 
-        public ClubSchedulePage(int dataNo)
+        public ClubSchedulePage(string dataNo)
         {
             InitializeComponent();
 

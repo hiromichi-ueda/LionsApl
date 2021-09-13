@@ -50,7 +50,7 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetClubInfomation()
         {
-            int wkDataNo;
+            string wkDataNo = string.Empty;
             string WorkTypeCode = string.Empty;
             string WorkClubCode = string.Empty;
             string WorkDate = string.Empty;
@@ -82,7 +82,7 @@ namespace LionsApl.Content
                     WorkFlg = row.InfoFlg;
 
                     // データ№
-                    wkDataNo = row.DataNo;
+                    wkDataNo = row.DataNo.ToString();
 
                     // 全会員の場合
                     if (WorkFlg == "1")
@@ -128,7 +128,7 @@ namespace LionsApl.Content
                 if (Items.Count == 0)
                 {
                     // メッセージ表示のため空行を追加
-                    Items.Add(new ClubInfomationRow(0, WorkClubCode, WorkDate, WorkSubject));
+                    Items.Add(new ClubInfomationRow(wkDataNo, WorkClubCode, WorkDate, WorkSubject));
                 }
                 this.BindingContext = this;
             }
@@ -168,14 +168,14 @@ namespace LionsApl.Content
 
     public sealed class ClubInfomationRow
     {
-        public ClubInfomationRow(int datano, string clubCode, string addDate, string subject)
+        public ClubInfomationRow(string datano, string clubCode, string addDate, string subject)
         {
             DataNo = datano;
             ClubCode = clubCode;
             AddDate = addDate;
             Subject = subject;
         }
-        public int DataNo { get; set; }
+        public string DataNo { get; set; }
         public string ClubCode { get; set; }
         public string AddDate { get; set; }
         public string Subject { get; set; }
@@ -191,7 +191,7 @@ namespace LionsApl.Content
         {
             // 条件より該当するテンプレートを返す
             var info = (ClubInfomationRow)item;
-            if (!String.IsNullOrEmpty(info.ClubCode)){
+            if (!String.IsNullOrEmpty(info.DataNo)){
                 return ExistDataTemplate;
             }
             else

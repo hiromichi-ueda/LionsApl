@@ -72,9 +72,9 @@ namespace LionsApl.Content
         {
 
             // 変数宣言
-            string wkMemberNo;              //会員番号
-            string wkMemberName;            //会員名設定
-            string wkSex;                   //性別
+            string wkMemberNo = string.Empty;              //会員番号
+            string wkMemberName = string.Empty;            //会員名設定
+            string wkSex = string.Empty;                   //性別
            
             // 会員番号、会員名設定
             wkMemberNo = _sqlite.Db_A_Account.MemberCode;
