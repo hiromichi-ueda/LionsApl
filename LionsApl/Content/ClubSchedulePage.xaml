@@ -112,7 +112,7 @@
                                     Grid.ColumnSpan="2"
                                     x:Name="MeetingName" 
                                     Text=""
-                                    Style="{StaticResource Page_Base}"
+                                    Style="{StaticResource Page_HeightFree}"
                                  />
 
                                 <!-- 会場 -->
@@ -128,7 +128,7 @@
                                     Grid.ColumnSpan="2"
                                     x:Name="MeetingPlace" 
                                     Text=""
-                                    Style="{StaticResource Page_Base}"
+                                    Style="{StaticResource Page_HeightFree}"
                                  />
 
                                 <!-- 備考 -->

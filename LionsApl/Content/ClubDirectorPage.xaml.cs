@@ -16,21 +16,23 @@ namespace LionsApl.Content
         private SQLiteManager _sqlite;
 
         // 対象データNo.
-        private int _DataNo;
+        private string _DataNo;
+
         // 対象EbentRetデータ
         private Table.T_EVENTRET _EventRet = null;
 
-        public ClubDirectorPage(int dataNo)
+        public ClubDirectorPage(string dataNo)
         {
             InitializeComponent();
 
             // font-size
-            DirectorTitle.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             lbl_EventDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             EventDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             Cancel.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             lbl_Season.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             Season.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            lbl_EventClass.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            EventClass.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             lbl_EventPlace.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             EventPlace.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             lbl_Agenda.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
@@ -59,9 +61,6 @@ namespace LionsApl.Content
             // 理事・委員会情報を取得する。
             GetDirectorInfo();
 
-            // イベント出欠情報を取得する。
-            GetEventRetInfo();
-
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -76,6 +75,7 @@ namespace LionsApl.Content
 
             string eventDate = string.Empty;        // 開催日
             string seasonFlg = string.Empty;        // シーズン区分
+            string eventFlg = string.Empty;         // 区分
             string cancelFlg = string.Empty;        // 中止フラグ
             string agendaStr = string.Empty;        // 議題・内容
 
@@ -86,19 +86,9 @@ namespace LionsApl.Content
                                                                         "From T_DIRECTOR " +
                                                                         "Where DataNo = '" + _DataNo + "'"))
                 {
-                    // 出欠タイトル
-                    if (TUtl.GetString(row.EventClass) == "1")
-                    {
-                        DirectorTitle.Text = "理事会出欠の確認";
-                    }
-                    else
-                    {
-                        DirectorTitle.Text = "委員会出欠の確認";
-                    }
 
                     // 中止
                     cancelFlg = TUtl.GetString(row.CancelFlg);
-                    //cancelFlg = "1";
                     if (cancelFlg == "1")
                     {
                         Cancel.Text = "中止";
@@ -108,7 +98,7 @@ namespace LionsApl.Content
                     eventDate = TUtl.GetString(row.EventDate).Substring(0, 10) + " " + TUtl.GetString(row.EventTime);
                     EventDate.Text = eventDate;
 
-                    // 区分
+                    // シーズン区分
                     seasonFlg = TUtl.GetString(row.Season);
                     if (seasonFlg == "1")
                     {
@@ -119,8 +109,22 @@ namespace LionsApl.Content
                         Season.Text = "次期";
                     }
 
+                    // 区分
+                    eventFlg = TUtl.GetString(row.EventClass);
+                    if (eventFlg == "1")
+                    {
+                        EventClass.Text = "理事会";
+                    }
+                    else if (eventFlg == "2")
+                    {
+                        EventClass.Text = TUtl.GetString(row.CommitteeName);
+                    }
+
                     // 開催場所
                     EventPlace.Text = TUtl.GetString(row.EventPlace);
+
+                    // 件名
+                    Subject.Text = TUtl.GetString(row.Subject);
 
                     // 議題・内容
                     //agendaStr = $"テスト用文字列\rテスト用文字列\nテスト用文字列\r\nテスト用文字列{Environment.NewLine}テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列";
@@ -138,67 +142,6 @@ namespace LionsApl.Content
                 DisplayAlert("Alert", $"SQLite検索エラー(T_DIRECTOR) : &{ex.Message}", "OK");
             }
         }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// イベント出欠を取得する。
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        private void GetEventRetInfo()
-        {
-            //Table.TableUtil Util = new Table.TableUtil();
-            int wDataNo;
-
-            // 会員情報取得
-            try
-            {
-                foreach (Table.T_EVENTRET row in _sqlite.Get_T_EVENTRET("Select * " +
-                                                                        "From T_EVENTRET " +
-                                                                        "Where " +
-                                                                        "EventClass = '3' AND " +
-                                                                        "EventDataNo = '" + _DataNo + "'"))
-                {
-                    _EventRet = row;
-                    wDataNo = _EventRet.DataNo;
-                }
-                if (_EventRet == null)
-                {
-                    DisplayAlert("理事・委員会", "イベント情報がありません。", "OK");
-                    btn_attendance.IsEnabled = false;
-                    btn_absence.IsEnabled = false;
-                }
-            }
-            catch (Exception ex)
-            {
-                DisplayAlert("Alert", $"SQLite検索エラー(T_EVENTRET) : &{ex.Message}", "OK");
-            }
-        }
-
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// 出席ボタン押下
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        private void Attendance_Button_Clicked(object sender, System.EventArgs e)
-        {
-            DisplayAlert("Alert", "出席", "OK");
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// 欠席ボタン押下
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        private void Absence_Button_Clicked(object sender, System.EventArgs e)
-        {
-            DisplayAlert("Alert", "欠席", "OK");
-        }
-
 
     }
 }
