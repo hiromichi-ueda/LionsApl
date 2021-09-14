@@ -192,47 +192,24 @@ namespace LionsApl.Content
                         wkFileName4 != string.Empty ||
                         wkFileName5 != string.Empty)
                     {
+                        // 添付ファイルの表示情報を設定する
+                        SetAttachFileInfo(wkDataNo, wkClubCode, wkFileName, ref FileName, ref lbl_FileName, ref grd_FileName);
 
-                        if (wkFileName != string.Empty)
-                        {
-                            // WebViewにファイルのURLを設定する
-                            lbl_FileName.Text = SetFileUrl(wkDataNo, wkClubCode, wkFileName, ref FileName);
-                            lbl_FileName.HeightRequest = 0;    //非表示設定
-                        }
-                        if (wkFileName1 != string.Empty)
-                        {
-                            // WebViewにファイルのURLを設定する
-                            lbl_FileName1.Text = SetFileUrl(wkDataNo, wkClubCode, wkFileName1, ref FileName1);
-                            lbl_FileName1.HeightRequest = 0;    //非表示設定
-                        }
+                        // 添付ファイル1の表示情報を設定する
+                        SetAttachFileInfo(wkDataNo, wkClubCode, wkFileName1, ref FileName1, ref lbl_FileName1, ref grd_FileName1);
 
-                        if (wkFileName2 != string.Empty)
-                        {
-                            // WebViewにファイルのURLを設定する
-                            lbl_FileName2.Text = SetFileUrl(wkDataNo, wkClubCode, wkFileName2, ref FileName2);
-                            lbl_FileName2.HeightRequest = 0;    //非表示設定
-                        }
+                        // 添付ファイル2の表示情報を設定する
+                        SetAttachFileInfo(wkDataNo, wkClubCode, wkFileName2, ref FileName2, ref lbl_FileName2, ref grd_FileName2);
 
-                        if (wkFileName3 != string.Empty)
-                        {
-                            // WebViewにファイルのURLを設定する
-                            lbl_FileName3.Text = SetFileUrl(wkDataNo, wkClubCode, wkFileName3, ref FileName3);
-                            lbl_FileName3.HeightRequest = 0;    //非表示設定
-                        }
+                        // 添付ファイル3の表示情報を設定する
+                        SetAttachFileInfo(wkDataNo, wkClubCode, wkFileName3, ref FileName3, ref lbl_FileName3, ref grd_FileName3);
 
-                        if (wkFileName4 != string.Empty)
-                        {
-                            // WebViewにファイルのURLを設定する
-                            lbl_FileName4.Text = SetFileUrl(wkDataNo, wkClubCode, wkFileName4, ref FileName4);
-                            lbl_FileName4.HeightRequest = 0;    //非表示設定
-                        }
+                        // 添付ファイル4の表示情報を設定する
+                        SetAttachFileInfo(wkDataNo, wkClubCode, wkFileName4, ref FileName4, ref lbl_FileName4, ref grd_FileName4);
 
-                        if (wkFileName5 != string.Empty)
-                        {
-                            // WebViewにファイルのURLを設定する
-                            lbl_FileName5.Text = SetFileUrl(wkDataNo, wkClubCode, wkFileName5, ref FileName5);
-                            lbl_FileName5.HeightRequest = 0;    //非表示設定
-                        }
+                        // 添付ファイル5の表示情報を設定する
+                        SetAttachFileInfo(wkDataNo, wkClubCode, wkFileName5, ref FileName5, ref lbl_FileName5, ref grd_FileName5);
+
                     }
                 }
             }
@@ -243,7 +220,32 @@ namespace LionsApl.Content
 
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
 
+        /// <summary>
+        /// 添付ファイルの表示情報を設定する
+        /// </summary>
+        /// <param name="dataNo">DataNo</param>
+        /// <param name="clubCode">ClubCode</param>
+        /// <param name="fileName">FileName</param>
+        /// <param name="webView">WebView</param>
+        /// <param name="label">Label</param>
+        private void SetAttachFileInfo(int dataNo, string clubCode, string fileName, ref WebView webView, ref Label label, ref RowDefinition rowDef)
+        {
+            if (fileName != string.Empty)
+            {
+                // WebViewにファイルのURLを設定する
+                lbl_FileName.Text = SetFileUrl(dataNo, clubCode, fileName, ref webView);
+            }
+            else
+            {
+                webView.HeightRequest = 0.0;    //非表示設定
+                rowDef.Height = 0.0;            //非表示設定
+            }
+            label.HeightRequest = 0.0;    //非表示設定
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// WebViewにiOS/Android別のURLを設定する。
         /// </summary>
@@ -252,6 +254,7 @@ namespace LionsApl.Content
         /// <param name="fileName">FileName</param>
         /// <param name="webView">WebViwe</param>
         /// <returns></returns>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         private string SetFileUrl(int dataNo, string clubCode, string fileName, ref WebView webView)
         {
 
