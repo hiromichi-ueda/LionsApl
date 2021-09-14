@@ -180,8 +180,12 @@
                     </StackLayout>
 
                     <!-- 添付ファイル -->
-                    <StackLayout>
-                        <!--<Grid
+                    <StackLayout 
+                        x:Name="PdfStackLayout"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand"
+                        >
+                        <Grid
                             x:Name="grid"
                             Padding="3"
                             >
@@ -205,7 +209,6 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            --><!-- 添付ファイル名 --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="0"
@@ -215,7 +218,6 @@
                                 VerticalOptions="Center" 
                                 HorizontalTextAlignment="Start" 
                                 />
-                            --><!-- 添付ファイル --><!--
                             <WebView
                                 Grid.Row="1"
                                 Grid.Column="0"
@@ -310,83 +312,8 @@
                                 x:Name="FileName5">
                             </WebView>
 
-                        </Grid>-->
+                        </Grid>
 
-                        <Label 
-                            x:Name="lbl_FileName" 
-                            Text=""
-                            VerticalOptions="Center" 
-                            HorizontalTextAlignment="Start" 
-                            />
-                        <!-- 添付ファイル -->
-                        <WebView
-                            x:Name="FileName"
-                            HorizontalOptions="FillAndExpand"
-                            VerticalOptions="FillAndExpand"
-                            >
-                        </WebView>
-                        <Label 
-                            x:Name="lbl_FileName1" 
-                            Text=""
-                            VerticalOptions="Center" 
-                            HorizontalTextAlignment="Start" 
-                            />
-                        <WebView
-                            x:Name="FileName1"
-                            HorizontalOptions="FillAndExpand"
-                            VerticalOptions="FillAndExpand"
-                            >
-                        </WebView>
-                        <Label 
-                            x:Name="lbl_FileName2" 
-                            Text=""
-                            VerticalOptions="Center" 
-                            HorizontalTextAlignment="Start" 
-                            />
-                        <WebView
-                            x:Name="FileName2"
-                            HorizontalOptions="FillAndExpand"
-                            VerticalOptions="FillAndExpand"
-                            >
-                        </WebView>
-                        <Label 
-                            x:Name="lbl_FileName3" 
-                            Text=""
-                            VerticalOptions="Center" 
-                            HorizontalTextAlignment="Start" 
-                            />
-                        <WebView
-                            x:Name="FileName3"
-                            HorizontalOptions="FillAndExpand"
-                            VerticalOptions="FillAndExpand"
-                            >
-                        </WebView>
-                        <Label 
-                            x:Name="lbl_FileName4" 
-                            Text=""
-                            VerticalOptions="Center" 
-                            HorizontalTextAlignment="Start" 
-                            />
-                        <WebView
-                            x:Name="FileName4"
-                            HorizontalOptions="FillAndExpand"
-                            VerticalOptions="FillAndExpand"
-                            >
-                        </WebView>
-                        <Label 
-                            x:Name="lbl_FileName5" 
-                            Text=""
-                            VerticalOptions="Center" 
-                            HorizontalTextAlignment="Start" 
-                            />
-                        <WebView
-                            x:Name="FileName5"
-                            HorizontalOptions="FillAndExpand"
-                            VerticalOptions="FillAndExpand"
-                            >
-                        </WebView>
-
-                        
                     </StackLayout>
 
                 </StackLayout>

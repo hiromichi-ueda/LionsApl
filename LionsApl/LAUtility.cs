@@ -1,8 +1,11 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Xamarin.Forms;
 
-namespace LionsApl.Content
+namespace LionsApl
 {
-    internal class ContentUtil
+    internal class LAUtility
     {
         public string NLC_OFF = "0";                        // 改行を削除しない。
         public string NLC_ON = "1";                         // 改行を削除する。
@@ -104,12 +107,12 @@ namespace LionsApl.Content
         /// <returns></returns>
         ///////////////////////////////////////////////////////////////////////////////////////////
         public Label CreateLabel_Styleclass(string labelStr,
-                                 NamedSize fontsize, 
-                                 LayoutOptions voption, 
-                                 string styleclass,
-                                 int rowNum,
-                                 int columnNum,
-                                 int columnSpan)
+                                    NamedSize fontsize,
+                                    LayoutOptions voption,
+                                    string styleclass,
+                                    int rowNum,
+                                    int columnNum,
+                                    int columnSpan)
         {
             Label label = new Label
             {
@@ -138,12 +141,12 @@ namespace LionsApl.Content
         /// <returns></returns>
         ///////////////////////////////////////////////////////////////////////////////////////////
         public Label CreateLabel_Style(string labelStr,
-                                 NamedSize fontsize,
-                                 LayoutOptions voption,
-                                 string style,
-                                 int rowNum,
-                                 int columnNum,
-                                 int columnSpan)
+                                    NamedSize fontsize,
+                                    LayoutOptions voption,
+                                    string style,
+                                    int rowNum,
+                                    int columnNum,
+                                    int columnSpan)
         {
             Label label = new Label
             {
