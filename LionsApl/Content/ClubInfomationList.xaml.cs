@@ -60,6 +60,8 @@ namespace LionsApl.Content
             bool AddListFlg = false;
             Items = new List<ClubInfomationRow>();
 
+            Table.TableUtil Util = new Table.TableUtil();
+
             try
             {
                 // 会員マスタよりログインユーザーの会員情報を取得
@@ -69,7 +71,7 @@ namespace LionsApl.Content
                                                                  "WHERE MemberCode = '" + _sqlite.Db_A_Account.MemberCode + "' "))
                 {
                     // 会員種別を保持
-                    WorkTypeCode = row.TypeCode;
+                    WorkTypeCode = Util.GetString(row.TypeCode);
                 }
 
                 // 連絡事項(クラブ)のデータを全件取得
@@ -79,7 +81,7 @@ namespace LionsApl.Content
                                                                  "ORDER BY AddDate DESC"))
                 {
                     AddListFlg = false;
-                    WorkFlg = row.InfoFlg;
+                    WorkFlg = Util.GetString(row.InfoFlg);
 
                     // データ№
                     wkDataNo = row.DataNo.ToString();
@@ -87,7 +89,7 @@ namespace LionsApl.Content
                     // 全会員の場合
                     if (WorkFlg == "1")
                     {
-                        WorkCodeList = row.TypeCode.Split(',');
+                        WorkCodeList = Util.GetString(row.TypeCode).Split(',');
                         foreach (string code in WorkCodeList)
                         {
                             // 会員種別を条件にログインユーザーが対象か判定
@@ -102,7 +104,7 @@ namespace LionsApl.Content
                     // 個別設定の場合
                     else
                     {
-                        WorkCodeList = row.InfoUser.Split(',');
+                        WorkCodeList = Util.GetString(row.InfoUser).Split(',');
                         foreach (string code in WorkCodeList)
                         {
                             // 連絡者(会員番号)を条件にログインユーザーが対象か判定
@@ -117,9 +119,9 @@ namespace LionsApl.Content
                     // ログインユーザーが対象の連絡事項を設定
                     if (AddListFlg)
                     {
-                        WorkClubCode = row.ClubCode;
-                        WorkDate = row.AddDate.Substring(0, 10);
-                        WorkSubject = row.Subject;
+                        WorkClubCode = Util.GetString(row.ClubCode);
+                        WorkDate = Util.GetString(row.AddDate).Substring(0, 10);
+                        WorkSubject = Util.GetString(row.Subject);
                         Items.Add(new ClubInfomationRow(wkDataNo, WorkClubCode, WorkDate, WorkSubject));
                     }
                 }
@@ -151,7 +153,7 @@ namespace LionsApl.Content
             ClubInfomationRow item = e.Item as ClubInfomationRow;
 
             // 連絡事項が1件もない(メッセージ行のみ表示している)場合は処理しない
-            if (string.IsNullOrEmpty(item.ClubCode))
+            if (string.IsNullOrEmpty(item.DataNo))
             {
                 ((ListView)sender).SelectedItem = null;
                 return;

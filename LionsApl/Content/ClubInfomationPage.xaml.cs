@@ -72,6 +72,8 @@ namespace LionsApl.Content
             // 変数宣言
             string wkClubCode;
 
+            Table.TableUtil Util = new Table.TableUtil();
+
             // 連絡事項情報取得
             try
             {
@@ -81,16 +83,16 @@ namespace LionsApl.Content
                 {
 
                     // 各項目情報取得
-                    wkClubCode = row.ClubCode;                      //クラブコード
-                    AddDate.Text = row.AddDate.Substring(0, 10);    //連絡日
-                    Subject.Text = row.Subject;                     //件名
-                    Detail.Text = row.Detail;                       //内容
+                    wkClubCode = Util.GetString(row.ClubCode);                      //クラブコード
+                    AddDate.Text = Util.GetString(row.AddDate).Substring(0, 10);    //連絡日
+                    Subject.Text = Util.GetString(row.Subject);                     //件名
+                    Detail.Text = Util.GetString(row.Detail);                       //内容
 
                     // 添付ファイル
-                    if (row.FileName != null)
+                    if (Util.GetString(row.FileName) != "")
                     {
                         // ファイル表示高さ設定
-                        this.grid.HeightRequest = 800;
+                        this.grid.HeightRequest = 600.0;
 
                         // FILEPATH取得
                         var filepath = _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/").Replace("\r\n", "");
@@ -119,7 +121,6 @@ namespace LionsApl.Content
                         this.grid.HeightRequest = 0;
                         this.FileName.IsVisible = false;
                         lbl_FileName.Text = "";
-                        //lbl_FileName.Text = "連絡事項―添付ファイルなし";
                     }
 
                 }

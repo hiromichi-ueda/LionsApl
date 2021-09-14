@@ -16,9 +16,6 @@ namespace LionsApl.Content
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
-        // ContentUtilクラス
-        private ContentUtil _contUtl;
-
         // リストビュー設定内容
         public List<ClubScheduleRow> Items { get; set; }
 
@@ -31,9 +28,6 @@ namespace LionsApl.Content
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
-
-            // Content Utilクラス生成
-            _contUtl = new ContentUtil();
 
             // A_SETTINGデータ取得
             _sqlite.SetSetting();
@@ -64,7 +58,7 @@ namespace LionsApl.Content
 
             ClubScheduleRow item = e.Item as ClubScheduleRow;
 
-            if (string.IsNullOrEmpty(item.Title))
+            if (string.IsNullOrEmpty(item.DataNo))
             {
                 ((ListView)sender).SelectedItem = null;
                 return;
@@ -100,13 +94,13 @@ namespace LionsApl.Content
                                                                     "ORDER BY MeetingDate ASC, MeetingTime ASC"))
                 {
                     WorkDataNo = row.DataNo.ToString();
-                    WorkDate = row.MeetingDate.Substring(0, 10) + "  " + row.MeetingTime;
+                    WorkDate = Util.GetString(row.MeetingDate).Substring(0, 10) + "  " + Util.GetString(row.MeetingTime);
                     WorkCancel = "";
                     if (Util.GetString(row.CancelFlg) == "1")
                     {
                         WorkCancel = CancelStr;
                     }
-                    WorkTitle = row.MeetingName;
+                    WorkTitle = Util.GetString(row.MeetingName);
                     Items.Add(new ClubScheduleRow(WorkDataNo, WorkDate, WorkCancel, WorkTitle));
                 }
                 if (Items.Count == 0)

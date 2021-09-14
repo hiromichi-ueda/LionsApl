@@ -16,6 +16,7 @@ namespace LionsApl.Content
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
+        // 変数
         private string wkDistrictName;          //地区役員
         private string wkExecutiveName;         //クラブ執行部
         private string wkCommitteeName;         //クラブ委員会
@@ -75,7 +76,9 @@ namespace LionsApl.Content
             string wkMemberNo = string.Empty;              //会員番号
             string wkMemberName = string.Empty;            //会員名設定
             string wkSex = string.Empty;                   //性別
-           
+
+            Table.TableUtil Util = new Table.TableUtil();
+
             // 会員番号、会員名設定
             wkMemberNo = _sqlite.Db_A_Account.MemberCode;
             wkMemberName = _sqlite.Db_A_Account.MemberFirstName + " " + _sqlite.Db_A_Account.MemberLastName;
@@ -86,7 +89,9 @@ namespace LionsApl.Content
             ClubName.Text = _sqlite.Db_A_Account.ClubName;          //クラブ名
             MemberNo.Text = _sqlite.Db_A_Account.MemberCode;        //会員№
             
+            //-----------------------
             // 会員情報取得
+            //-----------------------
             try
             {
                 foreach (Table.M_MEMBER row in _sqlite.Get_M_MEMBER("Select * " +
@@ -94,10 +99,10 @@ namespace LionsApl.Content
                                                                     "Where MemberCode='" + wkMemberNo + "'"))
                 {
                     //入会日
-                    JoinDate.Text = row.JoinDate.Substring(0, 10);
+                    JoinDate.Text = Util.GetString(row.JoinDate).Substring(0, 10);
 
                     //性別
-                    if (row.Sex == "1")
+                    if (Util.GetString(row.Sex) == "1")
                     {
                         wkSex = "男性";
                     } 
@@ -123,75 +128,73 @@ namespace LionsApl.Content
                     wkCommitteeName = "";
 
                     //執行部名
-                    if (row.ExecutiveCode != null)
+                    if (Util.GetString(row.ExecutiveCode) != "")
                     {
-                        wkExecutiveName = row.ExecutiveName;
+                        wkExecutiveName = Util.GetString(row.ExecutiveName);
                     }
 
                     //執行部名(兼務)
-                    if (row.ExecutiveCode1 != null)
+                    if (Util.GetString(row.ExecutiveCode1) != "")
                     {
-                        wkExecutiveName = wkExecutiveName + "\r\n" + row.ExecutiveName1;
+                        wkExecutiveName = wkExecutiveName + "\r\n" + Util.GetString(row.ExecutiveName1);
                     }
-                    //DisplayAlert("Alert", $"{wkExecutiveName}", "OK");
-
+                    
                     //委員会(主)
-                    if (row.CommitteeCode != null)
+                    if (Util.GetString(row.CommitteeCode) != "")
                     {
-                        if(row.CommitteeFlg == "1")
+                        if(Util.GetString(row.CommitteeFlg) == "1")
                         {
                             wkCommitteeFlg = "（委員長）";
                         }
-                        else if (row.CommitteeFlg == "1")
+                        else if (Util.GetString(row.CommitteeFlg) == "1")
                         {
                             wkCommitteeFlg = "（副委員長）";
                         }
-                        wkCommitteeName = row.CommitteeName + wkCommitteeFlg;
+                        wkCommitteeName = Util.GetString(row.CommitteeName) + wkCommitteeFlg;
                     }
 
                     //委員会(兼務1)
-                    if (row.CommitteeCode1 != null)
+                    if (Util.GetString(row.CommitteeCode1) != "")
                     {
-                        if (row.CommitteeFlg1 == "1")
+                        if (Util.GetString(row.CommitteeFlg1) == "1")
                         {
                             wkCommitteeFlg = "（委員長）";
                         }
-                        else if (row.CommitteeFlg1 == "1")
+                        else if (Util.GetString(row.CommitteeFlg1) == "1")
                         {
                             wkCommitteeFlg = "（副委員長）";
                         }
-                        wkCommitteeName = "\r\n" + row.CommitteeName1 + wkCommitteeFlg;
+                        wkCommitteeName = "\r\n" + Util.GetString(row.CommitteeName1) + wkCommitteeFlg;
                     }
 
                     //委員会(兼務2)
-                    if (row.CommitteeCode2 != null)
+                    if (Util.GetString(row.CommitteeCode2) != "")
                     {
-                        if (row.CommitteeFlg2 == "1")
+                        if (Util.GetString(row.CommitteeFlg2) == "1")
                         {
                             wkCommitteeFlg = "（委員長）";
                         }
-                        else if (row.CommitteeFlg2 == "2")
+                        else if (Util.GetString(row.CommitteeFlg2) == "2")
                         {
                             wkCommitteeFlg = "（副委員長）";
                         }
-                        wkCommitteeName = "\r\n" + row.CommitteeName2 + wkCommitteeFlg;
+                        wkCommitteeName = "\r\n" + Util.GetString(row.CommitteeName2) + wkCommitteeFlg;
                     }
 
                     //委員会(兼務3)
-                    if (row.CommitteeCode3 != null)
+                    if (Util.GetString(row.CommitteeCode3) != "")
                     {
                         if (row.CommitteeFlg3 == "1")
                         {
                             wkCommitteeFlg = "（委員長）";
                         }
-                        else if (row.CommitteeFlg3 == "2")
+                        else if (Util.GetString(row.CommitteeFlg3) == "2")
                         {
                             wkCommitteeFlg = "（副委員長）";
                         }
-                        wkCommitteeName = "\r\n" + row.CommitteeName3 + wkCommitteeFlg;
+                        wkCommitteeName = "\r\n" + Util.GetString(row.CommitteeName3) + wkCommitteeFlg;
                     }
-                    //DisplayAlert("Alert", $"{wkCommitteeName}", "OK");
-
+                    
                     // 執行部・委員会生成
                     if (wkExecutiveName != "")
                     {
@@ -208,65 +211,63 @@ namespace LionsApl.Content
                 DisplayAlert("Alert", $"SQLite検索エラー(M_MEMBER) : &{ex.Message}", "OK");
             }
 
+            //-----------------------
             // 地区役職取得
+            //-----------------------
             try
             {
                 foreach (Table.M_CABINET row in _sqlite.Get_M_CABINET("Select * " +
                                                                     "From M_CABINET " +
                                                                     "Where MemberCode='" + wkMemberNo + "'"))
                 {
-
                     //地区役職設定
                     wkDistrictName = "";
-                    if (row.DistrictName != null)
+                    if (Util.GetString(row.DistrictName) != "")
                     {
                         wkDistrictName = row.DistrictName;             //地区役員名
                     }
-                    if (row.DistrictName1 != null)
+                    if (Util.GetString(row.DistrictName1) != "")
                     {
-                        wkDistrictName = wkDistrictName + "\r\n" + row.DistrictName1;   //地区役員名(兼務1)
+                        wkDistrictName = wkDistrictName + "\r\n" + Util.GetString(row.DistrictName1);   //地区役員名(兼務1)
                     }
-                    if (row.DistrictName2 != null)
+                    if (Util.GetString(row.DistrictName2) != "")
                     {
-                        wkDistrictName = wkDistrictName + "\r\n" + row.DistrictName2;   //地区役員名(兼務2)
+                        wkDistrictName = wkDistrictName + "\r\n" + Util.GetString(row.DistrictName2);   //地区役員名(兼務2)
                     }
-                    if (row.DistrictName3 != null)
+                    if (Util.GetString(row.DistrictName3) != "")
                     {
-                        wkDistrictName = wkDistrictName + "\r\n" + row.DistrictName3;   //地区役員名(兼務3)
+                        wkDistrictName = wkDistrictName + "\r\n" + Util.GetString(row.DistrictName3);   //地区役員名(兼務3)
                     }
-                    if (row.DistrictName4 != null)
+                    if (Util.GetString(row.DistrictName4) != "")
                     {
-                        wkDistrictName = wkDistrictName + "\r\n" + row.DistrictName4;   //地区役員名(兼務4)
+                        wkDistrictName = wkDistrictName + "\r\n" + Util.GetString(row.DistrictName4);   //地区役員名(兼務4)
                     }
-                    if (row.DistrictName5 != null)
+                    if (Util.GetString(row.DistrictName5) != "")
                     {
-                        wkDistrictName = wkDistrictName + "\r\n" + row.DistrictName5;   //地区役員名(兼務5)
+                        wkDistrictName = wkDistrictName + "\r\n" + Util.GetString(row.DistrictName5);   //地区役員名(兼務5)
                     }
-                    //DisplayAlert("Alert", $"{wkDistrictName}", "OK");
-
-                    // 画面表示
-                    if (wkDistrictName != "")
-                    {
-                        // 地区役員 + クラブ役員表示
-                        Cabinet.Text = wkDistrictName + "\r\n" + wkClubDistrictName;
-                    }
-                    else
-                    {
-                        // クラブ役員表示
-                        Cabinet.Text = wkClubDistrictName;
-                    }
-                    
-
                 }
+
+                // 画面表示
+                if (wkDistrictName != "")
+                {
+                    // 地区役員 + クラブ役員表示
+                    Cabinet.Text = wkDistrictName + "\r\n" + wkClubDistrictName;
+                }
+                else
+                {
+                    // クラブ役員表示
+                    Cabinet.Text = wkClubDistrictName;
+                }
+
             }
             catch (Exception ex)
             {
                 DisplayAlert("Alert", $"SQLite検索エラー(M_CABINET) : &{ex.Message}", "OK");
             }
 
-
-
         }
+
         //---------------------------------------
         // アカウント設定画面(編集)
         //---------------------------------------

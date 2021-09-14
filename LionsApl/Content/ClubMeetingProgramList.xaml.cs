@@ -50,11 +50,13 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetMeetingProgram()
         {
-            int wkDataNo;
+            string wkDataNo = string.Empty;
             string wkMeetingDate = string.Empty;
             string wkMeetingName = string.Empty;
             string wkMeeting = string.Empty;
             Items = new List<MeetingProgramRow>();
+
+            Table.TableUtil Util = new Table.TableUtil();
 
             try
             {
@@ -77,20 +79,20 @@ namespace LionsApl.Content
                                                                     "t1.ScheduleDataNo = t2.DataNo " +
                                                                 "ORDER BY t2.MeetingDate DESC"))
                 {
-                    wkDataNo = row.DataNo;
-                    if (row.Meeting == "2")
+                    wkDataNo = row.DataNo.ToString();
+                    wkMeeting = "";
+                    if (Util.GetString(row.Meeting) == "2")
                     {
                         wkMeeting = "[オンライン]";
                     }
-                    wkMeetingDate = row.MeetingDate.Substring(0, 10) + "  " + wkMeeting;
-                    wkMeetingName = row.MeetingName;
+                    wkMeetingDate = Util.GetString(row.MeetingDate).Substring(0, 10) + "  " + wkMeeting;
+                    wkMeetingName = Util.GetString(row.MeetingName);
                     Items.Add(new MeetingProgramRow(wkDataNo, wkMeetingDate, wkMeetingName));
                 }
                 if (Items.Count == 0)
                 {
                     // メッセージ表示のため空行を追加
-                    Items.Add(new MeetingProgramRow(0, wkMeetingDate, wkMeetingName));
-                    //DisplayAlert("Alert", $"Data Nothing", "OK");
+                    Items.Add(new MeetingProgramRow(wkDataNo, wkMeetingDate, wkMeetingName));
                 }
                 this.BindingContext = this;
             }
@@ -114,7 +116,7 @@ namespace LionsApl.Content
             MeetingProgramRow item = e.Item as MeetingProgramRow;
 
             // 1件もない(メッセージ行のみ表示している)場合は処理しない
-            if (string.IsNullOrEmpty(item.MeetingName))
+            if (string.IsNullOrEmpty(item.DataNo))
             {
                 ((ListView)sender).SelectedItem = null;
                 return;
@@ -131,13 +133,13 @@ namespace LionsApl.Content
 
     public sealed class MeetingProgramRow
     {
-        public MeetingProgramRow(int datano, string meetingdate, string meetingname)
+        public MeetingProgramRow(string datano, string meetingdate, string meetingname)
         {
             DataNo = datano;
             MeetingDate = meetingdate;
             MeetingName = meetingname;
         }
-        public int DataNo { get; set; }
+        public string DataNo { get; set; }
         public string MeetingDate { get; set; }
         public string MeetingName { get; set; }
     }

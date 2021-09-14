@@ -59,6 +59,8 @@ namespace LionsApl.Content
             string wkCommitteeName;
             List<ClubMemberRow> items = new List<ClubMemberRow>();
 
+            Table.TableUtil Util = new Table.TableUtil();
+
             try
             {
                 foreach (Table.M_MEMBER row in _sqlite.Get_M_MEMBER("Select * " +
@@ -66,10 +68,12 @@ namespace LionsApl.Content
                                                                     "ORDER BY MemberNameKana"))
                 {
                     wkMemberCode = row.MemberCode;
-                    wkJoinDate = row.JoinDate.Substring(0, 10);
-                    wkExecutiveName = row.ExecutiveName;
-                    wkMemberName = row.MemberFirstName + " " + row.MemberLastName + " (" + row.TypeName + ")";
-                    wkCommitteeName = row.CommitteeName;
+                    wkJoinDate = Util.GetString(row.JoinDate).Substring(0, 10);
+                    wkExecutiveName = Util.GetString(row.ExecutiveName);
+                    wkMemberName = Util.GetString(row.MemberFirstName) + " " +
+                                   Util.GetString(row.MemberLastName) + " (" +
+                                   Util.GetString(row.TypeName) + ")";
+                    wkCommitteeName = Util.GetString(row.CommitteeName);
                     items.Add(new ClubMemberRow(wkMemberCode, wkJoinDate, wkExecutiveName, wkMemberName, wkCommitteeName));
                 }
                 ClubMemberListView.ItemsSource = items;

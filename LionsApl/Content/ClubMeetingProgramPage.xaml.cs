@@ -24,7 +24,7 @@ namespace LionsApl.Content
         public static String FilePath_MeetingProgram = ((App)Application.Current).FilePath_MeetingProgram;  //例会プログラム(CLUB)
 
         // 対象データNo.
-        private int _DataNo;
+        private string _DataNo;
 
         // 表示定数
         private readonly string OnlineStr = "オンライン";
@@ -35,7 +35,7 @@ namespace LionsApl.Content
         /// </summary>
         /// <param name="dataNo">DataNo</param>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public ClubMeetingProgramPage(int dataNo)
+        public ClubMeetingProgramPage(string dataNo)
         {
             InitializeComponent();
 
@@ -107,9 +107,6 @@ namespace LionsApl.Content
             // 例会プログラム情報取得
             try
             {
-
-
-
                 foreach (Table.CLUB_MPROG row in _sqlite.Get_CLUB_MPROG(
                                                                 "SELECT " +
                                                                     "t1.DataNo, " +
@@ -124,6 +121,10 @@ namespace LionsApl.Content
                                                                     "t1.FileName4, " +
                                                                     "t1.FileName5, " +
                                                                     "t1.Meeting, " +
+                                                                    "t1.MeetingUrl, " +
+                                                                    "t1.MeetingID, " +
+                                                                    "t1.MeetingPW, " +
+                                                                    "t1.MeetingOther, " +
                                                                     "t2.MeetingDate, " +
                                                                     "t2.MeetingTime, " +
                                                                     "t2.MeetingPlace, " +
