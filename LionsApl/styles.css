@@ -11,7 +11,7 @@
 /* <ContentPage> */
 ^ContentPage {
     color: #151515; /* 文字色 */
-    background-color: #FFFFFF; /* 背景 */
+    background-color: #FFFF80; /* 背景 */
 }
 
 /* <Label> */

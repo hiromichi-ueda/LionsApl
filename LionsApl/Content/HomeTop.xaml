@@ -52,6 +52,7 @@
                     
                     <!--キャビネットレター-->
                     <StackLayout
+                        x:Name="LetterStackLayout"
                         Margin="4,0,4,0"
                         HorizontalOptions="FillAndExpand"
                         >
@@ -223,6 +224,7 @@
                     
                     <!--参加予定一覧-->
                     <StackLayout
+                        x:Name="EventStackLayout"
                         Margin="4,0,4,0"
                         HorizontalOptions="FillAndExpand"
                         >
