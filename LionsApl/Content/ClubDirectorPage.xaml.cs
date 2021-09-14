@@ -18,9 +18,6 @@ namespace LionsApl.Content
         // 対象データNo.
         private string _DataNo;
 
-        // 対象EbentRetデータ
-        private Table.T_EVENTRET _EventRet = null;
-
         public ClubDirectorPage(string dataNo)
         {
             InitializeComponent();
@@ -70,8 +67,8 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetDirectorInfo()
         {
-            Table.TableUtil TUtl = new Table.TableUtil();
-            ContentUtil CUtl = new ContentUtil();
+            Table.TableUtil Util = new Table.TableUtil();
+            ContentUtil CUtil = new ContentUtil();
 
             string eventDate = string.Empty;        // 開催日
             string seasonFlg = string.Empty;        // シーズン区分
@@ -88,18 +85,18 @@ namespace LionsApl.Content
                 {
 
                     // 中止
-                    cancelFlg = TUtl.GetString(row.CancelFlg);
+                    cancelFlg = Util.GetString(row.CancelFlg);
                     if (cancelFlg == "1")
                     {
                         Cancel.Text = "中止";
                     }
 
                     // 開催日
-                    eventDate = TUtl.GetString(row.EventDate).Substring(0, 10) + " " + TUtl.GetString(row.EventTime);
+                    eventDate = Util.GetString(row.EventDate).Substring(0, 10) + " " + Util.GetString(row.EventTime);
                     EventDate.Text = eventDate;
 
                     // シーズン区分
-                    seasonFlg = TUtl.GetString(row.Season);
+                    seasonFlg = Util.GetString(row.Season);
                     if (seasonFlg == "1")
                     {
                         Season.Text = "今期";
@@ -110,30 +107,30 @@ namespace LionsApl.Content
                     }
 
                     // 区分
-                    eventFlg = TUtl.GetString(row.EventClass);
+                    eventFlg = Util.GetString(row.EventClass);
                     if (eventFlg == "1")
                     {
                         EventClass.Text = "理事会";
                     }
                     else if (eventFlg == "2")
                     {
-                        EventClass.Text = TUtl.GetString(row.CommitteeName);
+                        EventClass.Text = Util.GetString(row.CommitteeName);
                     }
 
                     // 開催場所
-                    EventPlace.Text = TUtl.GetString(row.EventPlace);
+                    EventPlace.Text = Util.GetString(row.EventPlace);
 
                     // 件名
-                    Subject.Text = TUtl.GetString(row.Subject);
+                    Subject.Text = Util.GetString(row.Subject);
 
                     // 議題・内容
                     //agendaStr = $"テスト用文字列\rテスト用文字列\nテスト用文字列\r\nテスト用文字列{Environment.NewLine}テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列";
-                    agendaStr = TUtl.GetString(row.Agenda);
-                    agendaStr = CUtl.DelNewLine(agendaStr);
+                    agendaStr = Util.GetString(row.Agenda);
+                    agendaStr = CUtil.DelNewLine(agendaStr);
                     Agenda.Text = agendaStr;
 
                     // 回答期限
-                    AnswerDate.Text = TUtl.GetString(row.AnswerDate).Substring(0, 10);
+                    AnswerDate.Text = Util.GetString(row.AnswerDate).Substring(0, 10);
 
                 }
             }

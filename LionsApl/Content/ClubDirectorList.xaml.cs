@@ -16,9 +16,6 @@ namespace LionsApl.Content
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
-        // ContentUtilクラス
-        private ContentUtil _contUtl;
-
         // リストビュー設定内容
         public List<ClubDirectorRow> Items { get; set; }
 
@@ -28,9 +25,6 @@ namespace LionsApl.Content
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
-
-            // Content Utilクラス生成
-            _contUtl = new ContentUtil();
 
             // A_SETTINGデータ取得
             _sqlite.SetSetting();
@@ -71,10 +65,6 @@ namespace LionsApl.Content
 
             try
             {
-                //foreach (Table.T_DIRECTOR row in _sqlite.Get_T_DIRECTOR(
-                //                                                 "SELECT * " +
-                //                                                 "FROM T_DIRECTOR " +
-                //                                                 "ORDER BY EventDate DESC"))
 
                 foreach (Table.DIRECTOR_LIST row in _sqlite.Get_DIRECTOR_LIST(
                                                                 "SELECT " +
@@ -96,7 +86,7 @@ namespace LionsApl.Content
                     wkDataNo = row.DataNo.ToString();
 
                     // 区分
-                    if (row.EventClass == "1")
+                    if (Util.GetString(row.EventClass) == "1")
                     {
                         wkEventClass = "理事会";
                     }
@@ -131,7 +121,7 @@ namespace LionsApl.Content
                     wkUserList = Util.GetString(row.Member).Split(',');
                     foreach (string code in wkUserList)
                     {
-                        // メンバー
+                        // [メンバー]を検索
                         if (_sqlite.Db_A_Account.MemberCode.Equals(code))
                         {
                             wkTargetFlg = true;
@@ -141,7 +131,7 @@ namespace LionsApl.Content
                     wkUserList = Util.GetString(row.MemberAdd).Split(',');
                     foreach (string code in wkUserList)
                     {
-                        // メンバー追加
+                        // [メンバー追加]を検索
                         if (_sqlite.Db_A_Account.MemberCode.Equals(code))
                         {
                             wkTargetFlg = true;
@@ -151,8 +141,9 @@ namespace LionsApl.Content
 
                     // 回答
                     wkAnswer = "";
-                    if (wkTargetFlg == true)
+                    if (wkTargetFlg)
                     {
+                        // 対象者の場合は回答をセット
                         if (Util.GetString(row.Answer) == "1")
                         {
                             wkAnswer = "出席";
