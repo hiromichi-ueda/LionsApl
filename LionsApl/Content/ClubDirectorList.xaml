@@ -101,6 +101,7 @@
 
                     <!-- 中止 -->
                     <Label 
+                        x:Name="Cancel"
                         Grid.Row="0"
                         Grid.Column="2"
                         Grid.ColumnSpan="1"
@@ -131,7 +132,7 @@
                     <!-- 出席・欠席・未登録 -->
                     <Label 
                         Grid.Row="0"
-                        Grid.Column="2"
+                        Grid.Column="3"
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="2"
                         Text="{Binding Answer}" 
@@ -141,7 +142,7 @@
                     <!-- マーク -->
                     <Label 
                         Grid.Row="0"
-                        Grid.Column="3"
+                        Grid.Column="4"
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="2"
                         Text="〉" 

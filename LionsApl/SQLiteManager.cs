@@ -1347,6 +1347,31 @@ namespace LionsApl
 
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Get_DIRECTOR_LIST(DIRECTOR/T_EVENTRETY)テーブルデータ取得
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.DIRECTOR_LIST[] Get_DIRECTOR_LIST(string command)
+        {
+            List<Table.DIRECTOR_LIST> items = new List<Table.DIRECTOR_LIST>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                {   // Select
+                    items = db.Query<Table.DIRECTOR_LIST>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.DIRECTOR_LIST[0]);
+
+        }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// 取得したデータのテーブル展開

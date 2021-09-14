@@ -16,8 +16,14 @@ namespace LionsApl.Content
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
+        // ContentUtilクラス
+        private ContentUtil _contUtl;
+
         // リストビュー設定内容
         public List<ClubScheduleRow> Items { get; set; }
+
+        // 表示定数
+        private readonly string CancelStr = "中止";
 
         public ClubScheduleList()
         {
@@ -25,6 +31,9 @@ namespace LionsApl.Content
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
+
+            // Content Utilクラス生成
+            _contUtl = new ContentUtil();
 
             // A_SETTINGデータ取得
             _sqlite.SetSetting();
@@ -79,8 +88,10 @@ namespace LionsApl.Content
             string WorkDataNo = string.Empty;
             string WorkDate = string.Empty;
             string WorkTitle = string.Empty;
-//            List<ClubScheduleRow> items = new List<ClubScheduleRow>();
+            string WorkCancel = string.Empty;
             Items = new List<ClubScheduleRow>();
+
+            Table.TableUtil Util = new Table.TableUtil();
 
             try
             {
@@ -90,13 +101,18 @@ namespace LionsApl.Content
                 {
                     WorkDataNo = row.DataNo.ToString();
                     WorkDate = row.MeetingDate.Substring(0, 10) + "  " + row.MeetingTime;
+                    WorkCancel = "";
+                    if (Util.GetString(row.CancelFlg) == "1")
+                    {
+                        WorkCancel = CancelStr;
+                    }
                     WorkTitle = row.MeetingName;
-                    Items.Add(new ClubScheduleRow(WorkDataNo, WorkDate, WorkTitle));
+                    Items.Add(new ClubScheduleRow(WorkDataNo, WorkDate, WorkCancel, WorkTitle));
                 }
                 if (Items.Count == 0)
                 {
                     // メッセージ表示のため空行を追加
-                    Items.Add(new ClubScheduleRow(WorkDataNo, WorkDate, WorkTitle));
+                    Items.Add(new ClubScheduleRow(WorkDataNo, WorkDate, WorkCancel, WorkTitle));
                 }
                 BindingContext = this;
             }
@@ -114,14 +130,16 @@ namespace LionsApl.Content
     ///////////////////////////////////////////////////////////////////////////////////////////
     public sealed class ClubScheduleRow
     {
-        public ClubScheduleRow(string dataNo, string dateTime, string title)
+        public ClubScheduleRow(string dataNo, string dateTime, string cancel, string title)
         {
             DataNo = dataNo;
             DateTime = dateTime;
+            CancelFlg = cancel;
             Title = title;
         }
         public string DataNo { get; set; }
         public string DateTime { get; set; }
+        public string CancelFlg { get; set; }
         public string Title { get; set; }
     }
 
@@ -135,7 +153,7 @@ namespace LionsApl.Content
         {
             // 条件より該当するテンプレートを返す
             var info = (ClubScheduleRow)item;
-            if (!String.IsNullOrEmpty(info.Title))
+            if (!String.IsNullOrEmpty(info.DataNo))
             {
                 return ExistDataTemplate;
             }
