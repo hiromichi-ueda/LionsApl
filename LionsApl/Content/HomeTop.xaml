@@ -62,7 +62,7 @@
                             Style="{StaticResource Title_Green}"
                             />
                         
-                        <!-- 1行目 -->
+                        <!-- 1行目 --><!--
                         <Grid
                             Margin="8,0,8,0" 
                             HeightRequest="28"
@@ -102,7 +102,7 @@
                         </Grid>
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.4" Margin="4,0,4,0" />
 
-                        <!-- 2行目(Row 1) -->
+                        --><!-- 2行目(Row 1) --><!--
                         <Grid
                             Margin="8,0,8,0" 
                             HeightRequest="28"
@@ -141,7 +141,7 @@
                                 />
                         </Grid>
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.4" Margin="4,0,4,0" />
-                        <!-- 3行目(Row 2) -->
+                        --><!-- 3行目(Row 2) --><!--
                         <Grid
                             Margin="8,0,8,0" 
                             HeightRequest="28"
@@ -180,7 +180,7 @@
                                 />
                         </Grid>
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.4" Margin="4,0,4,0" />
-                        <!-- 4行目(Row 3) -->
+                        --><!-- 4行目(Row 3) --><!--
                         <Grid
                             Margin="8,0,8,0" 
                             HeightRequest="28"
@@ -218,7 +218,7 @@
                                 HeightRequest="18"
                                 />
                         </Grid>
-                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.4" Margin="4,0,4,0" />
+                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.4" Margin="4,0,4,0" />-->
 
                     </StackLayout>
                     
@@ -232,7 +232,7 @@
                             Text="参加予定一覧" 
                             Style="{StaticResource Title_Yellow}"
                         />
-                        <!-- 1行目 -->
+                        <!-- 1行目 --><!--
                         <Grid
                             Margin="8,0,8,0" 
                             HeightRequest="28"
@@ -247,7 +247,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <!-- 1列目(イベント日) -->
+                            --><!-- 1列目(イベント日) --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="0"
@@ -256,7 +256,7 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
-                            <!-- 2列目(イベント名) -->
+                            --><!-- 2列目(イベント名) --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="1"
@@ -265,7 +265,7 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
-                            <!-- 3列目(○日) -->
+                            --><!-- 3列目(○日) --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="2"
@@ -274,7 +274,7 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
-                            <!-- 4列目(前) -->
+                            --><!-- 4列目(前) --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="3"
@@ -283,7 +283,7 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
-                            <!-- 5列目(マーク) -->
+                            --><!-- 5列目(マーク) --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="4"
@@ -295,7 +295,7 @@
                         </Grid>
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.6" Margin="4,0,4,0" />
                         
-                        <!-- 2行目 -->
+                        --><!-- 2行目 --><!--
                         <Grid
                             Margin="8,0,8,0" 
                             HeightRequest="28"
@@ -310,7 +310,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <!-- 1列目(イベント日) -->
+                            --><!-- 1列目(イベント日) --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="0"
@@ -319,7 +319,7 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
-                            <!-- 2列目(イベント名) -->
+                            --><!-- 2列目(イベント名) --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="1"
@@ -328,7 +328,7 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
-                            <!-- 3列目(○日) -->
+                            --><!-- 3列目(○日) --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="2"
@@ -337,7 +337,7 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
-                            <!-- 4列目(前) -->
+                            --><!-- 4列目(前) --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="3"
@@ -346,7 +346,7 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
-                            <!-- 5列目(マーク) -->
+                            --><!-- 5列目(マーク) --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="4"
@@ -358,7 +358,7 @@
                         </Grid>
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.6" Margin="4,0,4,0" />
                         
-                        <!-- 3行目 -->
+                        --><!-- 3行目 --><!--
                         <Grid
                             Margin="8,0,8,0" 
                             HeightRequest="28"
@@ -373,7 +373,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <!-- 1列目(イベント日) -->
+                            --><!-- 1列目(イベント日) --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="0"
@@ -382,7 +382,7 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
-                            <!-- 2列目(イベント名) -->
+                            --><!-- 2列目(イベント名) --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="1"
@@ -391,7 +391,7 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
-                            <!-- 3列目(○日) -->
+                            --><!-- 3列目(○日) --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="2"
@@ -399,7 +399,7 @@
                                 Text=""
                                 VerticalOptions="Center"
                                 />
-                            <!-- 4列目(前) -->
+                            --><!-- 4列目(前) --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="3"
@@ -407,7 +407,7 @@
                                 Text=""
                                 VerticalOptions="Center"
                                 />
-                            <!-- 5列目(マーク) -->
+                            --><!-- 5列目(マーク) --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="4"
@@ -419,7 +419,7 @@
                         </Grid>
                         <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.6" Margin="4,0,4,0" />
                         
-                        <!-- 4行目 -->
+                        --><!-- 4行目 --><!--
                         <Grid
                             Margin="8,0,8,0" 
                             HeightRequest="28"
@@ -434,7 +434,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <!-- 1列目(イベント日) -->
+                            --><!-- 1列目(イベント日) --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="0"
@@ -443,7 +443,7 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
-                            <!-- 2列目(イベント名) -->
+                            --><!-- 2列目(イベント名) --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="1"
@@ -452,7 +452,7 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
-                            <!-- 3列目(○日) -->
+                            --><!-- 3列目(○日) --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="2"
@@ -461,7 +461,7 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
-                            <!-- 4列目(前) -->
+                            --><!-- 4列目(前) --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="3"
@@ -470,7 +470,7 @@
                                 VerticalOptions="Center"
                                 HorizontalTextAlignment="Start" 
                                 />
-                            <!-- 5列目(マーク) -->
+                            --><!-- 5列目(マーク) --><!--
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="4"
@@ -480,7 +480,7 @@
                                 HorizontalTextAlignment="Start" 
                                 />
                         </Grid>
-                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.6" Margin="4,0,4,0" />
+                        <BoxView BackgroundColor="#A4A4A4" HeightRequest="0.6" Margin="4,0,4,0" />-->
                         
                     </StackLayout>
                     
@@ -576,7 +576,7 @@
                     Grid.Column="0"
                     Grid.ColumnSpan="1"
                     Grid.RowSpan="1"
-                    Text="{Binding EventDate}"
+                    Text="{TemplateBinding EventDate}"
                     Style="{StaticResource List_Base}"
                         
                     />
@@ -586,7 +586,7 @@
                     Grid.Column="1"
                     Grid.ColumnSpan="1"
                     Grid.RowSpan="1"
-                    Text="{Binding Title}" 
+                    Text="{TemplateBinding Title}" 
                     Style="{StaticResource List_Base}"
                     />
 
@@ -637,7 +637,7 @@
                     Grid.Column="0"
                     Grid.ColumnSpan="1"
                     Grid.RowSpan="1"
-                    Text="{Binding EventDate}"
+                    Text="{TemplateBinding EventDate}"
                     Style="{StaticResource List_Base}"
                     />
 
@@ -647,7 +647,7 @@
                     Grid.Column="1"
                     Grid.ColumnSpan="1"
                     Grid.RowSpan="1"
-                    Text="{Binding Title}" 
+                    Text="{TemplateBinding Title}" 
                     Style="{StaticResource List_Base}"
                     />
 
@@ -657,7 +657,7 @@
                     Grid.Column="1"
                     Grid.ColumnSpan="1"
                     Grid.RowSpan="1"
-                    Text="{Binding CountDt}" 
+                    Text="{TemplateBinding CountDt}" 
                     Style="{StaticResource List_Base}"
                     />
                     
@@ -703,7 +703,7 @@
                     Grid.Row="0"
                     Grid.ColumnSpan="1"
                     Grid.RowSpan="2"
-                    Text="" 
+                    Text="{TemplateBinding LabelText}"
                     HorizontalTextAlignment="Center"
                     Style="{StaticResource List_Base}"
                     />

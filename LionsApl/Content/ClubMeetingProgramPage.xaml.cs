@@ -15,7 +15,7 @@ namespace LionsApl.Content
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
-        // ContentUtilクラス
+        // Utilityクラス
         private LAUtility _utl;
 
         // Config取得

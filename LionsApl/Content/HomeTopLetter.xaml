@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LionsApl.Content.HomeTopLetter">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <!-- レターデータあり -->
+            <ControlTemplate x:Key="LetterTemplate">
+                <Grid 
+                Style="{StaticResource ListGrid_Base}"
+                >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- 日付 -->
+                    <Label 
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="1"
+                    Grid.RowSpan="1"
+                    Text="{TemplateBinding EventDate}"
+                    Style="{StaticResource List_Base}"
+                        
+                    />
+                    <!-- タイトル -->
+                    <Label 
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="1"
+                    Grid.RowSpan="1"
+                    Text="{TemplateBinding Title}" 
+                    Style="{StaticResource List_Base}"
+                    />
+
+                    <!-- マーク -->
+                    <Label 
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="1"
+                    Grid.RowSpan="1"
+                    VerticalOptions="Center"
+                    Text="〉" 
+                    Style="{StaticResource List_Base}"
+                    />
+
+                    <!-- アンダーライン -->
+                    <BoxView 
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Grid.RowSpan="1"
+                    BackgroundColor="#A4A4A4" 
+                    HeightRequest="0.4" 
+                    Margin="4,0,4,0" 
+                    />
+
+                </Grid>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+</ContentView>
