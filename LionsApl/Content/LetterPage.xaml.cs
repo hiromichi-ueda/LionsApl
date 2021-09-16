@@ -22,9 +22,9 @@ namespace LionsApl.Content
 
         // 前画面からの取得情報-
         //private string _titleName;      // タイトル 
-        private string _DataNo;        // データNo.
+        private int _DataNo;        // データNo.
 
-        public LetterPage(string dataNo)
+        public LetterPage(int dataNo)
         {
             InitializeComponent();
 
@@ -79,7 +79,7 @@ namespace LionsApl.Content
             {
                 foreach (Table.T_LETTER row in _sqlite.Get_T_LETTER("Select * " +
                                                                     "From T_LETTER " +
-                                                                    "Where DataNo='" + _DataNo + "'"))
+                                                                    "Where DataNo=" + _DataNo.ToString()))
                 {
                     EventDate.Text = row.EventDate.Substring(0, 10) + " " + row.EventTime;
                     Subject.Text = row.Title;

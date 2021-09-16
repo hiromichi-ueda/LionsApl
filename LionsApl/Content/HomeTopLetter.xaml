@@ -8,8 +8,8 @@
             <!-- レターデータあり -->
             <ControlTemplate x:Key="LetterTemplate">
                 <Grid 
-                Style="{StaticResource ListGrid_Base}"
-                >
+                    Style="{StaticResource ListGrid_Base}"
+                    >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -58,7 +58,7 @@
                     Grid.ColumnSpan="3"
                     Grid.RowSpan="1"
                     BackgroundColor="#A4A4A4" 
-                    HeightRequest="0.4" 
+                    HeightRequest="1" 
                     Margin="4,0,4,0" 
                     />
 

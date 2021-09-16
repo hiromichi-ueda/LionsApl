@@ -24,10 +24,14 @@ namespace LionsApl.Content
         // Utilityクラス
         private LAUtility _utl;
 
-        // 文字列
+        // 表示用文字列
         string NoSloganStr = "スローガン情報はありません。";
         string NoLetterStr = "キャビネットレター情報はありません。";
         string NoEventStr = "参加予定のイベントはありません。";
+
+        // 定数
+        int LETTER_MAXROW = 4;
+        int EVENT_MAXROW = 4;
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -190,9 +194,9 @@ namespace LionsApl.Content
         /// <param name="sender"></param>
         /// <param name="e"></param>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private void Letter_Label_Tap(object sender, System.EventArgs e, int listNo)
+        private void Letter_Label_Tap(object sender, System.EventArgs e, int dataNo)
         {
-            Navigation.PushAsync(new LetterPage(_letterLt[listNo].LetterDataNo.ToString()));
+            Navigation.PushAsync(new LetterPage(dataNo));
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -257,28 +261,35 @@ namespace LionsApl.Content
                                                                     "From T_LETTER " +
                                                                     "ORDER BY EventDate DESC, EventTime DESC"))
                 {
+                    // データをリストに追加
+                    _letterLt.Add(new CHomeTopLetter(_utl.GetString(row.EventDate), _utl.GetString(row.Title), row.DataNo));
+
+                    // コントロールテンプレートを作成
                     HomeTopLetter letter = new HomeTopLetter(row.DataNo,
                                                             _utl.GetString(row.EventDate).Substring(5, 5),
                                                             _utl.GetString(row.Title));
-
-
                     // Labelタップ時の処理追加
-                    //TapGestureRecognizer tgr0 = new TapGestureRecognizer();
-                    //tgr0.Tapped += (s, e) => { Letter_Label_Tap(s, e, 0); };
-                    //HomeTopLetter.EventDate0.GestureRecognizers.Add(tgr0);
-                    //EventTitle0.GestureRecognizers.Add(tgr0);
-                    //EventMsg0.GestureRecognizers.Add(tgr0);
-                    //EventMark0.GestureRecognizers.Add(tgr0);
+                    TapGestureRecognizer tgr0 = new TapGestureRecognizer();
+                    tgr0.Tapped += (s, e) => { Letter_Label_Tap(s, e, row.DataNo); };
+                    letter.GestureRecognizers.Add(tgr0);
 
-
+                    // StackLayoutにコントロールテンプレートを追加
                     LetterStackLayout.Children.Add(letter);
 
                     idx++;
 
-                    if (idx == 4)
+                    // MAX行数にて処理終了
+                    if (idx >= LETTER_MAXROW)
                     {
                         break;
                     }
+                }
+                if (idx == 0)
+                {
+                    HomeTopNoData letter = new HomeTopNoData(NoLetterStr);
+                    // StackLayoutにコントロールテンプレートを追加
+                    LetterStackLayout.Children.Add(letter);
+
                 }
 
             }
@@ -337,10 +348,6 @@ namespace LionsApl.Content
                                             "t1.EventDataNo = t3.DataNo " +
                                         "WHERE " +
                                             "t1.MemberCode = '" + _sqlite.Db_A_Account.MemberCode + "'"))
-                                            //"t1.MemberCode = '" + _a_account.MemberCode + "'"))
-                                            //"t1.MemberCode = '" + _a_account.MemberCode + "' AND " +
-                                            //"t1.EventDate >= '" + _nowDate + "' AND " +
-                                            //"(t1.Answer <> '2')"))
                 {
                     intDataNo = 0;                           // データNo.設定用
                     intEventDataNo = 0;                      // イベントデータNo.設定用

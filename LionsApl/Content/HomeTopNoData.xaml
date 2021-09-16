@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LionsApl.Content.HomeTopNoData">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <!-- データなし -->
+            <ControlTemplate x:Key="NoDataTemplate">
+                <Grid
+                    Style="{StaticResource ListGrid_Base}"
+                    >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- メッセージ -->
+                    <Label 
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Text="{TemplateBinding LabelText}"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource List_Base}"
+                        />
+                </Grid>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+</ContentView>
