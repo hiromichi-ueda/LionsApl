@@ -32,9 +32,6 @@ namespace LionsApl.Content
         // 定数
         int LETTER_MAXROW = 5;
         int EVENT_MAXROW = 4;
-        string EVENT_CLUSS_CV = "1";
-        string EVENT_CLUSS_CL = "2";
-        string EVENT_CLUSS_DR = "3";
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -48,68 +45,11 @@ namespace LionsApl.Content
             // font-size
             this.LabelSlogun.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.LabelDistrictGovernor.FontSize = Device.GetNamedSize(NamedSize.Caption, typeof(Label));
-            //this.LetterDate0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterTitle0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterMark0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterDate1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterTitle1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterMark1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterDate2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterTitle2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterMark2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterDate3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterTitle3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterMark3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventDate0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventTitle0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventCount0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventMsg0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventMark0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventTitle1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventCount1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventMsg1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventMark1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventTitle2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventCount2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventMsg2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventMark2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventTitle3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventCount3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventMsg3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventMark3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            
 
             // 画面表示の初期化
             // Slogan
             LabelSlogun.Text = NoSloganStr;
             LabelDistrictGovernor.Text = "";
-            //// Letter
-            //LetterDate0.Text = "";
-            //LetterTitle0.Text = "キャビネットレター情報はありません。";
-            //LetterDate1.Text = "";
-            //LetterTitle1.Text = "";
-            //LetterDate2.Text = "";
-            //LetterTitle2.Text = "";
-            //LetterDate3.Text = "";
-            //LetterTitle3.Text = "";
-            //// Event
-            //EventDate0.Text = "";
-            //EventTitle0.Text = "参加予定のイベントはありません。";
-            //EventCount0.Text = "";
-            //EventMsg0.Text = "";
-            //EventDate1.Text = "";
-            //EventTitle1.Text = "";
-            //EventCount1.Text = "";
-            //EventMsg1.Text = "";
-            //EventDate2.Text = "";
-            //EventTitle2.Text = "";
-            //EventCount2.Text = "";
-            //EventMsg2.Text = "";
-            //EventDate3.Text = "";
-            //EventTitle3.Text = "";
-            //EventCount3.Text = "";
-            //EventMsg3.Text = "";
-
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
@@ -420,7 +360,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE/T_DIRECTOR) : &{ex.Message}", "OK");
             }
         }
 
@@ -495,17 +435,17 @@ namespace LionsApl.Content
             if (wkClass != string.Empty)
             {
                 // 1:キャビネット
-                if (wkClass.Equals(EVENT_CLUSS_CV))
+                if (wkClass.Equals(_utl.EVENTCLASS_CV))
                 {
                     strTitle = _utl.GetString(row.Title);
                 }
                 // 2:クラブ（例会）
-                else if (wkClass.Equals(EVENT_CLUSS_CL))
+                else if (wkClass.Equals(_utl.EVENTCLASS_CL))
                 {
                     strTitle = _utl.GetString(row.MeetingName);
                 }
                 // 3:クラブ（理事・委員会）
-                else if (wkClass.Equals(EVENT_CLUSS_DR))
+                else if (wkClass.Equals(_utl.EVENTCLASS_DR))
                 {
                     strTitle = _utl.GetString(row.Subject);
                 }
