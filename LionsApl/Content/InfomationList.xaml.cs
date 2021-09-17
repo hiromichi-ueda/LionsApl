@@ -50,6 +50,7 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetInfomation() 
         {
+            // 変数
             string wkDataNo = string.Empty;
             string wkAddDate = string.Empty;
             string wkSubject = string.Empty;
@@ -57,6 +58,8 @@ namespace LionsApl.Content
             bool AddListFlg = false;
             string[] wkCodeList = null;
             Items = new List<InfomationRow>();
+
+            Table.TableUtil Util = new Table.TableUtil();
 
             try
             {
@@ -68,9 +71,9 @@ namespace LionsApl.Content
                 {
                     // データセット
                     wkDataNo = row.DataNo.ToString();
-                    wkAddDate = row.AddDate.Substring(0, 10);
-                    wkSubject = row.Subject;
-                    wkFlg = row.InfoFlg;
+                    wkAddDate = Util.GetString(row.AddDate).Substring(0, 10);
+                    wkSubject = Util.GetString(row.Subject);
+                    wkFlg = Util.GetString(row.InfoFlg);
 
                     if (wkFlg == "1")
                     {
@@ -81,7 +84,7 @@ namespace LionsApl.Content
                     else
                     {
                         //個別選択
-                        wkCodeList = row.InfoUser.Split(',');
+                        wkCodeList = Util.GetString(row.InfoUser).Split(',');
                         foreach (string code in wkCodeList)
                         {
                             // 連絡者(会員番号)を条件にログインユーザーが対象か判定

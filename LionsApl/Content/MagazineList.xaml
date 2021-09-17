@@ -104,17 +104,16 @@
             <!-- 地区誌購入 -->
             <StackLayout
                 x:Name="MagazineBuy"
-                Margin="4"
+                Margin="8"
                 HorizontalOptions="FillAndExpand"
                 >
                 <Label
                     x:Name="magazine"
-                    Text="地区誌購入" 
+                    Text="＜地区誌購入＞" 
                     LineBreakMode="TailTruncation"
                     TextColor="#2E2E2E"
                     VerticalOptions="Center"
-                    Background="White"
-                    HorizontalTextAlignment="Start" 
+                    BackgroundColor="#F5F5F5"
                 />
                 <StackLayout>
                     <Grid>
@@ -132,9 +131,8 @@
                                 Grid.Column="0"
                                 Grid.Row="0"
                                 FontSize="Body"
-                                Title="地区誌名選択"
+                                Title="購入する地区誌を選択"
                                 TitleColor="GRAY"
-                                TextColor="#2E2E2E"
                                 ItemDisplayBinding="{Binding Name}"
                                 Margin="0,0,8,0"
                                 >
@@ -144,9 +142,8 @@
                                 Grid.Column="1"
                                 Grid.Row="0"
                                 FontSize="Body"
-                                Title="冊子数選択"
+                                Title="数"
                                 TitleColor="GRAY"
-                                TextColor="#2E2E2E"
                                 Margin="0,0,8,0"
                                 >
                             <Picker.ItemsSource>
@@ -172,7 +169,6 @@
                             Text="冊" 
                             HorizontalTextAlignment="Start"
                             VerticalTextAlignment="Center"
-                            TextColor="#2E2E2E"
                             Margin="0, 0, 8, 0"
                             />
                         <Button 
@@ -180,11 +176,6 @@
                             Grid.Row="0"
                             x:Name="btn_buy"
                             Text="購入する" 
-                            Padding="8,0,8,0" 
-                            BorderWidth="1" 
-                            BorderColor="#00529B"
-                            Background="#FFFFFF"
-                            CornerRadius="6"
                             >
                         </Button>
                     </Grid>

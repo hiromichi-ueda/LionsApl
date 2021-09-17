@@ -196,7 +196,7 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void Letter_Label_Tap(object sender, System.EventArgs e, int dataNo)
         {
-            Navigation.PushAsync(new LetterPage(dataNo));
+            Navigation.PushAsync(new LetterPage(dataNo.ToString()));
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////

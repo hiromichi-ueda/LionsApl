@@ -61,34 +61,51 @@ namespace LionsApl.Content
         private void GetMagazine()
         {
 
+            // 変数
+            string wkDataNo = string.Empty;
+
+            Table.TableUtil Util = new Table.TableUtil();
+
             try
             {
                 foreach (Table.T_MAGAZINE row in _sqlite.Get_T_MAGAZINE("Select * " +
                                                                         "From T_MAGAZINE " +
                                                                         "Where DataNo='" + _dataNo + "'"))
                 {
-                    if (row.FileName != null)
+                    // Data№取得
+                    wkDataNo = row.DataNo.ToString();
+
+                    // 添付ファイル
+                    if (Util.GetString(row.FileName) != "")
                     {
-                        // 地区誌パス
+
+                        // ファイル表示高さ設定
+                        this.grid.HeightRequest = 600.0;
+
+                        // FILEPATH取得(地区誌)
                         var pdfUrl = AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/").Replace("\r\n", "") +
-                                     "/" + row.DataNo.ToString() + "/" + row.FileName;
+                                     "/" + wkDataNo + "/" + Util.GetString(row.FileName);
 
                         // AndroidPDF Viewer
                         var googleUrl = AndroidPdf + "?embedded=true&url=";
 
                         if (Device.RuntimePlatform == Device.iOS)
                         {
-                            Pdf.Source = pdfUrl;
+                            FileName.Source = pdfUrl;
                         }
                         else if (Device.RuntimePlatform == Device.Android)
                         {
-                            Pdf.Source = new UrlWebViewSource() { Url = googleUrl + pdfUrl };
+                            FileName.Source = new UrlWebViewSource() { Url = googleUrl + pdfUrl };
                         }
-                        PdfLabel.Text = pdfUrl;
+                        lbl_FileName.Text = pdfUrl;             //FileName表示
+                        this.lbl_FileName.HeightRequest = 0;    //非表示設定
                     }
                     else
                     {
-                        PdfLabel.Text = "地区誌ファイルなし";
+                        // WebViewの高さ消す
+                        this.grid.HeightRequest = 0;
+                        this.FileName.IsVisible = false;
+                        lbl_FileName.Text = "";
                     }
                 }
             }

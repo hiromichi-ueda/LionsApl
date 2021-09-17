@@ -18,13 +18,12 @@ namespace LionsApl.Content
         // Config取得
         public static String AppServer = ((App)Application.Current).AppServer;                      //Url
         public static String AndroidPdf = ((App)Application.Current).AndroidPdf;                    //PdfViewer
-        public static String FilePath_Letter = ((App)Application.Current).FilePath_Letter;          //連絡事項(CLUB)
+        public static String FilePath_Letter = ((App)Application.Current).FilePath_Letter;          //キャビネットレター
 
         // 前画面からの取得情報-
-        //private string _titleName;      // タイトル 
-        private int _DataNo;        // データNo.
+        private string _DataNo;        // データNo.
 
-        public LetterPage(int dataNo)
+        public LetterPage(string dataNo)
         {
             InitializeComponent();
 
@@ -35,11 +34,8 @@ namespace LionsApl.Content
             this.Subject.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.Body.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
 
-
-            //_titleName = title;
+            // 一覧から取得(データ№)
             _DataNo = dataNo;
-
-            //TitleLabel.Text = _titleName;
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
@@ -75,29 +71,43 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetLetter()
         {
+
+            // 変数
+            string wkDataNo = string.Empty;
+
+            Table.TableUtil Util = new Table.TableUtil();
+
             try
             {
                 foreach (Table.T_LETTER row in _sqlite.Get_T_LETTER("Select * " +
                                                                     "From T_LETTER " +
-                                                                    "Where DataNo=" + _DataNo.ToString()))
+                                                                    "Where DataNo='" + _DataNo + "'"))
                 {
-                    EventDate.Text = row.EventDate.Substring(0, 10) + " " + row.EventTime;
-                    Subject.Text = row.Title;
-                    Body.Text = row.Body;
+                    wkDataNo = row.DataNo.ToString();
+                    if(Util.GetString(row.EventTime).Substring(0,5) == "00:00")
+                    {
+                        EventDate.Text = Util.GetString(row.EventDate).Substring(0, 10);
+                    }
+                    else
+                    {
+                        EventDate.Text = Util.GetString(row.EventDate).Substring(0, 10) + " " + Util.GetString(row.EventTime);
+                    }
+                    Subject.Text = Util.GetString(row.Title);
+                    Body.Text = Util.GetString(row.Body);
 
                     //画像ファイル①
-                    if (row.Image1FileName != null)
+                    if (Util.GetString(row.Image1FileName) != "")
                     {
                         string uriStr = AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/") +
-                                        "/" + row.DataNo.ToString() + "/" + row.Image1FileName;
+                                        "/" + wkDataNo + "/" + Util.GetString(row.Image1FileName);
                         Image1.Source = ImageSource.FromUri(new Uri(uriStr));
                     }
 
                     //画像ファイル②
-                    if (row.Image2FileName != null)
+                    if (Util.GetString(row.Image2FileName) != "")
                     {
                         string uriStr = AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/") +
-                                        "/" + row.DataNo.ToString() + "/" + row.Image2FileName;
+                                        "/" + wkDataNo + "/" + Util.GetString(row.Image2FileName);
                         Image2.Source = ImageSource.FromUri(new Uri(uriStr));
                     }
                 }

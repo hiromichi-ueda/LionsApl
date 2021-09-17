@@ -99,7 +99,7 @@ namespace LionsApl.Content
                         
                         // FILEPATH生成([ClubCode]変換)
                         var fileUrl = AppServer + filepath.Replace("[ClubCode]", wkClubCode).Replace("\\", "/").Replace("\r\n", "") +
-                                     "/" + row.DataNo.ToString() + "/" + row.FileName;
+                                     "/" + row.DataNo.ToString() + "/" + Util.GetString(row.FileName);
 
                         // AndroidPDF Viewer
                         var googleUrl = AndroidPdf + "?embedded=true&url=";

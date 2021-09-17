@@ -68,6 +68,11 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetCabiInfometion()
         {
+            // 変数
+            string wkDataNo = string.Empty;
+
+            Table.TableUtil Util = new Table.TableUtil();
+
             try
             {
                 foreach (Table.T_INFOMATION_CABI row in _sqlite.Get_T_INFOMATION_CABI("Select * " +
@@ -75,20 +80,23 @@ namespace LionsApl.Content
                                                                     "Where DataNo='" + _DataNo + "'"))
                 {
 
+                    // Data№取得
+                    wkDataNo = row.DataNo.ToString();
+
                     // 各項目情報取得
-                    AddDate.Text = row.AddDate.Substring(0, 10);    //連絡日
-                    Subject.Text = row.Subject;                     //件名
-                    Detail.Text = row.Detail;                       //内容
+                    AddDate.Text = Util.GetString(row.AddDate).Substring(0, 10);    //連絡日
+                    Subject.Text = Util.GetString(row.Subject);                     //件名
+                    Detail.Text = Util.GetString(row.Detail);                       //内容
 
                     // 添付ファイル
-                    if (row.FileName != null)
+                    if (Util.GetString(row.FileName) != "")
                     {
                         // ファイル表示高さ設定
-                        this.grid.HeightRequest = 800;
+                        this.grid.HeightRequest = 600.0;
 
-                        // FILEPATH取得
+                        // FILEPATH取得(連絡事項)
                         var fileUrl = AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/").Replace("\r\n", "") +
-                                     "/" + row.DataNo.ToString() + "/" + row.FileName;
+                                     "/" + wkDataNo + "/" + Util.GetString(row.FileName);
 
                         // AndroidPDF Viewer
                         var googleUrl = AndroidPdf + "?embedded=true&url=";
@@ -108,7 +116,8 @@ namespace LionsApl.Content
                     {
                         // WebViewの高さ消す
                         this.grid.HeightRequest = 0;
-                        lbl_FileName.Text = "連絡事項―添付ファイルなし";
+                        this.FileName.IsVisible = false;
+                        lbl_FileName.Text = "";
                     }
 
                 }

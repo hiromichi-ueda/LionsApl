@@ -41,33 +41,36 @@
                     <!-- BODY(地区誌) -->
                     <StackLayout>
                         <Grid
-                            Padding="10"
+                            x:Name="grid"
+                            Padding="3"
                             >
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="500"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <!-- 画像 -->
-                            <WebView
+                            <!-- 地区誌 -->
+                            <Label 
                                 Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="1"
+                                x:Name="lbl_FileName" 
+                                Text=""
+                                VerticalOptions="Center" 
+                                HorizontalTextAlignment="Start" 
+                                />
+                            <WebView
+                                Grid.Row="1"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="1"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="FillAndExpand"
-                                x:Name="Pdf">
+                                x:Name="FileName">
                             </WebView>
-                            <Label 
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="1"
-                                x:Name="PdfLabel" 
-                                Text=""
-                                Style="{StaticResource Page_Base}"
-                                />
+
                         </Grid>
                     </StackLayout>
 

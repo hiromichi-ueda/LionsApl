@@ -66,8 +66,9 @@ namespace LionsApl.Content
             string WorkMagazine = string.Empty;
             int WorkMagazineDataNo;
             string WorkBuy = string.Empty;
-            //List<MagazineListRow> items = new List<MagazineListRow>();
             Items = new List<MagazineListRow>();
+
+            Table.TableUtil Util = new Table.TableUtil();
 
             try
             {
@@ -79,7 +80,7 @@ namespace LionsApl.Content
                                                                               "ORDER BY TM.SortNo DESC"))
                 {
                     WorkDataNo = row.DataNo.ToString();
-                    WorkMagazine = row.Magazine;
+                    WorkMagazine = Util.GetString(row.Magazine);
                     WorkMagazineDataNo = row.MagazineDataNo;
                     if(WorkMagazineDataNo != 0)
                     {
@@ -102,19 +103,30 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void SetMagazineInfo()
         {
+            // 変数
+            string wkDataNo = string.Empty;
+            string wkMagazine = string.Empty;
+
+            Table.TableUtil Util = new Table.TableUtil();
+
             // データ取得
             try
             {
-                string strMagazine;
+               
+                // 初期化
                 _magazinePk.Clear();
+
+                // 購入可の地区誌を取得
                 foreach (Table.T_MAGAZINE row in _sqlite.Get_T_MAGAZINE("SELECT * " +
                                                                         "FROM T_MAGAZINE " +
                                                                         "WHERE MagazineClass = '1' " +
                                                                         "ORDER BY DataNo" ))
                 {
-                    strMagazine = row.Magazine + " " + row.MagazinePrice.ToString() + "(円)";
-                    _magazinePk.Add(new CMagazinePicker(row.DataNo, strMagazine));
+                    wkDataNo = row.DataNo.ToString();
+                    wkMagazine = Util.GetString(row.Magazine) + " " + Util.GetInt(row.MagazinePrice).ToString() + "(円)";
+                    _magazinePk.Add(new CMagazinePicker(wkDataNo, wkMagazine));
                 }
+
                 // MagazinePickerにCMagazinePickerクラスを設定する
                 MagazinePicker.ItemsSource = _magazinePk;
 
@@ -143,7 +155,7 @@ namespace LionsApl.Content
             MagazineListRow item = e.Item as MagazineListRow;
 
             // 1件もない(メッセージ行のみ表示している)場合は処理しない
-            if (string.IsNullOrEmpty(item.Magazine))
+            if (string.IsNullOrEmpty(item.DataNo))
             {
                 ((ListView)sender).SelectedItem = null;
                 return;
@@ -184,12 +196,12 @@ namespace LionsApl.Content
     ///////////////////////////////////////////////////////////////////////////////////////////
     public class CMagazinePicker
     {
-        public CMagazinePicker(int dataNo, string name)
+        public CMagazinePicker(string dataNo, string name)
         {
             DataNo = dataNo;
             Name = name;
         }
-        public int DataNo { get; set; }
+        public string DataNo { get; set; }
         public string Name { get; set; }
         
     }
