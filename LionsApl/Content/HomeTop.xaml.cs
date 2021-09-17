@@ -30,7 +30,7 @@ namespace LionsApl.Content
         string NoEventStr = "参加予定のイベントはありません。";
 
         // 定数
-        int LETTER_MAXROW = 4;
+        int LETTER_MAXROW = 5;
         int EVENT_MAXROW = 4;
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -470,6 +470,17 @@ namespace LionsApl.Content
             }
         }
 
+        /// <summary>
+        /// イベントリストの各項目値を取得するして表示用変数に設定する。
+        /// </summary>
+        /// <param name="row">SQLiteから取得したイベントデータ</param>
+        /// <param name="intDataNo">表示対象データのDataNo</param>
+        /// <param name="intEventDataNo">表示対象データのEventDataNo</param>
+        /// <param name="strDate">日付（表示用変数）</param>
+        /// <param name="strTitle">タイトル（表示用変数）</param>
+        /// <param name="strCount">日数（表示用変数）</param>
+        /// <param name="strCancel"></param>
+        /// <param name="strAnswer"></param>
         private void GetEventListData(Table.HOME_EVENT row, 
                                         ref int intDataNo,
                                         ref int intEventDataNo,
