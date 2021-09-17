@@ -7,11 +7,39 @@ namespace LionsApl
 {
     internal class LAUtility
     {
+        // DB項目判定用文字列
+        // イベントクラス
+        public string EVENTCLASS_CV = "1";
+        public string EVENTCLASS_CL = "2";
+        public string EVENTCLASS_DR = "3";
+        // クラブイベントクラス
+        public string CLUBEVENTCLASS_RI = "1";
+        public string CLUBEVENTCLASS_IN = "2";
+        // 中止フラグ
+        public string CANCELFLG = "1";
+        // 出欠フラグ
+        public string ANSWER_PRE = "1";
+        public string ANSWER_AB = "2";
+        public string ANSWER_NO = string.Empty;
+
+
+
+        // 引数用文字列
         public string NLC_OFF = "0";                        // 改行を削除しない。
         public string NLC_ON = "1";                         // 改行を削除する。
+
+        // 各種判定用文字列
         private readonly string OffVal = "0";
+
+        // 出力文字列
         private readonly string OnStr = "有り";
         private readonly string OffStr = "無し";
+
+
+        public LAUtility()
+        {
+
+        }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>

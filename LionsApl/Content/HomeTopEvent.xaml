@@ -1,18 +1,20 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LionsApl.Content.HomeTopLetter">
-
+             x:Class="LionsApl.Content.HomeTopEvent">
+    
     <ContentView.Resources>
         <ResourceDictionary>
-            <!-- レターデータあり -->
-            <ControlTemplate x:Key="LetterTemplate">
+            <!-- イベントデータあり -->
+            <ControlTemplate x:Key="EventTemplate">
                 <Grid 
                     Style="{StaticResource ListGrid_Base}"
                     >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -28,7 +30,6 @@
                         Grid.RowSpan="1"
                         Text="{TemplateBinding EventDate}"
                         Style="{StaticResource List_Base}"
-                        FontSize="{TemplateBinding LabelFontSize}"
                         />
 
                     <!-- タイトル -->
@@ -39,36 +40,54 @@
                         Grid.RowSpan="1"
                         Text="{TemplateBinding Title}" 
                         Style="{StaticResource List_Base}"
-                        FontSize="{TemplateBinding LabelFontSize}"
                         />
 
-                    <!-- マーク -->
+                    <!-- 日数 -->
                     <Label 
                         Grid.Row="0"
                         Grid.Column="2"
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="1"
+                        Text="{TemplateBinding CountDt}" 
+                        Style="{StaticResource List_Base}"
+                        />
+
+                    <!-- 中止 -->
+                    <Label 
+                        Grid.Row="0"
+                        Grid.Column="3"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="{TemplateBinding Cancel}" 
+                        Style="{StaticResource List_Base}"
+                        TextColor="Red"
+                        />
+
+                    <!-- マーク -->
+                    <Label 
+                        Grid.Row="0"
+                        Grid.Column="4"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
                         VerticalOptions="Center"
                         Text="〉" 
                         Style="{StaticResource List_Base}"
-                        FontSize="{TemplateBinding LabelFontSize}"
                         />
 
                     <!-- アンダーライン -->
                     <BoxView 
                         Grid.Row="1"
                         Grid.Column="0"
-                        Grid.ColumnSpan="3"
+                        Grid.ColumnSpan="5"
                         Grid.RowSpan="1"
-                        Color="#E0E0E0"
+                        Color="#E0E0E0" 
                         HeightRequest="1" 
                         Margin="4,0,4,0" 
-                        VerticalOptions="End"
                         />
-
+                    
                 </Grid>
             </ControlTemplate>
         </ResourceDictionary>
     </ContentView.Resources>
-
+    
 </ContentView>

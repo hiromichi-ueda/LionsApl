@@ -20,11 +20,10 @@ namespace LionsApl.Content
         private int _dataNo;                                 // データNo.
         private int _eventDataNo;                            // イベントNo.
 
-        public EventPage(string title, int dataNo, int eventDataNo)
+        public EventPage(int dataNo, int eventDataNo)
         {
             InitializeComponent();
 
-            _titleName = title;
             _dataNo = dataNo;
             _eventDataNo = eventDataNo;
 

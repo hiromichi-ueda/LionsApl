@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LionsApl.Table
 {
-    internal class HOME_EVENT
+    class EVENT_LIST
     {
         [SQLite.PrimaryKey, SQLite.AutoIncrement]
         public int Id { get; set; }
@@ -22,5 +22,6 @@ namespace LionsApl.Table
         public string MeetingName { get; set; }
         // T_DIRECTOR
         public string Subject { get; set; }
+        public string ClubEventClass { get; set; }
     }
 }

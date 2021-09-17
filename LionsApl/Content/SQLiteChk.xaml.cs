@@ -355,7 +355,7 @@ namespace LionsApl.Content
                     foreach (var row in db.Query<Table.T_EVENTRET>("Select * From T_EVENTRET"))
                     {
                         ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
-                                            $"{row.Id}, {row.DataNo}, {row.EventClass}, {row.EventClass}, {row.EventDataNo}, {row.EventDate},\r\n" +
+                                            $"{row.Id}, {row.DataNo}, {row.EventClass}, {row.EventDataNo}, {row.EventDate},\r\n" +
                                             $"{row.ClubCode}, {row.ClubNameShort}, {row.MemberCode}, {row.MemberName},\r\n" +
                                             $"{row.Answer}, {row.AnswerLate}, {row.AnswerEarly}, {row.Option1}, {row.Option2}, {row.Option3}, {row.Option4}, {row.Option5}, {row.OtherCount}, {row.TargetFlg}, {row.CancelFlg}, \r\n";
                     }

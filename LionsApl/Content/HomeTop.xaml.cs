@@ -45,68 +45,11 @@ namespace LionsApl.Content
             // font-size
             this.LabelSlogun.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.LabelDistrictGovernor.FontSize = Device.GetNamedSize(NamedSize.Caption, typeof(Label));
-            //this.LetterDate0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterTitle0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterMark0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterDate1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterTitle1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterMark1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterDate2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterTitle2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterMark2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterDate3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterTitle3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.LetterMark3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventDate0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventTitle0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventCount0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventMsg0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventMark0.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventTitle1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventCount1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventMsg1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventMark1.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventTitle2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventCount2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventMsg2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventMark2.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventTitle3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventCount3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventMsg3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            //this.EventMark3.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            
 
             // 画面表示の初期化
             // Slogan
             LabelSlogun.Text = NoSloganStr;
             LabelDistrictGovernor.Text = "";
-            //// Letter
-            //LetterDate0.Text = "";
-            //LetterTitle0.Text = "キャビネットレター情報はありません。";
-            //LetterDate1.Text = "";
-            //LetterTitle1.Text = "";
-            //LetterDate2.Text = "";
-            //LetterTitle2.Text = "";
-            //LetterDate3.Text = "";
-            //LetterTitle3.Text = "";
-            //// Event
-            //EventDate0.Text = "";
-            //EventTitle0.Text = "参加予定のイベントはありません。";
-            //EventCount0.Text = "";
-            //EventMsg0.Text = "";
-            //EventDate1.Text = "";
-            //EventTitle1.Text = "";
-            //EventCount1.Text = "";
-            //EventMsg1.Text = "";
-            //EventDate2.Text = "";
-            //EventTitle2.Text = "";
-            //EventCount2.Text = "";
-            //EventMsg2.Text = "";
-            //EventDate3.Text = "";
-            //EventTitle3.Text = "";
-            //EventCount3.Text = "";
-            //EventMsg3.Text = "";
-
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
@@ -194,7 +137,7 @@ namespace LionsApl.Content
         /// <param name="sender"></param>
         /// <param name="e"></param>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private void Letter_Label_Tap(object sender, System.EventArgs e, int dataNo)
+        private void LetterRow_Tap(object sender, System.EventArgs e, int dataNo)
         {
             Navigation.PushAsync(new LetterPage(dataNo.ToString()));
         }
@@ -206,11 +149,10 @@ namespace LionsApl.Content
         /// <param name="sender"></param>
         /// <param name="e"></param>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private void Event_Label_Tap(object sender, System.EventArgs e, int listNo)
+        private void EventRow_Tap(object sender, System.EventArgs e, int dataNo, int eventDataNo)
         {
-            Navigation.PushAsync(new EventPage(_eventLt[listNo].EventTitle, _eventLt[listNo].DataNo, _eventLt[listNo].EventDataNo));
+            Navigation.PushAsync(new EventPage(dataNo, eventDataNo));
         }
-
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -265,16 +207,17 @@ namespace LionsApl.Content
                     _letterLt.Add(new CHomeTopLetter(_utl.GetString(row.EventDate), _utl.GetString(row.Title), row.DataNo));
 
                     // コントロールテンプレートを作成
-                    HomeTopLetter letter = new HomeTopLetter(row.DataNo,
+                    HomeTopLetter letterRow = new HomeTopLetter(row.DataNo,
                                                             _utl.GetString(row.EventDate).Substring(5, 5),
-                                                            _utl.GetString(row.Title));
+                                                            _utl.GetString(row.Title),
+                                                            Device.GetNamedSize(NamedSize.Default, typeof(Label)));
                     // Labelタップ時の処理追加
                     TapGestureRecognizer tgr0 = new TapGestureRecognizer();
-                    tgr0.Tapped += (s, e) => { Letter_Label_Tap(s, e, row.DataNo); };
-                    letter.GestureRecognizers.Add(tgr0);
+                    tgr0.Tapped += (s, e) => { LetterRow_Tap(s, e, row.DataNo); };
+                    letterRow.GestureRecognizers.Add(tgr0);
 
                     // StackLayoutにコントロールテンプレートを追加
-                    LetterStackLayout.Children.Add(letter);
+                    LetterStackLayout.Children.Add(letterRow);
 
                     idx++;
 
@@ -284,11 +227,14 @@ namespace LionsApl.Content
                         break;
                     }
                 }
+
+                // キャビネットレターがない場合
                 if (idx == 0)
                 {
-                    HomeTopNoData letter = new HomeTopNoData(NoLetterStr);
+                    HomeTopNoData letterRow = new HomeTopNoData(NoLetterStr,
+                                                                Device.GetNamedSize(NamedSize.Caption, typeof(Label)));
                     // StackLayoutにコントロールテンプレートを追加
-                    LetterStackLayout.Children.Add(letter);
+                    LetterStackLayout.Children.Add(letterRow);
 
                 }
 
@@ -307,10 +253,6 @@ namespace LionsApl.Content
         private void SetEventLt()
         {
             int idx = 0;
-            //DateTime dt = DateTime.Now;
-            //DateTime wdt;
-            //TimeSpan countTSpn;
-            //string _nowDate = dt.ToString("yyyy/MM/dd");
             int intDataNo = 0;                              // データNo.設定用
             int intEventDataNo = 0;                         // イベントデータNo.設定用
             string strTitle = "";                           // タイトル設定用文字列
@@ -333,7 +275,8 @@ namespace LionsApl.Content
                                             "t1.Answer, " +
                                             "t1.CancelFlg, " +
                                             "t2.Title, " +
-                                            "t3.MeetingName " +
+                                            "t3.MeetingName," +
+                                            "t4.Subject " +
                                         "FROM " +
                                             "T_EVENTRET t1 " +
                                         "LEFT OUTER JOIN " +
@@ -346,8 +289,14 @@ namespace LionsApl.Content
                                         "ON " +
                                             "t1.EventClass = '2' and " +
                                             "t1.EventDataNo = t3.DataNo " +
+                                        "LEFT OUTER JOIN " +
+                                            "T_DIRECTOR t4 " +
+                                        "ON " +
+                                            "t1.EventClass = '3' and " +
+                                            "t1.EventDataNo = t4.DataNo " +
                                         "WHERE " +
-                                            "t1.MemberCode = '" + _sqlite.Db_A_Account.MemberCode + "'"))
+                                            "t1.MemberCode = '" + _sqlite.Db_A_Account.MemberCode + "' " +
+                                        "ORDER BY t1.EventDate ASC"))
                 {
                     intDataNo = 0;                           // データNo.設定用
                     intEventDataNo = 0;                      // イベントデータNo.設定用
@@ -367,106 +316,51 @@ namespace LionsApl.Content
                                      ref strCancel, 
                                      ref strAnswer);
 
+                    // イベント出欠に回答していない場合
                     if (strAnswer == "")
                     {
+                        // 対象外として次のデータへ
                         continue;
                     }
 
-                    //if (idx == 0)
-                    //{
-                    //    // 月日設定
-                    //    EventDate0.Text = strDate;
-                    //    // タイトル設定
-                    //    EventTitle0.Text = strTitle;
-                    //    // 日数設定
-                    //    EventCount0.Text = strCount;
-                    //    // 中止設定
-                    //    EventMsg0.Text = strCancel;
-                    //    // 画面遷移記号設定
-                    //    EventMark0.Text = "〉";
+                    // コントロールテンプレートを作成
+                    HomeTopEvent eventRow = new HomeTopEvent(intDataNo,
+                                                            strDate,
+                                                            strTitle,
+                                                            strCount,
+                                                            strCancel,
+                                                            Device.GetNamedSize(NamedSize.Caption, typeof(Label)));
+                    // Labelタップ時の処理追加
+                    TapGestureRecognizer tgr0 = new TapGestureRecognizer();
+                    tgr0.Tapped += (s, e) => { EventRow_Tap(s, e, intDataNo, intEventDataNo); };
+                    eventRow.GestureRecognizers.Add(tgr0);
 
-                    //    // Labelタップ時の処理追加
-                    //    TapGestureRecognizer tgr0 = new TapGestureRecognizer();
-                    //    tgr0.Tapped += (s, e) => { Event_Label_Tap(s, e, 0); };
-                    //    EventDate0.GestureRecognizers.Add(tgr0);
-                    //    EventTitle0.GestureRecognizers.Add(tgr0);
-                    //    EventMsg0.GestureRecognizers.Add(tgr0);
-                    //    EventMark0.GestureRecognizers.Add(tgr0);
+                    // StackLayoutにコントロールテンプレートを追加
+                    EventStackLayout.Children.Add(eventRow);
 
-                    //    idx++;
-                    //}
-                    //else if (idx == 1)
-                    //{
-                    //    // 月日設定
-                    //    EventDate1.Text = strDate;
-                    //    // タイトル設定
-                    //    EventTitle1.Text = strTitle;
-                    //    // 日数設定
-                    //    EventCount1.Text = strCount;
-                    //    // 中止設定
-                    //    EventMsg1.Text = strCancel;
-                    //    // 画面遷移記号設定
-                    //    EventMark1.Text = "〉";
+                    idx++;
 
-                    //    // Labelタップ時の処理追加
-                    //    TapGestureRecognizer tgr0 = new TapGestureRecognizer();
-                    //    tgr0.Tapped += (s, e) => { Event_Label_Tap(s, e, 0); };
-                    //    EventDate1.GestureRecognizers.Add(tgr0);
-                    //    EventTitle1.GestureRecognizers.Add(tgr0);
-                    //    EventMsg1.GestureRecognizers.Add(tgr0);
-                    //    EventMark1.GestureRecognizers.Add(tgr0);
+                    // MAX行数にて処理終了
+                    if (idx >= EVENT_MAXROW)
+                    {
+                        break;
+                    }
 
-                    //    idx++;
-                    //}
-                    //else if (idx == 2)
-                    //{
-                    //    // 月日設定
-                    //    EventDate2.Text = strDate;
-                    //    // タイトル設定
-                    //    EventTitle2.Text = strTitle;
-                    //    // 日数設定
-                    //    EventCount2.Text = strCount;
-                    //    // 中止設定
-                    //    EventMsg2.Text = strCancel;
-                    //    // 画面遷移記号設定
-                    //    EventMark2.Text = "〉";
-                    //    idx++;
+                }
 
-                    //    // Labelタップ時の処理追加
-                    //    TapGestureRecognizer tgr0 = new TapGestureRecognizer();
-                    //    tgr0.Tapped += (s, e) => { Event_Label_Tap(s, e, 0); };
-                    //    EventDate2.GestureRecognizers.Add(tgr0);
-                    //    EventTitle2.GestureRecognizers.Add(tgr0);
-                    //    EventMsg2.GestureRecognizers.Add(tgr0);
-                    //    EventMark2.GestureRecognizers.Add(tgr0);
-                    //}
-                    //else if (idx == 3)
-                    //{
-                    //    // 月日設定
-                    //    EventDate3.Text = strDate;
-                    //    // タイトル設定
-                    //    EventTitle3.Text = strTitle;
-                    //    // 日数設定
-                    //    EventCount3.Text = strCount;
-                    //    // 中止設定
-                    //    EventMsg3.Text = strCancel;
-                    //    // 画面遷移記号設定
-                    //    EventMark3.Text = "〉";
-                    //    idx++;
+                // 参加イベントがない場合
+                if (idx == 0)
+                {
+                    HomeTopNoData eventRow = new HomeTopNoData(NoEventStr,
+                                                               Device.GetNamedSize(NamedSize.Caption, typeof(Label)));
+                    // StackLayoutにコントロールテンプレートを追加
+                    EventStackLayout.Children.Add(eventRow);
 
-                    //    // Labelタップ時の処理追加
-                    //    TapGestureRecognizer tgr0 = new TapGestureRecognizer();
-                    //    tgr0.Tapped += (s, e) => { Event_Label_Tap(s, e, 0); };
-                    //    EventDate3.GestureRecognizers.Add(tgr0);
-                    //    EventTitle3.GestureRecognizers.Add(tgr0);
-                    //    EventMsg3.GestureRecognizers.Add(tgr0);
-                    //    EventMark3.GestureRecognizers.Add(tgr0);
-                    //}
                 }
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE/T_DIRECTOR) : &{ex.Message}", "OK");
             }
         }
 
@@ -492,7 +386,8 @@ namespace LionsApl.Content
         {
             DateTime dt = DateTime.Now;
             DateTime wdt;
-            string wstrDate = "";
+            string wkDate = string.Empty;
+            string wkClass = string.Empty;
             TimeSpan countTSpn;
 
             // データNo.設定
@@ -506,19 +401,16 @@ namespace LionsApl.Content
             }
 
             // イベントNo.設定
-            if (row.EventDataNo != 0)
-            {
-                intEventDataNo = row.EventDataNo;
-            }
+            intEventDataNo = row.EventDataNo;
 
             // 日時・日数設定
             if (row.EventDate != null)
             {
-                wstrDate = row.EventDate;
-                wdt = DateTime.Parse(wstrDate);
+                wkDate = row.EventDate;
+                wdt = DateTime.Parse(wkDate);
 
                 // 日時設定
-                strDate = wstrDate.Substring(5, 5);
+                strDate = wkDate.Substring(5, 5);
 
                 // 日数設定
                 countTSpn = wdt - dt;
@@ -539,31 +431,23 @@ namespace LionsApl.Content
             }
 
             // タイトル設定
-            if (row.EventClass != null)
+            wkClass = _utl.GetString(row.EventClass);
+            if (wkClass != string.Empty)
             {
                 // 1:キャビネット
-                if (row.EventClass.Equals("1"))
+                if (wkClass.Equals(_utl.EVENTCLASS_CV))
                 {
-                    if (row.Title != null)
-                    {
-                        strTitle = row.Title;
-                    }
+                    strTitle = _utl.GetString(row.Title);
                 }
                 // 2:クラブ（例会）
-                else if (row.EventClass.Equals("2"))
+                else if (wkClass.Equals(_utl.EVENTCLASS_CL))
                 {
-                    if (row.MeetingName != null)
-                    {
-                        strTitle = row.MeetingName;
-                    }
+                    strTitle = _utl.GetString(row.MeetingName);
                 }
                 // 3:クラブ（理事・委員会）
-                else if (row.EventClass.Equals("3"))
+                else if (wkClass.Equals(_utl.EVENTCLASS_DR))
                 {
-                    if (row.Title != null)
-                    {
-                        strTitle = row.Title;
-                    }
+                    strTitle = _utl.GetString(row.Subject);
                 }
             }
 

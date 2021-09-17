@@ -1271,7 +1271,7 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// HOME_EVENT(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE)テーブルデータ取得
+        /// HOME_EVENT(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE/T_DIRECTOR)テーブルデータ取得
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
         public Table.HOME_EVENT[] Get_HOME_EVENT(string command)
@@ -1349,7 +1349,7 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// Get_DIRECTOR_LIST(DIRECTOR/T_EVENTRETY)テーブルデータ取得
+        /// Get_DIRECTOR_LIST(T_DIRECTOR/T_EVENTRET)テーブルデータ取得
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
         public Table.DIRECTOR_LIST[] Get_DIRECTOR_LIST(string command)
@@ -1372,6 +1372,35 @@ namespace LionsApl
             return items.Count > 0 ? items.ToArray() : (new Table.DIRECTOR_LIST[0]);
 
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Get_EVENT_LIST(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE/T_DIRECTOR)テーブルデータ取得
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.EVENT_LIST[] Get_EVENT_LIST(string command)
+        {
+            List<Table.EVENT_LIST> items = new List<Table.EVENT_LIST>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                {   // Select
+                    items = db.Query<Table.EVENT_LIST>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.EVENT_LIST[0]);
+
+        }
+
+
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// 取得したデータのテーブル展開
