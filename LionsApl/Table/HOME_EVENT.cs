@@ -20,5 +20,7 @@ namespace LionsApl.Table
         public string Title { get; set; }
         // T_MEETINGSCHEDULE
         public string MeetingName { get; set; }
+        // T_DIRECTOR
+        public string Subject { get; set; }
     }
 }

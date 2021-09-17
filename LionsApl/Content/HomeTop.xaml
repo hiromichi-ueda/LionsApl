@@ -553,9 +553,9 @@
         </StackLayout>
     </ContentPage.Content>
 
-    <ContentPage.Resources>
+    <!--<ContentPage.Resources>
 
-        <!-- レターデータあり -->
+        --><!-- レターデータあり --><!--
         <ControlTemplate x:Key="LetterTemplate">
             <Grid 
                 Style="{StaticResource ListGrid_Base}"
@@ -570,7 +570,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <!-- 日付 -->
+                --><!-- 日付 --><!--
                 <Label 
                     Grid.Row="0"
                     Grid.Column="0"
@@ -580,7 +580,7 @@
                     Style="{StaticResource List_Base}"
                         
                     />
-                <!-- タイトル -->
+                --><!-- タイトル --><!--
                 <Label 
                     Grid.Row="0"
                     Grid.Column="1"
@@ -590,7 +590,7 @@
                     Style="{StaticResource List_Base}"
                     />
 
-                <!-- マーク -->
+                --><!-- マーク --><!--
                 <Label 
                     Grid.Row="0"
                     Grid.Column="2"
@@ -601,7 +601,7 @@
                     Style="{StaticResource List_Base}"
                     />
                     
-                <!-- アンダーライン -->
+                --><!-- アンダーライン --><!--
                 <BoxView 
                     Grid.Row="1"
                     Grid.Column="0"
@@ -615,7 +615,7 @@
             </Grid>
         </ControlTemplate>
 
-        <!-- イベントデータあり -->
+        --><!-- イベントデータあり --><!--
         <ControlTemplate x:Key="EventTemplate">
             <Grid 
                 Style="{StaticResource ListGrid_Base}"
@@ -631,7 +631,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <!-- 日付 -->
+                --><!-- 日付 --><!--
                 <Label 
                     Grid.Row="0"
                     Grid.Column="0"
@@ -641,7 +641,7 @@
                     Style="{StaticResource List_Base}"
                     />
 
-                <!-- タイトル -->
+                --><!-- タイトル --><!--
                 <Label 
                     Grid.Row="0"
                     Grid.Column="1"
@@ -651,7 +651,7 @@
                     Style="{StaticResource List_Base}"
                     />
 
-                <!-- 日数 -->
+                --><!-- 日数 --><!--
                 <Label 
                     Grid.Row="0"
                     Grid.Column="1"
@@ -661,7 +661,7 @@
                     Style="{StaticResource List_Base}"
                     />
                     
-                <!-- マーク -->
+                --><!-- マーク --><!--
                 <Label 
                     Grid.Row="0"
                     Grid.Column="2"
@@ -672,7 +672,7 @@
                     Style="{StaticResource List_Base}"
                 />
 
-                <!-- アンダーライン -->
+                --><!-- アンダーライン --><!--
                 <BoxView 
                     Grid.Row="1"
                     Grid.Column="0"
@@ -685,7 +685,7 @@
             </Grid>
         </ControlTemplate>
 
-        <!-- データなし -->
+        --><!-- データなし --><!--
         <ControlTemplate x:Key="NoDataTemplate">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -696,7 +696,7 @@
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
 
-                <!-- メッセージ -->
+                --><!-- メッセージ --><!--
                 <Label 
                     x:Name="NoDataLabel"
                     Grid.Column="0"
@@ -710,6 +710,6 @@
             </Grid>
         </ControlTemplate>
 
-    </ContentPage.Resources>
+    </ContentPage.Resources>-->
 
 </ContentPage>
