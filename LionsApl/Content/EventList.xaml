@@ -46,7 +46,6 @@
                         HorizontalOptions="FillAndExpand"
                         >
                         <Label
-                            x:Name="title"
                             Text="出欠確認" 
                             Style="{StaticResource Title_Blue}"
                             />

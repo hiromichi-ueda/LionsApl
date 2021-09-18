@@ -95,19 +95,20 @@ namespace LionsApl.Content
                     Subject.Text = Util.GetString(row.Title);
                     Body.Text = Util.GetString(row.Body);
 
+                    // FILEPATH生成
+                    var filepath = _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/").Replace("\r\n", "");
+
                     //画像ファイル①
                     if (Util.GetString(row.Image1FileName) != "")
                     {
-                        string uriStr = AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/") +
-                                        "/" + wkDataNo + "/" + Util.GetString(row.Image1FileName);
+                        string uriStr = AppServer + filepath + "/" + wkDataNo + "/" + Util.GetString(row.Image1FileName);
                         Image1.Source = ImageSource.FromUri(new Uri(uriStr));
                     }
 
                     //画像ファイル②
                     if (Util.GetString(row.Image2FileName) != "")
                     {
-                        string uriStr = AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/") +
-                                        "/" + wkDataNo + "/" + Util.GetString(row.Image2FileName);
+                        string uriStr = AppServer + filepath + "/" + wkDataNo + "/" + Util.GetString(row.Image2FileName);
                         Image2.Source = ImageSource.FromUri(new Uri(uriStr));
                     }
                 }

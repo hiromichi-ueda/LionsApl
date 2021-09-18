@@ -13,6 +13,7 @@ namespace LionsApl.Content
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EventList : ContentPage
     {
+
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
