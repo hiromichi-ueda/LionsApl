@@ -173,6 +173,7 @@ namespace LionsApl.Content
                                      ref strTitle,
                                      ref strAnswer);
 
+                    // イベントリスト行クラスを作成する。
                     EventRow eventRow = new EventRow(intDataNo, intEventDataNo, strDate, strCancel, strTitle, strAnswer);
                     items.Add(eventRow);
                 }
@@ -184,6 +185,7 @@ namespace LionsApl.Content
             }
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// イベントリストの各項目値を取得するして表示用変数に設定する。
         /// </summary>
@@ -194,6 +196,7 @@ namespace LionsApl.Content
         /// <param name="strCancel">キャンセル（表示用変数）</param>
         /// <param name="strTitle">タイトル（表示用変数）</param>
         /// <param name="strAnswer">回答（表示用変数）</param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetEventListData(Table.EVENT_LIST row,
                                         ref int intDataNo,
                                         ref int intEventDataNo,
@@ -303,6 +306,11 @@ namespace LionsApl.Content
 
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// イベントリスト行クラス
+    /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
     public sealed class EventRow
     {
         public EventRow(int dataNo, int eventDataNo, string eventDate, string eventCancel, string title, string answer)
@@ -322,6 +330,11 @@ namespace LionsApl.Content
         public string Answer { get; set; }
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// リスト用行クラス切り替え
+    /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
     public class MyEventSelector : DataTemplateSelector
     {
         //切り替えるテンプレートを保持するプロパティを用意する
