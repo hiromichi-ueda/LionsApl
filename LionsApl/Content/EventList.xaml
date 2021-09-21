@@ -16,6 +16,7 @@
 
     <!-- HEADER -->
     <StackLayout>
+        
         <ListView 
             x:Name="EventListView"
             ItemTapped="Handle_ItemTapped"
@@ -71,6 +72,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -95,36 +97,47 @@
                         Style="{StaticResource List_Base_End}"
                     />
 
-                    <!-- 件名 -->
-                    <Label 
-                        Grid.Column="1"
-                        Grid.Row="1"
-                        Grid.ColumnSpan="2"
-                        Grid.RowSpan="1"
-                        Text="{Binding }" 
-                        Style="{StaticResource List_Base_Start}"
-                    />
-
-                    <!-- 出席・欠席・未登録 -->
+                    <!-- 中止 -->
                     <Label 
                         Grid.Column="2"
                         Grid.Row="0"
                         Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="{Binding EventCancel}" 
+                        Style="{StaticResource List_Base}"
+                        TextColor="Red"
+                    />
+
+                    <!-- 出席・欠席・未登録 -->
+                    <Label 
+                        Grid.Column="3"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="1"
                         Grid.RowSpan="2"
-                        Text="" 
+                        Text="{Binding Answer}" 
                         Style="{StaticResource List_Base}"
                     />
 
                     <!-- マーク -->
                     <Label 
-                        Grid.Column="3"
+                        Grid.Column="4"
                         Grid.Row="0"
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="2"
                         Text="〉" 
                         Style="{StaticResource List_Base}"
                     />
-                    
+
+                    <!-- 件名 -->
+                    <Label 
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="3"
+                        Grid.RowSpan="1"
+                        Text="{Binding Title}" 
+                        Style="{StaticResource List_Base_Start}"
+                    />
+
                 </Grid>
             </ViewCell>
         </DataTemplate>

@@ -38,12 +38,21 @@ namespace LionsApl.Content
 
         private string ST_CANCEL = "中止";
 
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         public EventList()
         {
             InitializeComponent();
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
+
+            // Content Utilクラス生成
+            _utl = new LAUtility();
 
             // A_SETTINGデータ取得
             _sqlite.SetSetting();
@@ -58,9 +67,36 @@ namespace LionsApl.Content
             LoginInfo.Text = _sqlite.LoginInfo;
 
             // イベント情報データ取得
-            //GetEventData();
+            GetEventData();
 
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// タップ処理
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (e.Item == null)
+                return;
+
+            EventRow item = e.Item as EventRow;
+
+            // 1件もない(メッセージ行のみ表示している)場合は処理しない
+            if (string.IsNullOrEmpty(item.Title))
+            {
+                ((ListView)sender).SelectedItem = null;
+                return;
+            }
+
+            // 出欠確認画面へ
+            Navigation.PushAsync(new EventPage(item.DataNo, item.EventDataNo));
+
+            //Deselect Item
+            ((ListView)sender).SelectedItem = null;
+        }
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -69,14 +105,11 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetEventData()
         {
-            int idx = 0;
             int intDataNo = 0;                              // データNo.設定用
             int intEventDataNo = 0;                         // イベントデータNo.設定用
             string strDate = "";                            // 月日設定用文字列
-            string strEveClass = "";                        // イベントクラス設定用文字列
-            string strClubEveClass = "";                    // クラブイベントクラス設定用文字列
-            string strTitle = "";                           // タイトル設定用文字列
             string strCancel = "";                          // 中止表示用文字列
+            string strTitle = "";                           // タイトル設定用文字列
             string strAnswer = "";                          // 出欠設定用文字列
             List<EventRow> items = new List<EventRow>();
 
@@ -85,18 +118,21 @@ namespace LionsApl.Content
             {
                 foreach (Table.EVENT_LIST row in _sqlite.Get_EVENT_LIST(
                                         "SELECT " +
-                                            "t1.DataNo, " +
-                                            "t1.EventClass, " +
-                                            "t1.EventDataNo, " +
-                                            "t1.EventDate, " +
-                                            "t1.ClubCode, " +
-                                            "t1.MemberCode, " +
-                                            "t1.Answer, " +
-                                            "t1.CancelFlg, " +
-                                            "t2.Title, " +
-                                            "t3.MeetingName," +
-                                            "t4.Subject," +
-                                            "t4.EventClass " +
+                                            "t1.DataNo AS DataNo, " +
+                                            "t1.EventClass AS EventClass, " +
+                                            "t1.EventDataNo AS EventDataNo, " +
+                                            "t1.EventDate AS EventDate, " +
+                                            "t1.ClubCode AS ClubCode, " +
+                                            "t1.MemberCode AS MemberCode, " +
+                                            "t1.Answer AS Answer, " +
+                                            "t1.CancelFlg AS CancelFlg, " +
+                                            "t2.EventPlace AS EventPlace, " +
+                                            "t2.Title AS Title, " +
+                                            "t3.MeetingName AS MeetingName," +
+                                            "t3.MeetingPlace AS MeetingPlace," +
+                                            "t4.Subject AS Subject," +
+                                            "t4.EventClass AS ClubEventClass, " +
+                                            "t4.EventPlace AS ClubEventPlace " +
                                         "FROM " +
                                             "T_EVENTRET t1 " +
                                         "LEFT OUTER JOIN " +
@@ -114,40 +150,37 @@ namespace LionsApl.Content
                                         "ON " +
                                             "t1.EventClass = '3' and " +
                                             "t1.EventDataNo = t4.DataNo " +
-                                        "ORDER BY t1.EventDate ASC"))
-                    //"WHERE " +
-                    //    "t1.MemberCode = '" + _sqlite.Db_A_Account.MemberCode + "' " +
+                                        "WHERE " +
+                                            "t1.MemberCode = '" + _sqlite.Db_A_Account.MemberCode + "' " +
+                                        "ORDER BY t1.EventDate DESC, t1.DataNo DESC"))
 
 
                 {
                     intDataNo = 0;                           // データNo.設定用
                     intEventDataNo = 0;                      // イベントデータNo.設定用
                     strDate = "";                            // 月日設定用文字列
-                    strEveClass = "";                        // イベントクラス設定用文字列
-                    strClubEveClass = "";                    // クラブイベントクラス設定用文字列
-                    strTitle = "";                           // タイトル設定用文字列
                     strCancel = "";                          // 中止表示用文字列
+                    strTitle = "";                           // タイトル設定用文字列
                     strAnswer = "";                          // 出欠設定用文字列
+
 
                     // イベントリストの各項目値を取得する
                     GetEventListData(row,
                                      ref intDataNo,
                                      ref intEventDataNo,
                                      ref strDate,
-                                     ref strEveClass,
-                                     ref strClubEveClass,
-                                     ref strTitle,
                                      ref strCancel,
+                                     ref strTitle,
                                      ref strAnswer);
 
-                    items.Add(new EventRow(intDataNo, intEventDataNo, strDate, strEveClass, strClubEveClass, strTitle, strCancel, strAnswer));
-
+                    EventRow eventRow = new EventRow(intDataNo, intEventDataNo, strDate, strCancel, strTitle, strAnswer);
+                    items.Add(eventRow);
                 }
                 EventListView.ItemsSource = items;
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE/T_DIRECTOR) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE/T_DIRECTOR) : {ex.Message}", "OK");
             }
         }
 
@@ -158,23 +191,20 @@ namespace LionsApl.Content
         /// <param name="intDataNo">表示対象データのDataNo</param>
         /// <param name="intEventDataNo">表示対象データのEventDataNo</param>
         /// <param name="strDate">日付（表示用変数）</param>
-        /// <param name="strEveClass">イベント区分（表示用変数）</param>
-        /// <param name="strClubEveClass">クラブイベント区分（表示用変数）</param>
-        /// <param name="strTitle">タイトル（表示用変数）</param>
         /// <param name="strCancel">キャンセル（表示用変数）</param>
+        /// <param name="strTitle">タイトル（表示用変数）</param>
         /// <param name="strAnswer">回答（表示用変数）</param>
         private void GetEventListData(Table.EVENT_LIST row,
                                         ref int intDataNo,
                                         ref int intEventDataNo,
                                         ref string strDate,
-                                        ref string strEveClass,
-                                        ref string strClubEveClass,
-                                        ref string strTitle,
                                         ref string strCancel,
+                                        ref string strTitle,
                                         ref string strAnswer)
         {
+            string wkEveClass = string.Empty;
+            string wkClubEveClass = string.Empty;
             string wkAnswer = string.Empty;
-            string wkClass = string.Empty;
 
             // データNo.設定
             if (row.DataNo == 0)
@@ -193,47 +223,47 @@ namespace LionsApl.Content
             strDate = _utl.GetString(row.EventDate).Substring(0, 10);
 
             // イベント区分
-            strEveClass = _utl.GetString(row.EventClass);
+            wkEveClass = _utl.GetString(row.EventClass);
             // 1:キャビネット
-            if (strEveClass.Equals(_utl.EVENTCLASS_CV))
+            if (wkEveClass.Equals(_utl.EVENTCLASS_CV))
             {
                 strDate = strDate + " " + ST_EVENT_1;
             }
             // 2:クラブ（例会）
-            else if (strEveClass.Equals(_utl.EVENTCLASS_CL))
+            else if (wkEveClass.Equals(_utl.EVENTCLASS_CL))
             {
                 strDate = strDate + " " + ST_EVENT_2;
             }
             // 3:クラブ（理事・委員会）
-            else if (strEveClass.Equals(_utl.EVENTCLASS_DR))
+            else if (wkEveClass.Equals(_utl.EVENTCLASS_DR))
             {
                 strDate = strDate + " " + ST_EVENT_3;
             }
 
-            // クラブイベント区分
-            strClubEveClass = _utl.GetString(row.ClubEventClass);
-
             // タイトル設定
             // 1:キャビネット
-            if (strEveClass.Equals(_utl.EVENTCLASS_CV))
+            if (wkEveClass.Equals(_utl.EVENTCLASS_CV))
             {
                 strTitle = _utl.GetString(row.Title);
             }
             // 2:クラブ（例会）
-            else if (strEveClass.Equals(_utl.EVENTCLASS_CL))
+            else if (wkEveClass.Equals(_utl.EVENTCLASS_CL))
             {
                 strTitle = _utl.GetString(row.MeetingName);
             }
             // 3:クラブ（理事・委員会）
-            else if (strEveClass.Equals(_utl.EVENTCLASS_DR))
+            else if (wkEveClass.Equals(_utl.EVENTCLASS_DR))
             {
+                // クラブイベント区分
+                wkClubEveClass = _utl.GetString(row.ClubEventClass);
+
                 // 理事会
-                if (strClubEveClass.Equals(_utl.CLUBEVENTCLASS_RI))
+                if (wkClubEveClass.Equals(_utl.CLUBEVENTCLASS_RI))
                 {
                     strTitle = ST_CLUSEVENT_1 + " " + _utl.GetString(row.Subject);
                 }
                 // 委員会
-                else if (strClubEveClass.Equals(_utl.CLUBEVENTCLASS_IN))
+                else if (wkClubEveClass.Equals(_utl.CLUBEVENTCLASS_IN))
                 {
                     strTitle = ST_CLUSEVENT_2 + " " + _utl.GetString(row.Subject);
                 }
@@ -260,56 +290,35 @@ namespace LionsApl.Content
                 strAnswer = ST_ANSWER_NO;
             }
 
-        }
+            //DisplayAlert("Disp", $" DataNo : {intDataNo}\r\n" +
+            //         $" Class : {wkEveClass}\r\n" +
+            //         $" EventDataNo : {intEventDataNo}\r\n" +
+            //         $" Date : {strDate}\r\n" +
+            //         $" Cancel : {strCancel}\r\n" +
+            //         $" Title : {strTitle}\r\n" +
+            //         $" ClubClass : {wkClubEveClass}\r\n" +
+            //         $" Answer : {strAnswer}", "OK");
 
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// タップ処理
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            if (e.Item == null)
-                return;
-
-            EventRow item = e.Item as EventRow;
-
-            // 1件もない(メッセージ行のみ表示している)場合は処理しない
-            if (string.IsNullOrEmpty(item.EventClass))
-            {
-                ((ListView)sender).SelectedItem = null;
-                return;
-            }
-
-            // 出欠確認画面へ
-            //Navigation.PushAsync(new EventPage(item.DataNo));
-
-            //Deselect Item
-            ((ListView)sender).SelectedItem = null;
         }
 
     }
 
     public sealed class EventRow
     {
-        public EventRow(int dataNo, int eventDataNo, string eventDate, string eventClass, string clubEventClass, string title, string eventPlace, string answer)
+        public EventRow(int dataNo, int eventDataNo, string eventDate, string eventCancel, string title, string answer)
         {
             DataNo = dataNo;
             EventDataNo = eventDataNo;
             EventDate = eventDate;
-            EventClass = eventClass;
-            ClubEventClass = clubEventClass;
+            EventCancel = eventCancel;
             Title = title;
-            EventPlace = eventPlace;
             Answer = answer;
         }
         public int DataNo { get; set; }
         public int EventDataNo { get; set; }
         public string EventDate { get; set; }
-        public string EventClass { get; set; }
-        public string ClubEventClass { get; set; }
+        public string EventCancel { get; set; }
         public string Title { get; set; }
-        public string EventPlace { get; set; }
         public string Answer { get; set; }
     }
 
@@ -323,7 +332,7 @@ namespace LionsApl.Content
         {
             // 条件より該当するテンプレートを返す
             var info = (EventRow)item;
-            if (!String.IsNullOrEmpty(info.EventClass))
+            if (!String.IsNullOrEmpty(info.EventDate))
             {
                 return ExistDataTemplate;
             }

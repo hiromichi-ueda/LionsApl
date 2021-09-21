@@ -17,11 +17,14 @@ namespace LionsApl.Table
         public string Answer { get; set; }
         public string CancelFlg { get; set; }
         // T_EVENT
+        public string EventPlace { get; set; }
         public string Title { get; set; }
         // T_MEETINGSCHEDULE
         public string MeetingName { get; set; }
+        public string MeetingPlace { get; set; }
         // T_DIRECTOR
         public string Subject { get; set; }
         public string ClubEventClass { get; set; }
+        public string ClubEventPlace { get; set; }
     }
 }
