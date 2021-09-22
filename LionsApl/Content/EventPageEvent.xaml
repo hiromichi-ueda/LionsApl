@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LionsApl.Content.EventPageEvent">
+  <ContentView.Resources>
+        <ResourceDictionary>
+            <ControlTemplate x:Key="EventTemplate">
+                <Grid
+                    Style="{StaticResource ListGrid_Base}"
+                    >
+                    <Grid.ColumnDefinitions>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        
+                    </Grid.RowDefinitions>
+                    <Label Text="Hello Xamarin.Forms!" />
+                </Grid>
+              
+            </ControlTemplate>
+        </ResourceDictionary>
+    </ContentView.Resources>
+</ContentView>

@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LionsApl.Content.EventPageMeeting">
+    <ContentView.Resources>
+        <ResourceDictionary>
+
+            <ControlTemplate x:Key="MeetingTemplate">
+                <Grid 
+                    Style="{StaticResource ListGrid_Base}"
+                    >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- 例会日 -->
+                    <Label 
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="例会日"
+                        Style="{StaticResource Page_Base}"
+                        />
+                    <Label 
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="{TemplateBinding Date}" 
+                        Style="{StaticResource Page_Base}"
+                        />
+                    <!-- 中止 -->
+                    <Label 
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="{TemplateBinding Cancel}" 
+                        Style="{StaticResource Page_Base}"
+                        TextColor="Red"
+                        />
+
+                    <!-- 例会場所 -->
+                    <Label 
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="例会場所"
+                        Style="{StaticResource Page_Base}"
+                        />
+                    <Label 
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Grid.RowSpan="1"
+                        Text="{TemplateBinding Place}" 
+                        Style="{StaticResource Page_Base}"
+                        />
+
+                    <!-- 例会回数 -->
+                    <Label 
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="例会回数"
+                        Style="{StaticResource Page_Base}"
+                        />
+                    <Label 
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Grid.RowSpan="1"
+                        Text="{TemplateBinding Count}" 
+                        Style="{StaticResource Page_Base}"
+                        />
+
+                    <!-- 例会名 -->
+                    <Label 
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="例会名"
+                        Style="{StaticResource Page_Base}"
+                        />
+                    <Label 
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Grid.RowSpan="1"
+                        Text="{TemplateBinding Name}" 
+                        Style="{StaticResource Page_HeightFree}"
+                        />
+
+                    <!-- 会議方法 -->
+                    <Label 
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="会議方法"
+                        Style="{StaticResource Page_Base}"
+                        />
+                    <Label 
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Grid.RowSpan="1"
+                        Text="{TemplateBinding Online}" 
+                        Style="{StaticResource Page_Base}"
+                        />
+
+                    <!-- お酒 -->
+                    <Label 
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="お酒"
+                        Style="{StaticResource Page_Base}"
+                        />
+                    <Label 
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Grid.RowSpan="1"
+                        Text="{TemplateBinding Sake}" 
+                        Style="{StaticResource Page_Base}"
+                        />
+
+                    <!-- アンダーライン -->
+                    <BoxView 
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Grid.RowSpan="1"
+                        Color="#E0E0E0" 
+                        HeightRequest="1" 
+                        Margin="4,0,4,0" 
+                        />
+
+
+                    <!-- 回答期限 -->
+                    <Label 
+                        Grid.Row="15"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="回答期限"
+                        Style="{StaticResource Page_Base}"
+                        TextColor="Red"
+                        />
+                    <Label 
+                        Grid.Row="15"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Grid.RowSpan="1"
+                        Text="{TemplateBinding AnsDate}" 
+                        Style="{StaticResource Page_Base}"
+                        TextColor="Red"
+                        />
+
+                </Grid>
+            </ControlTemplate>
+
+        </ResourceDictionary>
+    </ContentView.Resources>
+</ContentView>

@@ -22,18 +22,24 @@ namespace LionsApl
         public string ANSWER_AB = "2";
         public string ANSWER_NO = string.Empty;
 
-
+        // 時期区分
+        public string SEASON_NOW = "1";
+        public string SEASON_NEXT = "2";
 
         // 引数用文字列
         public string NLC_OFF = "0";                        // 改行を削除しない。
         public string NLC_ON = "1";                         // 改行を削除する。
 
         // 各種判定用文字列
-        private readonly string OffVal = "0";
+        public readonly string OFFFLG = "0";
 
         // 出力文字列
-        private readonly string OnStr = "有り";
-        private readonly string OffStr = "無し";
+        public readonly string ST_CANCEL = "中止";
+        public readonly string ST_SEASON_NOW = "今期";
+        public readonly string ST_SEASON_NEXT = "時期";
+        public readonly string ST_ON = "有り";
+        public readonly string ST_OFF = "無し";
+        
 
 
         public LAUtility()
@@ -61,6 +67,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// 入力したstringがnullかどうかをチェックして入力値かstring.Emptyを返す
+        /// 改行コード削除フラグがON（NLC_ON）の場合は入力値から改行コードを削除して返す
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
@@ -107,15 +114,68 @@ namespace LionsApl
         public string StrOnOff(string item)
         {
             string retStr = string.Empty;
-            if (item != string.Empty)
+            if (item != null)
             {
-                if (item == OffVal)
+                if (item != string.Empty)
                 {
-                    retStr = OffStr;
+                    if (item == OFFFLG)
+                    {
+                        retStr = ST_OFF;
+                    }
+                    else
+                    {
+                        retStr = ST_ON;
+                    }
                 }
-                else
+            }
+            return retStr;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 入力したフラグから0：string.Empty、1：「中止」の文字列を返す
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public string StrCancel(string item)
+        {
+            string retStr = string.Empty;
+            if (item != null)
+            {
+                if (item != string.Empty)
                 {
-                    retStr = OnStr;
+                    if (item == CANCELFLG)
+                    {
+                        retStr = ST_CANCEL;
+                    }
+                }
+            }
+            return retStr;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 入力したフラグから1：「今期」、2：「次期」の文字列を返す
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public string StrSeason(string item)
+        {
+            string retStr = string.Empty;
+            if (item != null)
+            {
+                if (item != string.Empty)
+                {
+                    if (item == SEASON_NOW)
+                    {
+                        retStr = ST_SEASON_NOW;
+                    }
+                    else if (item == SEASON_NEXT)
+                    {
+                        retStr = ST_SEASON_NEXT;
+                    }
                 }
             }
             return retStr;

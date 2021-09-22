@@ -35,21 +35,58 @@
                         <Label 
                             Text="出欠確認"
                             Style="{StaticResource Title_Blue}"
-                        />
+                            />
                     </StackLayout>
 
                     <!-- BODY(出欠確認) -->
-                    <StackLayout>
-
-
-
-
-
+                    <StackLayout
+                        x:Name="EventStackLayout"
+                        >
+                        <Label 
+                            x:Name="BodyTitle"
+                            Text=""
+                            Style="{StaticResource Page_Base_Center}"
+                            />
                     </StackLayout>
 
                 </StackLayout>
             </ScrollView>
 
+            <!-- 出欠ボタン -->
+            <Grid  HorizontalOptions="Fill" 
+                   VerticalOptions="EndAndExpand" 
+                   Margin="10"
+                   >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <!-- 出席 -->
+                <Button 
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="1"
+                    Text="出席" 
+                    BorderWidth="1" 
+                    CornerRadius="6"
+                    Clicked="Present_Button_Clicked"
+                    >
+                </Button>
+                <!-- 欠席 -->
+                <Button 
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="1"
+                    Text="欠席" 
+                    BorderWidth="1" 
+                    CornerRadius="6"
+                    Clicked="Adsent_Button_Clicked"
+                    >
+                </Button>
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
     

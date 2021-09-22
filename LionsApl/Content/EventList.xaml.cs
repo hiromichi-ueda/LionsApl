@@ -10,6 +10,11 @@ using Xamarin.Forms.Xaml;
 
 namespace LionsApl.Content
 {
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// 出欠確認一覧クラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EventList : ContentPage
     {
@@ -23,7 +28,7 @@ namespace LionsApl.Content
         // リストビュー設定内容
         public List<EventRow> Items { get; set; }
 
-        // 文字列
+        // 文字列定数
         private string ST_EVENT_1 = "[キャビネット]";
         private string ST_EVENT_2 = "[クラブ]";
         private string ST_EVENT_3 = "[クラブ]";
