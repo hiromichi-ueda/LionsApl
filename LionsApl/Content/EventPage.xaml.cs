@@ -46,10 +46,7 @@ namespace LionsApl.Content
         // 文字列定数
         private string ST_EVENT_1 = "キャビネット出欠の確認";
         private string ST_EVENT_2 = "例会出欠の確認";
-        private string ST_EVENT_3_1 = "理事会出欠の確認";
-        private string ST_EVENT_3_2 = "委員会出欠の確認";
-
-        private string ST_CANCEL = "中止";
+        private string ST_EVENT_3 = "理事・委員会出欠の確認";
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -134,59 +131,52 @@ namespace LionsApl.Content
 
                 wkEventClass = _utl.GetString(_eventret.EventClass);
 
-                // イベントクラス別のデータ読み込み
+                // イベントクラス別のデータ読み込み・タイトル文字列の設定・各画面の設定
+                // キャビネットイベント
                 if (wkEventClass.Equals(_utl.EVENTCLASS_CV))
                 {
+                    // キャビネットイベントのデータ読み込み
                     foreach (Table.T_EVENT row in _sqlite.Get_T_EVENT("Select * " +
                                                                       "From T_EVENT " +
                                                                       "Where DataNo='" + _eventDataNo + "'"))
                     {
                         _event = row;
                     }
+                    // タイトル文字列の設定
+                    BodyTitle.Text = ST_EVENT_1;
+
                 }
+                // 年間例会スケジュール
                 else if (wkEventClass.Equals(_utl.EVENTCLASS_CL))
                 {
+                    // 年間例会スケジュールのデータ読み込み
                     foreach (Table.T_MEETINGSCHEDULE row in _sqlite.Get_T_MEETINGSCHEDULE("Select * " +
                                                                                           "From T_MEETINGSCHEDULE " +
                                                                                           "Where DataNo='" + _eventDataNo + "'"))
                     {
                         _meetingschedule = row;
                     }
+                    // タイトル文字列の設定
+                    BodyTitle.Text = ST_EVENT_2;
+                    // 年間例会スケジュール画面の設定
+                    SetCEventPageMeeting();
+
                 }
+                // 理事・委員会
                 else if (wkEventClass.Equals(_utl.EVENTCLASS_DR))
                 {
+                    // 理事・委員会のデータ読み込み
                     foreach (Table.T_DIRECTOR row in _sqlite.Get_T_DIRECTOR("Select * " +
                                                                             "From T_DIRECTOR " +
                                                                             "Where DataNo='" + _eventDataNo + "'"))
                     {
                         _director = row;
                     }
-                }
-
-                // タイトル文字列の設定
-                if (wkEventClass.Equals(_utl.EVENTCLASS_CV))
-                {
-                    BodyTitle.Text = ST_EVENT_1;
-
-
-                }
-                else if (wkEventClass.Equals(_utl.EVENTCLASS_CL))
-                {
-                    BodyTitle.Text = ST_EVENT_2;
-                }
-                else if (wkEventClass.Equals(_utl.EVENTCLASS_DR))
-                {
-                    wkDrEventclass = _utl.GetString(_director.EventClass);
-                    if (wkDrEventclass.Equals(_utl.CLUBEVENTCLASS_RI))
-                    {
-                        BodyTitle.Text = ST_EVENT_3_1;
-                    }
-                    else if (wkDrEventclass.Equals(_utl.CLUBEVENTCLASS_IN))
-                    {
-                        BodyTitle.Text = ST_EVENT_3_2;
-                    }
-
+                    // タイトル文字列の設定
+                    BodyTitle.Text = ST_EVENT_3;
+                    // 理事・委員会画面の設定
                     SetCEventPageDirect();
+
                 }
 
             }
@@ -196,7 +186,29 @@ namespace LionsApl.Content
             }
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 年間例会スケジュール画面の設定
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void SetCEventPageMeeting()
+        {
 
+            // コントロールテンプレートを作成
+            EventPageMeeting meeting = new EventPageMeeting(ref _eventret,
+                                                            ref _meetingschedule,
+                                                            Device.GetNamedSize(NamedSize.Default, typeof(Label)));
+
+            // StackLayoutにコントロールテンプレートを追加
+            EventStackLayout.Children.Add(meeting);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 理事・委員会画面の設定
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         private void SetCEventPageDirect()
         {
             string wkDate = string.Empty;

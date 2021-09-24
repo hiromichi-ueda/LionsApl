@@ -1,6 +1,6 @@
 ﻿namespace LionsApl.Table
 {
-    class T_MEETINGSCHEDULE
+    public partial class T_MEETINGSCHEDULE
     {
         [SQLite.PrimaryKey, SQLite.AutoIncrement]
         public int Id { get; set; }
@@ -11,7 +11,7 @@
         public string MeetingDate { get; set; }
         public string MeetingTime { get; set; }
         public string MeetingPlace { get; set; }
-        public string MeetingCount { get; set; }
+        public int MeetingCount { get; set; }
         public string MeetingName { get; set; }
         public string Online { get; set; }
         public string AnswerDate { get; set; }

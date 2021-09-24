@@ -12,8 +12,6 @@ namespace LionsApl.Content
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EventPageDirect : ContentView
     {
-
-
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// バインダブルプロパティ
 
@@ -96,46 +94,6 @@ namespace LionsApl.Content
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////
-        /// メソッド
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// コンストラクタ
-        /// </summary>
-        /// <param name="dataNo"></param>
-        /// <param name="date"></param>
-        /// <param name="cancel"></param>
-        /// <param name="season"></param>
-        /// <param name="place"></param>
-        /// <param name="agenda"></param>
-        /// <param name="ansdate"></param>
-        /// <param name="labelFontSizse"></param>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        public EventPageDirect(int dataNo, 
-                               string date, 
-                               string cancel,
-                               string season,
-                               string place,
-                               string agenda,
-                               string ansdate,
-                               double labelFontSizse)
-        {
-            InitializeComponent();
-
-            DataNo = dataNo;
-            Date = date;
-            Cancel = cancel;
-            Season = season;
-            Place = place;
-            Agenda = agenda;
-            AnsDate = ansdate;
-            LabelFontSize = labelFontSizse;
-
-            ControlTemplate = Resources["DirectTemplate"] as ControlTemplate;
-        }
-
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
         /// プロパティ
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -144,6 +102,13 @@ namespace LionsApl.Content
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
         public int DataNo { get; set; }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// イベントデータNo
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public int EventDataNo { get; set; }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -220,6 +185,46 @@ namespace LionsApl.Content
         {
             get => (double)GetValue(EventPageDirect.LabelFontSizePropaty);
             set => SetValue(EventPageDirect.LabelFontSizePropaty, value);
+        }
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// メソッド
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="dataNo"></param>
+        /// <param name="date"></param>
+        /// <param name="cancel"></param>
+        /// <param name="season"></param>
+        /// <param name="place"></param>
+        /// <param name="agenda"></param>
+        /// <param name="ansdate"></param>
+        /// <param name="labelFontSizse"></param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public EventPageDirect(int dataNo, 
+                               string date, 
+                               string cancel,
+                               string season,
+                               string place,
+                               string agenda,
+                               string ansdate,
+                               double labelFontSizse)
+        {
+            InitializeComponent();
+
+            DataNo = dataNo;
+            Date = date;
+            Cancel = cancel;
+            Season = season;
+            Place = place;
+            Agenda = agenda;
+            AnsDate = ansdate;
+            LabelFontSize = labelFontSizse;
+
+            ControlTemplate = Resources["DirectTemplate"] as ControlTemplate;
         }
 
     }

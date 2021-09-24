@@ -21,6 +21,8 @@ namespace LionsApl
         public string ANSWER_PRE = "1";
         public string ANSWER_AB = "2";
         public string ANSWER_NO = string.Empty;
+        // オンラインフラグ
+        public string ONLINEFLG = "1";
 
         // 時期区分
         public string SEASON_NOW = "1";
@@ -32,6 +34,7 @@ namespace LionsApl
 
         // 各種判定用文字列
         public readonly string OFFFLG = "0";
+        public readonly string ONFLG = "1";
 
         // 出力文字列
         public readonly string ST_CANCEL = "中止";
@@ -39,7 +42,7 @@ namespace LionsApl
         public readonly string ST_SEASON_NEXT = "時期";
         public readonly string ST_ON = "有り";
         public readonly string ST_OFF = "無し";
-        
+        public readonly string ST_ONLINE = "オンライン";
 
 
         public LAUtility()
@@ -106,7 +109,7 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// 入力したフラグから0：「無し」、1：「有り」の文字列を返す
+        /// 入力したフラグから0：「無し」、1：「有り」、それ以外：string.Empty の文字列を返す
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
@@ -116,16 +119,13 @@ namespace LionsApl
             string retStr = string.Empty;
             if (item != null)
             {
-                if (item != string.Empty)
+                if (item == OFFFLG)
                 {
-                    if (item == OFFFLG)
-                    {
-                        retStr = ST_OFF;
-                    }
-                    else
-                    {
-                        retStr = ST_ON;
-                    }
+                    retStr = ST_OFF;
+                }
+                else if(item == ONFLG)
+                {
+                    retStr = ST_ON;
                 }
             }
             return retStr;
@@ -175,6 +175,29 @@ namespace LionsApl
                     else if (item == SEASON_NEXT)
                     {
                         retStr = ST_SEASON_NEXT;
+                    }
+                }
+            }
+            return retStr;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 入力したフラグから1：「オンライン」、1以外：stirng.Emptyの文字列を返す
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public string StrOnline(string item)
+        {
+            string retStr = string.Empty;
+            if (item != null)
+            {
+                if (item != string.Empty)
+                {
+                    if (item == ONLINEFLG)
+                    {
+                        retStr = ST_ONLINE;
                     }
                 }
             }

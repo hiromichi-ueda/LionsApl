@@ -357,7 +357,9 @@ namespace LionsApl.Content
                         ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
                                             $"{row.Id}, {row.DataNo}, {row.EventClass}, {row.EventDataNo}, {row.EventDate},\r\n" +
                                             $"{row.ClubCode}, {row.ClubNameShort}, {row.MemberCode}, {row.MemberName},\r\n" +
-                                            $"{row.Answer}, {row.AnswerLate}, {row.AnswerEarly}, {row.Option1}, {row.Option2}, {row.Option3}, {row.Option4}, {row.Option5}, {row.OtherCount}, {row.TargetFlg}, {row.CancelFlg}, \r\n";
+                                            $"{row.Answer}, {row.AnswerLate}, {row.AnswerEarly},\r\n" +
+                                            $"{row.Option1}, {row.Option2}, {row.Option3}, {row.Option4}, {row.Option5},\r\n" +
+                                            $"{row.OtherCount}, {row.TargetFlg}, {row.CancelFlg}, \r\n";
                     }
                 }
             }

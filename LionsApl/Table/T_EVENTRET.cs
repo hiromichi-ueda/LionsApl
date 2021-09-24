@@ -1,6 +1,6 @@
 ﻿namespace LionsApl.Table
 {
-    class T_EVENTRET
+    public partial class T_EVENTRET
     {
         [SQLite.PrimaryKey, SQLite.AutoIncrement]
         public int Id { get; set; }
@@ -21,8 +21,8 @@
         public string Option4 { get; set; }
         public string Option5 { get; set; }
         public int OtherCount { get; set; }
-        public string TargetFlg { get; set; }
         public string CancelFlg { get; set; }
-//        public string UpFlg { get; set; }
+        public string TargetFlg { get; set; }
+        public string UpFlg { get; set; }
     }
 }
