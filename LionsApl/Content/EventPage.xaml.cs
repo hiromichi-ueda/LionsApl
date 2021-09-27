@@ -60,11 +60,11 @@ namespace LionsApl.Content
             _dataNo = dataNo;
             _eventDataNo = eventDataNo;
 
-            // SQLite マネージャークラス生成
-            _sqlite = SQLiteManager.GetInstance();
-
             // Content Utilクラス生成
             _utl = new LAUtility();
+
+            // SQLite マネージャークラス生成
+            _sqlite = SQLiteManager.GetInstance();
 
             // A_SETTINGデータ取得
             _sqlite.SetSetting();

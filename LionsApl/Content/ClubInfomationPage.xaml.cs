@@ -12,17 +12,33 @@ namespace LionsApl.Content
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ClubInfomationPage : ContentPage
     {
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// プロパティ
+
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
+
+        // Utilityクラス
+        private LAUtility _utl;
+
+        // 前画面からの取得情報
+        private string _DataNo;         // データNo.
 
         // Config取得
         public static String AppServer = ((App)Application.Current).AppServer;                              //Url
         public static String AndroidPdf = ((App)Application.Current).AndroidPdf;                            //PdfViewer
         public static String FilePath_ClubInfometion = ((App)Application.Current).FilePath_ClubInfometion;  //連絡事項(CLUB)
 
-        // 前画面からの取得情報
-        private string _DataNo;
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// メソッド
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="datano">データNo.</param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         public ClubInfomationPage(string datano)
         {
             InitializeComponent();

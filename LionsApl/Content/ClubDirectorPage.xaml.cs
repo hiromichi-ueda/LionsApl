@@ -12,12 +12,28 @@ namespace LionsApl.Content
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ClubDirectorPage : ContentPage
     {
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// プロパティ
+
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
-        // 対象データNo.
-        private string _DataNo;
+        // Utilityクラス
+        private LAUtility _utl;
 
+        // 前画面からの取得情報
+        private string _DataNo;         // 対象データNo.
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// メソッド
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="dataNo"></param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         public ClubDirectorPage(string dataNo)
         {
             InitializeComponent();
@@ -39,6 +55,9 @@ namespace LionsApl.Content
 
             // 対象データNo.設定
             _DataNo = dataNo;
+
+            // Content Utilクラス生成
+            _utl = new LAUtility();
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
@@ -67,9 +86,6 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetDirectorInfo()
         {
-            Table.TableUtil Util = new Table.TableUtil();
-            ContentUtil CUtil = new ContentUtil();
-
             string eventDate = string.Empty;        // 開催日
             string seasonFlg = string.Empty;        // シーズン区分
             string eventFlg = string.Empty;         // 区分
@@ -85,18 +101,18 @@ namespace LionsApl.Content
                 {
 
                     // 中止
-                    cancelFlg = Util.GetString(row.CancelFlg);
+                    cancelFlg = _utl.GetString(row.CancelFlg);
                     if (cancelFlg == "1")
                     {
                         Cancel.Text = "中止";
                     }
 
                     // 開催日
-                    eventDate = Util.GetString(row.EventDate).Substring(0, 10) + " " + Util.GetString(row.EventTime);
+                    eventDate = _utl.GetString(row.EventDate).Substring(0, 10) + " " + _utl.GetString(row.EventTime);
                     EventDate.Text = eventDate;
 
                     // シーズン区分
-                    seasonFlg = Util.GetString(row.Season);
+                    seasonFlg = _utl.GetString(row.Season);
                     if (seasonFlg == "1")
                     {
                         Season.Text = "今期";
@@ -107,30 +123,28 @@ namespace LionsApl.Content
                     }
 
                     // 区分
-                    eventFlg = Util.GetString(row.EventClass);
+                    eventFlg = _utl.GetString(row.EventClass);
                     if (eventFlg == "1")
                     {
                         EventClass.Text = "理事会";
                     }
                     else if (eventFlg == "2")
                     {
-                        EventClass.Text = Util.GetString(row.CommitteeName);
+                        EventClass.Text = _utl.GetString(row.CommitteeName);
                     }
 
                     // 開催場所
-                    EventPlace.Text = Util.GetString(row.EventPlace);
+                    EventPlace.Text = _utl.GetString(row.EventPlace);
 
                     // 件名
-                    Subject.Text = Util.GetString(row.Subject);
+                    Subject.Text = _utl.GetString(row.Subject);
 
                     // 議題・内容
-                    //agendaStr = $"テスト用文字列\rテスト用文字列\nテスト用文字列\r\nテスト用文字列{Environment.NewLine}テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列テスト用文字列";
-                    agendaStr = Util.GetString(row.Agenda);
-                    agendaStr = CUtil.DelNewLine(agendaStr);
+                    agendaStr = _utl.GetString(row.Agenda, _utl.NLC_ON);
                     Agenda.Text = agendaStr;
 
                     // 回答期限
-                    AnswerDate.Text = Util.GetString(row.AnswerDate).Substring(0, 10);
+                    AnswerDate.Text = _utl.GetString(row.AnswerDate).Substring(0, 10);
 
                 }
             }

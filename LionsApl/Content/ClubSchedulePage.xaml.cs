@@ -14,20 +14,32 @@ namespace LionsApl.Content
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ClubSchedulePage : ContentPage
     {
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// プロパティ
 
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
-        // ContentUtilクラス
-        private ContentUtil _contUtl;
+        // Utilityクラス
+        private LAUtility _utl;
 
-        // 年間例会スケジュールのデータNo.
-        private string _DataNo;
+        // 前画面からの取得情報
+        private string _DataNo;             // データNo.
 
         // 表示定数
         private readonly string CancelStr = "中止";
         private readonly string OnlineStr = "　※オンライン例会";
 
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// メソッド
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="dataNo">データNo</param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         public ClubSchedulePage(string dataNo)
         {
             InitializeComponent();
@@ -36,7 +48,7 @@ namespace LionsApl.Content
             _DataNo = dataNo;
 
             // Content Utilクラス生成
-            _contUtl = new ContentUtil();
+            _utl = new LAUtility();
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
@@ -58,6 +70,11 @@ namespace LionsApl.Content
 
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 年間例会スケジュール情報を取得する
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetMeetingScheduleInfo()
         {
             Label Remarks;
@@ -92,7 +109,9 @@ namespace LionsApl.Content
             string OtherStr = "本人以外の参加";
             string OtherVal = string.Empty;
 
-            string WrkStr = string.Empty;
+            string WrkRIStr = string.Empty;
+            string WrkRCStr = string.Empty;
+            string WrkRStr = string.Empty;
 
             int rowCount = 0;
 
@@ -130,17 +149,28 @@ namespace LionsApl.Content
                     // 会場
                     MeetingPlace.Text = Util.GetString(row.MeetingPlace);
 
-                    // 備考（項目名）
-                    WrkStr = Util.GetString(row.RemarksItems).TrimEnd(',');
-                    RemarksItems.Text = WrkStr.Replace(",", "、");
+                    // 備考項目名（例会備考1～10）
+                    WrkRIStr = Util.GetString(row.RemarksItems).TrimEnd(',');
+                    string[] WrkRIStrArr = WrkRIStr.Split(',');
+                    // 備考（例会備考1～10）
+                    WrkRCStr = Util.GetString(row.RemarksCheck).TrimEnd(',');
+                    string[] WrkRCStrArr = WrkRCStr.Split(',');
 
-                    // 備考（備考欄）
+                    // 備考作成
+                    int idx = 0;
+                    foreach (string ws in WrkRCStrArr)
+                    {
+                        idx = int.Parse(ws) - 1;
+                        WrkRStr += WrkRIStrArr[idx] + '、';
+                    }
+                    RemarksItems.Text = WrkRStr.TrimEnd('、');
+                    
+                    // 備考欄
                     RemarksStr = Util.GetString(row.Remarks);
-
                     //RemarksStr = "テスト用文字列を設定しています。テスト用文字列を設定しています。テスト用文字列を設定しています。テスト用文字列を設定しています。";
                     if (RemarksStr != string.Empty)
                     {
-                        Remarks = _contUtl.CreateLabel_Style(RemarksStr,
+                        Remarks = _utl.CreateLabel_Style(RemarksStr,
                                                        NamedSize.Default,
                                                        LayoutOptions.Center,
                                                        "Page_HeightFree",
@@ -154,9 +184,9 @@ namespace LionsApl.Content
 
                     // Option1
                     // 項目名取得
-                    OptName1 = _contUtl.GetString(row.OptionName1);
+                    OptName1 = _utl.GetString(row.OptionName1);
                     // 項目値取得
-                    OptRadio1 = _contUtl.GetString(row.OptionRadio1);
+                    OptRadio1 = _utl.GetString(row.OptionRadio1);
                     // 項目有、及び項目値=有りの場合のみ表示する
                     if ((OptName1 != string.Empty) && (OptRadio1 == "1"))
                     {
@@ -164,7 +194,7 @@ namespace LionsApl.Content
                         OptGrid.Padding = new Thickness(10.0, 10.0, 10.0, 0.0);
 
                         // 例会オプション１（項目名）
-                        OptionName1 = _contUtl.CreateLabel_Style(OptName1,
+                        OptionName1 = _utl.CreateLabel_Style(OptName1,
                                                            NamedSize.Default,
                                                            LayoutOptions.Center,
                                                            "Page_Base",
@@ -172,8 +202,8 @@ namespace LionsApl.Content
                         OptGrid.Children.Add(OptionName1);
 
                         // 例会オプション１（入力）
-                        OptRadio1 = _contUtl.StrOnOff(Util.GetString(OptRadio1));
-                        OptionRadio1 = _contUtl.CreateLabel_Style(OptRadio1,
+                        OptRadio1 = _utl.StrOnOff(Util.GetString(OptRadio1));
+                        OptionRadio1 = _utl.CreateLabel_Style(OptRadio1,
                                                             NamedSize.Default,
                                                             LayoutOptions.Center,
                                                             "Page_Base",
@@ -186,14 +216,14 @@ namespace LionsApl.Content
 
                     // Option2
                     // 項目名取得
-                    OptName2 = _contUtl.GetString(row.OptionName2);
+                    OptName2 = _utl.GetString(row.OptionName2);
                     // 項目値取得
-                    OptRadio2 = _contUtl.GetString(row.OptionRadio2);
+                    OptRadio2 = _utl.GetString(row.OptionRadio2);
                     // 項目有、及び項目値=有りの場合のみ表示する
                     if ((OptName2 != string.Empty) && (OptRadio2 == "1"))
                     {
                         // 例会オプション２（項目名）
-                        OptionName2 = _contUtl.CreateLabel_Style(OptName2,
+                        OptionName2 = _utl.CreateLabel_Style(OptName2,
                                                            NamedSize.Default,
                                                            LayoutOptions.Center,
                                                            "Page_Base",
@@ -201,8 +231,8 @@ namespace LionsApl.Content
                         OptGrid.Children.Add(OptionName2);
 
                         // 例会オプション２（入力）
-                        OptRadio2 = _contUtl.StrOnOff(Util.GetString(OptRadio2));
-                        OptionRadio2 = _contUtl.CreateLabel_Style(OptRadio2,
+                        OptRadio2 = _utl.StrOnOff(Util.GetString(OptRadio2));
+                        OptionRadio2 = _utl.CreateLabel_Style(OptRadio2,
                                                             NamedSize.Default,
                                                             LayoutOptions.Center,
                                                             "Page_Base",
@@ -215,14 +245,14 @@ namespace LionsApl.Content
 
                     // Option3
                     // 項目名取得
-                    OptName3 = _contUtl.GetString(row.OptionName3);
+                    OptName3 = _utl.GetString(row.OptionName3);
                     // 項目値取得
-                    OptRadio3 = _contUtl.GetString(row.OptionRadio3);
+                    OptRadio3 = _utl.GetString(row.OptionRadio3);
                     // 項目有、及び項目値=有りの場合のみ表示する
                     if ((OptName3 != string.Empty) && (OptRadio3 == "1"))
                     {
                         // 例会オプション３（項目名）
-                        OptionName3 = _contUtl.CreateLabel_Style(OptName3,
+                        OptionName3 = _utl.CreateLabel_Style(OptName3,
                                                            NamedSize.Default,
                                                            LayoutOptions.Center,
                                                            "Page_Base",
@@ -230,8 +260,8 @@ namespace LionsApl.Content
                         OptGrid.Children.Add(OptionName3);
 
                         // 例会オプション３（入力）
-                        OptRadio3 = _contUtl.StrOnOff(Util.GetString(OptRadio3));
-                        OptionRadio3 = _contUtl.CreateLabel_Style(OptRadio3,
+                        OptRadio3 = _utl.StrOnOff(Util.GetString(OptRadio3));
+                        OptionRadio3 = _utl.CreateLabel_Style(OptRadio3,
                                                             NamedSize.Default,
                                                             LayoutOptions.Center,
                                                             "Page_Base",
@@ -244,14 +274,14 @@ namespace LionsApl.Content
 
                     // Option4
                     // 項目名取得
-                    OptName4 = _contUtl.GetString(row.OptionName4);
+                    OptName4 = _utl.GetString(row.OptionName4);
                     // 項目値取得
-                    OptRadio4 = _contUtl.GetString(row.OptionRadio4);
+                    OptRadio4 = _utl.GetString(row.OptionRadio4);
                     // 項目有、及び項目値=有りの場合
                     if ((OptName4 != string.Empty) && (OptRadio4 == "1"))
                     {
                         // 例会オプション４（項目名）
-                        OptionName4 = _contUtl.CreateLabel_Style(OptName4,
+                        OptionName4 = _utl.CreateLabel_Style(OptName4,
                                                            NamedSize.Default,
                                                            LayoutOptions.Center,
                                                            "Page_Base",
@@ -259,8 +289,8 @@ namespace LionsApl.Content
                         OptGrid.Children.Add(OptionName4);
 
                         // 例会オプション４（入力）
-                        OptRadio4 = _contUtl.StrOnOff(Util.GetString(OptRadio4));
-                        OptionRadio4 = _contUtl.CreateLabel_Style(OptRadio4,
+                        OptRadio4 = _utl.StrOnOff(Util.GetString(OptRadio4));
+                        OptionRadio4 = _utl.CreateLabel_Style(OptRadio4,
                                                             NamedSize.Default,
                                                             LayoutOptions.Center,
                                                             "Page_Base",
@@ -273,14 +303,14 @@ namespace LionsApl.Content
 
                     // Option5
                     // 項目名取得
-                    OptName5 = _contUtl.GetString(row.OptionName5);
+                    OptName5 = _utl.GetString(row.OptionName5);
                     // 項目値取得
-                    OptRadio5 = _contUtl.GetString(row.OptionRadio5);
+                    OptRadio5 = _utl.GetString(row.OptionRadio5);
                     // 項目有、及び項目値=有りの場合のみ表示する
                     if ((OptName5 != string.Empty) && (OptRadio5 == "1"))
                     {
                         // 例会オプション５（項目名）
-                        OptionName5 = _contUtl.CreateLabel_Style(OptName5,
+                        OptionName5 = _utl.CreateLabel_Style(OptName5,
                                                            NamedSize.Default,
                                                            LayoutOptions.Center,
                                                            "Page_Base",
@@ -288,8 +318,8 @@ namespace LionsApl.Content
                         OptGrid.Children.Add(OptionName5);
 
                         // 例会オプション５（入力）
-                        OptRadio5 = _contUtl.StrOnOff(Util.GetString(OptRadio5));
-                        OptionRadio5 = _contUtl.CreateLabel_Style(OptRadio5,
+                        OptRadio5 = _utl.StrOnOff(Util.GetString(OptRadio5));
+                        OptionRadio5 = _utl.CreateLabel_Style(OptRadio5,
                                                             NamedSize.Default,
                                                             LayoutOptions.Center,
                                                             "Page_Base",
@@ -302,7 +332,7 @@ namespace LionsApl.Content
 
                     // お酒
                     // 項目名
-                    SakeTitle = _contUtl.CreateLabel_Style(SakeStr,
+                    SakeTitle = _utl.CreateLabel_Style(SakeStr,
                                                      NamedSize.Default,
                                                      LayoutOptions.Center,
                                                      "Page_Base",
@@ -310,8 +340,8 @@ namespace LionsApl.Content
                     OptGrid.Children.Add(SakeTitle);
 
                     // 項目値
-                    SakeVal = _contUtl.StrOnOff(Util.GetString(row.Sake));
-                    SakeRadio = _contUtl.CreateLabel_Style(SakeVal,
+                    SakeVal = _utl.StrOnOff(Util.GetString(row.Sake));
+                    SakeRadio = _utl.CreateLabel_Style(SakeVal,
                                                      NamedSize.Default,
                                                      LayoutOptions.Center,
                                                      "Page_Base",
@@ -323,7 +353,7 @@ namespace LionsApl.Content
 
                     // 本人以外の参加
                     // 項目名
-                    OtherTitle = _contUtl.CreateLabel_Style(OtherStr,
+                    OtherTitle = _utl.CreateLabel_Style(OtherStr,
                                                       NamedSize.Default,
                                                       LayoutOptions.Center,
                                                       "Page_Base",
@@ -331,8 +361,8 @@ namespace LionsApl.Content
                     OptGrid.Children.Add(OtherTitle);
 
                     // 項目値
-                    OtherVal = _contUtl.StrOnOff(Util.GetString(row.OtherUser));
-                    OtherRadio = _contUtl.CreateLabel_Style(OtherVal,
+                    OtherVal = _utl.StrOnOff(Util.GetString(row.OtherUser));
+                    OtherRadio = _utl.CreateLabel_Style(OtherVal,
                                                       NamedSize.Default,
                                                       LayoutOptions.Center,
                                                       "Page_Base",

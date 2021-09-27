@@ -12,22 +12,29 @@ namespace LionsApl.Content
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ClubMeetingProgramPage : ContentPage
     {
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// プロパティ
+
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
         // Utilityクラス
         private LAUtility _utl;
 
+        // 前画面からの取得情報
+        private string _DataNo;         // データNo.
+
         // Config取得
         public static String AppServer = ((App)Application.Current).AppServer;                              //Url
         public static String AndroidPdf = ((App)Application.Current).AndroidPdf;                            //PdfViewer
         public static String FilePath_MeetingProgram = ((App)Application.Current).FilePath_MeetingProgram;  //例会プログラム(CLUB)
 
-        // 対象データNo.
-        private string _DataNo;
-
         // 表示定数
         private readonly string OnlineStr = "オンライン";
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// メソッド
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
