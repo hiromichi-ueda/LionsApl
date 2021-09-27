@@ -51,8 +51,8 @@ namespace LionsApl.Content
             this.lbl_Detail.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.Detail.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
 
-            // 一覧から取得(データ№)
-            _DataNo = datano;
+            // 前画面からの取得情報
+            _DataNo = datano;                   // データ№.
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();

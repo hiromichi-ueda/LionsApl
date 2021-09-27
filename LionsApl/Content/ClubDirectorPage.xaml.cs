@@ -53,8 +53,8 @@ namespace LionsApl.Content
             lbl_AnswerDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             AnswerDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
 
-            // 対象データNo.設定
-            _DataNo = dataNo;
+            // 前画面からの取得情報
+            _DataNo = dataNo;           // データNo.
 
             // Content Utilクラス生成
             _utl = new LAUtility();

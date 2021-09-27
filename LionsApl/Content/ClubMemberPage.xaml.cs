@@ -62,8 +62,8 @@ namespace LionsApl.Content
             this.Obligation.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
 
 
-            // 一覧から取得（会員番号）
-            _MemberCode = memberno;
+            // 前画面からの取得情報
+            _MemberCode = memberno;                 // 会員番号
 
             // Content Utilクラス生成
             _utl = new LAUtility();

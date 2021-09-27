@@ -489,7 +489,7 @@ namespace LionsApl.Content
             // 例会場所
             wkPlace = _utl.GetString(meetingschedule.MeetingPlace);
 
-            // 区分
+            // 例会回数
             wkCount = meetingschedule.MeetingCount;
 
             // 例会名

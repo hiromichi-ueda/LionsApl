@@ -57,8 +57,12 @@ namespace LionsApl.Content
         {
             InitializeComponent();
 
-            _dataNo = dataNo;
-            _eventDataNo = eventDataNo;
+            // font-size
+            SetFontSize();
+
+            // 前画面からの取得情報
+            _dataNo = dataNo;                           // データNo.
+            _eventDataNo = eventDataNo;                 // イベントデータNo.
 
             // Content Utilクラス生成
             _utl = new LAUtility();
@@ -108,6 +112,64 @@ namespace LionsApl.Content
         }
 
 
+        private void SetFontSize()
+        {
+            double wfFontSizse = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+
+            ////////////////////////
+            // 表示項目
+
+            // キャビネットイベント表示
+
+            // 年間例会スケジュール表示
+            this.lbl_MD_Date.FontSize = wfFontSizse;
+            this.MD_Date.FontSize = wfFontSizse;
+            this.MD_Cancel.FontSize = wfFontSizse;
+            this.lbl_MD_Place.FontSize = wfFontSizse;
+            this.MD_Place.FontSize = wfFontSizse;
+            this.lbl_MD_Count.FontSize = wfFontSizse;
+            this.MD_Count.FontSize = wfFontSizse;
+            this.lbl_MD_Name.FontSize = wfFontSizse;
+            this.MD_Name.FontSize = wfFontSizse;
+            this.lbl_MD_Online.FontSize = wfFontSizse;
+            this.MD_Online.FontSize = wfFontSizse;
+            this.lbl_MD_Sake.FontSize = wfFontSizse;
+            this.MD_Sake.FontSize = wfFontSizse;
+
+            // 理事・委員会表示
+            this.lbl_DD_Date.FontSize = wfFontSizse;
+            this.DD_Date.FontSize = wfFontSizse;
+            this.DD_Cancel.FontSize = wfFontSizse;
+            this.lbl_DD_Season.FontSize = wfFontSizse;
+            this.DD_Season.FontSize = wfFontSizse;
+            this.lbl_DD_Place.FontSize = wfFontSizse;
+            this.DD_Place.FontSize = wfFontSizse;
+            this.lbl_DD_Agenda.FontSize = wfFontSizse;
+            this.DD_Agenda.FontSize = wfFontSizse;
+            this.lbl_DD_AnsDate.FontSize = wfFontSizse;
+            this.DD_AnsDate.FontSize = wfFontSizse;
+
+
+            ////////////////////////
+            // 入力項目
+
+            // 年間例会スケジュール入力
+            this.lbl_MI_Header.FontSize = wfFontSizse;
+            this.lbl_MI_Opt1Name.FontSize = wfFontSizse;
+            this.lbl_MI_Opt2Name.FontSize = wfFontSizse;
+            this.lbl_MI_Opt3Name.FontSize = wfFontSizse;
+            this.lbl_MI_Opt4Name.FontSize = wfFontSizse;
+            this.lbl_MI_Opt5Name.FontSize = wfFontSizse;
+            this.lbl_MI_OtherUser.FontSize = wfFontSizse;
+            this.MI_OtherUser.FontSize = wfFontSizse;
+            this.lbl_MI_AnsDate.FontSize = wfFontSizse;
+            this.MI_AnsDate.FontSize = wfFontSizse;
+            this.lbl_MI_footer.FontSize = wfFontSizse;
+
+        }
+
+
+
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// イベント出欠情報を取得して画面に設定する
@@ -144,6 +206,10 @@ namespace LionsApl.Content
                     }
                     // タイトル文字列の設定
                     BodyTitle.Text = ST_EVENT_1;
+
+                    MeetingDspSL.HeightRequest = 0.0;
+                    MeetingInpSL.HeightRequest = 0.0;
+                    DirectDspSL.HeightRequest = 0.0;
 
                 }
                 // 年間例会スケジュール
@@ -193,14 +259,171 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void SetCEventPageMeeting()
         {
+            string wkDate = string.Empty;
+            string wkCancel = string.Empty;
+            int wkCount = 0;
+            string wkPlace = string.Empty;
+            string wkName = string.Empty;
+            string wkOnline = string.Empty;
+            string wkSake = string.Empty;
+            bool wkOpt1flg = false;
+            string wkOpt1Name = string.Empty;
+            string wkOpt1Value = string.Empty;
+            bool wkOpt2flg = false;
+            string wkOpt2Name = string.Empty;
+            string wkOpt2Value = string.Empty;
+            bool wkOpt3flg = false;
+            string wkOpt3Name = string.Empty;
+            string wkOpt3Value = string.Empty;
+            bool wkOpt4flg = false;
+            string wkOpt4Name = string.Empty;
+            string wkOpt4Value = string.Empty;
+            bool wkOpt5flg = false;
+            string wkOpt5Name = string.Empty;
+            string wkOpt5Value = string.Empty;
 
-            // コントロールテンプレートを作成
-            EventPageMeeting meeting = new EventPageMeeting(ref _eventret,
-                                                            ref _meetingschedule,
-                                                            Device.GetNamedSize(NamedSize.Default, typeof(Label)));
+            string wkAnsDate = string.Empty;
 
-            // StackLayoutにコントロールテンプレートを追加
-            EventStackLayout.Children.Add(meeting);
+
+            // データNo.
+            //DataNo = _eventret.DataNo;
+
+            // イベントデータNo.
+            //EventDataNo = _eventret.EventDataNo;
+
+            // 例会日
+            wkDate = _utl.GetString(_meetingschedule.MeetingDate).Substring(0, 10) + " " +
+                     _utl.GetString(_meetingschedule.MeetingTime).Substring(0, 5) + "～";
+
+            // 中止
+            wkCancel = _utl.StrCancel(_meetingschedule.CancelFlg);
+
+            // 例会場所
+            wkPlace = _utl.GetString(_meetingschedule.MeetingPlace);
+
+            // 例会回数
+            wkCount = _meetingschedule.MeetingCount;
+
+            // 例会名
+            wkName = _utl.GetString(_meetingschedule.MeetingName);
+
+            // 会議方法
+            wkOnline = _utl.StrOnline(_meetingschedule.Online);
+
+            // お酒
+            wkSake = _utl.StrOnOff(_meetingschedule.Sake);
+
+            // オプション1
+            wkOpt1flg = _utl.GetString(_meetingschedule.OptionRadio1).Equals(_utl.ONFLG);
+            if (wkOpt1flg)
+            {
+                // オプション1（項目名）
+                wkOpt1Name = _utl.GetString(_meetingschedule.OptionName1);
+
+                // オプション1（入力値）
+                wkOpt1Value = _utl.GetString(_eventret.Option1);
+            }
+            // オプション2
+            wkOpt2flg = _utl.GetString(_meetingschedule.OptionRadio2).Equals(_utl.ONFLG);
+            if (wkOpt2flg)
+            {
+                // オプション2（項目名）
+                wkOpt2Name = _utl.GetString(_meetingschedule.OptionName2);
+
+                // オプション2（入力値）
+                wkOpt2Value = _utl.GetString(_eventret.Option2);
+            }
+            // オプション3
+            wkOpt3flg = _utl.GetString(_meetingschedule.OptionRadio3).Equals(_utl.ONFLG);
+            if (wkOpt3flg)
+            {
+                // オプション3（項目名）
+                wkOpt3Name = _utl.GetString(_meetingschedule.OptionName3);
+
+                // オプション3（入力値）
+                wkOpt3Value = _utl.GetString(_eventret.Option3);
+            }
+            // オプション4
+            wkOpt4flg = _utl.GetString(_meetingschedule.OptionRadio4).Equals(_utl.ONFLG);
+            if (wkOpt4flg)
+            {
+                // オプション4（項目名）
+                wkOpt4Name = _utl.GetString(_meetingschedule.OptionName4);
+
+                // オプション4（入力値）
+                wkOpt4Value = _utl.GetString(_eventret.Option4);
+            }
+            // オプション5
+            wkOpt5flg = _utl.GetString(_meetingschedule.OptionRadio5).Equals(_utl.ONFLG);
+            if (wkOpt5flg)
+            {
+                // オプション5（項目名）
+                wkOpt5Name = _utl.GetString(_meetingschedule.OptionName5);
+
+                // オプション5（入力値）
+                wkOpt5Value = _utl.GetString(_eventret.Option5);
+            }
+
+            // 回答期限
+            wkAnsDate = _utl.GetString(_meetingschedule.AnswerDate).Substring(0, 10);
+
+            // 表示項目設定
+            MD_Date.Text = wkDate;
+            MD_Cancel.Text = wkCancel;
+            MD_Place.Text = wkPlace;
+            MD_Count.Text = wkCount.ToString();
+            MD_Name.Text = wkName;
+            // 会議方法の値が無い場合
+            if (wkOnline == string.Empty)
+            {
+                // 会議方法項目非表示
+                MD_Online.IsVisible = false;
+                lbl_MD_Online.IsVisible = false;
+            }
+            else
+            {
+                MD_Online.Text = wkOnline;
+            }
+            MD_Sake.Text = wkSake;
+
+            // 入力項目設定
+
+            // オプション1
+            SetOptionItem(wkOpt1flg, wkOpt1Value, wkOpt1Name, ref lbl_MI_Opt1Name, ref MI_Opt1Switch);
+
+            // オプション2
+            SetOptionItem(wkOpt2flg, wkOpt2Value, wkOpt2Name, ref lbl_MI_Opt2Name, ref MI_Opt2Switch);
+
+            // オプション3
+            SetOptionItem(wkOpt3flg, wkOpt3Value, wkOpt3Name, ref lbl_MI_Opt3Name, ref MI_Opt3Switch);
+
+            // オプション4
+            SetOptionItem(wkOpt4flg, wkOpt4Value, wkOpt4Name, ref lbl_MI_Opt4Name, ref MI_Opt4Switch);
+
+            // オプション5
+            SetOptionItem(wkOpt5flg, wkOpt5Value, wkOpt5Name, ref lbl_MI_Opt5Name, ref MI_Opt5Switch);
+
+            for (int idx = 0 ; idx <= 15; idx++)
+            {
+                MI_OtherUser.Items.Add(idx.ToString());
+            }
+
+            // 回答期限
+            MI_AnsDate.Text = wkAnsDate;
+
+
+            EventDspSL.IsVisible = false;
+            EventInpSL.IsVisible = false;
+            DirectDspSL.IsVisible = false;
+
+
+            //// コントロールテンプレートを作成
+            //EventPageMeeting meeting = new EventPageMeeting(ref _eventret,
+            //                                                ref _meetingschedule,
+            //                                                Device.GetNamedSize(NamedSize.Default, typeof(Label)));
+
+            //// StackLayoutにコントロールテンプレートを追加
+            //EventStackLayout.Children.Add(meeting);
 
         }
 
@@ -237,21 +460,65 @@ namespace LionsApl.Content
             // 回答期限
             wkAnsDate = _utl.GetString(_director.AnswerDate).Substring(0, 10);
 
-            // コントロールテンプレートを作成
-            EventPageDirect direct = new EventPageDirect(_director.DataNo,
-                                                            wkDate,
-                                                            wkCancel,
-                                                            wkSeason,
-                                                            wkPlace,
-                                                            wkAgenda,
-                                                            wkAnsDate,
-                                                            Device.GetNamedSize(NamedSize.Default, typeof(Label)));
 
-            // StackLayoutにコントロールテンプレートを追加
-            EventStackLayout.Children.Add(direct);
+            DD_Date.Text = wkDate;
+            DD_Cancel.Text = wkCancel;
+            DD_Season.Text = wkSeason;
+            DD_Place.Text = wkPlace;
+            DD_Agenda.Text = wkAgenda;
+            DD_AnsDate.Text = wkAnsDate;
+
+
+            // キャビネットイベント項目非表示
+            EventDspSL.IsVisible = false;
+            EventInpSL.IsVisible = false;
+
+            // 年間例会スケジュール項目非表示
+            MeetingDspSL.IsVisible = false;
+            MeetingInpSL.IsVisible = false;
+
+
+            //// コントロールテンプレートを作成
+            //EventPageDirect direct = new EventPageDirect(_director.DataNo,
+            //                                                wkDate,
+            //                                                wkCancel,
+            //                                                wkSeason,
+            //                                                wkPlace,
+            //                                                wkAgenda,
+            //                                                wkAnsDate,
+            //                                                Device.GetNamedSize(NamedSize.Default, typeof(Label)));
+
+            //// StackLayoutにコントロールテンプレートを追加
+            //EventStackLayout.Children.Add(direct);
 
         }
 
+
+        private void SetOptionItem(bool flg, 
+                                   string radio, 
+                                   string name, 
+                                   ref Label lavelItem, 
+                                   ref Switch switchItem)
+        {
+            // 入力項目設定
+            if (flg)
+            {
+                lavelItem.Text = name;
+                if (radio.Equals(_utl.ONFLG))
+                {
+                    switchItem.IsToggled = true;
+                }
+                else
+                {
+                    switchItem.IsToggled = false;
+                }
+            }
+            else
+            {
+                lavelItem.IsVisible = false;
+                switchItem.IsVisible = false;
+            }
+        }
     }
 
 
