@@ -44,18 +44,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Content\EventPageDirect.xaml.cs">
-      <DependentUpon>EventPageDirect.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Content\EventPageEvent.xaml.cs">
-      <DependentUpon>EventPageEvent.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Content\EventPageMeeting.xaml.cs">
-      <DependentUpon>EventPageMeeting.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Update="Content\ClubDirectorList.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -92,13 +80,7 @@
     <EmbeddedResource Update="Content\EventPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Content\EventPageDirect.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Content\EventPageEvent.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Content\EventPageMeeting.xaml">
+    <EmbeddedResource Update="Content\EventPageFile.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Content\HomeTopEvent.xaml">

@@ -23,6 +23,9 @@ namespace LionsApl
         public string ANSWER_NO = string.Empty;
         // オンラインフラグ
         public string ONLINEFLG = "1";
+        // 会議フラグ
+        public string MEETING_NORMAL = "1";
+        public string MEETING_ONLINE = "2";
 
         // 時期区分
         public string SEASON_NOW = "1";
@@ -35,6 +38,7 @@ namespace LionsApl
         // 各種判定用文字列
         public readonly string OFFFLG = "0";
         public readonly string ONFLG = "1";
+        public readonly string NOFLG = string.Empty;
 
         // 出力文字列
         public readonly string ST_CANCEL = "中止";
@@ -42,7 +46,8 @@ namespace LionsApl
         public readonly string ST_SEASON_NEXT = "時期";
         public readonly string ST_ON = "有り";
         public readonly string ST_OFF = "無し";
-        public readonly string ST_ONLINE = "オンライン";
+        public readonly string ST_MEETING_NORMAL = "通常";
+        public readonly string ST_MEETING_ONLINE = "オンライン";
 
 
         public LAUtility()
@@ -183,6 +188,34 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
+        /// 入力したフラグから1：「通常」、2:「オンライン」、1,2以外：stirng.Emptyの文字列を返す
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public string StrMeeting(string item)
+        {
+            string retStr = string.Empty;
+            if (item != null)
+            {
+                if (item != string.Empty)
+                {
+                    if (item == MEETING_NORMAL)
+                    {
+                        retStr = ST_MEETING_NORMAL;
+                    }
+                    else if (item == MEETING_ONLINE)
+                    {
+                        retStr = ST_MEETING_ONLINE;
+                    }
+                }
+            }
+            return retStr;
+        }
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
         /// 入力したフラグから1：「オンライン」、1以外：stirng.Emptyの文字列を返す
         /// </summary>
         /// <param name="item"></param>
@@ -197,7 +230,7 @@ namespace LionsApl
                 {
                     if (item == ONLINEFLG)
                     {
-                        retStr = ST_ONLINE;
+                        retStr = ST_MEETING_ONLINE;
                     }
                 }
             }
