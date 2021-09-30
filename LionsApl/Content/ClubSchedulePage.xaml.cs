@@ -115,7 +115,7 @@ namespace LionsApl.Content
 
             int rowCount = 0;
 
-            Table.TableUtil Util = new Table.TableUtil();
+            //Table.TableUtil Util = new Table.TableUtil();
 
             // 会員情報取得
             try
@@ -126,34 +126,34 @@ namespace LionsApl.Content
                 {
 
                     // 例会日
-                    MeetingDate.Text = Util.GetString(row.MeetingDate).Substring(0, 10);
+                    MeetingDate.Text = _utl.GetString(row.MeetingDate).Substring(0, 10);
 
                     // 中止
-                    if (Util.GetString(row.CancelFlg) == "1")
+                    if (_utl.GetString(row.CancelFlg) == "1")
                     {
                         Cancel.Text = CancelStr;
                     }
 
                     // 時間
-                    MeetingTime.Text = Util.GetString(row.MeetingTime) + "～";
+                    MeetingTime.Text = _utl.GetString(row.MeetingTime) + "～";
 
                     // オンライン
-                    if (Util.GetString(row.Online) == "1")
+                    if (_utl.GetString(row.Online) == "1")
                     {
                         MeetingTime.Text = MeetingTime.Text + OnlineStr;
                     }
 
                     // 例会名
-                    MeetingName.Text = Util.GetString(row.MeetingName);
+                    MeetingName.Text = _utl.GetString(row.MeetingName);
 
                     // 会場
-                    MeetingPlace.Text = Util.GetString(row.MeetingPlace);
+                    MeetingPlace.Text = _utl.GetString(row.MeetingPlace);
 
                     // 備考項目名（例会備考1～10）
-                    WrkRIStr = Util.GetString(row.RemarksItems).TrimEnd(',');
+                    WrkRIStr = _utl.GetString(row.RemarksItems).TrimEnd(',');
                     string[] WrkRIStrArr = WrkRIStr.Split(',');
                     // 備考（例会備考1～10）
-                    WrkRCStr = Util.GetString(row.RemarksCheck).TrimEnd(',');
+                    WrkRCStr = _utl.GetString(row.RemarksCheck).TrimEnd(',');
                     string[] WrkRCStrArr = WrkRCStr.Split(',');
 
                     // 備考作成
@@ -164,10 +164,9 @@ namespace LionsApl.Content
                         WrkRStr += WrkRIStrArr[idx] + '、';
                     }
                     RemarksItems.Text = WrkRStr.TrimEnd('、');
-                    
+
                     // 備考欄
-                    RemarksStr = Util.GetString(row.Remarks);
-                    //RemarksStr = "テスト用文字列を設定しています。テスト用文字列を設定しています。テスト用文字列を設定しています。テスト用文字列を設定しています。";
+                    RemarksStr = _utl.GetString(row.Remarks);
                     if (RemarksStr != string.Empty)
                     {
                         Remarks = _utl.CreateLabel_Style(RemarksStr,
@@ -202,7 +201,7 @@ namespace LionsApl.Content
                         OptGrid.Children.Add(OptionName1);
 
                         // 例会オプション１（入力）
-                        OptRadio1 = _utl.StrOnOff(Util.GetString(OptRadio1));
+                        OptRadio1 = _utl.StrOnOff(OptRadio1);
                         OptionRadio1 = _utl.CreateLabel_Style(OptRadio1,
                                                             NamedSize.Default,
                                                             LayoutOptions.Center,
@@ -231,7 +230,7 @@ namespace LionsApl.Content
                         OptGrid.Children.Add(OptionName2);
 
                         // 例会オプション２（入力）
-                        OptRadio2 = _utl.StrOnOff(Util.GetString(OptRadio2));
+                        OptRadio2 = _utl.StrOnOff(OptRadio2);
                         OptionRadio2 = _utl.CreateLabel_Style(OptRadio2,
                                                             NamedSize.Default,
                                                             LayoutOptions.Center,
@@ -260,7 +259,7 @@ namespace LionsApl.Content
                         OptGrid.Children.Add(OptionName3);
 
                         // 例会オプション３（入力）
-                        OptRadio3 = _utl.StrOnOff(Util.GetString(OptRadio3));
+                        OptRadio3 = _utl.StrOnOff(OptRadio3);
                         OptionRadio3 = _utl.CreateLabel_Style(OptRadio3,
                                                             NamedSize.Default,
                                                             LayoutOptions.Center,
@@ -289,7 +288,7 @@ namespace LionsApl.Content
                         OptGrid.Children.Add(OptionName4);
 
                         // 例会オプション４（入力）
-                        OptRadio4 = _utl.StrOnOff(Util.GetString(OptRadio4));
+                        OptRadio4 = _utl.StrOnOff(OptRadio4);
                         OptionRadio4 = _utl.CreateLabel_Style(OptRadio4,
                                                             NamedSize.Default,
                                                             LayoutOptions.Center,
@@ -318,7 +317,7 @@ namespace LionsApl.Content
                         OptGrid.Children.Add(OptionName5);
 
                         // 例会オプション５（入力）
-                        OptRadio5 = _utl.StrOnOff(Util.GetString(OptRadio5));
+                        OptRadio5 = _utl.StrOnOff(OptRadio5);
                         OptionRadio5 = _utl.CreateLabel_Style(OptRadio5,
                                                             NamedSize.Default,
                                                             LayoutOptions.Center,
@@ -340,7 +339,7 @@ namespace LionsApl.Content
                     OptGrid.Children.Add(SakeTitle);
 
                     // 項目値
-                    SakeVal = _utl.StrOnOff(Util.GetString(row.Sake));
+                    SakeVal = _utl.StrOnOff(row.Sake);
                     SakeRadio = _utl.CreateLabel_Style(SakeVal,
                                                      NamedSize.Default,
                                                      LayoutOptions.Center,
@@ -361,7 +360,7 @@ namespace LionsApl.Content
                     OptGrid.Children.Add(OtherTitle);
 
                     // 項目値
-                    OtherVal = _utl.StrOnOff(Util.GetString(row.OtherUser));
+                    OtherVal = _utl.StrOnOff(row.OtherUser);
                     OtherRadio = _utl.CreateLabel_Style(OtherVal,
                                                       NamedSize.Default,
                                                       LayoutOptions.Center,

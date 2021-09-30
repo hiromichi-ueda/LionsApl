@@ -11,10 +11,6 @@ namespace LionsApl
 {
     class SQLiteManager
     {
-        // A_FILEPATTH / DataClass
-        //public string DATACLASS_LETTER    = "1";
-        //public string DATACLASS_EVENT     = "2";
-        //public string DATACLASS_MAGAZINE  = "3";
 
         // ログイン情報（ユーザ文字列（クラブ名＋氏名））
         public string LoginInfo;
@@ -35,8 +31,6 @@ namespace LionsApl
         //public string sqlliteFileName { get; set; } = "LionsAplDB.db3";
         public string DbPath { get; } = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "LionsAplDB.db3");
         public static MultipartFormDataContent content;
-        //        public static HttpClient httpClient = new HttpClient();
-        //public static String webServiceUrl = "http://ap.insat.co.jp/InsatTest01Web/InsatTest01WebHandler.ashx";
         public static String webServiceUrl = ((App)Application.Current).WebServiceUrl;
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1614,22 +1608,6 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// 同期にてSQLiteファイルを送受信する（ファイル保管まで行う）
-        /// とりあえず送信のみ
-        /// </summary>
-        /// <returns></returns>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        //public async Task<HttpResponseMessage> AsyncPostFileForWebAPI()
-        //{
-        //    var sendContent = GetSendFileContent();
-        //    HttpResponseMessage response = await _httpClient.PostAsync(webServiceUrl, sendContent);
-        //    //response.EnsureSuccessStatusCode();
-        //    //_httpClient.Dispose();
-        //    return response;
-        //}
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// 同期にてSQLiteファイルを送受信する（ファイル保管まで行う）
         /// 受信－ファイル書き出し
         /// </summary>
         /// <returns></returns>
@@ -1656,8 +1634,39 @@ namespace LionsApl
             return response;
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 入力年月日の年度を取得する
+        /// </summary>
+        /// <param name="dateTime">年度を取得する日時</param>
+        /// <returns></returns>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public string GetFiscal(string chkDate)
+        {
+            int chkRet;
+            string nowFiscal = string.Empty;
+            string dayStr = string.Empty;
+            string yearStr = string.Empty;
 
-        // 取得した
+            // 入力日時の年を取得する。
+            yearStr = chkDate.Substring(0, 4);
+            // 入力日時の月日を取得する            
+            dayStr = chkDate.Substring(5, 5);
+
+            // 戻り値に今年を設定する。
+            nowFiscal = yearStr;
+
+            // 年度開始月日と入力月日を比較する。
+            chkRet = Db_A_Setting.PeriodStart.CompareTo(dayStr);
+            // 年度開始月日より入力月日が前の場合
+            if (chkRet > 0)
+            {
+                // 戻り値に去年を設定する。
+                nowFiscal = (int.Parse(yearStr) - 1).ToString();
+            }
+
+            return nowFiscal;
+        }
 
     }
 

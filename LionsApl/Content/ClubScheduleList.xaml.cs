@@ -16,6 +16,9 @@ namespace LionsApl.Content
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
+        // Utilityクラス
+        private LAUtility _utl;
+
         // リストビュー設定内容
         public List<ClubScheduleRow> Items { get; set; }
 
@@ -25,6 +28,9 @@ namespace LionsApl.Content
         public ClubScheduleList()
         {
             InitializeComponent();
+
+            // Content Utilクラス生成
+            _utl = new LAUtility();
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
@@ -83,24 +89,31 @@ namespace LionsApl.Content
             string WorkDate = string.Empty;
             string WorkTitle = string.Empty;
             string WorkCancel = string.Empty;
+            string nowFiscal = string.Empty;
             Items = new List<ClubScheduleRow>();
 
-            Table.TableUtil Util = new Table.TableUtil();
+            //Table.TableUtil Util = new Table.TableUtil();
+
+            // 処理日時取得
+            DateTime nowDt = DateTime.Now;
+            // 年度取得
+            nowFiscal = _sqlite.GetFiscal(nowDt.ToString("yyyy/MM/dd"));
 
             try
             {
                 foreach (Table.T_MEETINGSCHEDULE row in _sqlite.Get_T_MEETINGSCHEDULE("Select * " +
                                                                     "From T_MEETINGSCHEDULE " +
+                                                                    "Where Fiscal = '" + nowFiscal + "' " +
                                                                     "ORDER BY MeetingDate ASC, MeetingTime ASC"))
                 {
                     WorkDataNo = row.DataNo.ToString();
-                    WorkDate = Util.GetString(row.MeetingDate).Substring(0, 10) + "  " + Util.GetString(row.MeetingTime);
+                    WorkDate = _utl.GetString(row.MeetingDate).Substring(0, 10) + "  " + _utl.GetString(row.MeetingTime);
                     WorkCancel = "";
-                    if (Util.GetString(row.CancelFlg) == "1")
+                    if (_utl.GetString(row.CancelFlg) == "1")
                     {
                         WorkCancel = CancelStr;
                     }
-                    WorkTitle = Util.GetString(row.MeetingName);
+                    WorkTitle = _utl.GetString(row.MeetingName);
                     Items.Add(new ClubScheduleRow(WorkDataNo, WorkDate, WorkCancel, WorkTitle));
                 }
                 if (Items.Count == 0)

@@ -315,7 +315,7 @@
                 />
         </Style>
 
-        <!-- Page画面(高さ制限なし) -->
+        <!-- Page画面(高さ指定なし) -->
         <Style 
             x:Key="Page_HeightFree"
             TargetType="Label"
@@ -331,10 +331,6 @@
             <Setter 
                 Property="VerticalTextAlignment"
                 Value="Start"
-                />
-            <Setter 
-                Property="MinimumHeightRequest"
-                Value="30"
                 />
             <Setter 
                 Property="Margin"
@@ -370,53 +366,97 @@
         </Style>
         
         <!-- EVENT PAGE -->
+        <!-- ラベル（Base） -->
         <Style 
-            x:Key="Event_Label_Title"
+            x:Key="Event_Label_Base"
             TargetType="Label"
             >
+            <Setter 
+                Property="HorizontalOptions"
+                Value="Start"
+                />
+            <Setter 
+                Property="VerticalOptions"
+                Value="Start"
+                />
             <Setter 
                 Property="HorizontalTextAlignment"
                 Value="Start"
                 />
             <Setter 
                 Property="VerticalTextAlignment"
-                Value="Center"
+                Value="Start"
                 />
             <Setter 
                 Property="Margin"
                 Value="8,0,8,0"
                 />
         </Style>
+        <!-- ラベル（Title） -->
         <Style 
-            x:Key="Event_Label_Item"
+            x:Key="Event_Label_Title"
             TargetType="Label"
             >
+            <Setter 
+                Property="HorizontalOptions"
+                Value="Start"
+                />
+            <Setter 
+                Property="VerticalOptions"
+                Value="Start"
+                />
             <Setter 
                 Property="HorizontalTextAlignment"
                 Value="Start"
                 />
             <Setter 
                 Property="VerticalTextAlignment"
-                Value="Center"
+                Value="Start"
                 />
+            <Setter 
+                Property="HeightRequest"
+                Value="30"
+                />
+            <Setter 
+                Property="MinimumHeightRequest"
+                Value="30"
+                />
+            <Setter 
+                Property="Margin"
+                Value="8,0,8,0"
+                />
+        </Style>
+        <!-- ラベル（Item） -->
+        <Style 
+            x:Key="Event_Label_Item"
+            TargetType="Label"
+            >
+            <Setter 
+                Property="HorizontalOptions"
+                Value="Start"
+                />
+            <Setter 
+                Property="VerticalOptions"
+                Value="Start"
+                />
+            <Setter 
+                Property="HorizontalTextAlignment"
+                Value="Start"
+                />
+            <Setter 
+                Property="VerticalTextAlignment"
+                Value="Start"
+                />
+            <!--<Setter 
+                Property="VerticalTextAlignment"
+                Value="Center"
+                />-->
             <Setter 
                 Property="Margin"
                 Value="0,0,8,0"
                 />
         </Style>
-        <Style 
-            x:Key="Event_Label_Ed"
-            TargetType="Label"
-            >
-            <Setter 
-                Property="HorizontalTextAlignment"
-                Value="End"
-                />
-            <Setter 
-                Property="VerticalTextAlignment"
-                Value="Center"
-                />
-        </Style>
+        <!-- スイッチ -->
         <Style 
             x:Key="Event_Switch"
             TargetType="Switch"
@@ -427,9 +467,14 @@
                 />
             <Setter 
                 Property="VerticalOptions"
-                Value="Center"
+                Value="Start"
+                />
+            <Setter 
+                Property="HeightRequest"
+                Value="30"
                 />
         </Style>
+        <!-- チェックボックス -->
         <Style 
             x:Key="Event_CheckBox"
             TargetType="CheckBox"
@@ -440,9 +485,14 @@
                 />
             <Setter 
                 Property="VerticalOptions"
-                Value="Center"
+                Value="Start"
+                />
+            <Setter 
+                Property="HeightRequest"
+                Value="30"
                 />
         </Style>
+        <!-- ピッカー -->
         <Style 
             x:Key="Event_Picker"
             TargetType="Picker"
@@ -453,7 +503,19 @@
                 />
             <Setter 
                 Property="VerticalOptions"
-                Value="Center"
+                Value="EndAndExpand"
+                />
+            <Setter 
+                Property="HeightRequest"
+                Value="45"
+                />
+            <Setter 
+                Property="WidthRequest"
+                Value="45"
+                />
+            <Setter 
+                Property="Margin"
+                Value="8,0,8,0"
                 />
         </Style>
 
