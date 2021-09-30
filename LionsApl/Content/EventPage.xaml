@@ -56,9 +56,7 @@
                             x:Name="EventDspSL"
                             >
                             <Grid 
-                                x:Name="EventDipGrid"
-                                Style="{StaticResource ListGrid_Base}"
-                                MinimumHeightRequest="0.0"
+                                Style="{StaticResource Page_Grid}"
                                 >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -364,9 +362,7 @@
                             x:Name="MeetingDspSL"
                             >
                             <Grid 
-                                x:Name="MeetingDspGrid"
-                                Style="{StaticResource ListGrid_Base}"
-                                MinimumHeightRequest="0.0"
+                                Style="{StaticResource Page_Grid}"
                                 >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -522,8 +518,7 @@
                             x:Name="DirectDspSL"
                             >
                             <Grid
-                                x:Name="DirectDspGrid"
-                                Style="{StaticResource ListGrid_Base}"
+                                Style="{StaticResource Page_Grid}"
                                 >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -555,7 +550,7 @@
                                     Grid.RowSpan="1"
                                     x:Name="DD_Date"
                                     Text="" 
-                                    Style="{StaticResource Event_Label_Base}"
+                                    Style="{StaticResource Event_Label_Item}"
                                     />
                                 <!-- 中止 -->
                                 <Label 
@@ -565,7 +560,7 @@
                                     Grid.RowSpan="1"
                                     x:Name="DD_Cancel"
                                     Text="" 
-                                    Style="{StaticResource Event_Label_Base}"
+                                    Style="{StaticResource Event_Label_Item}"
                                     TextColor="Red"
                                     />
 
@@ -586,7 +581,7 @@
                                     Grid.RowSpan="1"
                                     x:Name="DD_Season"
                                     Text="" 
-                                    Style="{StaticResource Event_Label_Base}"
+                                    Style="{StaticResource Event_Label_Item}"
                                     />
 
                                 <!-- 開催場所 -->
@@ -606,7 +601,7 @@
                                     Grid.RowSpan="1"
                                     x:Name="DD_Place"
                                     Text="" 
-                                    Style="{StaticResource Event_Label_Base}"
+                                    Style="{StaticResource Event_Label_Item}"
                                     />
 
                                 <!-- 議題・内容 -->
@@ -626,7 +621,7 @@
                                     Grid.RowSpan="1"
                                     x:Name="DD_Agenda"
                                     Text="" 
-                                    Style="{StaticResource Event_Label_Base}"
+                                    Style="{StaticResource Event_Label_Item}"
                                     />
 
                                 <!-- 回答期限 -->
@@ -647,7 +642,7 @@
                                     Grid.RowSpan="1"
                                     x:Name="DD_AnsDate"
                                     Text="" 
-                                    Style="{StaticResource Event_Label_Base}"
+                                    Style="{StaticResource Event_Label_Item}"
                                     TextColor="Red"
                                     />
                             </Grid>
@@ -661,7 +656,7 @@
                             x:Name="EventInpSL"
                             >
                             <Grid 
-                                Style="{StaticResource ListGrid_Base}"
+                                Style="{StaticResource Page_Grid}"
                                 >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -861,7 +856,7 @@
                                     Grid.RowSpan="1"
                                     x:Name="EI_AnsDate"
                                     Text="" 
-                                    Style="{StaticResource Event_Label_Title}"
+                                    Style="{StaticResource Event_Label_Item}"
                                     TextColor="Red"
                                     />
 
@@ -886,7 +881,7 @@
                             x:Name="MeetingInpSL"
                             >
                             <Grid 
-                                Style="{StaticResource ListGrid_Base}"
+                                Style="{StaticResource Page_Grid}"
                                 >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -1049,7 +1044,7 @@
                                     Grid.RowSpan="1"
                                     x:Name="lbl_MI_Late"
                                     Text="遅刻"
-                                    Style="{StaticResource Event_Label_Item}"
+                                    Style="{StaticResource Event_Label_ChkBox}"
                                     />
                                 <CheckBox
                                     Grid.Row="7"
@@ -1066,7 +1061,7 @@
                                     Grid.RowSpan="1"
                                     x:Name="lbl_MI_Early"
                                     Text="早退"
-                                    Style="{StaticResource Event_Label_Item}"
+                                    Style="{StaticResource Event_Label_ChkBox}"
                                     />
 
                                 <!-- 本人以外の参加数 -->
@@ -1085,8 +1080,7 @@
                                     Grid.ColumnSpan="4"
                                     Grid.RowSpan="1"
                                     x:Name="MI_OtherUser"
-                                    Style="{StaticResource Event_Picker}"
-                                    MinimumWidthRequest="32"
+                                    Style="{StaticResource Page_Picker}"
                                     >
                                 </Picker>
 
@@ -1108,7 +1102,7 @@
                                     Grid.RowSpan="1"
                                     x:Name="MI_AnsDate"
                                     Text="" 
-                                    Style="{StaticResource Event_Label_Title}"
+                                    Style="{StaticResource Event_Label_Item}"
                                     TextColor="Red"
                                     />
 

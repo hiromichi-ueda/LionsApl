@@ -43,6 +43,22 @@ namespace LionsApl.Content
         private int _dataNo;                                // データNo.
         private int _eventDataNo;                           // イベントNo.
 
+        private string _eventClass;                         // イベントクラス
+        private string _opt1Flg;                            // オプション1フラグ
+        private string _opt2Flg;                            // オプション2フラグ
+        private string _opt3Flg;                            // オプション3フラグ
+        private string _opt4Flg;                            // オプション4フラグ
+        private string _opt5Flg;                            // オプション5フラグ
+        private string _opt1Val;                            // オプション1値
+        private string _opt2Val;                            // オプション2値
+        private string _opt3Val;                            // オプション3値
+        private string _opt4Val;                            // オプション4値
+        private string _opt5Val;                            // オプション5値
+        private string _late;                               // 遅刻
+        private string _early;                              // 早退
+        private int _otherCount;                            // 本人以外の参加人数
+        private string _answer;                             // 出欠
+
         // ファイルパス
         private string _fileName;                           // ファイル名
 
@@ -113,8 +129,262 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void Present_Button_Clicked(object sender, System.EventArgs e)
         {
-            DisplayAlert("Disp", $"出席", "OK");
+
+            // キャビネットイベント
+            if (_eventClass.Equals(_utl.EVENTCLASS_CV))
+            {
+                Present_Cabinet();
+            }
+            // 年間例会スケジュール
+            else if (_eventClass.Equals(_utl.EVENTCLASS_CL))
+            {
+                Present_Meeting();
+            }
+            // 理事・委員会
+            else if (_eventClass.Equals(_utl.EVENTCLASS_DR))
+            {
+
+            }
+
+            // 回答（出席）
+            _answer = _utl.ANSWER_PRE;
+
         }
+
+
+        private void Present_Cabinet()
+        {
+            string recInfo = string.Empty;
+
+            // オプション1
+            if (_opt1Flg.Equals(_utl.ONFLG))
+            {
+                if (EI_Opt1Switch.IsToggled)
+                {
+                    _opt1Val = _utl.ONFLG;
+                    recInfo += "オプション1=ON\r\n";
+                }
+                else
+                {
+                    _opt1Val = _utl.OFFFLG;
+                    recInfo += "オプション1=OFF\r\n";
+                }
+            }
+
+            // オプション2
+            if (_opt2Flg.Equals(_utl.ONFLG))
+            {
+                if (EI_Opt2Switch.IsToggled)
+                {
+                    _opt2Val = _utl.ONFLG;
+                    recInfo += "オプション2=ON\r\n";
+                }
+                else
+                {
+                    _opt2Val = _utl.OFFFLG;
+                    recInfo += "オプション2=OFF\r\n";
+                }
+            }
+
+            // オプション3
+            if (_opt3Flg.Equals(_utl.ONFLG))
+            {
+                if (EI_Opt3Switch.IsToggled)
+                {
+                    _opt3Val = _utl.ONFLG;
+                    recInfo += "オプション3=ON\r\n";
+                }
+                else
+                {
+                    _opt3Val = _utl.OFFFLG;
+                    recInfo += "オプション3=OFF\r\n";
+                }
+            }
+
+            // オプション4
+            if (_opt4Flg.Equals(_utl.ONFLG))
+            {
+                if (EI_Opt4Switch.IsToggled)
+                {
+                    _opt4Val = _utl.ONFLG;
+                    recInfo += "オプション4=ON\r\n";
+                }
+                else
+                {
+                    _opt4Val = _utl.OFFFLG;
+                    recInfo += "オプション4=OFF\r\n";
+                }
+            }
+
+            // オプション5
+            if (_opt5Flg.Equals(_utl.ONFLG))
+            {
+                if (EI_Opt5Switch.IsToggled)
+                {
+                    _opt5Val = _utl.ONFLG;
+                    recInfo += "オプション5=ON\r\n";
+                }
+                else
+                {
+                    _opt5Val = _utl.OFFFLG;
+                    recInfo += "オプション5=OFF\r\n";
+                }
+            }
+
+            // 遅刻
+            if (EI_Late.IsChecked == true)
+            {
+                _late = _utl.ONFLG;
+                recInfo += "遅刻=ON\r\n";
+            }
+            else
+            {
+                _late = string.Empty;
+                recInfo += "遅刻=OFF\r\n";
+            }
+
+            // 早退
+            if (EI_Early.IsChecked == true)
+            {
+                _early = _utl.ONFLG;
+                recInfo += "早退=ON\r\n";
+            }
+            else
+            {
+                _early = string.Empty;
+                recInfo += "早退=OFF\r\n";
+            }
+
+            DisplayAlert("Disp", $"キャビネット/出席\r\n{recInfo}", "OK");
+
+        }
+
+        private void Present_Meeting()
+        {
+            string recInfo = string.Empty;
+
+            // オプション1
+            if (_opt1Flg.Equals(_utl.ONFLG))
+            {
+                if (MI_Opt1Switch.IsToggled)
+                {
+                    _opt1Val = _utl.ONFLG;
+                    recInfo += "オプション1=ON\r\n";
+                }
+                else
+                {
+                    _opt1Val = _utl.OFFFLG;
+                    recInfo += "オプション1=OFF\r\n";
+                }
+            }
+
+            // オプション2
+            if (_opt2Flg.Equals(_utl.ONFLG))
+            {
+                if (MI_Opt2Switch.IsToggled)
+                {
+                    _opt2Val = _utl.ONFLG;
+                    recInfo += "オプション2=ON\r\n";
+                }
+                else
+                {
+                    _opt2Val = _utl.OFFFLG;
+                    recInfo += "オプション2=OFF\r\n";
+                }
+            }
+
+            // オプション3
+            if (_opt3Flg.Equals(_utl.ONFLG))
+            {
+                if (MI_Opt3Switch.IsToggled)
+                {
+                    _opt3Val = _utl.ONFLG;
+                    recInfo += "オプション3=ON\r\n";
+                }
+                else
+                {
+                    _opt3Val = _utl.OFFFLG;
+                    recInfo += "オプション3=OFF\r\n";
+                }
+            }
+
+            // オプション4
+            if (_opt4Flg.Equals(_utl.ONFLG))
+            {
+                if (MI_Opt4Switch.IsToggled)
+                {
+                    _opt4Val = _utl.ONFLG;
+                    recInfo += "オプション4=ON\r\n";
+                }
+                else
+                {
+                    _opt4Val = _utl.OFFFLG;
+                    recInfo += "オプション4=OFF\r\n";
+                }
+            }
+
+            // オプション5
+            if (_opt5Flg.Equals(_utl.ONFLG))
+            {
+                if (MI_Opt5Switch.IsToggled)
+                {
+                    _opt5Val = _utl.ONFLG;
+                    recInfo += "オプション5=ON\r\n";
+                }
+                else
+                {
+                    _opt5Val = _utl.OFFFLG;
+                    recInfo += "オプション5=OFF\r\n";
+                }
+            }
+
+            // 遅刻
+            if (MI_Late.IsChecked == true)
+            {
+                _late = _utl.ONFLG;
+                recInfo += "遅刻=ON\r\n";
+            }
+            else
+            {
+                _late = string.Empty;
+                recInfo += "遅刻=OFF\r\n";
+            }
+
+            // 早退
+            if (MI_Early.IsChecked == true)
+            {
+                _early = _utl.ONFLG;
+                recInfo += "早退=ON\r\n";
+            }
+            else
+            {
+                _early = string.Empty;
+                recInfo += "早退=OFF\r\n";
+            }
+
+            // 本人以外の参加数
+            _otherCount = int.Parse(MI_OtherUser.Items[MI_OtherUser.SelectedIndex]);
+            recInfo += "人数=" + MI_OtherUser.Items[MI_OtherUser.SelectedIndex] + "\r\n";
+
+            DisplayAlert("Disp", $"例会/出席\r\n{recInfo}", "OK");
+
+        }
+
+        private void Present_Direct()
+        {
+
+        }
+
+        private void UpdateSQLite()
+        {
+//            _sqlite.Set_T_EVENTRET("UPDATE T_EVENTRET SET " +
+//                                           "" +
+//                                                                            "Where DataNo='" + _eventDataNo + "'"))
+            
+        }
+
+
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -125,7 +395,9 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void Adsent_Button_Clicked(object sender, System.EventArgs e)
         {
-            DisplayAlert("Disp", $"欠席", "OK");
+            DisplayAlert("Disp", "欠席", "OK");
+            // 回答（欠席）
+            _answer = _utl.ANSWER_AB;
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -234,7 +506,6 @@ namespace LionsApl.Content
         private void GetEventRet()
         {
             // 変数
-            string wkEventClass = string.Empty;
             string wkDrEventclass = string.Empty;
 
             try
@@ -247,11 +518,11 @@ namespace LionsApl.Content
                 }
 
 
-                wkEventClass = _utl.GetString(_eventret.EventClass);
+                _eventClass = _utl.GetString(_eventret.EventClass);
 
                 // イベントクラス別のデータ読み込み・タイトル文字列の設定・各画面の設定
                 // キャビネットイベント
-                if (wkEventClass.Equals(_utl.EVENTCLASS_CV))
+                if (_eventClass.Equals(_utl.EVENTCLASS_CV))
                 {
                     // キャビネットイベントのデータ読み込み
                     foreach (Table.T_EVENT row in _sqlite.Get_T_EVENT("Select * " +
@@ -268,7 +539,7 @@ namespace LionsApl.Content
 
                 }
                 // 年間例会スケジュール
-                else if (wkEventClass.Equals(_utl.EVENTCLASS_CL))
+                else if (_eventClass.Equals(_utl.EVENTCLASS_CL))
                 {
                     // 年間例会スケジュールのデータ読み込み
                     foreach (Table.T_MEETINGSCHEDULE row in _sqlite.Get_T_MEETINGSCHEDULE("Select * " +
@@ -284,7 +555,7 @@ namespace LionsApl.Content
 
                 }
                 // 理事・委員会
-                else if (wkEventClass.Equals(_utl.EVENTCLASS_DR))
+                else if (_eventClass.Equals(_utl.EVENTCLASS_DR))
                 {
                     // 理事・委員会のデータ読み込み
                     foreach (Table.T_DIRECTOR row in _sqlite.Get_T_DIRECTOR("Select * " +
@@ -307,7 +578,11 @@ namespace LionsApl.Content
             }
         }
 
-
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// キャビネットイベント項目の設定
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         private void SetCEventPageCabinet()
         {
             string wkDate = string.Empty;
@@ -323,24 +598,18 @@ namespace LionsApl.Content
             string wkID = string.Empty;
             string wkPW = string.Empty;
             string wkMtOther = string.Empty;
-            //string wkFile = string.Empty;
-            bool wkOpt1flg = false;
             string wkOpt1Name = string.Empty;
-            string wkOpt1Value = string.Empty;
-            bool wkOpt2flg = false;
+            //string wkOpt1Value = string.Empty;
             string wkOpt2Name = string.Empty;
-            string wkOpt2Value = string.Empty;
-            bool wkOpt3flg = false;
+            //string wkOpt2Value = string.Empty;
             string wkOpt3Name = string.Empty;
-            string wkOpt3Value = string.Empty;
-            bool wkOpt4flg = false;
+            //string wkOpt3Value = string.Empty;
             string wkOpt4Name = string.Empty;
-            string wkOpt4Value = string.Empty;
-            bool wkOpt5flg = false;
+            //string wkOpt4Value = string.Empty;
             string wkOpt5Name = string.Empty;
-            string wkOpt5Value = string.Empty;
-            string wkLate = string.Empty;
-            string wkEarly = string.Empty;
+            //string wkOpt5Value = string.Empty;
+            //string wkLate = string.Empty;
+            //string wkEarly = string.Empty;
             string wkAnsDate = string.Empty;
 
             ////////////////////////
@@ -394,61 +663,61 @@ namespace LionsApl.Content
             // 入力項目
 
             // オプション1
-            wkOpt1flg = _utl.GetString(_event.OptionRadio1).Equals(_utl.ONFLG);
-            if (wkOpt1flg)
+            _opt1Flg = _utl.GetString(_event.OptionRadio1);
+            if (_opt1Flg.Equals(_utl.ONFLG))
             {
                 // オプション1（項目名）
                 wkOpt1Name = _utl.GetString(_event.OptionName1);
 
                 // オプション1（入力値）
-                wkOpt1Value = _utl.GetString(_eventret.Option1);
+                _opt1Val = _utl.GetString(_eventret.Option1);
             }
             // オプション2
-            wkOpt2flg = _utl.GetString(_event.OptionRadio2).Equals(_utl.ONFLG);
-            if (wkOpt2flg)
+            _opt2Flg = _utl.GetString(_event.OptionRadio2);
+            if (_opt2Flg.Equals(_utl.ONFLG))
             {
                 // オプション2（項目名）
                 wkOpt2Name = _utl.GetString(_event.OptionName2);
 
                 // オプション2（入力値）
-                wkOpt2Value = _utl.GetString(_eventret.Option2);
+                _opt2Val = _utl.GetString(_eventret.Option2);
             }
             // オプション3
-            wkOpt3flg = _utl.GetString(_event.OptionRadio3).Equals(_utl.ONFLG);
-            if (wkOpt3flg)
+            _opt3Flg = _utl.GetString(_event.OptionRadio3);
+            if (_opt3Flg.Equals(_utl.ONFLG))
             {
                 // オプション3（項目名）
                 wkOpt3Name = _utl.GetString(_event.OptionName3);
 
                 // オプション3（入力値）
-                wkOpt3Value = _utl.GetString(_eventret.Option3);
+                _opt3Val = _utl.GetString(_eventret.Option3);
             }
             // オプション4
-            wkOpt4flg = _utl.GetString(_event.OptionRadio4).Equals(_utl.ONFLG);
-            if (wkOpt4flg)
+            _opt4Flg = _utl.GetString(_event.OptionRadio4);
+            if (_opt4Flg.Equals(_utl.ONFLG))
             {
                 // オプション4（項目名）
                 wkOpt4Name = _utl.GetString(_event.OptionName4);
 
                 // オプション4（入力値）
-                wkOpt4Value = _utl.GetString(_eventret.Option4);
+                _opt4Val = _utl.GetString(_eventret.Option4);
             }
             // オプション5
-            wkOpt5flg = _utl.GetString(_event.OptionRadio5).Equals(_utl.ONFLG);
-            if (wkOpt5flg)
+            _opt5Flg = _utl.GetString(_event.OptionRadio5);
+            if (_opt5Flg.Equals(_utl.ONFLG))
             {
                 // オプション5（項目名）
                 wkOpt5Name = _utl.GetString(_event.OptionName5);
 
                 // オプション5（入力値）
-                wkOpt5Value = _utl.GetString(_eventret.Option5);
+                _opt5Val = _utl.GetString(_eventret.Option5);
             }
 
             // 遅刻・早退
             // 遅刻
-            wkLate = _utl.GetString(_eventret.AnswerLate);
+            _late = _utl.GetString(_eventret.AnswerLate);
             // 早退
-            wkEarly = _utl.GetString(_eventret.AnswerEarly);
+            _early = _utl.GetString(_eventret.AnswerEarly);
 
             // 回答期限
             wkAnsDate = _utl.GetString(_event.AnswerDate).Substring(0, 10);
@@ -487,19 +756,25 @@ namespace LionsApl.Content
             // 入力項目設定
 
             // オプション1
-            SetOptionItem(wkOpt1flg, wkOpt1Value, wkOpt1Name, ref lbl_EI_Opt1Name, ref EI_Opt1Switch, ref rdh_EI_Opt1);
+            SetOptionItem(_opt1Flg, _opt1Val, wkOpt1Name, ref lbl_EI_Opt1Name, ref EI_Opt1Switch);
 
             // オプション2
-            SetOptionItem(wkOpt2flg, wkOpt2Value, wkOpt2Name, ref lbl_EI_Opt2Name, ref EI_Opt2Switch, ref rdh_EI_Opt2);
+            SetOptionItem(_opt2Flg, _opt2Val, wkOpt2Name, ref lbl_EI_Opt2Name, ref EI_Opt2Switch);
 
             // オプション3
-            SetOptionItem(wkOpt3flg, wkOpt3Value, wkOpt3Name, ref lbl_EI_Opt3Name, ref EI_Opt3Switch, ref rdh_EI_Opt3);
+            SetOptionItem(_opt3Flg, _opt3Val, wkOpt3Name, ref lbl_EI_Opt3Name, ref EI_Opt3Switch);
 
             // オプション4
-            SetOptionItem(wkOpt4flg, wkOpt4Value, wkOpt4Name, ref lbl_EI_Opt4Name, ref EI_Opt4Switch, ref rdh_EI_Opt4);
+            SetOptionItem(_opt4Flg, _opt4Val, wkOpt4Name, ref lbl_EI_Opt4Name, ref EI_Opt4Switch);
 
             // オプション5
-            SetOptionItem(wkOpt5flg, wkOpt5Value, wkOpt5Name, ref lbl_EI_Opt5Name, ref EI_Opt5Switch, ref rdh_EI_Opt5);
+            SetOptionItem(_opt5Flg, _opt5Val, wkOpt5Name, ref lbl_EI_Opt5Name, ref EI_Opt5Switch);
+
+            // 遅刻
+            MI_Late.IsChecked = _late.Equals(_utl.ONFLG);
+
+            // 早退
+            MI_Early.IsChecked = _early.Equals(_utl.ONFLG);
 
             // 回答期限
             EI_AnsDate.Text = wkAnsDate;
@@ -515,7 +790,7 @@ namespace LionsApl.Content
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// 年間例会スケジュール画面の設定
+        /// 年間例会スケジュール項目の設定
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void SetCEventPageMeeting()
@@ -527,21 +802,24 @@ namespace LionsApl.Content
             string wkName = string.Empty;
             string wkOnline = string.Empty;
             string wkSake = string.Empty;
-            bool wkOpt1flg = false;
+            //bool wkOpt1flg = false;
             string wkOpt1Name = string.Empty;
-            string wkOpt1Value = string.Empty;
-            bool wkOpt2flg = false;
+            //string wkOpt1Value = string.Empty;
+            //bool wkOpt2flg = false;
             string wkOpt2Name = string.Empty;
-            string wkOpt2Value = string.Empty;
-            bool wkOpt3flg = false;
+            //string wkOpt2Value = string.Empty;
+            //bool wkOpt3flg = false;
             string wkOpt3Name = string.Empty;
-            string wkOpt3Value = string.Empty;
-            bool wkOpt4flg = false;
+            //string wkOpt3Value = string.Empty;
+            //bool wkOpt4flg = false;
             string wkOpt4Name = string.Empty;
-            string wkOpt4Value = string.Empty;
-            bool wkOpt5flg = false;
+            //string wkOpt4Value = string.Empty;
+            //bool wkOpt5flg = false;
             string wkOpt5Name = string.Empty;
-            string wkOpt5Value = string.Empty;
+            //string wkOpt5Value = string.Empty;
+            //string wkLate = string.Empty;
+            //string wkEarly = string.Empty;
+            //int wkOtherCount = 0;
 
             string wkAnsDate = string.Empty;
 
@@ -581,58 +859,69 @@ namespace LionsApl.Content
             // 入力項目
 
             // オプション1
-            wkOpt1flg = _utl.GetString(_meetingschedule.OptionRadio1).Equals(_utl.ONFLG);
-            if (wkOpt1flg)
+            _opt1Flg = _utl.GetString(_meetingschedule.OptionRadio1);
+            if (_opt1Flg.Equals(_utl.ONFLG))
             {
                 // オプション1（項目名）
                 wkOpt1Name = _utl.GetString(_meetingschedule.OptionName1);
 
                 // オプション1（入力値）
-                wkOpt1Value = _utl.GetString(_eventret.Option1);
+                _opt1Val = _utl.GetString(_eventret.Option1);
             }
             // オプション2
-            wkOpt2flg = _utl.GetString(_meetingschedule.OptionRadio2).Equals(_utl.ONFLG);
-            if (wkOpt2flg)
+            _opt2Flg = _utl.GetString(_meetingschedule.OptionRadio2);
+            if (_opt2Flg.Equals(_utl.ONFLG))
             {
                 // オプション2（項目名）
                 wkOpt2Name = _utl.GetString(_meetingschedule.OptionName2);
 
                 // オプション2（入力値）
-                wkOpt2Value = _utl.GetString(_eventret.Option2);
+                _opt2Val = _utl.GetString(_eventret.Option2);
             }
             // オプション3
-            wkOpt3flg = _utl.GetString(_meetingschedule.OptionRadio3).Equals(_utl.ONFLG);
-            if (wkOpt3flg)
+            _opt3Flg = _utl.GetString(_meetingschedule.OptionRadio3);
+            if (_opt3Flg.Equals(_utl.ONFLG))
             {
                 // オプション3（項目名）
                 wkOpt3Name = _utl.GetString(_meetingschedule.OptionName3);
 
                 // オプション3（入力値）
-                wkOpt3Value = _utl.GetString(_eventret.Option3);
+                _opt3Val = _utl.GetString(_eventret.Option3);
             }
             // オプション4
-            wkOpt4flg = _utl.GetString(_meetingschedule.OptionRadio4).Equals(_utl.ONFLG);
-            if (wkOpt4flg)
+            _opt4Flg = _utl.GetString(_meetingschedule.OptionRadio4);
+            if (_opt4Flg.Equals(_utl.ONFLG))
             {
                 // オプション4（項目名）
                 wkOpt4Name = _utl.GetString(_meetingschedule.OptionName4);
 
                 // オプション4（入力値）
-                wkOpt4Value = _utl.GetString(_eventret.Option4);
+                _opt4Val = _utl.GetString(_eventret.Option4);
             }
             // オプション5
-            wkOpt5flg = _utl.GetString(_meetingschedule.OptionRadio5).Equals(_utl.ONFLG);
-            if (wkOpt5flg)
+            _opt5Flg = _utl.GetString(_meetingschedule.OptionRadio5);
+            if (_opt5Flg.Equals(_utl.ONFLG))
             {
                 // オプション5（項目名）
                 wkOpt5Name = _utl.GetString(_meetingschedule.OptionName5);
 
                 // オプション5（入力値）
-                wkOpt5Value = _utl.GetString(_eventret.Option5);
+                _opt5Val = _utl.GetString(_eventret.Option5);
             }
+
+            // 遅刻・早退
+            // 遅刻
+            _late = _utl.GetString(_eventret.AnswerLate);
+            // 早退
+            _early = _utl.GetString(_eventret.AnswerEarly);
+
+            // 本人以外の参加人数
+            _otherCount = _eventret.OtherCount;
 
             // 回答期限
             wkAnsDate = _utl.GetString(_meetingschedule.AnswerDate).Substring(0, 10);
+
+
 
             ////////////////////////
             // 表示項目設定
@@ -659,25 +948,46 @@ namespace LionsApl.Content
             // 入力項目設定
 
             // オプション1
-            SetOptionItem(wkOpt1flg, wkOpt1Value, wkOpt1Name, ref lbl_MI_Opt1Name, ref MI_Opt1Switch, ref rdh_MI_Opt1);
+            SetOptionItem(_opt1Flg, _opt1Val, wkOpt1Name, ref lbl_MI_Opt1Name, ref MI_Opt1Switch);
 
             // オプション2
-            SetOptionItem(wkOpt2flg, wkOpt2Value, wkOpt2Name, ref lbl_MI_Opt2Name, ref MI_Opt2Switch, ref rdh_MI_Opt2);
+            SetOptionItem(_opt2Flg, _opt2Val, wkOpt2Name, ref lbl_MI_Opt2Name, ref MI_Opt2Switch);
 
             // オプション3
-            SetOptionItem(wkOpt3flg, wkOpt3Value, wkOpt3Name, ref lbl_MI_Opt3Name, ref MI_Opt3Switch, ref rdh_MI_Opt3);
+            SetOptionItem(_opt3Flg, _opt3Val, wkOpt3Name, ref lbl_MI_Opt3Name, ref MI_Opt3Switch);
 
             // オプション4
-            SetOptionItem(wkOpt4flg, wkOpt4Value, wkOpt4Name, ref lbl_MI_Opt4Name, ref MI_Opt4Switch, ref rdh_MI_Opt4);
+            SetOptionItem(_opt4Flg, _opt4Val, wkOpt4Name, ref lbl_MI_Opt4Name, ref MI_Opt4Switch);
 
             // オプション5
-            SetOptionItem(wkOpt5flg, wkOpt5Value, wkOpt5Name, ref lbl_MI_Opt5Name, ref MI_Opt5Switch, ref rdh_MI_Opt5);
+            SetOptionItem(_opt5Flg, _opt5Val, wkOpt5Name, ref lbl_MI_Opt5Name, ref MI_Opt5Switch);
+
+            // 遅刻
+            if (_late.Equals(_utl.ONFLG))
+            {
+                MI_Late.IsChecked = true;
+            }
+            else
+            {
+                MI_Late.IsChecked = false;
+            }
+
+            // 早退
+            if (_early.Equals(_utl.ONFLG))
+            {
+                MI_Early.IsChecked = true;
+            }
+            else
+            {
+                MI_Early.IsChecked = false;
+            }
 
             // 本人以外の参加数
             for (int idx = 0 ; idx <= 15; idx++)
             {
                 MI_OtherUser.Items.Add(idx.ToString());
             }
+            MI_OtherUser.SelectedIndex = _otherCount;
 
             // 回答期限
             MI_AnsDate.Text = wkAnsDate;
@@ -693,7 +1003,7 @@ namespace LionsApl.Content
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// 理事・委員会画面の設定
+        /// 理事・委員会項目の設定
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void SetCEventPageDirect()
@@ -749,16 +1059,25 @@ namespace LionsApl.Content
 
         }
 
-
-        private void SetOptionItem(bool flg, 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// オプション項目の設定
+        /// </summary>
+        /// <param name="flg"></param>
+        /// <param name="radio"></param>
+        /// <param name="name"></param>
+        /// <param name="labelItem"></param>
+        /// <param name="switchItem"></param>
+        /// <param name="rowdef"></param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void SetOptionItem(string flg, 
                                    string radio, 
                                    string name, 
                                    ref Label labelItem, 
-                                   ref Switch switchItem,
-                                   ref RowDefinition rowdef)
+                                   ref Switch switchItem)
         {
             // 入力項目設定
-            if (flg)
+            if (flg.Equals(_utl.ONFLG))
             {
                 labelItem.Text = name;
                 if (radio.Equals(_utl.ONFLG) || radio.Equals(_utl.NOFLG))
@@ -773,10 +1092,9 @@ namespace LionsApl.Content
             else
             {
                 labelItem.IsVisible = false;
-                labelItem.HeightRequest = 0.0;
+                //labelItem.HeightRequest = 0.0;
                 switchItem.IsVisible = false;
-                switchItem.HeightRequest = 0.0;
-                rowdef.Height = 0.0;
+                //switchItem.HeightRequest = 0.0;
             }
         }
     }

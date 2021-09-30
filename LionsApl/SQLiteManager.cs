@@ -1476,7 +1476,7 @@ namespace LionsApl
         /// ファイルパス情報をSQLiteファイルから取得する。
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public void GetFilePath(string InDataClass)
+        public void GetFilePath(string dataClass)
         {
             Db_A_FilePath = null;
 
@@ -1484,7 +1484,7 @@ namespace LionsApl
             try
             {
                 foreach (Table.A_FILEPATH row in Get_A_FILEPATH("SELECT * FROM A_FILEPATH " +
-                                                                "WHERE DataClass = '" + InDataClass + "'"))
+                                                                "WHERE DataClass = '" + dataClass + "'"))
                 {
                     Db_A_FilePath = new Table.A_FILEPATH
                     {
@@ -1513,7 +1513,7 @@ namespace LionsApl
         /// A_ACCOUNTテーブルデータ登録
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public void Set_A_ACCOUNT(Table.A_ACCOUNT InAccount)
+        public void Set_A_ACCOUNT(Table.A_ACCOUNT account)
         {
             // データ登録
             try
@@ -1524,14 +1524,14 @@ namespace LionsApl
                     _ = db.CreateTable<Table.A_ACCOUNT>();
                     _ = db.Insert(new Table.A_ACCOUNT()
                     {
-                        Region = InAccount.Region,
-                        Zone = InAccount.Zone,
-                        ClubCode = InAccount.ClubCode,
-                        ClubName = InAccount.ClubName,
-                        MemberCode = InAccount.MemberCode,
-                        MemberFirstName = InAccount.MemberFirstName,
-                        MemberLastName = InAccount.MemberLastName,
-                        AccountDate = InAccount.AccountDate
+                        Region = account.Region,
+                        Zone = account.Zone,
+                        ClubCode = account.ClubCode,
+                        ClubName = account.ClubName,
+                        MemberCode = account.MemberCode,
+                        MemberFirstName = account.MemberFirstName,
+                        MemberLastName = account.MemberLastName,
+                        AccountDate = account.AccountDate
                     });
                 }
             }
@@ -1539,6 +1539,60 @@ namespace LionsApl
             {
                 throw;
             }
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// T_EVENTRETテーブルデータ更新
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        //private void Set_T_EVENTRET()
+        //{
+        //    // データ登録
+        //    try
+        //    {
+        //        using (SQLiteConnection db = new SQLiteConnection(DbPath))
+        //        {
+        //            db.Execute()
+
+        //            _ = db.Update(new Table.T_EVENTRET()
+        //            {
+        //                Region = account.Region,
+        //                Zone = account.Zone,
+        //                ClubCode = account.ClubCode,
+        //                ClubName = account.ClubName,
+        //                MemberCode = account.MemberCode,
+        //                MemberFirstName = account.MemberFirstName,
+        //                MemberLastName = account.MemberLastName,
+        //                AccountDate = account.AccountDate
+        //            });
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+
+        //}
+        public Table.T_EVENTRET[] Set_T_EVENTRET(string command)
+        {
+            List<Table.T_EVENTRET> items = new List<Table.T_EVENTRET>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                {   // Select
+                    items = db.Query<Table.T_EVENTRET>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.T_EVENTRET[0]);
 
         }
 

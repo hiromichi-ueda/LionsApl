@@ -87,7 +87,7 @@
                                     TitleColor="GRAY"
                                     ItemDisplayBinding="{Binding Name}"
                                     SelectedIndexChanged="RegionPicker_SelectedIndexChanged"
-                                    Style="{StaticResource Page_Base}"
+                                    Style="{StaticResource Page_Picker}"
                                     >
                                 </Picker>
 
@@ -108,7 +108,7 @@
                                     TitleColor="GRAY"
                                     ItemDisplayBinding="{Binding Name}"
                                     SelectedIndexChanged="ZonePicker_SelectedIndexChanged"
-                                    Style="{StaticResource Page_Base}"
+                                    Style="{StaticResource Page_Picker}"
                                     >
                                 </Picker>
 
@@ -129,7 +129,7 @@
                                     TitleColor="GRAY"
                                     ItemDisplayBinding="{Binding Name}"
                                     SelectedIndexChanged="ClubPicker_SelectedIndexChanged"
-                                    Style="{StaticResource Page_Base}"
+                                    Style="{StaticResource Page_Picker}"
                                         >
                                 </Picker>
 
@@ -150,7 +150,7 @@
                                     TitleColor="GRAY"
                                     ItemDisplayBinding="{Binding Name}"
                                     SelectedIndexChanged="MemberPicker_SelectedIndexChanged"
-                                    Style="{StaticResource Page_Base}"
+                                    Style="{StaticResource Page_Picker}"
                                 >
                                 </Picker>
                             </Grid>

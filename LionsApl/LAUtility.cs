@@ -9,18 +9,18 @@ namespace LionsApl
     {
         // DB項目判定用文字列
         // イベントクラス
-        public string EVENTCLASS_CV = "1";
-        public string EVENTCLASS_CL = "2";
-        public string EVENTCLASS_DR = "3";
+        public string EVENTCLASS_CV = "1";                  // キャビネットイベント
+        public string EVENTCLASS_CL = "2";                  // 年間例会スケジュール
+        public string EVENTCLASS_DR = "3";                  // 理事・委員会
         // クラブイベントクラス
-        public string CLUBEVENTCLASS_RI = "1";
-        public string CLUBEVENTCLASS_IN = "2";
+        public string CLUBEVENTCLASS_RI = "1";              // 理事会
+        public string CLUBEVENTCLASS_IN = "2";              // 委員会
         // 中止フラグ
-        public string CANCELFLG = "1";
+        public string CANCELFLG = "1";                      // 中止
         // 出欠フラグ
-        public string ANSWER_PRE = "1";
-        public string ANSWER_AB = "2";
-        public string ANSWER_NO = string.Empty;
+        public string ANSWER_PRE = "1";                     // 出席
+        public string ANSWER_AB = "2";                      // 欠席
+        public string ANSWER_NO = string.Empty;             // 未回答（初期値）
         // オンラインフラグ
         public string ONLINEFLG = "1";
         // 会議フラグ

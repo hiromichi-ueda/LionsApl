@@ -364,7 +364,22 @@
                 Value="12, 10, 10, 8"
                 />
         </Style>
-        
+
+        <!-- Page画面(Grid) -->
+        <Style
+            x:Key="Page_Grid"
+            TargetType="Grid"
+            >
+            <Setter
+                Property="RowSpacing"
+                Value="0"
+                />
+            <Setter
+                Property="ColumnSpacing"
+                Value="0"
+                />
+        </Style>
+
         <!-- EVENT PAGE -->
         <!-- ラベル（Base） -->
         <Style 
@@ -389,7 +404,7 @@
                 />
             <Setter 
                 Property="Margin"
-                Value="8,0,8,0"
+                Value="8,4,8,4"
                 />
         </Style>
         <!-- ラベル（Title） -->
@@ -423,7 +438,7 @@
                 />
             <Setter 
                 Property="Margin"
-                Value="8,0,8,0"
+                Value="8,4,8,4"
                 />
         </Style>
         <!-- ラベル（Item） -->
@@ -447,13 +462,9 @@
                 Property="VerticalTextAlignment"
                 Value="Start"
                 />
-            <!--<Setter 
-                Property="VerticalTextAlignment"
-                Value="Center"
-                />-->
             <Setter 
                 Property="Margin"
-                Value="0,0,8,0"
+                Value="8,4,8,4"
                 />
         </Style>
         <!-- スイッチ -->
@@ -492,26 +503,52 @@
                 Value="30"
                 />
         </Style>
+        <!-- ラベル（チェックボックス用） -->
+        <Style 
+            x:Key="Event_Label_ChkBox"
+            TargetType="Label"
+            >
+            <Setter 
+                Property="HorizontalOptions"
+                Value="Start"
+                />
+            <Setter 
+                Property="VerticalOptions"
+                Value="Start"
+                />
+            <Setter 
+                Property="HorizontalTextAlignment"
+                Value="Start"
+                />
+            <Setter 
+                Property="VerticalTextAlignment"
+                Value="Start"
+                />
+            <Setter 
+                Property="Margin"
+                Value="0,0,8,0"
+                />
+        </Style>
         <!-- ピッカー -->
         <Style 
-            x:Key="Event_Picker"
+            x:Key="Page_Picker"
             TargetType="Picker"
             >
             <Setter 
                 Property="HorizontalOptions"
-                Value="StartAndExpand"
+                Value="FillAndExpand"
                 />
             <Setter 
                 Property="VerticalOptions"
-                Value="EndAndExpand"
+                Value="FillAndExpand"
                 />
             <Setter 
-                Property="HeightRequest"
-                Value="45"
+                Property="HorizontalTextAlignment"
+                Value="Center"
                 />
             <Setter 
-                Property="WidthRequest"
-                Value="45"
+                Property="VerticalTextAlignment"
+                Value="Center"
                 />
             <Setter 
                 Property="Margin"
