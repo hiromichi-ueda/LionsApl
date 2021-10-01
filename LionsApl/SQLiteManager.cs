@@ -1577,19 +1577,13 @@ namespace LionsApl
         //}
         public Table.T_EVENTRET[] Set_T_EVENTRET(string command)
         {
-            List<Table.T_EVENTRET> items = new List<Table.T_EVENTRET>();
 
-            try
+            SQLiteConnection db = new SQLiteConnection(DbPath);
+            List<Table.T_EVENTRET> items = db.Query<Table.T_EVENTRET>(command);
+            if (items.Count > 0)
             {
-                // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
-                {   // Select
-                    items = db.Query<Table.T_EVENTRET>(command);
-                }
-            }
-            catch
-            {
-                throw;
+                // Update
+                db.Update(items);
             }
 
             return items.Count > 0 ? items.ToArray() : (new Table.T_EVENTRET[0]);
@@ -1658,12 +1652,37 @@ namespace LionsApl
             return content;
         }
 
-
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// 同期にてSQLiteファイルを送受信する（ファイル保管まで行う）
         /// 受信－ファイル書き出し
         /// </summary>
+        /// <param name="sendContent"></param>
+        /// <returns></returns>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public async Task<HttpResponseMessage> AsyncPostFileForWebAPI(MultipartFormDataContent sendContent)
+        {
+            HttpResponseMessage response = _httpClient.PostAsync(webServiceUrl, sendContent).Result;
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                using (var content = response.Content)
+                using (var stream = await content.ReadAsStreamAsync())
+                using (var fileStream = new FileStream(DbPath, FileMode.Create, FileAccess.Write, FileShare.None))
+                {
+                    stream.CopyTo(fileStream);
+                }
+            }
+            return response;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 同期にてSQLiteファイルを送受信する（ファイル保管まで行う）
+        /// 受信－ファイル書き出し
+        /// テスト用画面に情報の表示含む
+        /// </summary>
+        /// <param name="label"></param>
+        /// <param name="sendContent"></param>
         /// <returns></returns>
         ///////////////////////////////////////////////////////////////////////////////////////////
         public async Task<HttpResponseMessage> AsyncPostFileForWebAPI(Label label, MultipartFormDataContent sendContent)

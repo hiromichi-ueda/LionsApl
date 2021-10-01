@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -32,6 +33,12 @@ namespace LionsApl.Content
         // T_DIRECTORテーブルクラス
         private Table.T_DIRECTOR _director;
 
+        // T_EVENTRET登録クラス
+        private CEventReg _eventReg;
+
+        // 情報通信マネージャクラス
+        private IComManager _icom;
+
         // キャビネットイベント表示用クラス
         //private CEventPageEvent _event;
         // 年間例会スケジュール表示用クラス
@@ -49,15 +56,15 @@ namespace LionsApl.Content
         private string _opt3Flg;                            // オプション3フラグ
         private string _opt4Flg;                            // オプション4フラグ
         private string _opt5Flg;                            // オプション5フラグ
-        private string _opt1Val;                            // オプション1値
-        private string _opt2Val;                            // オプション2値
-        private string _opt3Val;                            // オプション3値
-        private string _opt4Val;                            // オプション4値
-        private string _opt5Val;                            // オプション5値
-        private string _late;                               // 遅刻
-        private string _early;                              // 早退
-        private int _otherCount;                            // 本人以外の参加人数
-        private string _answer;                             // 出欠
+        //private string _opt1Val;                            // オプション1値
+        //private string _opt2Val;                            // オプション2値
+        //private string _opt3Val;                            // オプション3値
+        //private string _opt4Val;                            // オプション4値
+        //private string _opt5Val;                            // オプション5値
+        //private string _late;                               // 遅刻
+        //private string _early;                              // 早退
+        //private int _otherCount;                            // 本人以外の参加人数
+        //private string _answer;                             // 出欠
 
         // ファイルパス
         private string _fileName;                           // ファイル名
@@ -89,6 +96,9 @@ namespace LionsApl.Content
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
 
+            // 情報通信マネージャー生成
+            _icom = IComManager.GetInstance();
+
             // A_SETTINGデータ取得
             _sqlite.SetSetting();
 
@@ -100,6 +110,13 @@ namespace LionsApl.Content
 
             // ログイン情報設定
             LoginInfo.Text = _sqlite.LoginInfo;
+
+            // 出欠情報クラス設定
+            string emp = string.Empty;
+            _eventReg = new CEventReg(0, emp, emp, emp, emp, emp, emp, emp, emp, 0);
+
+            // データNo.
+            _eventReg.DataNo = _dataNo;
 
             // イベント情報データ取得
             GetEventRet();
@@ -130,6 +147,9 @@ namespace LionsApl.Content
         private void Present_Button_Clicked(object sender, System.EventArgs e)
         {
 
+            // 回答（出席）
+            _eventReg.Answer = _utl.ANSWER_PRE;
+
             // キャビネットイベント
             if (_eventClass.Equals(_utl.EVENTCLASS_CV))
             {
@@ -146,12 +166,33 @@ namespace LionsApl.Content
 
             }
 
-            // 回答（出席）
-            _answer = _utl.ANSWER_PRE;
+            // 出欠情報登録情報をコンテンツに設定
+            _icom.GetSendEventContent(_eventReg);
+            try
+            {
+                Task<HttpResponseMessage> response = _icom.AsyncPostTextForWebAPI();
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Alert", $"SQLServer 出席情報登録エラー : &{ex.Message}", "OK");
+            }
 
+            try
+            {
+                SetEventRetSQlite();
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Alert", $"SQLite 出席情報登録エラー : &{ex.Message}", "OK");
+            }
         }
 
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         private void Present_Cabinet()
         {
             string recInfo = string.Empty;
@@ -161,12 +202,12 @@ namespace LionsApl.Content
             {
                 if (EI_Opt1Switch.IsToggled)
                 {
-                    _opt1Val = _utl.ONFLG;
+                    _eventReg.Option1 = _utl.ONFLG;
                     recInfo += "オプション1=ON\r\n";
                 }
                 else
                 {
-                    _opt1Val = _utl.OFFFLG;
+                    _eventReg.Option1 = _utl.OFFFLG;
                     recInfo += "オプション1=OFF\r\n";
                 }
             }
@@ -176,12 +217,12 @@ namespace LionsApl.Content
             {
                 if (EI_Opt2Switch.IsToggled)
                 {
-                    _opt2Val = _utl.ONFLG;
+                    _eventReg.Option2 = _utl.ONFLG;
                     recInfo += "オプション2=ON\r\n";
                 }
                 else
                 {
-                    _opt2Val = _utl.OFFFLG;
+                    _eventReg.Option2 = _utl.OFFFLG;
                     recInfo += "オプション2=OFF\r\n";
                 }
             }
@@ -191,12 +232,12 @@ namespace LionsApl.Content
             {
                 if (EI_Opt3Switch.IsToggled)
                 {
-                    _opt3Val = _utl.ONFLG;
+                    _eventReg.Option3 = _utl.ONFLG;
                     recInfo += "オプション3=ON\r\n";
                 }
                 else
                 {
-                    _opt3Val = _utl.OFFFLG;
+                    _eventReg.Option3 = _utl.OFFFLG;
                     recInfo += "オプション3=OFF\r\n";
                 }
             }
@@ -206,12 +247,12 @@ namespace LionsApl.Content
             {
                 if (EI_Opt4Switch.IsToggled)
                 {
-                    _opt4Val = _utl.ONFLG;
+                    _eventReg.Option4 = _utl.ONFLG;
                     recInfo += "オプション4=ON\r\n";
                 }
                 else
                 {
-                    _opt4Val = _utl.OFFFLG;
+                    _eventReg.Option4 = _utl.OFFFLG;
                     recInfo += "オプション4=OFF\r\n";
                 }
             }
@@ -221,12 +262,12 @@ namespace LionsApl.Content
             {
                 if (EI_Opt5Switch.IsToggled)
                 {
-                    _opt5Val = _utl.ONFLG;
+                    _eventReg.Option5 = _utl.ONFLG;
                     recInfo += "オプション5=ON\r\n";
                 }
                 else
                 {
-                    _opt5Val = _utl.OFFFLG;
+                    _eventReg.Option5 = _utl.OFFFLG;
                     recInfo += "オプション5=OFF\r\n";
                 }
             }
@@ -234,24 +275,24 @@ namespace LionsApl.Content
             // 遅刻
             if (EI_Late.IsChecked == true)
             {
-                _late = _utl.ONFLG;
+                _eventReg.AnswerLate = _utl.ONFLG;
                 recInfo += "遅刻=ON\r\n";
             }
             else
             {
-                _late = string.Empty;
+                _eventReg.AnswerLate = string.Empty;
                 recInfo += "遅刻=OFF\r\n";
             }
 
             // 早退
             if (EI_Early.IsChecked == true)
             {
-                _early = _utl.ONFLG;
+                _eventReg.AnswerEarly = _utl.ONFLG;
                 recInfo += "早退=ON\r\n";
             }
             else
             {
-                _early = string.Empty;
+                _eventReg.AnswerEarly = string.Empty;
                 recInfo += "早退=OFF\r\n";
             }
 
@@ -268,12 +309,12 @@ namespace LionsApl.Content
             {
                 if (MI_Opt1Switch.IsToggled)
                 {
-                    _opt1Val = _utl.ONFLG;
+                    _eventReg.Option1 = _utl.ONFLG;
                     recInfo += "オプション1=ON\r\n";
                 }
                 else
                 {
-                    _opt1Val = _utl.OFFFLG;
+                    _eventReg.Option1 = _utl.OFFFLG;
                     recInfo += "オプション1=OFF\r\n";
                 }
             }
@@ -283,12 +324,12 @@ namespace LionsApl.Content
             {
                 if (MI_Opt2Switch.IsToggled)
                 {
-                    _opt2Val = _utl.ONFLG;
+                    _eventReg.Option2 = _utl.ONFLG;
                     recInfo += "オプション2=ON\r\n";
                 }
                 else
                 {
-                    _opt2Val = _utl.OFFFLG;
+                    _eventReg.Option2 = _utl.OFFFLG;
                     recInfo += "オプション2=OFF\r\n";
                 }
             }
@@ -298,12 +339,12 @@ namespace LionsApl.Content
             {
                 if (MI_Opt3Switch.IsToggled)
                 {
-                    _opt3Val = _utl.ONFLG;
+                    _eventReg.Option3 = _utl.ONFLG;
                     recInfo += "オプション3=ON\r\n";
                 }
                 else
                 {
-                    _opt3Val = _utl.OFFFLG;
+                    _eventReg.Option3 = _utl.OFFFLG;
                     recInfo += "オプション3=OFF\r\n";
                 }
             }
@@ -313,12 +354,12 @@ namespace LionsApl.Content
             {
                 if (MI_Opt4Switch.IsToggled)
                 {
-                    _opt4Val = _utl.ONFLG;
+                    _eventReg.Option4 = _utl.ONFLG;
                     recInfo += "オプション4=ON\r\n";
                 }
                 else
                 {
-                    _opt4Val = _utl.OFFFLG;
+                    _eventReg.Option4 = _utl.OFFFLG;
                     recInfo += "オプション4=OFF\r\n";
                 }
             }
@@ -328,12 +369,12 @@ namespace LionsApl.Content
             {
                 if (MI_Opt5Switch.IsToggled)
                 {
-                    _opt5Val = _utl.ONFLG;
+                    _eventReg.Option5 = _utl.ONFLG;
                     recInfo += "オプション5=ON\r\n";
                 }
                 else
                 {
-                    _opt5Val = _utl.OFFFLG;
+                    _eventReg.Option5 = _utl.OFFFLG;
                     recInfo += "オプション5=OFF\r\n";
                 }
             }
@@ -341,29 +382,29 @@ namespace LionsApl.Content
             // 遅刻
             if (MI_Late.IsChecked == true)
             {
-                _late = _utl.ONFLG;
+                _eventReg.AnswerLate = _utl.ONFLG;
                 recInfo += "遅刻=ON\r\n";
             }
             else
             {
-                _late = string.Empty;
+                _eventReg.AnswerLate = string.Empty;
                 recInfo += "遅刻=OFF\r\n";
             }
 
             // 早退
             if (MI_Early.IsChecked == true)
             {
-                _early = _utl.ONFLG;
+                _eventReg.AnswerEarly = _utl.ONFLG;
                 recInfo += "早退=ON\r\n";
             }
             else
             {
-                _early = string.Empty;
+                _eventReg.AnswerEarly = string.Empty;
                 recInfo += "早退=OFF\r\n";
             }
 
             // 本人以外の参加数
-            _otherCount = int.Parse(MI_OtherUser.Items[MI_OtherUser.SelectedIndex]);
+            _eventReg.OtherCount = int.Parse(MI_OtherUser.Items[MI_OtherUser.SelectedIndex]);
             recInfo += "人数=" + MI_OtherUser.Items[MI_OtherUser.SelectedIndex] + "\r\n";
 
             DisplayAlert("Disp", $"例会/出席\r\n{recInfo}", "OK");
@@ -375,16 +416,6 @@ namespace LionsApl.Content
 
         }
 
-        private void UpdateSQLite()
-        {
-//            _sqlite.Set_T_EVENTRET("UPDATE T_EVENTRET SET " +
-//                                           "" +
-//                                                                            "Where DataNo='" + _eventDataNo + "'"))
-            
-        }
-
-
-
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -395,9 +426,12 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void Adsent_Button_Clicked(object sender, System.EventArgs e)
         {
-            DisplayAlert("Disp", "欠席", "OK");
+
             // 回答（欠席）
-            _answer = _utl.ANSWER_AB;
+            _eventReg.Answer = _utl.ANSWER_AB;
+
+            DisplayAlert("Disp", "欠席", "OK");
+
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -599,17 +633,10 @@ namespace LionsApl.Content
             string wkPW = string.Empty;
             string wkMtOther = string.Empty;
             string wkOpt1Name = string.Empty;
-            //string wkOpt1Value = string.Empty;
             string wkOpt2Name = string.Empty;
-            //string wkOpt2Value = string.Empty;
             string wkOpt3Name = string.Empty;
-            //string wkOpt3Value = string.Empty;
             string wkOpt4Name = string.Empty;
-            //string wkOpt4Value = string.Empty;
             string wkOpt5Name = string.Empty;
-            //string wkOpt5Value = string.Empty;
-            //string wkLate = string.Empty;
-            //string wkEarly = string.Empty;
             string wkAnsDate = string.Empty;
 
             ////////////////////////
@@ -670,7 +697,7 @@ namespace LionsApl.Content
                 wkOpt1Name = _utl.GetString(_event.OptionName1);
 
                 // オプション1（入力値）
-                _opt1Val = _utl.GetString(_eventret.Option1);
+                _eventReg.Option1 = _utl.GetString(_eventret.Option1);
             }
             // オプション2
             _opt2Flg = _utl.GetString(_event.OptionRadio2);
@@ -680,7 +707,7 @@ namespace LionsApl.Content
                 wkOpt2Name = _utl.GetString(_event.OptionName2);
 
                 // オプション2（入力値）
-                _opt2Val = _utl.GetString(_eventret.Option2);
+                _eventReg.Option2 = _utl.GetString(_eventret.Option2);
             }
             // オプション3
             _opt3Flg = _utl.GetString(_event.OptionRadio3);
@@ -690,7 +717,7 @@ namespace LionsApl.Content
                 wkOpt3Name = _utl.GetString(_event.OptionName3);
 
                 // オプション3（入力値）
-                _opt3Val = _utl.GetString(_eventret.Option3);
+                _eventReg.Option3 = _utl.GetString(_eventret.Option3);
             }
             // オプション4
             _opt4Flg = _utl.GetString(_event.OptionRadio4);
@@ -700,7 +727,7 @@ namespace LionsApl.Content
                 wkOpt4Name = _utl.GetString(_event.OptionName4);
 
                 // オプション4（入力値）
-                _opt4Val = _utl.GetString(_eventret.Option4);
+                _eventReg.Option4 = _utl.GetString(_eventret.Option4);
             }
             // オプション5
             _opt5Flg = _utl.GetString(_event.OptionRadio5);
@@ -710,14 +737,14 @@ namespace LionsApl.Content
                 wkOpt5Name = _utl.GetString(_event.OptionName5);
 
                 // オプション5（入力値）
-                _opt5Val = _utl.GetString(_eventret.Option5);
+                _eventReg.Option5 = _utl.GetString(_eventret.Option5);
             }
 
             // 遅刻・早退
             // 遅刻
-            _late = _utl.GetString(_eventret.AnswerLate);
+            _eventReg.AnswerLate = _utl.GetString(_eventret.AnswerLate);
             // 早退
-            _early = _utl.GetString(_eventret.AnswerEarly);
+            _eventReg.AnswerEarly = _utl.GetString(_eventret.AnswerEarly);
 
             // 回答期限
             wkAnsDate = _utl.GetString(_event.AnswerDate).Substring(0, 10);
@@ -756,25 +783,25 @@ namespace LionsApl.Content
             // 入力項目設定
 
             // オプション1
-            SetOptionItem(_opt1Flg, _opt1Val, wkOpt1Name, ref lbl_EI_Opt1Name, ref EI_Opt1Switch);
+            SetOptionItem(_opt1Flg, _eventReg.Option1, wkOpt1Name, ref lbl_EI_Opt1Name, ref EI_Opt1Switch);
 
             // オプション2
-            SetOptionItem(_opt2Flg, _opt2Val, wkOpt2Name, ref lbl_EI_Opt2Name, ref EI_Opt2Switch);
+            SetOptionItem(_opt2Flg, _eventReg.Option2, wkOpt2Name, ref lbl_EI_Opt2Name, ref EI_Opt2Switch);
 
             // オプション3
-            SetOptionItem(_opt3Flg, _opt3Val, wkOpt3Name, ref lbl_EI_Opt3Name, ref EI_Opt3Switch);
+            SetOptionItem(_opt3Flg, _eventReg.Option3, wkOpt3Name, ref lbl_EI_Opt3Name, ref EI_Opt3Switch);
 
             // オプション4
-            SetOptionItem(_opt4Flg, _opt4Val, wkOpt4Name, ref lbl_EI_Opt4Name, ref EI_Opt4Switch);
+            SetOptionItem(_opt4Flg, _eventReg.Option4, wkOpt4Name, ref lbl_EI_Opt4Name, ref EI_Opt4Switch);
 
             // オプション5
-            SetOptionItem(_opt5Flg, _opt5Val, wkOpt5Name, ref lbl_EI_Opt5Name, ref EI_Opt5Switch);
+            SetOptionItem(_opt5Flg, _eventReg.Option5, wkOpt5Name, ref lbl_EI_Opt5Name, ref EI_Opt5Switch);
 
             // 遅刻
-            MI_Late.IsChecked = _late.Equals(_utl.ONFLG);
+            MI_Late.IsChecked = _eventReg.AnswerLate.Equals(_utl.ONFLG);
 
             // 早退
-            MI_Early.IsChecked = _early.Equals(_utl.ONFLG);
+            MI_Early.IsChecked = _eventReg.AnswerEarly.Equals(_utl.ONFLG);
 
             // 回答期限
             EI_AnsDate.Text = wkAnsDate;
@@ -866,7 +893,7 @@ namespace LionsApl.Content
                 wkOpt1Name = _utl.GetString(_meetingschedule.OptionName1);
 
                 // オプション1（入力値）
-                _opt1Val = _utl.GetString(_eventret.Option1);
+                _eventReg.Option1 = _utl.GetString(_eventret.Option1);
             }
             // オプション2
             _opt2Flg = _utl.GetString(_meetingschedule.OptionRadio2);
@@ -876,7 +903,7 @@ namespace LionsApl.Content
                 wkOpt2Name = _utl.GetString(_meetingschedule.OptionName2);
 
                 // オプション2（入力値）
-                _opt2Val = _utl.GetString(_eventret.Option2);
+                _eventReg.Option2 = _utl.GetString(_eventret.Option2);
             }
             // オプション3
             _opt3Flg = _utl.GetString(_meetingschedule.OptionRadio3);
@@ -886,7 +913,7 @@ namespace LionsApl.Content
                 wkOpt3Name = _utl.GetString(_meetingschedule.OptionName3);
 
                 // オプション3（入力値）
-                _opt3Val = _utl.GetString(_eventret.Option3);
+                _eventReg.Option3 = _utl.GetString(_eventret.Option3);
             }
             // オプション4
             _opt4Flg = _utl.GetString(_meetingschedule.OptionRadio4);
@@ -896,7 +923,7 @@ namespace LionsApl.Content
                 wkOpt4Name = _utl.GetString(_meetingschedule.OptionName4);
 
                 // オプション4（入力値）
-                _opt4Val = _utl.GetString(_eventret.Option4);
+                _eventReg.Option4 = _utl.GetString(_eventret.Option4);
             }
             // オプション5
             _opt5Flg = _utl.GetString(_meetingschedule.OptionRadio5);
@@ -906,17 +933,17 @@ namespace LionsApl.Content
                 wkOpt5Name = _utl.GetString(_meetingschedule.OptionName5);
 
                 // オプション5（入力値）
-                _opt5Val = _utl.GetString(_eventret.Option5);
+                _eventReg.Option5 = _utl.GetString(_eventret.Option5);
             }
 
             // 遅刻・早退
             // 遅刻
-            _late = _utl.GetString(_eventret.AnswerLate);
+            _eventReg.AnswerLate = _utl.GetString(_eventret.AnswerLate);
             // 早退
-            _early = _utl.GetString(_eventret.AnswerEarly);
+            _eventReg.AnswerEarly = _utl.GetString(_eventret.AnswerEarly);
 
             // 本人以外の参加人数
-            _otherCount = _eventret.OtherCount;
+            _eventReg.OtherCount = _eventret.OtherCount;
 
             // 回答期限
             wkAnsDate = _utl.GetString(_meetingschedule.AnswerDate).Substring(0, 10);
@@ -948,22 +975,22 @@ namespace LionsApl.Content
             // 入力項目設定
 
             // オプション1
-            SetOptionItem(_opt1Flg, _opt1Val, wkOpt1Name, ref lbl_MI_Opt1Name, ref MI_Opt1Switch);
+            SetOptionItem(_opt1Flg, _eventReg.Option1, wkOpt1Name, ref lbl_MI_Opt1Name, ref MI_Opt1Switch);
 
             // オプション2
-            SetOptionItem(_opt2Flg, _opt2Val, wkOpt2Name, ref lbl_MI_Opt2Name, ref MI_Opt2Switch);
+            SetOptionItem(_opt2Flg, _eventReg.Option2, wkOpt2Name, ref lbl_MI_Opt2Name, ref MI_Opt2Switch);
 
             // オプション3
-            SetOptionItem(_opt3Flg, _opt3Val, wkOpt3Name, ref lbl_MI_Opt3Name, ref MI_Opt3Switch);
+            SetOptionItem(_opt3Flg, _eventReg.Option3, wkOpt3Name, ref lbl_MI_Opt3Name, ref MI_Opt3Switch);
 
             // オプション4
-            SetOptionItem(_opt4Flg, _opt4Val, wkOpt4Name, ref lbl_MI_Opt4Name, ref MI_Opt4Switch);
+            SetOptionItem(_opt4Flg, _eventReg.Option4, wkOpt4Name, ref lbl_MI_Opt4Name, ref MI_Opt4Switch);
 
             // オプション5
-            SetOptionItem(_opt5Flg, _opt5Val, wkOpt5Name, ref lbl_MI_Opt5Name, ref MI_Opt5Switch);
+            SetOptionItem(_opt5Flg, _eventReg.Option5, wkOpt5Name, ref lbl_MI_Opt5Name, ref MI_Opt5Switch);
 
             // 遅刻
-            if (_late.Equals(_utl.ONFLG))
+            if (_eventReg.AnswerLate.Equals(_utl.ONFLG))
             {
                 MI_Late.IsChecked = true;
             }
@@ -973,7 +1000,7 @@ namespace LionsApl.Content
             }
 
             // 早退
-            if (_early.Equals(_utl.ONFLG))
+            if (_eventReg.AnswerEarly.Equals(_utl.ONFLG))
             {
                 MI_Early.IsChecked = true;
             }
@@ -987,7 +1014,7 @@ namespace LionsApl.Content
             {
                 MI_OtherUser.Items.Add(idx.ToString());
             }
-            MI_OtherUser.SelectedIndex = _otherCount;
+            MI_OtherUser.SelectedIndex = _eventReg.OtherCount;
 
             // 回答期限
             MI_AnsDate.Text = wkAnsDate;
@@ -1097,6 +1124,35 @@ namespace LionsApl.Content
                 //switchItem.HeightRequest = 0.0;
             }
         }
+
+        private void SetEventRetSQlite()
+        {
+            string _answer = _utl.GetSQLString(_eventReg.Answer);
+            string _answerLate = _utl.GetSQLString(_eventReg.AnswerLate);
+            string _answerEarly = _utl.GetSQLString(_eventReg.AnswerEarly);
+            string _option1 = _utl.GetSQLString(_eventReg.Option1);
+            string _option2 = _utl.GetSQLString(_eventReg.Option2);
+            string _option3 = _utl.GetSQLString(_eventReg.Option3);
+            string _option4 = _utl.GetSQLString(_eventReg.Option4);
+            string _option5 = _utl.GetSQLString(_eventReg.Option5);
+            string _otherCount = _eventReg.OtherCount.ToString();
+
+            foreach (Table.T_EVENTRET row in _sqlite.Set_T_EVENTRET("UPDATE T_EVENTRET SET" +
+                                                                    " Answer = " + _answer + ", " +
+                                                                    " AnswerLate = " + _answerLate + ", " +
+                                                                    " AnswerEarly = " + _answerEarly + ", " +
+                                                                    " Option1 = " + _option1 + ", " +
+                                                                    " Option2 = " + _option2 + ", " +
+                                                                    " Option3 = " + _option3 + ", " +
+                                                                    " Option4 = " + _option4 + ", " +
+                                                                    " Option5 = " + _option5 + ", " +
+                                                                    " OtherCount = " + _otherCount + " " +
+                                                                    "WHERE DataNo = '" + _dataNo + "'"))
+            {
+                _eventret = row;
+            }
+        }
+
     }
 
 
