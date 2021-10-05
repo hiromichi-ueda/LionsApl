@@ -24,8 +24,9 @@ namespace LionsApl
         // オンラインフラグ
         public string ONLINEFLG = "1";
         // 会議フラグ
-        public string MEETING_NORMAL = "1";
-        public string MEETING_ONLINE = "2";
+        public string MEETING_ONLINE = "1";
+        //public string MEETING_NORMAL = "1";
+        //public string MEETING_ONLINE = "2";
 
         // 時期区分
         public string SEASON_NOW = "1";
@@ -218,25 +219,25 @@ namespace LionsApl
         /// <param name="item"></param>
         /// <returns></returns>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public string StrMeeting(string item)
-        {
-            string retStr = string.Empty;
-            if (item != null)
-            {
-                if (item != string.Empty)
-                {
-                    if (item == MEETING_NORMAL)
-                    {
-                        retStr = ST_MEETING_NORMAL;
-                    }
-                    else if (item == MEETING_ONLINE)
-                    {
-                        retStr = ST_MEETING_ONLINE;
-                    }
-                }
-            }
-            return retStr;
-        }
+        //public string StrMeeting(string item)
+        //{
+        //    string retStr = string.Empty;
+        //    if (item != null)
+        //    {
+        //        if (item != string.Empty)
+        //        {
+        //            if (item == MEETING_NORMAL)
+        //            {
+        //                retStr = ST_MEETING_NORMAL;
+        //            }
+        //            else if (item == MEETING_ONLINE)
+        //            {
+        //                retStr = ST_MEETING_ONLINE;
+        //            }
+        //        }
+        //    }
+        //    return retStr;
+        //}
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>

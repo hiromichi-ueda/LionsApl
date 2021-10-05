@@ -49,6 +49,7 @@
                             Style="{StaticResource Page_Base_Center}"
                             />
 
+                        <!--============================================================================-->
                         <!--                          -->
                         <!-- キャビネットイベント表示 -->
                         <!--                          -->
@@ -340,7 +341,6 @@
                                     Text="詳細資料"
                                     Style="{StaticResource Event_Label_Title}"
                                     />
-                                <!-- 出席 -->
                                 <Button 
                                     Grid.Row="11"
                                     Grid.Column="1"
@@ -350,6 +350,7 @@
                                     BorderWidth="1" 
                                     CornerRadius="6"
                                     Clicked="File_Button_Clicked"
+                                    Margin="8,0,8,0"
                                     >
                                 </Button>
                             </Grid>
@@ -374,7 +375,7 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto" x:Name="rdh_MD_Online"/>
+                                    <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
@@ -648,7 +649,7 @@
                             </Grid>
                         </StackLayout>
 
-                        
+                        <!--============================================================================-->
                         <!--                          -->
                         <!-- キャビネットイベント入力 -->
                         <!--                          -->
@@ -660,19 +661,18 @@
                                 >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto" x:Name="rdh_EI_Opt1"/>
-                                    <RowDefinition Height="Auto" x:Name="rdh_EI_Opt2"/>
-                                    <RowDefinition Height="Auto" x:Name="rdh_EI_Opt3"/>
-                                    <RowDefinition Height="Auto" x:Name="rdh_EI_Opt4"/>
-                                    <RowDefinition Height="Auto" x:Name="rdh_EI_Opt5"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
@@ -681,7 +681,7 @@
                                 <BoxView 
                                     Grid.Row="0"
                                     Grid.Column="0"
-                                    Grid.ColumnSpan="5"
+                                    Grid.ColumnSpan="2"
                                     Grid.RowSpan="1"
                                     Color="#E0E0E0" 
                                     HeightRequest="1" 
@@ -691,11 +691,11 @@
                                 <Label 
                                     Grid.Row="1"
                                     Grid.Column="0"
-                                    Grid.ColumnSpan="5"
+                                    Grid.ColumnSpan="2"
                                     Grid.RowSpan="1"
                                     x:Name="lbl_EI_Header"
                                     Text="必要な項目を選択して、「出席・欠席」を選択してください"
-                                    Style="{StaticResource Event_Label_Title}"
+                                    Style="{StaticResource Event_Label_Base}"
                                     TextColor="Red"
                                     />
 
@@ -712,7 +712,7 @@
                                 <Switch 
                                     Grid.Row="2"
                                     Grid.Column="1"
-                                    Grid.ColumnSpan="4"
+                                    Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     x:Name="EI_Opt1Switch"
                                     Style="{StaticResource Event_Switch}"
@@ -731,7 +731,7 @@
                                 <Switch 
                                     Grid.Row="3"
                                     Grid.Column="1"
-                                    Grid.ColumnSpan="4"
+                                    Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     x:Name="EI_Opt2Switch"
                                     Style="{StaticResource Event_Switch}"
@@ -750,7 +750,7 @@
                                 <Switch 
                                     Grid.Row="4"
                                     Grid.Column="1"
-                                    Grid.ColumnSpan="4"
+                                    Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     x:Name="EI_Opt3Switch"
                                     Style="{StaticResource Event_Switch}"
@@ -769,11 +769,12 @@
                                 <Switch 
                                     Grid.Row="5"
                                     Grid.Column="1"
-                                    Grid.ColumnSpan="4"
+                                    Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     x:Name="EI_Opt4Switch"
                                     Style="{StaticResource Event_Switch}"
                                     />
+
                                 <!-- オプション5 -->
                                 <Label 
                                     Grid.Row="6"
@@ -787,60 +788,72 @@
                                 <Switch 
                                     Grid.Row="6"
                                     Grid.Column="1"
-                                    Grid.ColumnSpan="4"
+                                    Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     x:Name="EI_Opt5Switch"
                                     Style="{StaticResource Event_Switch}"
                                     />
 
-                                <!-- 遅刻・早退 -->
+                                <!-- 遅刻 -->
                                 <Label 
                                     Grid.Row="7"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
-                                    x:Name="lbl_EI_LateEarly"
-                                    Text="遅刻・早退"
+                                    x:Name="lbl_EI_Late"
+                                    Text="遅刻"
                                     Style="{StaticResource Event_Label_Title}"
                                     />
-                                <CheckBox
+                                <Switch
                                     Grid.Row="7"
                                     Grid.Column="1"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     x:Name="EI_Late"
-                                    Style="{StaticResource Event_CheckBox}"
+                                    Style="{StaticResource Event_Switch}"
                                     />
+                                
+                                <!-- 早退 -->
                                 <Label 
-                                    Grid.Row="7"
-                                    Grid.Column="2"
-                                    Grid.ColumnSpan="1"
-                                    Grid.RowSpan="1"
-                                    x:Name="lbl_EI_Late"
-                                    Text="遅刻"
-                                    Style="{StaticResource Event_Label_Item}"
-                                    />
-                                <CheckBox
-                                    Grid.Row="7"
-                                    Grid.Column="3"
-                                    Grid.ColumnSpan="1"
-                                    Grid.RowSpan="1"
-                                    x:Name="EI_Early"
-                                    Style="{StaticResource Event_CheckBox}"
-                                    />
-                                <Label 
-                                    Grid.Row="7"
-                                    Grid.Column="4"
+                                    Grid.Row="8"
+                                    Grid.Column="0"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     x:Name="lbl_EI_Early"
                                     Text="早退"
-                                    Style="{StaticResource Event_Label_Item}"
+                                    Style="{StaticResource Event_Label_Title}"
+                                    />
+                                <Switch
+                                    Grid.Row="8"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="1"
+                                    Grid.RowSpan="1"
+                                    x:Name="EI_Early"
+                                    Style="{StaticResource Event_Switch}"
+                                    />
+
+                                <!-- オンライン参加 -->
+                                <Label 
+                                    Grid.Row="9"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="1"
+                                    Grid.RowSpan="1"
+                                    x:Name="lbl_EI_Online"
+                                    Text="オンライン参加"
+                                    Style="{StaticResource Event_Label_Title}"
+                                    />
+                                <Switch
+                                    Grid.Row="9"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="1"
+                                    Grid.RowSpan="1"
+                                    x:Name="EI_Online"
+                                    Style="{StaticResource Event_Switch}"
                                     />
 
                                 <!-- 回答期限 -->
                                 <Label 
-                                    Grid.Row="9"
+                                    Grid.Row="10"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
@@ -850,9 +863,9 @@
                                     TextColor="Red"
                                     />
                                 <Label 
-                                    Grid.Row="9"
+                                    Grid.Row="10"
                                     Grid.Column="1"
-                                    Grid.ColumnSpan="4"
+                                    Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     x:Name="EI_AnsDate"
                                     Text="" 
@@ -862,13 +875,13 @@
 
                                 <!-- 説明 -->
                                 <Label 
-                                    Grid.Row="10"
+                                    Grid.Row="11"
                                     Grid.Column="0"
-                                    Grid.ColumnSpan="5"
+                                    Grid.ColumnSpan="2"
                                     Grid.RowSpan="1"
                                     x:Name="lbl_EI_footer"
                                     Text="要（利用する）などはONにしてください。" 
-                                    Style="{StaticResource Event_Label_Title}"
+                                    Style="{StaticResource Event_Label_Base}"
                                     />
 
                             </Grid>
@@ -885,19 +898,18 @@
                                 >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto" x:Name="rdh_MI_Opt1"/>
-                                    <RowDefinition Height="Auto" x:Name="rdh_MI_Opt2"/>
-                                    <RowDefinition Height="Auto" x:Name="rdh_MI_Opt3"/>
-                                    <RowDefinition Height="Auto" x:Name="rdh_MI_Opt4"/>
-                                    <RowDefinition Height="Auto" x:Name="rdh_MI_Opt5"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
@@ -907,7 +919,7 @@
                                 <BoxView 
                                     Grid.Row="0"
                                     Grid.Column="0"
-                                    Grid.ColumnSpan="5"
+                                    Grid.ColumnSpan="2"
                                     Grid.RowSpan="1"
                                     Color="#E0E0E0" 
                                     HeightRequest="1" 
@@ -917,11 +929,11 @@
                                 <Label 
                                     Grid.Row="1"
                                     Grid.Column="0"
-                                    Grid.ColumnSpan="5"
+                                    Grid.ColumnSpan="2"
                                     Grid.RowSpan="1"
                                     x:Name="lbl_MI_Header"
                                     Text="必要な項目を選択して、「出席・欠席」を選択してください"
-                                    Style="{StaticResource Event_Label_Title}"
+                                    Style="{StaticResource Event_Label_Base}"
                                     TextColor="Red"
                                     />
 
@@ -938,7 +950,7 @@
                                 <Switch 
                                     Grid.Row="2"
                                     Grid.Column="1"
-                                    Grid.ColumnSpan="4"
+                                    Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     x:Name="MI_Opt1Switch"
                                     Style="{StaticResource Event_Switch}"
@@ -957,7 +969,7 @@
                                 <Switch 
                                     Grid.Row="3"
                                     Grid.Column="1"
-                                    Grid.ColumnSpan="4"
+                                    Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     x:Name="MI_Opt2Switch"
                                     Style="{StaticResource Event_Switch}"
@@ -976,7 +988,7 @@
                                 <Switch 
                                     Grid.Row="4"
                                     Grid.Column="1"
-                                    Grid.ColumnSpan="4"
+                                    Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     x:Name="MI_Opt3Switch"
                                     Style="{StaticResource Event_Switch}"
@@ -995,7 +1007,7 @@
                                 <Switch 
                                     Grid.Row="5"
                                     Grid.Column="1"
-                                    Grid.ColumnSpan="4"
+                                    Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     x:Name="MI_Opt4Switch"
                                     Style="{StaticResource Event_Switch}"
@@ -1013,60 +1025,72 @@
                                 <Switch 
                                     Grid.Row="6"
                                     Grid.Column="1"
-                                    Grid.ColumnSpan="4"
+                                    Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     x:Name="MI_Opt5Switch"
                                     Style="{StaticResource Event_Switch}"
                                     />
                                 
-                                <!-- 遅刻・早退 -->
+                                <!-- 遅刻 -->
                                 <Label 
                                     Grid.Row="7"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
-                                    x:Name="lbl_MI_LateEarly"
-                                    Text="遅刻・早退"
+                                    x:Name="lbl_MI_Late"
+                                    Text="遅刻"
                                     Style="{StaticResource Event_Label_Title}"
                                     />
-                                <CheckBox
+                                <Switch
                                     Grid.Row="7"
                                     Grid.Column="1"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     x:Name="MI_Late"
-                                    Style="{StaticResource Event_CheckBox}"
+                                    Style="{StaticResource Event_Switch}"
                                     />
+                                
+                                <!-- 早退 -->
                                 <Label 
-                                    Grid.Row="7"
-                                    Grid.Column="2"
-                                    Grid.ColumnSpan="1"
-                                    Grid.RowSpan="1"
-                                    x:Name="lbl_MI_Late"
-                                    Text="遅刻"
-                                    Style="{StaticResource Event_Label_ChkBox}"
-                                    />
-                                <CheckBox
-                                    Grid.Row="7"
-                                    Grid.Column="3"
-                                    Grid.ColumnSpan="1"
-                                    Grid.RowSpan="1"
-                                    x:Name="MI_Early"
-                                    Style="{StaticResource Event_CheckBox}"
-                                    />
-                                <Label 
-                                    Grid.Row="7"
-                                    Grid.Column="4"
+                                    Grid.Row="8"
+                                    Grid.Column="0"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     x:Name="lbl_MI_Early"
                                     Text="早退"
-                                    Style="{StaticResource Event_Label_ChkBox}"
+                                    Style="{StaticResource Event_Label_Title}"
+                                    />
+                                <Switch
+                                    Grid.Row="8"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="1"
+                                    Grid.RowSpan="1"
+                                    x:Name="MI_Early"
+                                    Style="{StaticResource Event_Switch}"
+                                    />
+
+                                <!-- オンライン参加 -->
+                                <Label 
+                                    Grid.Row="9"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="1"
+                                    Grid.RowSpan="1"
+                                    x:Name="lbl_MI_Online"
+                                    Text="オンライン参加"
+                                    Style="{StaticResource Event_Label_Title}"
+                                    />
+                                <Switch
+                                    Grid.Row="9"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="1"
+                                    Grid.RowSpan="1"
+                                    x:Name="MI_Online"
+                                    Style="{StaticResource Event_Switch}"
                                     />
 
                                 <!-- 本人以外の参加数 -->
                                 <Label 
-                                    Grid.Row="8"
+                                    Grid.Row="10"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
@@ -1075,9 +1099,9 @@
                                     Style="{StaticResource Event_Label_Title}"
                                     />
                                 <Picker 
-                                    Grid.Row="8"
+                                    Grid.Row="10"
                                     Grid.Column="1"
-                                    Grid.ColumnSpan="4"
+                                    Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     x:Name="MI_OtherUser"
                                     Style="{StaticResource Page_Picker}"
@@ -1086,7 +1110,7 @@
 
                                 <!-- 回答期限 -->
                                 <Label 
-                                    Grid.Row="9"
+                                    Grid.Row="11"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
@@ -1096,9 +1120,9 @@
                                     TextColor="Red"
                                     />
                                 <Label 
-                                    Grid.Row="9"
+                                    Grid.Row="11"
                                     Grid.Column="1"
-                                    Grid.ColumnSpan="4"
+                                    Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
                                     x:Name="MI_AnsDate"
                                     Text="" 
@@ -1108,13 +1132,13 @@
 
                                 <!-- 説明 -->
                                 <Label 
-                                    Grid.Row="10"
+                                    Grid.Row="12"
                                     Grid.Column="0"
-                                    Grid.ColumnSpan="5"
+                                    Grid.ColumnSpan="2"
                                     Grid.RowSpan="1"
                                     x:Name="lbl_MI_footer"
                                     Text="要（利用する）などはONにしてください。" 
-                                    Style="{StaticResource Event_Label_Title}"
+                                    Style="{StaticResource Event_Label_Base}"
                                     />
 
                             </Grid>

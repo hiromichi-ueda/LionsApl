@@ -15,6 +15,7 @@
         public string Answer { get; set; }
         public string AnswerLate { get; set; }
         public string AnswerEarly { get; set; }
+        public string Online { get; set; }
         public string Option1 { get; set; }
         public string Option2 { get; set; }
         public string Option3 { get; set; }

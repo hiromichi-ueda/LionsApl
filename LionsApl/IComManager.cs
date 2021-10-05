@@ -18,12 +18,13 @@ namespace LionsApl
         private string EventItem2 = "Answer";
         private string EventItem3 = "AnswerLate";
         private string EventItem4 = "AnswerEarly";
-        private string EventItem5 = "Option1";
-        private string EventItem6 = "Option2";
-        private string EventItem7 = "Option3";
-        private string EventItem8 = "Option4";
-        private string EventItem9 = "Option5";
-        private string EventItem10 = "OtherCount";
+        private string EventItem5 = "Online";
+        private string EventItem6 = "Option1";
+        private string EventItem7 = "Option2";
+        private string EventItem8 = "Option3";
+        private string EventItem9 = "Option4";
+        private string EventItem10 = "Option5";
+        private string EventItem11 = "OtherCount";
 
         private static IComManager _single = null;
         private HttpClient _httpClient = null;
@@ -135,18 +136,20 @@ namespace LionsApl
             content.Add(new StringContent(eventret.AnswerLate), EventItem3);
             // 出席（早退）（文字列データ）
             content.Add(new StringContent(eventret.AnswerEarly), EventItem4);
+            // オンライン参加（文字列データ）
+            content.Add(new StringContent(eventret.Online), EventItem5);
             // オプション1（文字列データ）
-            content.Add(new StringContent(eventret.Option1), EventItem5);
+            content.Add(new StringContent(eventret.Option1), EventItem6);
             // オプション2（文字列データ）
-            content.Add(new StringContent(eventret.Option2), EventItem6);
+            content.Add(new StringContent(eventret.Option2), EventItem7);
             // オプション3（文字列データ）
-            content.Add(new StringContent(eventret.Option3), EventItem7);
+            content.Add(new StringContent(eventret.Option3), EventItem8);
             // オプション4（文字列データ）
-            content.Add(new StringContent(eventret.Option4), EventItem8);
+            content.Add(new StringContent(eventret.Option4), EventItem9);
             // オプション5（文字列データ）
-            content.Add(new StringContent(eventret.Option5), EventItem9);
-            // オプション1（文字列データ）
-            content.Add(new StringContent(eventret.OtherCount.ToString()), EventItem10);
+            content.Add(new StringContent(eventret.Option5), EventItem10);
+            // 本人以外の参加数（文字列データ）
+            content.Add(new StringContent(eventret.OtherCount.ToString()), EventItem11);
 
         }
 
@@ -208,6 +211,7 @@ namespace LionsApl
                          string answer,
                          string answerLate,
                          string anserEarly,
+                         string online,
                          string option1,
                          string option2,
                          string option3,
@@ -219,6 +223,7 @@ namespace LionsApl
             Answer = answer;
             AnswerLate = answerLate;
             AnswerEarly = anserEarly;
+            Online = online;
             Option1 = option1;
             Option2 = option2;
             Option3 = option3;
@@ -230,6 +235,7 @@ namespace LionsApl
         public string Answer { get; set; }
         public string AnswerLate { get; set; }
         public string AnswerEarly { get; set; }
+        public string Online { get; set; }
         public string Option1 { get; set; }
         public string Option2 { get; set; }
         public string Option3 { get; set; }

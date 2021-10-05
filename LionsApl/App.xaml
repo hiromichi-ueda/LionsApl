@@ -481,52 +481,8 @@
                 Value="Start"
                 />
             <Setter 
-                Property="HeightRequest"
-                Value="30"
-                />
-        </Style>
-        <!-- チェックボックス -->
-        <Style 
-            x:Key="Event_CheckBox"
-            TargetType="CheckBox"
-            >
-            <Setter 
-                Property="HorizontalOptions"
-                Value="End"
-                />
-            <Setter 
-                Property="VerticalOptions"
-                Value="Start"
-                />
-            <Setter 
-                Property="HeightRequest"
-                Value="30"
-                />
-        </Style>
-        <!-- ラベル（チェックボックス用） -->
-        <Style 
-            x:Key="Event_Label_ChkBox"
-            TargetType="Label"
-            >
-            <Setter 
-                Property="HorizontalOptions"
-                Value="Start"
-                />
-            <Setter 
-                Property="VerticalOptions"
-                Value="Start"
-                />
-            <Setter 
-                Property="HorizontalTextAlignment"
-                Value="Start"
-                />
-            <Setter 
-                Property="VerticalTextAlignment"
-                Value="Start"
-                />
-            <Setter 
                 Property="Margin"
-                Value="0,0,8,0"
+                Value="8,0,8,0"
                 />
         </Style>
         <!-- ピッカー -->

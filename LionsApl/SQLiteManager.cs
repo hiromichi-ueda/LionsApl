@@ -1546,35 +1546,9 @@ namespace LionsApl
         /// <summary>
         /// T_EVENTRETテーブルデータ更新
         /// </summary>
+        /// <param name="command">更新用SQLコマンド</param>
+        /// <returns></returns>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        //private void Set_T_EVENTRET()
-        //{
-        //    // データ登録
-        //    try
-        //    {
-        //        using (SQLiteConnection db = new SQLiteConnection(DbPath))
-        //        {
-        //            db.Execute()
-
-        //            _ = db.Update(new Table.T_EVENTRET()
-        //            {
-        //                Region = account.Region,
-        //                Zone = account.Zone,
-        //                ClubCode = account.ClubCode,
-        //                ClubName = account.ClubName,
-        //                MemberCode = account.MemberCode,
-        //                MemberFirstName = account.MemberFirstName,
-        //                MemberLastName = account.MemberLastName,
-        //                AccountDate = account.AccountDate
-        //            });
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-
-        //}
         public Table.T_EVENTRET[] Set_T_EVENTRET(string command)
         {
 

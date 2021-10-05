@@ -51,20 +51,13 @@ namespace LionsApl.Content
         private int _eventDataNo;                           // イベントNo.
 
         private string _eventClass;                         // イベントクラス
+        private string _onlineFlg;                          // オンライン参加フラグ
         private string _opt1Flg;                            // オプション1フラグ
         private string _opt2Flg;                            // オプション2フラグ
         private string _opt3Flg;                            // オプション3フラグ
         private string _opt4Flg;                            // オプション4フラグ
         private string _opt5Flg;                            // オプション5フラグ
-        //private string _opt1Val;                            // オプション1値
-        //private string _opt2Val;                            // オプション2値
-        //private string _opt3Val;                            // オプション3値
-        //private string _opt4Val;                            // オプション4値
-        //private string _opt5Val;                            // オプション5値
-        //private string _late;                               // 遅刻
-        //private string _early;                              // 早退
-        //private int _otherCount;                            // 本人以外の参加人数
-        //private string _answer;                             // 出欠
+        private string _oCntFlg;                            // 本人以外の参加人数フラグ
 
         // ファイルパス
         private string _fileName;                           // ファイル名
@@ -113,7 +106,7 @@ namespace LionsApl.Content
 
             // 出欠情報クラス設定
             string emp = string.Empty;
-            _eventReg = new CEventReg(0, emp, emp, emp, emp, emp, emp, emp, emp, 0);
+            _eventReg = new CEventReg(0, emp, emp, emp, emp, emp, emp, emp, emp, emp, 0);
 
             // データNo.
             _eventReg.DataNo = _dataNo;
@@ -163,13 +156,14 @@ namespace LionsApl.Content
             // 理事・委員会
             else if (_eventClass.Equals(_utl.EVENTCLASS_DR))
             {
-
+                //Present_Director();
             }
 
             // 出欠情報登録情報をコンテンツに設定
             _icom.GetSendEventContent(_eventReg);
             try
             {
+                // SQLServerへ登録
                 Task<HttpResponseMessage> response = _icom.AsyncPostTextForWebAPI();
             }
             catch (Exception ex)
@@ -179,23 +173,26 @@ namespace LionsApl.Content
 
             try
             {
+                // SQLiteへ登録
                 SetEventRetSQlite();
             }
             catch (Exception ex)
             {
                 DisplayAlert("Alert", $"SQLite 出席情報登録エラー : &{ex.Message}", "OK");
             }
-        }
 
+            DisplayAlert("出欠確認", $"出席情報を登録しました。", "OK");
+
+        }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// 
+        /// 出席：キャビネットイベント
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void Present_Cabinet()
         {
-            string recInfo = string.Empty;
+            //string recInfo = string.Empty;
 
             // オプション1
             if (_opt1Flg.Equals(_utl.ONFLG))
@@ -203,12 +200,12 @@ namespace LionsApl.Content
                 if (EI_Opt1Switch.IsToggled)
                 {
                     _eventReg.Option1 = _utl.ONFLG;
-                    recInfo += "オプション1=ON\r\n";
+                    //recInfo += "オプション1=ON\r\n";
                 }
                 else
                 {
                     _eventReg.Option1 = _utl.OFFFLG;
-                    recInfo += "オプション1=OFF\r\n";
+                    //recInfo += "オプション1=OFF\r\n";
                 }
             }
 
@@ -218,12 +215,12 @@ namespace LionsApl.Content
                 if (EI_Opt2Switch.IsToggled)
                 {
                     _eventReg.Option2 = _utl.ONFLG;
-                    recInfo += "オプション2=ON\r\n";
+                    //recInfo += "オプション2=ON\r\n";
                 }
                 else
                 {
                     _eventReg.Option2 = _utl.OFFFLG;
-                    recInfo += "オプション2=OFF\r\n";
+                    //recInfo += "オプション2=OFF\r\n";
                 }
             }
 
@@ -233,12 +230,12 @@ namespace LionsApl.Content
                 if (EI_Opt3Switch.IsToggled)
                 {
                     _eventReg.Option3 = _utl.ONFLG;
-                    recInfo += "オプション3=ON\r\n";
+                    //recInfo += "オプション3=ON\r\n";
                 }
                 else
                 {
                     _eventReg.Option3 = _utl.OFFFLG;
-                    recInfo += "オプション3=OFF\r\n";
+                    //recInfo += "オプション3=OFF\r\n";
                 }
             }
 
@@ -248,12 +245,12 @@ namespace LionsApl.Content
                 if (EI_Opt4Switch.IsToggled)
                 {
                     _eventReg.Option4 = _utl.ONFLG;
-                    recInfo += "オプション4=ON\r\n";
+                    //recInfo += "オプション4=ON\r\n";
                 }
                 else
                 {
                     _eventReg.Option4 = _utl.OFFFLG;
-                    recInfo += "オプション4=OFF\r\n";
+                    //recInfo += "オプション4=OFF\r\n";
                 }
             }
 
@@ -263,46 +260,66 @@ namespace LionsApl.Content
                 if (EI_Opt5Switch.IsToggled)
                 {
                     _eventReg.Option5 = _utl.ONFLG;
-                    recInfo += "オプション5=ON\r\n";
+                    //recInfo += "オプション5=ON\r\n";
                 }
                 else
                 {
                     _eventReg.Option5 = _utl.OFFFLG;
-                    recInfo += "オプション5=OFF\r\n";
+                    //recInfo += "オプション5=OFF\r\n";
                 }
             }
 
             // 遅刻
-            if (EI_Late.IsChecked == true)
+            if (EI_Late.IsToggled == true)
             {
                 _eventReg.AnswerLate = _utl.ONFLG;
-                recInfo += "遅刻=ON\r\n";
+                //recInfo += "遅刻=ON\r\n";
             }
             else
             {
                 _eventReg.AnswerLate = string.Empty;
-                recInfo += "遅刻=OFF\r\n";
+                //recInfo += "遅刻=OFF\r\n";
             }
 
             // 早退
-            if (EI_Early.IsChecked == true)
+            if (EI_Early.IsToggled == true)
             {
                 _eventReg.AnswerEarly = _utl.ONFLG;
-                recInfo += "早退=ON\r\n";
+                //recInfo += "早退=ON\r\n";
             }
             else
             {
                 _eventReg.AnswerEarly = string.Empty;
-                recInfo += "早退=OFF\r\n";
+                //recInfo += "早退=OFF\r\n";
             }
 
-            DisplayAlert("Disp", $"キャビネット/出席\r\n{recInfo}", "OK");
+            // オンライン参加
+            if (_onlineFlg.Equals(_utl.ONFLG))
+            {
+                if (EI_Online.IsToggled)
+                {
+                    _eventReg.Online = _utl.ONFLG;
+                    //recInfo += "オンライン参加=ON\r\n";
+                }
+                else
+                {
+                    _eventReg.Online = string.Empty;
+                    //recInfo += "オンライン参加=OFF\r\n";
+                }
+            }
+
+            //DisplayAlert("Disp", $"キャビネット/出席\r\n{recInfo}", "OK");
 
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 出席：年間例会スケジュール
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         private void Present_Meeting()
         {
-            string recInfo = string.Empty;
+            //string recInfo = string.Empty;
 
             // オプション1
             if (_opt1Flg.Equals(_utl.ONFLG))
@@ -310,12 +327,12 @@ namespace LionsApl.Content
                 if (MI_Opt1Switch.IsToggled)
                 {
                     _eventReg.Option1 = _utl.ONFLG;
-                    recInfo += "オプション1=ON\r\n";
+                    //recInfo += "オプション1=ON\r\n";
                 }
                 else
                 {
                     _eventReg.Option1 = _utl.OFFFLG;
-                    recInfo += "オプション1=OFF\r\n";
+                    //recInfo += "オプション1=OFF\r\n";
                 }
             }
 
@@ -325,12 +342,12 @@ namespace LionsApl.Content
                 if (MI_Opt2Switch.IsToggled)
                 {
                     _eventReg.Option2 = _utl.ONFLG;
-                    recInfo += "オプション2=ON\r\n";
+                    //recInfo += "オプション2=ON\r\n";
                 }
                 else
                 {
                     _eventReg.Option2 = _utl.OFFFLG;
-                    recInfo += "オプション2=OFF\r\n";
+                    //recInfo += "オプション2=OFF\r\n";
                 }
             }
 
@@ -340,12 +357,12 @@ namespace LionsApl.Content
                 if (MI_Opt3Switch.IsToggled)
                 {
                     _eventReg.Option3 = _utl.ONFLG;
-                    recInfo += "オプション3=ON\r\n";
+                    //recInfo += "オプション3=ON\r\n";
                 }
                 else
                 {
                     _eventReg.Option3 = _utl.OFFFLG;
-                    recInfo += "オプション3=OFF\r\n";
+                    //recInfo += "オプション3=OFF\r\n";
                 }
             }
 
@@ -355,12 +372,12 @@ namespace LionsApl.Content
                 if (MI_Opt4Switch.IsToggled)
                 {
                     _eventReg.Option4 = _utl.ONFLG;
-                    recInfo += "オプション4=ON\r\n";
+                    //recInfo += "オプション4=ON\r\n";
                 }
                 else
                 {
                     _eventReg.Option4 = _utl.OFFFLG;
-                    recInfo += "オプション4=OFF\r\n";
+                    //recInfo += "オプション4=OFF\r\n";
                 }
             }
 
@@ -370,47 +387,70 @@ namespace LionsApl.Content
                 if (MI_Opt5Switch.IsToggled)
                 {
                     _eventReg.Option5 = _utl.ONFLG;
-                    recInfo += "オプション5=ON\r\n";
+                    //recInfo += "オプション5=ON\r\n";
                 }
                 else
                 {
                     _eventReg.Option5 = _utl.OFFFLG;
-                    recInfo += "オプション5=OFF\r\n";
+                    //recInfo += "オプション5=OFF\r\n";
                 }
             }
 
             // 遅刻
-            if (MI_Late.IsChecked == true)
+            if (MI_Late.IsToggled)
             {
                 _eventReg.AnswerLate = _utl.ONFLG;
-                recInfo += "遅刻=ON\r\n";
+                //recInfo += "遅刻=ON\r\n";
             }
             else
             {
                 _eventReg.AnswerLate = string.Empty;
-                recInfo += "遅刻=OFF\r\n";
+                //recInfo += "遅刻=OFF\r\n";
             }
 
             // 早退
-            if (MI_Early.IsChecked == true)
+            if (MI_Early.IsToggled)
             {
                 _eventReg.AnswerEarly = _utl.ONFLG;
-                recInfo += "早退=ON\r\n";
+                //recInfo += "早退=ON\r\n";
             }
             else
             {
                 _eventReg.AnswerEarly = string.Empty;
-                recInfo += "早退=OFF\r\n";
+                //recInfo += "早退=OFF\r\n";
+            }
+
+            // オンライン参加
+            if (_onlineFlg.Equals(_utl.ONFLG))
+            {
+                if (MI_Online.IsToggled)
+                {
+                    _eventReg.Online = _utl.ONFLG;
+                    //recInfo += "オンライン参加=ON\r\n";
+                }
+                else
+                {
+                    _eventReg.Online = string.Empty;
+                    //recInfo += "オンライン参加=OFF\r\n";
+                }
             }
 
             // 本人以外の参加数
-            _eventReg.OtherCount = int.Parse(MI_OtherUser.Items[MI_OtherUser.SelectedIndex]);
-            recInfo += "人数=" + MI_OtherUser.Items[MI_OtherUser.SelectedIndex] + "\r\n";
+            if (_oCntFlg.Equals(_utl.ONFLG))
+            {
+                _eventReg.OtherCount = int.Parse(MI_OtherUser.Items[MI_OtherUser.SelectedIndex]);
+                //recInfo += "人数=" + MI_OtherUser.Items[MI_OtherUser.SelectedIndex] + "\r\n";
+            }
 
-            DisplayAlert("Disp", $"例会/出席\r\n{recInfo}", "OK");
+            //DisplayAlert("Disp", $"例会/出席\r\n{recInfo}", "OK");
 
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 理事・委員会
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         private void Present_Direct()
         {
 
@@ -430,7 +470,52 @@ namespace LionsApl.Content
             // 回答（欠席）
             _eventReg.Answer = _utl.ANSWER_AB;
 
-            DisplayAlert("Disp", "欠席", "OK");
+            // 欠席のため各値に初期値を設定
+            _eventReg.AnswerLate = string.Empty;
+            _eventReg.AnswerEarly = string.Empty;
+            _eventReg.Online = string.Empty;
+            _eventReg.Option1= string.Empty;
+            _eventReg.Option2 = string.Empty;
+            _eventReg.Option3 = string.Empty;
+            _eventReg.Option4 = string.Empty;
+            _eventReg.Option5 = string.Empty;
+            _eventReg.OtherCount = 0;
+
+            DisplayAlert("Disp", $"Answer : {_eventReg.Answer}" + Environment.NewLine +
+                                 $"AnswerLate : {_eventReg.AnswerLate}" + Environment.NewLine +
+                                 $"AnswerEarly : {_eventReg.AnswerEarly}" + Environment.NewLine +
+                                 $"Online : {_eventReg.Online}" + Environment.NewLine +
+                                 $"Option1 : {_eventReg.Option1}" + Environment.NewLine +
+                                 $"Option2 : {_eventReg.Option2}" + Environment.NewLine +
+                                 $"Option3 : {_eventReg.Option3}" + Environment.NewLine +
+                                 $"Option4 : {_eventReg.Option4}" + Environment.NewLine +
+                                 $"Option5 : {_eventReg.Option5}" + Environment.NewLine +
+                                 $"OtherCount : {_eventReg.OtherCount}" + Environment.NewLine
+                         , "OK");
+
+            // 出欠情報登録情報をコンテンツに設定
+            _icom.GetSendEventContent(_eventReg);
+            try
+            {
+                // SQLServerへ登録
+                Task<HttpResponseMessage> response = _icom.AsyncPostTextForWebAPI();
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Alert", $"SQLServer 欠席情報登録エラー : &{ex.Message}", "OK");
+            }
+
+            try
+            {
+                // SQLiteへ登録
+                SetEventRetSQlite();
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Alert", $"SQLite 欠席情報登録エラー : &{ex.Message}", "OK");
+            }
+
+            DisplayAlert("出欠確認", $"欠席情報を登録しました。", "OK");
 
         }
 
@@ -513,6 +598,9 @@ namespace LionsApl.Content
             this.lbl_EI_Opt3Name.FontSize = wfFontSizse;
             this.lbl_EI_Opt4Name.FontSize = wfFontSizse;
             this.lbl_EI_Opt5Name.FontSize = wfFontSizse;
+            this.lbl_EI_Late.FontSize = wfFontSizse;
+            this.lbl_EI_Early.FontSize = wfFontSizse;
+            this.lbl_EI_Online.FontSize = wfFontSizse;
             this.lbl_EI_AnsDate.FontSize = wfFontSizse;
             this.EI_AnsDate.FontSize = wfFontSizse;
             this.lbl_EI_footer.FontSize = wfFontSizse;
@@ -524,6 +612,9 @@ namespace LionsApl.Content
             this.lbl_MI_Opt3Name.FontSize = wfFontSizse;
             this.lbl_MI_Opt4Name.FontSize = wfFontSizse;
             this.lbl_MI_Opt5Name.FontSize = wfFontSizse;
+            this.lbl_MI_Late.FontSize = wfFontSizse;
+            this.lbl_MI_Early.FontSize = wfFontSizse;
+            this.lbl_MI_Online.FontSize = wfFontSizse;
             this.lbl_MI_OtherUser.FontSize = wfFontSizse;
             this.MI_OtherUser.FontSize = wfFontSizse;
             this.lbl_MI_AnsDate.FontSize = wfFontSizse;
@@ -544,6 +635,8 @@ namespace LionsApl.Content
 
             try
             {
+                ////////////////////////////////////////////////////////////////
+                // 指定データNoのイベント出欠情報（T_EVENTRET）を取得する
                 foreach (Table.T_EVENTRET row in _sqlite.Get_T_EVENTRET("Select * " +
                                                                     "From T_EVENTRET " +
                                                                     "Where DataNo='" + _dataNo + "'"))
@@ -551,14 +644,16 @@ namespace LionsApl.Content
                     _eventret = row;
                 }
 
-
+                // イベント区分を取得する
                 _eventClass = _utl.GetString(_eventret.EventClass);
 
-                // イベントクラス別のデータ読み込み・タイトル文字列の設定・各画面の設定
+                ////////////////////////////////////////////////////////////////
+                // イベント別のデータ読み込み・タイトル文字列の設定・各画面の設定を行う
+
                 // キャビネットイベント
                 if (_eventClass.Equals(_utl.EVENTCLASS_CV))
                 {
-                    // キャビネットイベントのデータ読み込み
+                    // キャビネットイベント情報（T_EVENT）を取得する
                     foreach (Table.T_EVENT row in _sqlite.Get_T_EVENT("Select * " +
                                                                       "From T_EVENT " +
                                                                       "Where DataNo='" + _eventDataNo + "'"))
@@ -575,7 +670,7 @@ namespace LionsApl.Content
                 // 年間例会スケジュール
                 else if (_eventClass.Equals(_utl.EVENTCLASS_CL))
                 {
-                    // 年間例会スケジュールのデータ読み込み
+                    // 年間例会スケジュール情報（T_MEETINGSCHEDULE）を取得する
                     foreach (Table.T_MEETINGSCHEDULE row in _sqlite.Get_T_MEETINGSCHEDULE("Select * " +
                                                                                           "From T_MEETINGSCHEDULE " +
                                                                                           "Where DataNo='" + _eventDataNo + "'"))
@@ -584,6 +679,7 @@ namespace LionsApl.Content
                     }
                     // タイトル文字列の設定
                     BodyTitle.Text = ST_EVENT_2;
+
                     // 年間例会スケジュール画面の設定
                     SetCEventPageMeeting();
 
@@ -591,7 +687,7 @@ namespace LionsApl.Content
                 // 理事・委員会
                 else if (_eventClass.Equals(_utl.EVENTCLASS_DR))
                 {
-                    // 理事・委員会のデータ読み込み
+                    // 理事・委員会情報（T_DRECTOR）を取得する
                     foreach (Table.T_DIRECTOR row in _sqlite.Get_T_DIRECTOR("Select * " +
                                                                             "From T_DIRECTOR " +
                                                                             "Where DataNo='" + _eventDataNo + "'"))
@@ -600,6 +696,7 @@ namespace LionsApl.Content
                     }
                     // タイトル文字列の設定
                     BodyTitle.Text = ST_EVENT_3;
+
                     // 理事・委員会画面の設定
                     SetCEventPageDirect();
 
@@ -639,7 +736,7 @@ namespace LionsApl.Content
             string wkOpt5Name = string.Empty;
             string wkAnsDate = string.Empty;
 
-            ////////////////////////
+            ////////////////////////////////////////////////////////////////
             // 表示項目
 
             // 開催日
@@ -668,7 +765,7 @@ namespace LionsApl.Content
             wkSake = _utl.StrOnOff(_event.Sake);
 
             // 会議方法
-            wkMeeting = _utl.StrMeeting(_event.Meeting);
+            wkMeeting = _utl.StrOnline(_event.Meeting);
 
             // URL
             wkUrl = _utl.GetString(_event.MeetingUrl);
@@ -686,7 +783,7 @@ namespace LionsApl.Content
             _fileName = _utl.GetString(_event.FileName);
 
 
-            ////////////////////////
+            ////////////////////////////////////////////////////////////////
             // 入力項目
 
             // オプション1
@@ -740,17 +837,21 @@ namespace LionsApl.Content
                 _eventReg.Option5 = _utl.GetString(_eventret.Option5);
             }
 
-            // 遅刻・早退
             // 遅刻
             _eventReg.AnswerLate = _utl.GetString(_eventret.AnswerLate);
+
             // 早退
             _eventReg.AnswerEarly = _utl.GetString(_eventret.AnswerEarly);
+
+            // オンライン参加
+            _onlineFlg = _utl.GetString(_event.Meeting);
+            _eventReg.Online = _utl.GetString(_eventret.Online);
 
             // 回答期限
             wkAnsDate = _utl.GetString(_event.AnswerDate).Substring(0, 10);
 
 
-            ////////////////////////
+            ////////////////////////////////////////////////////////////////
             // 表示項目設定
 
             ED_EventDate.Text = wkDate;
@@ -761,25 +862,33 @@ namespace LionsApl.Content
             ED_Title.Text = wkTitle;
             ED_Body.Text = wkBody;
             ED_Sake.Text = wkSake;
-            ED_Meeting.Text = wkMeeting;
-            if (wkMeeting.Equals(_utl.ST_MEETING_NORMAL))
+
+            // 会議方法～備考
+            if (wkMeeting.Equals(_utl.ST_MEETING_ONLINE))
             {
+                ED_Meeting.Text = wkMeeting;
+                ED_MeetingUrl.Text = wkUrl;
+                ED_MeetingID.Text = wkID;
+                ED_MeetingPW.Text = wkPW;
+                ED_MeetingOther.Text = wkMtOther;
+            }
+            else
+            {
+                // 会議方法～備考項目非表示
+                lbl_ED_Meeting.IsVisible = false;
+                ED_Meeting.IsVisible = false;
                 lbl_ED_MeetingUrl.IsVisible = false;
                 ED_MeetingUrl.IsVisible = false;
                 lbl_ED_MeetingID.IsVisible = false;
                 ED_MeetingID.IsVisible = false;
                 lbl_ED_MeetingPW.IsVisible = false;
                 ED_MeetingPW.IsVisible = false;
+                lbl_ED_MeetingOther.IsVisible = false;
+                ED_MeetingOther.IsVisible = false;
             }
-            else if (wkMeeting.Equals(_utl.ST_MEETING_ONLINE))
-            {
-                ED_MeetingUrl.Text = wkUrl;
-                ED_MeetingID.Text = wkID;
-                ED_MeetingPW.Text = wkPW;
-            }
-            ED_MeetingOther.Text = wkMtOther;
 
-            ////////////////////////
+
+            ////////////////////////////////////////////////////////////////
             // 入力項目設定
 
             // オプション1
@@ -797,11 +906,24 @@ namespace LionsApl.Content
             // オプション5
             SetOptionItem(_opt5Flg, _eventReg.Option5, wkOpt5Name, ref lbl_EI_Opt5Name, ref EI_Opt5Switch);
 
+
             // 遅刻
-            MI_Late.IsChecked = _eventReg.AnswerLate.Equals(_utl.ONFLG);
+            EI_Late.IsToggled = _eventReg.AnswerLate.Equals(_utl.ONFLG);
 
             // 早退
-            MI_Early.IsChecked = _eventReg.AnswerEarly.Equals(_utl.ONFLG);
+            EI_Early.IsToggled = _eventReg.AnswerEarly.Equals(_utl.ONFLG);
+
+            // オンライン参加
+            if (_onlineFlg.Equals(_utl.ONFLG))
+            {
+                EI_Online.IsToggled = _eventReg.Online.Equals(_utl.ONFLG);
+            }
+            else
+            {
+                // オンライン参加項目非表示
+                lbl_EI_Online.IsVisible = false;
+                EI_Online.IsVisible = false;
+            }
 
             // 回答期限
             EI_AnsDate.Text = wkAnsDate;
@@ -829,35 +951,14 @@ namespace LionsApl.Content
             string wkName = string.Empty;
             string wkOnline = string.Empty;
             string wkSake = string.Empty;
-            //bool wkOpt1flg = false;
             string wkOpt1Name = string.Empty;
-            //string wkOpt1Value = string.Empty;
-            //bool wkOpt2flg = false;
             string wkOpt2Name = string.Empty;
-            //string wkOpt2Value = string.Empty;
-            //bool wkOpt3flg = false;
             string wkOpt3Name = string.Empty;
-            //string wkOpt3Value = string.Empty;
-            //bool wkOpt4flg = false;
             string wkOpt4Name = string.Empty;
-            //string wkOpt4Value = string.Empty;
-            //bool wkOpt5flg = false;
             string wkOpt5Name = string.Empty;
-            //string wkOpt5Value = string.Empty;
-            //string wkLate = string.Empty;
-            //string wkEarly = string.Empty;
-            //int wkOtherCount = 0;
-
             string wkAnsDate = string.Empty;
 
-
-            // データNo.
-            //DataNo = _eventret.DataNo;
-
-            // イベントデータNo.
-            //EventDataNo = _eventret.EventDataNo;
-
-            ////////////////////////
+            ////////////////////////////////////////////////////////////////
             // 表示項目
 
             // 例会日
@@ -882,7 +983,7 @@ namespace LionsApl.Content
             // お酒
             wkSake = _utl.StrOnOff(_meetingschedule.Sake);
 
-            ////////////////////////
+            ////////////////////////////////////////////////////////////////
             // 入力項目
 
             // オプション1
@@ -936,21 +1037,25 @@ namespace LionsApl.Content
                 _eventReg.Option5 = _utl.GetString(_eventret.Option5);
             }
 
-            // 遅刻・早退
             // 遅刻
             _eventReg.AnswerLate = _utl.GetString(_eventret.AnswerLate);
+
             // 早退
             _eventReg.AnswerEarly = _utl.GetString(_eventret.AnswerEarly);
 
-            // 本人以外の参加人数
+            // オンライン参加
+            _onlineFlg = _utl.GetString(_meetingschedule.Online);
+            _eventReg.Online = _utl.GetString(_eventret.Online);
+
+            // 本人以外の参加数
+            _oCntFlg = _utl.GetString(_meetingschedule.OtherUser);
             _eventReg.OtherCount = _eventret.OtherCount;
 
             // 回答期限
             wkAnsDate = _utl.GetString(_meetingschedule.AnswerDate).Substring(0, 10);
 
 
-
-            ////////////////////////
+            ////////////////////////////////////////////////////////////////
             // 表示項目設定
 
             MD_Date.Text = wkDate;
@@ -958,20 +1063,22 @@ namespace LionsApl.Content
             MD_Place.Text = wkPlace;
             MD_Count.Text = wkCount.ToString();
             MD_Name.Text = wkName;
-            // 会議方法の値が無い場合
-            if (wkOnline == string.Empty)
-            {
-                // 会議方法項目非表示
-                MD_Online.IsVisible = false;
-                lbl_MD_Online.IsVisible = false;
-            }
-            else
+
+            // 会議方法
+            if (wkOnline.Equals(_utl.ST_MEETING_ONLINE))
             {
                 MD_Online.Text = wkOnline;
             }
+            else
+            {
+                // 会議方法項目非表示
+                lbl_MD_Online.IsVisible = false;
+                MD_Online.IsVisible = false;
+            }
+
             MD_Sake.Text = wkSake;
 
-            ////////////////////////
+            ////////////////////////////////////////////////////////////////
             // 入力項目設定
 
             // オプション1
@@ -990,31 +1097,38 @@ namespace LionsApl.Content
             SetOptionItem(_opt5Flg, _eventReg.Option5, wkOpt5Name, ref lbl_MI_Opt5Name, ref MI_Opt5Switch);
 
             // 遅刻
-            if (_eventReg.AnswerLate.Equals(_utl.ONFLG))
-            {
-                MI_Late.IsChecked = true;
-            }
-            else
-            {
-                MI_Late.IsChecked = false;
-            }
+            MI_Late.IsToggled = _eventReg.AnswerLate.Equals(_utl.ONFLG);
 
             // 早退
-            if (_eventReg.AnswerEarly.Equals(_utl.ONFLG))
+            MI_Early.IsToggled = _eventReg.AnswerEarly.Equals(_utl.ONFLG);
+
+            // オンライン参加
+            if (_onlineFlg.Equals(_utl.ONFLG))
             {
-                MI_Early.IsChecked = true;
+                MI_Online.IsToggled = _eventReg.Online.Equals(_utl.ONFLG); 
             }
             else
             {
-                MI_Early.IsChecked = false;
+                // オンライン参加項目非表示
+                lbl_MI_Online.IsVisible = false;
+                MI_Online.IsVisible = false;
             }
 
             // 本人以外の参加数
-            for (int idx = 0 ; idx <= 15; idx++)
+            if (_oCntFlg.Equals(_utl.ONFLG))
             {
-                MI_OtherUser.Items.Add(idx.ToString());
+                for (int idx = 0; idx <= 15; idx++)
+                {
+                    MI_OtherUser.Items.Add(idx.ToString());
+                }
+                MI_OtherUser.SelectedIndex = _eventReg.OtherCount;
             }
-            MI_OtherUser.SelectedIndex = _eventReg.OtherCount;
+            else
+            {
+                // 本人以外の参加数項目非表示
+                lbl_MI_OtherUser.IsVisible = false;
+                MI_OtherUser.IsVisible = false;
+            }
 
             // 回答期限
             MI_AnsDate.Text = wkAnsDate;
@@ -1042,7 +1156,7 @@ namespace LionsApl.Content
             string wkAgenda = string.Empty;
             string wkAnsDate = string.Empty;
 
-            ////////////////////////
+            ////////////////////////////////////////////////////////////////
             // 表示項目
 
             // 開催日
@@ -1065,7 +1179,7 @@ namespace LionsApl.Content
             wkAnsDate = _utl.GetString(_director.AnswerDate).Substring(0, 10);
 
 
-            ////////////////////////
+            ////////////////////////////////////////////////////////////////
             // 表示項目設定
 
             DD_Date.Text = wkDate;
@@ -1104,32 +1218,44 @@ namespace LionsApl.Content
                                    ref Switch switchItem)
         {
             // 入力項目設定
+            // オプションが有効である場合
             if (flg.Equals(_utl.ONFLG))
             {
                 labelItem.Text = name;
+                // オプションがONに設定されている、もしくは設定がない場合
                 if (radio.Equals(_utl.ONFLG) || radio.Equals(_utl.NOFLG))
                 {
+                    // SwitchをONで表示
                     switchItem.IsToggled = true;
                 }
+                // オプションがOFFに設定されている場合
                 else if (radio.Equals(_utl.OFFFLG))
                 {
+                    // SwitchをOFFで表示
                     switchItem.IsToggled = false;
                 }
             }
+            // オプションが有効でない場合
             else
             {
+                // オプション項目非表示
                 labelItem.IsVisible = false;
-                //labelItem.HeightRequest = 0.0;
                 switchItem.IsVisible = false;
-                //switchItem.HeightRequest = 0.0;
             }
         }
 
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 出欠情報登録（SQLite）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         private void SetEventRetSQlite()
         {
             string _answer = _utl.GetSQLString(_eventReg.Answer);
             string _answerLate = _utl.GetSQLString(_eventReg.AnswerLate);
             string _answerEarly = _utl.GetSQLString(_eventReg.AnswerEarly);
+            string _online = _utl.GetSQLString(_eventReg.Online);
             string _option1 = _utl.GetSQLString(_eventReg.Option1);
             string _option2 = _utl.GetSQLString(_eventReg.Option2);
             string _option3 = _utl.GetSQLString(_eventReg.Option3);
@@ -1141,6 +1267,7 @@ namespace LionsApl.Content
                                                                     " Answer = " + _answer + ", " +
                                                                     " AnswerLate = " + _answerLate + ", " +
                                                                     " AnswerEarly = " + _answerEarly + ", " +
+                                                                    " Online = " + _online + ", " +
                                                                     " Option1 = " + _option1 + ", " +
                                                                     " Option2 = " + _option2 + ", " +
                                                                     " Option3 = " + _option3 + ", " +
@@ -1161,56 +1288,56 @@ namespace LionsApl.Content
     /// キャビネットイベント表示用クラス
     /// </summary>
     ///////////////////////////////////////////////////////////////////////////////////////////
-    public sealed class CEventPageEvent
-    {
-        public CEventPageEvent(string date,
-                                  string cancel,
-                                  string stime,
-                                  string etime,
-                                  string rectime,
-                                  string place,
-                                  string title,
-                                  string body,
-                                  string sake,
-                                  string meeting,
-                                  string murl,
-                                  string mid,
-                                  string mpw,
-                                  string mother,
-                                  string fname)
-        {
-            Data = date;
-            Cancel = cancel;
-            STime = stime;
-            ETime = etime;
-            RecTime = rectime;
-            Place = place;
-            Title = title;
-            Body = body;
-            Sake = sake;
-            Meeting = meeting;
-            MUrl = murl;
-            MId = mid;
-            MPw = mpw;
-            MOther = mother;
-            FName = fname;
-        }
-        public string Data { get; set; }
-        public string Cancel { get; set; }
-        public string STime { get; set; }
-        public string ETime { get; set; }
-        public string RecTime { get; set; }
-        public string Place { get; set; }
-        public string Title { get; set; }
-        public string Body { get; set; }
-        public string Sake { get; set; }
-        public string Meeting { get; set; }
-        public string MUrl { get; set; }
-        public string MId { get; set; }
-        public string MPw { get; set; }
-        public string MOther { get; set; }
-        public string FName { get; set; }
-    }
+    //public sealed class CEventPageEvent
+    //{
+    //    public CEventPageEvent(string date,
+    //                              string cancel,
+    //                              string stime,
+    //                              string etime,
+    //                              string rectime,
+    //                              string place,
+    //                              string title,
+    //                              string body,
+    //                              string sake,
+    //                              string meeting,
+    //                              string murl,
+    //                              string mid,
+    //                              string mpw,
+    //                              string mother,
+    //                              string fname)
+    //    {
+    //        Data = date;
+    //        Cancel = cancel;
+    //        STime = stime;
+    //        ETime = etime;
+    //        RecTime = rectime;
+    //        Place = place;
+    //        Title = title;
+    //        Body = body;
+    //        Sake = sake;
+    //        Meeting = meeting;
+    //        MUrl = murl;
+    //        MId = mid;
+    //        MPw = mpw;
+    //        MOther = mother;
+    //        FName = fname;
+    //    }
+    //    public string Data { get; set; }
+    //    public string Cancel { get; set; }
+    //    public string STime { get; set; }
+    //    public string ETime { get; set; }
+    //    public string RecTime { get; set; }
+    //    public string Place { get; set; }
+    //    public string Title { get; set; }
+    //    public string Body { get; set; }
+    //    public string Sake { get; set; }
+    //    public string Meeting { get; set; }
+    //    public string MUrl { get; set; }
+    //    public string MId { get; set; }
+    //    public string MPw { get; set; }
+    //    public string MOther { get; set; }
+    //    public string FName { get; set; }
+    //}
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1218,32 +1345,32 @@ namespace LionsApl.Content
     /// 年間例会スケジュール表示用クラス
     /// </summary>
     ///////////////////////////////////////////////////////////////////////////////////////////
-    public sealed class CEventPageMeeting
-    {
-        public CEventPageMeeting(string date,
-                                string cancel,
-                                string place,
-                                int count,
-                                string name,
-                                string online,
-                                string sake)
-        {
-            Data = date;
-            Cancel = cancel;
-            Place = place;
-            Count = count;
-            Name = name;
-            Online = online;
-            Sake = sake;
-        }
-        public string Data { get; set; }
-        public string Cancel { get; set; }
-        public string Place { get; set; }
-        public int Count { get; set; }
-        public string Name { get; set; }
-        public string Online { get; set; }
-        public string Sake { get; set; }
-    }
+    //public sealed class CEventPageMeeting
+    //{
+    //    public CEventPageMeeting(string date,
+    //                            string cancel,
+    //                            string place,
+    //                            int count,
+    //                            string name,
+    //                            string online,
+    //                            string sake)
+    //    {
+    //        Data = date;
+    //        Cancel = cancel;
+    //        Place = place;
+    //        Count = count;
+    //        Name = name;
+    //        Online = online;
+    //        Sake = sake;
+    //    }
+    //    public string Data { get; set; }
+    //    public string Cancel { get; set; }
+    //    public string Place { get; set; }
+    //    public int Count { get; set; }
+    //    public string Name { get; set; }
+    //    public string Online { get; set; }
+    //    public string Sake { get; set; }
+    //}
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1251,28 +1378,28 @@ namespace LionsApl.Content
     /// 理事・委員会表示用クラス
     /// </summary>
     ///////////////////////////////////////////////////////////////////////////////////////////
-    public sealed class CEventPageDirect
-    {
-        public CEventPageDirect(string date, 
-                                string cancel, 
-                                string season, 
-                                string place, 
-                                string agenda, 
-                                string ansdate)
-        {
-            Data = date;
-            Cancel = cancel;
-            Season = season;
-            Place = place;
-            Agenda = agenda;
-            AnsDate = ansdate;
-        }
-        public string Data { get; set; }
-        public string Cancel { get; set; }
-        public string Season { get; set; }
-        public string Place { get; set; }
-        public string Agenda { get; set; }
-        public string AnsDate { get; set; }
-    }
+    //public sealed class CEventPageDirect
+    //{
+    //    public CEventPageDirect(string date, 
+    //                            string cancel, 
+    //                            string season, 
+    //                            string place, 
+    //                            string agenda, 
+    //                            string ansdate)
+    //    {
+    //        Data = date;
+    //        Cancel = cancel;
+    //        Season = season;
+    //        Place = place;
+    //        Agenda = agenda;
+    //        AnsDate = ansdate;
+    //    }
+    //    public string Data { get; set; }
+    //    public string Cancel { get; set; }
+    //    public string Season { get; set; }
+    //    public string Place { get; set; }
+    //    public string Agenda { get; set; }
+    //    public string AnsDate { get; set; }
+    //}
 
 }
