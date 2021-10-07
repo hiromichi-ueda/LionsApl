@@ -11,7 +11,7 @@ namespace LionsApl.Table
         public int DataNo { get; set; }
         public int SortNo { get; set; }
         public string Magazine { get; set; }
-        public string FilePath { get; set; }
+        //public string FilePath { get; set; }
         public string FileName { get; set; }
         public string MagazineClass { get; set; }
         public int MagazinePrice { get; set; }

@@ -14,6 +14,21 @@ namespace LionsApl
         private string ReqItem1 = "DbType";
         private string ReqItem2 = "AplTime";
 
+        private string MagazineItem1 = "MagazineDataNo";
+        private string MagazineItem2 = "Magazine";
+        private string MagazineItem3 = "BuyDate";
+        private string MagazineItem4 = "BuyNumber";
+        private string MagazineItem5 = "MagazinePrice";
+        private string MagazineItem6 = "MoneyTotal";
+        private string MagazineItem7 = "Region";
+        private string MagazineItem8 = "Zone";
+        private string MagazineItem9 = "ClubCode";
+        private string MagazineItem10 = "ClubNameShort";
+        private string MagazineItem11 = "MemberCode";
+        private string MagazineItem12 = "MemberName";
+        private string MagazineItem13 = "EditUser";
+        private string MagazineItem14 = "EditDate";
+
         private string EventItem1 = "DataNo";
         private string EventItem2 = "Answer";
         private string EventItem3 = "AnswerLate";
@@ -113,11 +128,59 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// 出欠情報登録情報をコンテンツに設定
+        /// 地区誌購入情報をコンテンツに設定
         /// </summary>
         /// <param name="eventret">出欠情報</param>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public void GetSendEventContent(CEventReg eventret)
+        public void SetContentToMAGAZINE(CMAGAZINE cmagazine)
+        {
+            // 処理日時取得
+            DateTime nowDt = DateTime.Now;
+
+            content = new MultipartFormDataContent();
+            // DBデータ種別（文字列データ）
+            content.Add(new StringContent(DbType3), ReqItem1);
+            // 処理日時（文字列データ）
+            content.Add(new StringContent(nowDt.ToString()), ReqItem2);
+
+            // 地区誌データNo.（文字列データ）
+            content.Add(new StringContent(cmagazine.MagazineDataNo.ToString()), MagazineItem1);
+            // 地区誌名（文字列データ）
+            content.Add(new StringContent(cmagazine.Magazine), MagazineItem2);
+            // 購入日（文字列データ）
+            content.Add(new StringContent(cmagazine.BuyDate), MagazineItem3);
+            // 冊子数（文字列データ）
+            content.Add(new StringContent(cmagazine.BuyNumber.ToString()), MagazineItem4);
+            // 購入価格（税込）（文字列データ）
+            content.Add(new StringContent(cmagazine.MagazinePrice.ToString()), MagazineItem5);
+            // 購入金額（文字列データ）
+            content.Add(new StringContent(cmagazine.MoneyTotal.ToString()), MagazineItem6);
+            // リジョン（文字列データ）
+            content.Add(new StringContent(cmagazine.Region), MagazineItem7);
+            // ゾーン（文字列データ）
+            content.Add(new StringContent(cmagazine.Zone), MagazineItem8);
+            // クラブコード（文字列データ）
+            content.Add(new StringContent(cmagazine.ClubCode), MagazineItem9);
+            // クラブ名（略称）（文字列データ）
+            content.Add(new StringContent(cmagazine.ClubNameShort), MagazineItem10);
+            // 会員番号（文字列データ）
+            content.Add(new StringContent(cmagazine.MemberCode), MagazineItem11);
+            // 会員名（文字列データ）
+            content.Add(new StringContent(cmagazine.MemberName), MagazineItem12);
+            // 更新者（文字列データ）
+            content.Add(new StringContent(cmagazine.EditUser), MagazineItem13);
+            // 更新名（文字列データ）
+            content.Add(new StringContent(cmagazine.EditDate), MagazineItem14);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 出欠情報をコンテンツに設定
+        /// </summary>
+        /// <param name="eventret">出欠情報</param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void SetContentToEVENTRET(CEVENTRET eventret)
         {
             // 処理日時取得
             DateTime nowDt = DateTime.Now;
@@ -202,12 +265,66 @@ namespace LionsApl
 
     ///////////////////////////////////////////////////////////////////////////////////////////
     /// <summary>
-    /// イベント登録クラス
+    /// 地区誌購入情報クラス
     /// </summary>
     ///////////////////////////////////////////////////////////////////////////////////////////
-    public sealed class CEventReg
+    public sealed class CMAGAZINE
     {
-        public CEventReg(int dataNo,
+        public CMAGAZINE(int magazineDataNo,
+                         string magazine,
+                         string buyDate,
+                         int buyNumber,
+                         int magazinePrice,
+                         int moneyTotal,
+                         string region,
+                         string zone,
+                         string clubCode,
+                         string clubNameShort,
+                         string memberCode,
+                         string memberName,
+                         string editUser,
+                         string editDate)
+        {
+            MagazineDataNo = magazineDataNo;
+            Magazine = magazine;
+            BuyDate = buyDate;
+            BuyNumber = buyNumber;
+            MagazinePrice = magazinePrice;
+            MoneyTotal = moneyTotal;
+            Region = region;
+            Zone = zone;
+            ClubCode = clubCode;
+            ClubNameShort = clubNameShort;
+            MemberCode = memberCode;
+            MemberName = memberName;
+            EditUser = editUser;
+            EditDate = editDate;
+        }
+        public int MagazineDataNo { get; set; }
+        public string Magazine { get; set; }
+        public string BuyDate { get; set; }
+        public int BuyNumber { get; set; }
+        public int MagazinePrice { get; set; }
+        public int MoneyTotal { get; set; }
+        public string Region { get; set; }
+        public string Zone { get; set; }
+        public string ClubCode { get; set; }
+        public string ClubNameShort { get; set; }
+        public string MemberCode { get; set; }
+        public string MemberName { get; set; }
+        public string EditUser { get; set; }
+        public string EditDate { get; set; }
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// 出欠情報クラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    public sealed class CEVENTRET
+    {
+        public CEVENTRET(int dataNo,
                          string answer,
                          string answerLate,
                          string anserEarly,

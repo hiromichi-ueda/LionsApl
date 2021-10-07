@@ -4,24 +4,50 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http;
+using System.ComponentModel;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace LionsApl.Content
 {
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// 地区誌一覧画面クラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MagazineList : ContentPage
     {
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
+        // Utilityクラス
+        private LAUtility _utl;
+
+        // 情報通信マネージャクラス
+        private IComManager _icom;
+
+        // T_MAGAZINEBUYテーブルクラス
+        private Table.T_MAGAZINEBUY _magazineBuy;
+
+        // T_MAGAZINEBUY登録クラス
+        private CMAGAZINE _cmagazine;
+
         // リストビュー設定内容
         public List<MagazineListRow> Items { get; set; }
+        //public ObservableCollection<MagazineListRow> Items = new ObservableCollection<MagazineListRow>();
 
         // Magazineピッカークラス
         public ObservableCollection<CMagazinePicker> _magazinePk = new ObservableCollection<CMagazinePicker>();
 
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         public MagazineList()
         {
             InitializeComponent();
@@ -31,6 +57,12 @@ namespace LionsApl.Content
             this.MagazinePicker.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Picker));      //地区誌名選択
             this.BuyNumberPicker.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Picker));     //冊子数選択
             this.count.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Picker));               //冊
+
+            // 情報通信マネージャー生成
+            _icom = IComManager.GetInstance();
+
+            // Content Utilクラス生成
+            _utl = new LAUtility();
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
@@ -47,11 +79,27 @@ namespace LionsApl.Content
             // ログイン情報設定
             LoginInfo.Text = _sqlite.LoginInfo;
 
+            // 地区誌購入クラス設定
+            string emp = string.Empty;
+            string membername = string.Empty;
+            membername = _sqlite.Db_A_Account.MemberFirstName + _sqlite.Db_A_Account.MemberLastName;
+            _cmagazine = new CMAGAZINE(0, emp, emp, 0, 0, 0,
+                                       _sqlite.Db_A_Account.Region,
+                                       _sqlite.Db_A_Account.Zone,
+                                       _sqlite.Db_A_Account.ClubCode,
+                                       _sqlite.Db_A_Account.ClubName,
+                                       _sqlite.Db_A_Account.MemberCode,
+                                       membername, membername, emp);
+
+            // T_MAGAZINEBUYテーブルクラス設定
+            _magazineBuy = new Table.T_MAGAZINEBUY();
+
             // 地区誌一覧取得
             GetMagazine();
 
             // 地区誌購入欄設定
             SetMagazineInfo();
+
         }
 
 
@@ -62,29 +110,31 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetMagazine()
         {
-            string WorkDataNo = string.Empty;
+            int WorkDataNo = 0;
             string WorkMagazine = string.Empty;
             int WorkMagazineDataNo;
             string WorkBuy = string.Empty;
             Items = new List<MagazineListRow>();
-
-            Table.TableUtil Util = new Table.TableUtil();
+            //Items = new ObservableCollection<MagazineListRow>();
 
             try
             {
                 foreach (Table.MAGAZINE_LIST row in _sqlite.Get_MAGAZINE_LIST("SELECT TM.*, " +
-                                                                              "IFNULL(TMB.MagazineDataNo, 0) " +
+                                                                              "TMB.MagazineDataNo " +
                                                                               "FROM T_MAGAZINE TM " +
                                                                               "LEFT OUTER JOIN T_MAGAZINEBUY TMB " +
                                                                               "ON TM.DataNo = TMB.MagazineDataNo " +
-                                                                              "ORDER BY TM.SortNo DESC"))
+                                                                              "GROUP BY TM.DataNo " +
+                                                                              "ORDER BY TM.SortNo DESC "
+                                                                              ))
                 {
-                    WorkDataNo = row.DataNo.ToString();
-                    WorkMagazine = Util.GetString(row.Magazine);
+                    WorkDataNo = row.DataNo;
+                    WorkMagazine = _utl.GetString(row.Magazine);
                     WorkMagazineDataNo = row.MagazineDataNo;
+                    // 購入済チェック
                     if(WorkMagazineDataNo != 0)
                     {
-                        WorkBuy = "購入済み";
+                        WorkBuy = "購入済";
                     }
                     Items.Add(new MagazineListRow(WorkDataNo, WorkMagazine, WorkBuy));
                 }
@@ -104,15 +154,19 @@ namespace LionsApl.Content
         private void SetMagazineInfo()
         {
             // 変数
-            string wkDataNo = string.Empty;
+            int wkDataNo = 0;
+            int wkPrice = 0;
             string wkMagazine = string.Empty;
-
-            Table.TableUtil Util = new Table.TableUtil();
+            string wkName = string.Empty;
 
             // データ取得
             try
             {
-               
+                // 選択項目クリア
+                _cmagazine.Magazine = string.Empty;
+                _cmagazine.BuyNumber = 0;
+                _cmagazine.MagazinePrice = 0;
+
                 // 初期化
                 _magazinePk.Clear();
 
@@ -122,16 +176,19 @@ namespace LionsApl.Content
                                                                         "WHERE MagazineClass = '1' " +
                                                                         "ORDER BY DataNo" ))
                 {
-                    wkDataNo = row.DataNo.ToString();
-                    wkMagazine = Util.GetString(row.Magazine) + " " + Util.GetInt(row.MagazinePrice).ToString() + "(円)";
-                    _magazinePk.Add(new CMagazinePicker(wkDataNo, wkMagazine));
+                    wkDataNo = row.DataNo;
+                    wkPrice = row.MagazinePrice;
+                    wkMagazine = _utl.GetString(row.Magazine);
+                    wkName = wkMagazine + " " + wkPrice.ToString() + "(円)";
+                    _magazinePk.Add(new CMagazinePicker(wkDataNo, wkName, wkMagazine, wkPrice));
                 }
 
                 // MagazinePickerにCMagazinePickerクラスを設定する
                 MagazinePicker.ItemsSource = _magazinePk;
 
+
                 // 購入可能な地区誌がない場合は地区誌購入欄を非表示にする
-                if(MagazinePicker.ItemsSource.Count == 0)
+                if (MagazinePicker.ItemsSource.Count == 0)
                 {
                     MagazineBuy.IsVisible = false;
                 }
@@ -155,7 +212,7 @@ namespace LionsApl.Content
             MagazineListRow item = e.Item as MagazineListRow;
 
             // 1件もない(メッセージ行のみ表示している)場合は処理しない
-            if (string.IsNullOrEmpty(item.DataNo))
+            if (item.DataNo.Equals(0))
             {
                 ((ListView)sender).SelectedItem = null;
                 return;
@@ -168,6 +225,169 @@ namespace LionsApl.Content
             ((ListView)sender).SelectedItem = null;
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 地区誌選択
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void MagazinePicker_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            var item = MagazinePicker.SelectedItem as CMagazinePicker;
+            if (item != null)
+            {
+                // 購入情報設定
+                _cmagazine.MagazineDataNo = item.DataNo;
+                _cmagazine.Magazine = item.Magazine;
+                _cmagazine.MagazinePrice = item.Price;
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 冊数選択
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void BuyNumberPicker_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            var item = BuyNumberPicker.SelectedItem;
+            if (item != null)
+            {
+                // 購入情報設定
+                _cmagazine.BuyNumber = int.Parse(item.ToString());
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 購入ボタン押下
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private async void Buy_Button_Clicked(object sender, System.EventArgs e)
+        {
+            bool answer = false;
+
+            var item1 = MagazinePicker.SelectedItem as CMagazinePicker;
+            if (item1 != null)
+            {
+                // 購入情報設定
+                _cmagazine.MagazineDataNo = item1.DataNo;
+                _cmagazine.Magazine = item1.Magazine;
+                _cmagazine.MagazinePrice = item1.Price;
+            }
+            var item2 = BuyNumberPicker.SelectedItem as CMagazinePicker;
+            if (item2 != null)
+            {
+                _cmagazine.BuyNumber = int.Parse(item2.ToString());
+            }
+
+            // 選択していない場合はエラーメッセージを表示
+            if (_cmagazine.Magazine.Equals(string.Empty))
+            {
+                await DisplayAlert("地区誌", "購入する地区誌を選択してください。", "OK");
+                return;
+            }
+
+            // 冊数を入力していない場合はエラーメッセージを表示
+            if (_cmagazine.BuyNumber.Equals(0))
+            {
+                await DisplayAlert("地区誌", "冊数を入力して下さい。", "OK");
+                return;
+            }
+
+            _cmagazine.MoneyTotal = _cmagazine.MagazinePrice * _cmagazine.BuyNumber;
+
+            // 購入確認メッセージ
+            answer = await DisplayAlert("購入確認", $"{_cmagazine.Magazine}を{Environment.NewLine}" +
+                                                    $"{_cmagazine.BuyNumber}冊購入しますか？{Environment.NewLine}" +
+                                                    $"合計は{_cmagazine.MoneyTotal}円です。", 
+                                                    "はい", "いいえ");
+            // メッセージ結果判定
+            if (answer)
+            {
+                RegMagazine();
+                await DisplayAlert("購入確認", $"{_cmagazine.Magazine}を購入しました", "OK");
+            }
+            else
+            {
+                await DisplayAlert("購入確認", $"キャンセルしました", "OK");
+            }
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 地区誌購入情報登録（SQLServer＆SQLite）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void RegMagazine()
+        {
+            // 処理日時取得
+            DateTime nowDt = DateTime.Now;
+
+            // 処理日設定
+            _cmagazine.BuyDate = nowDt.ToString();
+            _cmagazine.EditDate = nowDt.ToString();
+
+            // 出欠情報をコンテンツに設定
+            _icom.SetContentToMAGAZINE(_cmagazine);
+            try
+            {
+                // SQLServerへ登録
+                Task<HttpResponseMessage> response = _icom.AsyncPostTextForWebAPI();
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Alert", $"SQLServer 地区誌購入情報登録エラー : &{ex.Message}", "OK");
+                throw;
+            }
+
+            try
+            {
+                // SQLiteへ登録
+                SetMagazineSQlite();
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Alert", $"SQLite 地区誌購入情報登録エラー : &{ex.Message}", "OK");
+                throw;
+            }
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 地区誌購入情報登録（SQLite）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void SetMagazineSQlite()
+        {
+            _magazineBuy.DataNo = 0;
+            _magazineBuy.MagazineDataNo = _cmagazine.MagazineDataNo;
+            _magazineBuy.Magazine = _cmagazine.Magazine;
+            _magazineBuy.BuyDate = _cmagazine.BuyDate;
+            _magazineBuy.BuyNumber = _cmagazine.BuyNumber;
+            _magazineBuy.MagazinePrice = _cmagazine.MagazinePrice;
+            _magazineBuy.MoneyTotal = _cmagazine.MoneyTotal;
+            _magazineBuy.Region = _cmagazine.Region;
+            _magazineBuy.Zone = _cmagazine.Zone;
+            _magazineBuy.ClubCode = _cmagazine.ClubCode;
+            _magazineBuy.ClubNameShort = _cmagazine.ClubNameShort;
+            _magazineBuy.MemberCode = _cmagazine.MemberCode;
+            _magazineBuy.MemberName = _cmagazine.MemberName;
+            _magazineBuy.ShippingDate = string.Empty;
+            _magazineBuy.PaymentDate = string.Empty;
+            _magazineBuy.Payment = 0;
+            _magazineBuy.DelFlg = string.Empty;
+
+            _sqlite.Set_T_MAGAZINEBUY(_magazineBuy);
+        }
+
     }
 
 
@@ -178,16 +398,59 @@ namespace LionsApl.Content
     ///////////////////////////////////////////////////////////////////////////////////////////
     public sealed class MagazineListRow
     {
-        public MagazineListRow(string dataNo, string magazine, string magazineBuy)
+        public MagazineListRow(int dataNo, string magazine, string magazineBuy)
         {
             DataNo = dataNo;
             Magazine = magazine;
             MagazineBuy = magazineBuy;
         }
-        public string DataNo { get; set; }
+        public int DataNo { get; set; }
         public string Magazine { get; set; }
         public string MagazineBuy { get; set; }
     }
+    //public sealed class MagazineListRow : INotifyPropertyChanged
+    //{
+    //    private int dataNo = 0;
+    //    private string magazine = string.Empty;
+    //    private string magazineBuy = string.Empty;
+
+    //    public event PropertyChangedEventHandler PropertyChanged;
+
+    //    public MagazineListRow(int dataNo, string magazine, string magazineBuy)
+    //    {
+    //        DataNo = dataNo;
+    //        Magazine = magazine;
+    //        MagazineBuy = magazineBuy;
+    //    }
+
+    //    public int DataNo 
+    //    { 
+    //        get => this.dataNo; 
+    //        set
+    //        {
+    //            this.DataNo = value;
+    //            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DataNo)));
+    //        }
+    //    }
+    //    public string Magazine
+    //    {
+    //        get => this.magazine;
+    //        set
+    //        {
+    //            this.Magazine = value;
+    //            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Magazine)));
+    //        }
+    //    }
+    //    public string MagazineBuy
+    //    {
+    //        get => this.magazineBuy;
+    //        set
+    //        {
+    //            this.MagazineBuy = value;
+    //            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MagazineBuy)));
+    //        }
+    //    }
+    //}
 
     ///////////////////////////////////////////////////////////////////////////////////////////
     /// <summary>
@@ -196,13 +459,17 @@ namespace LionsApl.Content
     ///////////////////////////////////////////////////////////////////////////////////////////
     public class CMagazinePicker
     {
-        public CMagazinePicker(string dataNo, string name)
+        public CMagazinePicker(int dataNo, string name, string magazine, int price)
         {
             DataNo = dataNo;
             Name = name;
+            Magazine = magazine;
+            Price = price;
         }
-        public string DataNo { get; set; }
+        public int DataNo { get; set; }
         public string Name { get; set; }
+        public string Magazine { get; set; }
+        public int Price { get; set; }
         
     }
 

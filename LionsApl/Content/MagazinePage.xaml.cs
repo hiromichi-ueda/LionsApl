@@ -22,14 +22,14 @@ namespace LionsApl.Content
         public static String FilePath_Magazine = ((App)Application.Current).FilePath_Magazine;      //地区誌PATH
 
         // 前画面からのデータNo取得情報
-        private string _dataNo;
+        private int _dataNo;
 
-        public MagazinePage(string InDataNo)
+        public MagazinePage(int dataNo)
         {
             InitializeComponent();
 
             // DataNo取得(Key)
-            _dataNo = InDataNo;
+            _dataNo = dataNo;
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();

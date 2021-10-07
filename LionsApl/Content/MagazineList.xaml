@@ -85,6 +85,7 @@
                                     Grid.ColumnSpan="1"
                                     Text="{Binding MagazineBuy}" 
                                     Style="{StaticResource List_Base}"
+                                    TextColor="Red"
                                 />
                                 <!-- マーク -->
                                 <Label 
@@ -135,6 +136,7 @@
                                 TitleColor="GRAY"
                                 ItemDisplayBinding="{Binding Name}"
                                 Margin="0,0,8,0"
+                                SelectedIndexChanged="MagazinePicker_SelectedIndexChanged"
                                 >
                         </Picker>
                         <Picker 
@@ -145,6 +147,7 @@
                                 Title="数"
                                 TitleColor="GRAY"
                                 Margin="0,0,8,0"
+                                SelectedIndexChanged="BuyNumberPicker_SelectedIndexChanged"
                                 >
                             <Picker.ItemsSource>
                                 <x:Array Type="{x:Type x:String}">
@@ -176,6 +179,7 @@
                             Grid.Row="0"
                             x:Name="btn_buy"
                             Text="購入する" 
+                            Clicked="Buy_Button_Clicked"
                             >
                         </Button>
                     </Grid>

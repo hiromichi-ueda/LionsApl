@@ -457,8 +457,10 @@ namespace LionsApl.Content
                     foreach (var row in db.Query<Table.T_MAGAZINE>("Select * From T_MAGAZINE"))
                     {
                         ResultLabel.Text += $"----------------------------------------------------------------\r\n" +
-                                            $"{row.Id}, {row.DataNo}, {row.SortNo}, {row.Magazine}, \r\n {row.FilePath},\r\n" +
-                                            $"{row.FileName}, {row.MagazineClass}, {row.MagazinePrice}\r\n";
+                                            $"{row.Id}, {row.DataNo}, {row.SortNo},\r\n" +
+                                            $"{row.Magazine},\r\n" +
+                                            $"{row.FileName},\r\n" +
+                                            $"{row.MagazineClass}, {row.MagazinePrice}\r\n";
                     }
                 }
             }

@@ -23,7 +23,7 @@ namespace LionsApl.Table
         public string MemberName { get; set; }
         public string ShippingDate { get; set; }
         public string PaymentDate { get; set; }
-        public string Payment { get; set; }
+        public int Payment { get; set; }
         public string DelFlg { get; set; }
     }
 }

@@ -1544,6 +1544,47 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
+        /// T_MAGAZINEBUYテーブルデータ登録
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void Set_T_MAGAZINEBUY(Table.T_MAGAZINEBUY magazineBuy)
+        {
+            // データ登録
+            try
+            {
+                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                {
+                    _ = db.Insert(new Table.T_MAGAZINEBUY()
+                    {
+                        DataNo = magazineBuy.DataNo,
+                        MagazineDataNo = magazineBuy.MagazineDataNo,
+                        Magazine = magazineBuy.Magazine,
+                        BuyDate = magazineBuy.BuyDate,
+                        BuyNumber = magazineBuy.BuyNumber,
+                        MagazinePrice = magazineBuy.MagazinePrice,
+                        MoneyTotal = magazineBuy.MoneyTotal,
+                        Region = magazineBuy.Region,
+                        Zone = magazineBuy.Zone,
+                        ClubCode = magazineBuy.ClubCode,
+                        ClubNameShort = magazineBuy.ClubNameShort,
+                        MemberCode = magazineBuy.MemberCode,
+                        MemberName = magazineBuy.MemberName,
+                        ShippingDate = magazineBuy.ShippingDate,
+                        PaymentDate = magazineBuy.PaymentDate,
+                        Payment = magazineBuy.Payment,
+                        DelFlg = magazineBuy.DelFlg
+                    });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
         /// T_EVENTRETテーブルデータ更新
         /// </summary>
         /// <param name="command">更新用SQLコマンド</param>
