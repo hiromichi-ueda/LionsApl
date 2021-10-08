@@ -24,7 +24,7 @@ namespace LionsApl.Content
         private LAUtility _utl;
 
         // 前画面からの取得情報
-        private string _DataNo;             // データNo.
+        private int _dataNo;             // データNo.
 
         // 表示定数
         private readonly string CancelStr = "中止";
@@ -40,12 +40,12 @@ namespace LionsApl.Content
         /// </summary>
         /// <param name="dataNo">データNo</param>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public ClubSchedulePage(string dataNo)
+        public ClubSchedulePage(int dataNo)
         {
             InitializeComponent();
 
             // 一覧から取得
-            _DataNo = dataNo;
+            _dataNo = dataNo;
 
             // Content Utilクラス生成
             _utl = new LAUtility();
@@ -122,7 +122,7 @@ namespace LionsApl.Content
             {
                 foreach (Table.T_MEETINGSCHEDULE row in _sqlite.Get_T_MEETINGSCHEDULE("Select * " +
                                                                     "From T_MEETINGSCHEDULE " +
-                                                                    "Where DataNo = '" + _DataNo + "'"))
+                                                                    "Where DataNo = '" + _dataNo + "'"))
                 {
 
                     // 例会日
@@ -150,24 +150,30 @@ namespace LionsApl.Content
                     MeetingPlace.Text = _utl.GetString(row.MeetingPlace);
 
                     // 備考項目名（例会備考1～10）
-                    WrkRIStr = _utl.GetString(row.RemarksItems).TrimEnd(',');
-                    string[] WrkRIStrArr = WrkRIStr.Split(',');
+                    WrkRIStr = _utl.GetString(row.RemarksItems);
                     // 備考（例会備考1～10）
-                    WrkRCStr = _utl.GetString(row.RemarksCheck).TrimEnd(',');
-                    string[] WrkRCStrArr = WrkRCStr.Split(',');
+                    WrkRCStr = _utl.GetString(row.RemarksCheck);
 
-                    // 備考作成
-                    int idx = 0;
-                    foreach (string ws in WrkRCStrArr)
+                    // 備考項目名（例会備考1～10）と備考（例会備考1～10）が両方存在する場合
+                    if (!WrkRIStr.Equals(string.Empty) &&
+                        !WrkRCStr.Equals(string.Empty))
                     {
-                        idx = int.Parse(ws) - 1;
-                        WrkRStr += WrkRIStrArr[idx] + '、';
+                        string[] WrkRIStrArr = WrkRIStr.TrimEnd(',').Split(',');
+                        string[] WrkRCStrArr = WrkRCStr.TrimEnd(',').Split(',');
+
+                        // 備考作成
+                        int idx = 0;
+                        foreach (string ws in WrkRCStrArr)
+                        {
+                            idx = int.Parse(ws) - 1;
+                            WrkRStr += WrkRIStrArr[idx] + '、';
+                        }
+                        RemarksItems.Text = WrkRStr.TrimEnd('、');
                     }
-                    RemarksItems.Text = WrkRStr.TrimEnd('、');
 
                     // 備考欄
                     RemarksStr = _utl.GetString(row.Remarks);
-                    if (RemarksStr != string.Empty)
+                    if (!RemarksStr.Equals(string.Empty))
                     {
                         Remarks = _utl.CreateLabel_Style(RemarksStr,
                                                        NamedSize.Default,
@@ -375,7 +381,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(T_MEETINGSCHEDULE) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(T_MEETINGSCHEDULE) : {ex.Message}", "OK");
             }
 
         }

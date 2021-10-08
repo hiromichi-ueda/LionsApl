@@ -27,6 +27,9 @@ namespace LionsApl
             // SQLクラス
             sqliteManager = SQLiteManager.GetInstance();
 
+            // 開発用ボタン
+            //Develop.IsVisible = false;
+
         }
 
 
@@ -81,6 +84,18 @@ namespace LionsApl
             
             // アカウント設定画面表示
             Application.Current.MainPage = new Content.AccountSetting();
+
+        }
+
+        //---------------------------------------
+        // アップデート
+        //---------------------------------------
+        async void Button_Update_Clicked(object sender, System.EventArgs e)
+        {
+            // 処理中ダイアログ表示
+            await ((App)Application.Current).DispLoadingDialog();
+
+
 
         }
 
@@ -555,6 +570,11 @@ namespace LionsApl
             EndText.Text = edDt.ToString();
         }
 
+
+        private void CheckDB3File()
+        {
+
+        }
 
 
     }

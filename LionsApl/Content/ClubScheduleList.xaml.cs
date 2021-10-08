@@ -4,12 +4,18 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace LionsApl.Content
 {
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// 年間例会スケジュール一覧クラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ClubScheduleList : ContentPage
     {
@@ -21,6 +27,7 @@ namespace LionsApl.Content
 
         // リストビュー設定内容
         public List<ClubScheduleRow> Items { get; set; }
+        //public ObservableCollection<ClubScheduleRow> Items;
 
         // 表示定数
         private readonly string CancelStr = "中止";
@@ -64,7 +71,7 @@ namespace LionsApl.Content
 
             ClubScheduleRow item = e.Item as ClubScheduleRow;
 
-            if (string.IsNullOrEmpty(item.DataNo))
+            if (item.DataNo == 0)
             {
                 ((ListView)sender).SelectedItem = null;
                 return;
@@ -85,14 +92,13 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetClubSchedule()
         {
-            string WorkDataNo = string.Empty;
+            int WorkDataNo = 0;
             string WorkDate = string.Empty;
             string WorkTitle = string.Empty;
             string WorkCancel = string.Empty;
             string nowFiscal = string.Empty;
             Items = new List<ClubScheduleRow>();
-
-            //Table.TableUtil Util = new Table.TableUtil();
+            //Items = new ObservableCollection<ClubScheduleRow>();
 
             // 処理日時取得
             DateTime nowDt = DateTime.Now;
@@ -106,7 +112,7 @@ namespace LionsApl.Content
                                                                     "Where Fiscal = '" + nowFiscal + "' " +
                                                                     "ORDER BY MeetingDate ASC, MeetingTime ASC"))
                 {
-                    WorkDataNo = row.DataNo.ToString();
+                    WorkDataNo = row.DataNo;
                     WorkDate = _utl.GetString(row.MeetingDate).Substring(0, 10) + "  " + _utl.GetString(row.MeetingTime);
                     WorkCancel = "";
                     if (_utl.GetString(row.CancelFlg) == "1")
@@ -125,7 +131,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(T_LETTER) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(T_LETTER) : {ex.Message}", "OK");
             }
         }
     }
@@ -137,18 +143,97 @@ namespace LionsApl.Content
     ///////////////////////////////////////////////////////////////////////////////////////////
     public sealed class ClubScheduleRow
     {
-        public ClubScheduleRow(string dataNo, string dateTime, string cancel, string title)
+
+        public ClubScheduleRow(int dataNo, string dateTime, string cancel, string title)
         {
             DataNo = dataNo;
             DateTime = dateTime;
             CancelFlg = cancel;
             Title = title;
         }
-        public string DataNo { get; set; }
+        public int DataNo { get; set; }
         public string DateTime { get; set; }
         public string CancelFlg { get; set; }
         public string Title { get; set; }
     }
+    //public sealed class ClubScheduleRow : INotifyPropertyChanged
+    //{
+    //    public event PropertyChangedEventHandler PropertyChanged;
+
+    //    private int _dataNo = 0;
+    //    private string _dateTime = string.Empty;
+    //    private string _cancelFlg = string.Empty;
+    //    private string _title = string.Empty;
+
+    //    public ClubScheduleRow(int dataNo, string dateTime, string cancelFlg, string title)
+    //    {
+    //        DataNo = dataNo;
+    //        DateTime = dateTime;
+    //        CancelFlg = cancelFlg;
+    //        Title = title;
+    //    }
+
+    //    public int DataNo 
+    //    {
+    //        get { return _dataNo; }
+    //        set 
+    //        { 
+    //            if (_dataNo != value)
+    //            {
+    //                _dataNo = value;
+    //                if (PropertyChanged != null)
+    //                {
+    //                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(DataNo)));
+    //                }
+    //            }
+    //        } 
+    //    }
+    //    public string DateTime
+    //    {
+    //        get { return _dateTime; }
+    //        set 
+    //        {
+    //            if (_dateTime != value)
+    //            {
+    //                _dateTime = value;
+    //                if (PropertyChanged != null)
+    //                {
+    //                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(DateTime)));
+    //                }
+    //            }
+    //        }
+    //    }
+    //    public string CancelFlg 
+    //    {
+    //        get { return _cancelFlg; }
+    //        set
+    //        {
+    //            if (_cancelFlg != value)
+    //            {
+    //                _cancelFlg = value;
+    //                if (PropertyChanged != null)
+    //                {
+    //                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(CancelFlg)));
+    //                }
+    //            }
+    //        }
+    //    }
+    //    public string Title 
+    //    {
+    //        get { return _title; }
+    //        set 
+    //        {
+    //            if (_title != value)
+    //            {
+    //                _title = value;
+    //                if (PropertyChanged != null)
+    //                {
+    //                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(Title)));
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 
     public class MyClubScheduleSelector : DataTemplateSelector
     {
@@ -160,7 +245,7 @@ namespace LionsApl.Content
         {
             // 条件より該当するテンプレートを返す
             var info = (ClubScheduleRow)item;
-            if (!String.IsNullOrEmpty(info.DataNo))
+            if (info.DataNo != 0)
             {
                 return ExistDataTemplate;
             }

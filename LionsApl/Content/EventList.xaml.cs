@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -18,7 +19,6 @@ namespace LionsApl.Content
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EventList : ContentPage
     {
-
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
@@ -26,7 +26,7 @@ namespace LionsApl.Content
         private LAUtility _utl;
 
         // リストビュー設定内容
-        public List<EventRow> Items { get; set; }
+        public ObservableCollection<EventRow> Items;
 
         // 文字列定数
         private string ST_EVENT_1 = "[キャビネット]";
@@ -78,6 +78,18 @@ namespace LionsApl.Content
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
+        /// 表示時の更新
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            //DisplayAlert("Disp", "OnAppearing", "OK");
+            UpdEventData();
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
         /// タップ処理
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -116,8 +128,7 @@ namespace LionsApl.Content
             string strCancel = "";                          // 中止表示用文字列
             string strTitle = "";                           // タイトル設定用文字列
             string strAnswer = "";                          // 出欠設定用文字列
-            List<EventRow> items = new List<EventRow>();
-
+            Items = new ObservableCollection<EventRow>();
 
             try
             {
@@ -180,15 +191,100 @@ namespace LionsApl.Content
 
                     // イベントリスト行クラスを作成する。
                     EventRow eventRow = new EventRow(intDataNo, intEventDataNo, strDate, strCancel, strTitle, strAnswer);
-                    items.Add(eventRow);
+                    Items.Add(eventRow);
                 }
-                EventListView.ItemsSource = items;
+                EventListView.ItemsSource = Items;
             }
             catch (Exception ex)
             {
                 DisplayAlert("Alert", $"SQLite検索エラー(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE/T_DIRECTOR) : {ex.Message}", "OK");
             }
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// イベント情報をSQLiteファイルから取得して画面に設定する。(更新用)
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void UpdEventData()
+        {
+            int intDataNo = 0;                              // データNo.設定用
+            int intEventDataNo = 0;                         // イベントデータNo.設定用
+            string strDate = "";                            // 月日設定用文字列
+            string strCancel = "";                          // 中止表示用文字列
+            string strTitle = "";                           // タイトル設定用文字列
+            string strAnswer = "";                          // 出欠設定用文字列
+            int idx = 0;
+
+            try
+            {
+                foreach (Table.EVENT_LIST row in _sqlite.Get_EVENT_LIST(
+                                        "SELECT " +
+                                            "t1.DataNo AS DataNo, " +
+                                            "t1.EventClass AS EventClass, " +
+                                            "t1.EventDataNo AS EventDataNo, " +
+                                            "t1.EventDate AS EventDate, " +
+                                            "t1.ClubCode AS ClubCode, " +
+                                            "t1.MemberCode AS MemberCode, " +
+                                            "t1.Answer AS Answer, " +
+                                            "t1.CancelFlg AS CancelFlg, " +
+                                            "t2.EventPlace AS EventPlace, " +
+                                            "t2.Title AS Title, " +
+                                            "t3.MeetingName AS MeetingName," +
+                                            "t3.MeetingPlace AS MeetingPlace," +
+                                            "t4.Subject AS Subject," +
+                                            "t4.EventClass AS ClubEventClass, " +
+                                            "t4.EventPlace AS ClubEventPlace " +
+                                        "FROM " +
+                                            "T_EVENTRET t1 " +
+                                        "LEFT OUTER JOIN " +
+                                            "T_EVENT t2 " +
+                                        "ON " +
+                                            "t1.EventClass = '1' and " +
+                                            "t1.EventDataNo = t2.DataNo " +
+                                        "LEFT OUTER JOIN " +
+                                            "T_MEETINGSCHEDULE t3 " +
+                                        "ON " +
+                                            "t1.EventClass = '2' and " +
+                                            "t1.EventDataNo = t3.DataNo " +
+                                        "LEFT OUTER JOIN " +
+                                            "T_DIRECTOR t4 " +
+                                        "ON " +
+                                            "t1.EventClass = '3' and " +
+                                            "t1.EventDataNo = t4.DataNo " +
+                                        "WHERE " +
+                                            "t1.MemberCode = '" + _sqlite.Db_A_Account.MemberCode + "' " +
+                                        "ORDER BY t1.EventDate DESC, t1.DataNo DESC"))
+
+
+                {
+                    intDataNo = 0;                           // データNo.設定用
+                    intEventDataNo = 0;                      // イベントデータNo.設定用
+                    strDate = "";                            // 月日設定用文字列
+                    strCancel = "";                          // 中止表示用文字列
+                    strTitle = "";                           // タイトル設定用文字列
+                    strAnswer = "";                          // 出欠設定用文字列
+
+                    // イベントリストの各項目値を取得する
+                    GetEventListData(row,
+                                     ref intDataNo,
+                                     ref intEventDataNo,
+                                     ref strDate,
+                                     ref strCancel,
+                                     ref strTitle,
+                                     ref strAnswer);
+
+                    // 出欠を設定
+                    Items[idx].Answer = strAnswer;
+                    idx++;
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Alert", $"SQLite検索エラー(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE/T_DIRECTOR) : {ex.Message}", "OK");
+            }
+        }
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -316,8 +412,17 @@ namespace LionsApl.Content
     /// イベントリスト行クラス
     /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-    public sealed class EventRow
+    public sealed class EventRow : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private int _dataNo = 0;
+        private int _eventDataNo = 0;
+        private string _eventDate = string.Empty;
+        private string _eventCancel = string.Empty;
+        private string _title = string.Empty;
+        private string _answer = string.Empty;
+
         public EventRow(int dataNo, int eventDataNo, string eventDate, string eventCancel, string title, string answer)
         {
             DataNo = dataNo;
@@ -327,13 +432,103 @@ namespace LionsApl.Content
             Title = title;
             Answer = answer;
         }
-        public int DataNo { get; set; }
-        public int EventDataNo { get; set; }
-        public string EventDate { get; set; }
-        public string EventCancel { get; set; }
-        public string Title { get; set; }
-        public string Answer { get; set; }
+
+        public int DataNo 
+        {
+            get { return _dataNo; } 
+            set
+            {
+                if (_dataNo != value)
+                {
+                    _dataNo = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs(nameof(DataNo)));
+                    }
+                }
+            }
+        }
+
+        public int EventDataNo
+        {
+            get { return _eventDataNo; }
+            set
+            {
+                if (_eventDataNo != value)
+                {
+                    _eventDataNo = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs(nameof(EventDataNo)));
+                    }
+                }
+            }
+        }
+
+        public string EventDate
+        {
+            get { return _eventDate; }
+            set
+            {
+                if (_eventDate != value)
+                {
+                    _eventDate = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs(nameof(EventDate)));
+                    }
+                }
+            }
+        }
+
+        public string EventCancel
+        {
+            get { return _eventCancel; }
+            set
+            {
+                if (_eventCancel != value)
+                {
+                    _eventCancel = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs(nameof(EventCancel)));
+                    }
+                }
+            }
+        }
+
+        public string Title
+        {
+            get { return _title; }
+            set
+            {
+                if (_title != value)
+                {
+                    _title = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs(nameof(Title)));
+                    }
+                }
+            }
+        }
+        public string Answer
+        {
+            get { return _answer; }
+            set
+            {
+                if (_answer != value)
+                {
+                    _answer = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs(nameof(Answer)));
+                    }
+                }
+            }
+        }
     }
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////
     /// <summary>

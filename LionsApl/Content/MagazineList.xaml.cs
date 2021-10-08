@@ -36,12 +36,15 @@ namespace LionsApl.Content
         private CMAGAZINE _cmagazine;
 
         // リストビュー設定内容
-        public List<MagazineListRow> Items { get; set; }
-        //public ObservableCollection<MagazineListRow> Items = new ObservableCollection<MagazineListRow>();
+        //public List<MagazineListRow> Items { get; set; }
+        public ObservableCollection<MagazineListRow> Items;
 
         // Magazineピッカークラス
         public ObservableCollection<CMagazinePicker> _magazinePk = new ObservableCollection<CMagazinePicker>();
 
+        // 文字列
+        private string ST_MSGTITLE = "地区誌";
+        private string ST_PURCHASED = "購入済";
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -114,8 +117,8 @@ namespace LionsApl.Content
             string WorkMagazine = string.Empty;
             int WorkMagazineDataNo;
             string WorkBuy = string.Empty;
-            Items = new List<MagazineListRow>();
-            //Items = new ObservableCollection<MagazineListRow>();
+            //Items = new List<MagazineListRow>();
+            Items = new ObservableCollection<MagazineListRow>();
 
             try
             {
@@ -134,7 +137,8 @@ namespace LionsApl.Content
                     // 購入済チェック
                     if(WorkMagazineDataNo != 0)
                     {
-                        WorkBuy = "購入済";
+                        // 文字列設定
+                        WorkBuy = ST_PURCHASED;
                     }
                     Items.Add(new MagazineListRow(WorkDataNo, WorkMagazine, WorkBuy));
                 }
@@ -142,7 +146,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(MAGAZINE_LIST) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(MAGAZINE_LIST) : {ex.Message}", "OK");
             }
         }
 
@@ -195,13 +199,13 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(T_MAGAZINE) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(T_MAGAZINE) : {ex.Message}", "OK");
             }
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// タップ処理
+        /// リストタップ処理
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
         void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -289,33 +293,36 @@ namespace LionsApl.Content
             // 選択していない場合はエラーメッセージを表示
             if (_cmagazine.Magazine.Equals(string.Empty))
             {
-                await DisplayAlert("地区誌", "購入する地区誌を選択してください。", "OK");
+                await DisplayAlert(ST_MSGTITLE, "購入する地区誌を選択してください。", "OK");
                 return;
             }
 
             // 冊数を入力していない場合はエラーメッセージを表示
             if (_cmagazine.BuyNumber.Equals(0))
             {
-                await DisplayAlert("地区誌", "冊数を入力して下さい。", "OK");
+                await DisplayAlert(ST_MSGTITLE, "冊数を入力して下さい。", "OK");
                 return;
             }
 
             _cmagazine.MoneyTotal = _cmagazine.MagazinePrice * _cmagazine.BuyNumber;
 
             // 購入確認メッセージ
-            answer = await DisplayAlert("購入確認", $"{_cmagazine.Magazine}を{Environment.NewLine}" +
-                                                    $"{_cmagazine.BuyNumber}冊購入しますか？{Environment.NewLine}" +
-                                                    $"合計は{_cmagazine.MoneyTotal}円です。", 
-                                                    "はい", "いいえ");
+            answer = await DisplayAlert(ST_MSGTITLE, $"{_cmagazine.Magazine}を{Environment.NewLine}" +
+                                                     $"{_cmagazine.BuyNumber}冊購入しますか？{Environment.NewLine}" +
+                                                     $"合計は{_cmagazine.MoneyTotal}円です。", 
+                                                     "はい", "いいえ");
             // メッセージ結果判定
             if (answer)
             {
+                // 地区誌購入情報登録（SQLServer＆SQLite）
                 RegMagazine();
-                await DisplayAlert("購入確認", $"{_cmagazine.Magazine}を購入しました", "OK");
+                // メッセージ表示
+                await DisplayAlert(ST_MSGTITLE, $"{_cmagazine.Magazine}を購入しました", "OK");
+                UpdateMagazineList();
             }
             else
             {
-                await DisplayAlert("購入確認", $"キャンセルしました", "OK");
+                await DisplayAlert(ST_MSGTITLE, $"キャンセルしました", "OK");
             }
 
         }
@@ -343,7 +350,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLServer 地区誌購入情報登録エラー : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLServer 地区誌購入情報登録エラー : {ex.Message}", "OK");
                 throw;
             }
 
@@ -354,7 +361,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite 地区誌購入情報登録エラー : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite 地区誌購入情報登録エラー : {ex.Message}", "OK");
                 throw;
             }
 
@@ -388,6 +395,18 @@ namespace LionsApl.Content
             _sqlite.Set_T_MAGAZINEBUY(_magazineBuy);
         }
 
+
+        private void UpdateMagazineList()
+        {
+            foreach(var item in Items)
+            {
+                if(item.DataNo.Equals(_cmagazine.MagazineDataNo))
+                {
+                    item.MagazineBuy = ST_PURCHASED;
+                }
+            }
+        }
+
     }
 
 
@@ -396,61 +415,68 @@ namespace LionsApl.Content
     /// 地区誌 行クラス
     /// </summary>
     ///////////////////////////////////////////////////////////////////////////////////////////
-    public sealed class MagazineListRow
+    public sealed class MagazineListRow : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private int _dataNo = 0;
+        private string _magazine = string.Empty;
+        private string _magazineBuy = string.Empty;
+
         public MagazineListRow(int dataNo, string magazine, string magazineBuy)
         {
             DataNo = dataNo;
             Magazine = magazine;
             MagazineBuy = magazineBuy;
         }
-        public int DataNo { get; set; }
-        public string Magazine { get; set; }
-        public string MagazineBuy { get; set; }
+
+        public int DataNo
+        {
+            get { return _dataNo; }
+            set
+            {
+                if (_dataNo != value)
+                {
+                    _dataNo = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs(nameof(DataNo)));
+                    }
+                }
+            }
+        }
+        public string Magazine
+        {
+            get { return _magazine; }
+            set
+            {
+                if (_magazine != value)
+                {
+                    _magazine = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs(nameof(Magazine)));
+                    }
+                }
+            }
+        }
+        public string MagazineBuy
+        {
+            get { return _magazineBuy; }
+            set
+            {
+                if (_magazineBuy != value)
+                {
+                    _magazineBuy = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs(nameof(MagazineBuy)));
+
+                    }
+                }
+            }
+        }
     }
-    //public sealed class MagazineListRow : INotifyPropertyChanged
-    //{
-    //    private int dataNo = 0;
-    //    private string magazine = string.Empty;
-    //    private string magazineBuy = string.Empty;
-
-    //    public event PropertyChangedEventHandler PropertyChanged;
-
-    //    public MagazineListRow(int dataNo, string magazine, string magazineBuy)
-    //    {
-    //        DataNo = dataNo;
-    //        Magazine = magazine;
-    //        MagazineBuy = magazineBuy;
-    //    }
-
-    //    public int DataNo 
-    //    { 
-    //        get => this.dataNo; 
-    //        set
-    //        {
-    //            this.DataNo = value;
-    //            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DataNo)));
-    //        }
-    //    }
-    //    public string Magazine
-    //    {
-    //        get => this.magazine;
-    //        set
-    //        {
-    //            this.Magazine = value;
-    //            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Magazine)));
-    //        }
-    //    }
-    //    public string MagazineBuy
-    //    {
-    //        get => this.magazineBuy;
-    //        set
-    //        {
-    //            this.MagazineBuy = value;
-    //            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MagazineBuy)));
-    //        }
-    //    }
-    //}
 
     ///////////////////////////////////////////////////////////////////////////////////////////
     /// <summary>

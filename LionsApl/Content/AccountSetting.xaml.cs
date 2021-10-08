@@ -133,7 +133,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(リジョン) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(リジョン) : {ex.Message}", "OK");
             }
         }
 
@@ -160,7 +160,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"Picker検索エラー(リジョン) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"Picker検索エラー(リジョン) : {ex.Message}", "OK");
             }
             return idx;
         }
@@ -203,7 +203,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(ゾーン) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(ゾーン) : {ex.Message}", "OK");
             }
         }
 
@@ -231,7 +231,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"Picker検索エラー(ゾーン) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"Picker検索エラー(ゾーン) : {ex.Message}", "OK");
             }
 
             return idx;
@@ -273,7 +273,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(クラブ) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(クラブ) : {ex.Message}", "OK");
             }
         }
 
@@ -300,7 +300,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"Picker検索エラー(クラブ) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"Picker検索エラー(クラブ) : {ex.Message}", "OK");
             }
             return idx;
         }
@@ -343,7 +343,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(会員) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(会員) : {ex.Message}", "OK");
             }
         }
 
@@ -370,7 +370,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"Picker検索エラー(会員) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"Picker検索エラー(会員) : {ex.Message}", "OK");
             }
             return idx;
         }
@@ -586,7 +586,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(アカウント情報) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(アカウント情報) : {ex.Message}", "OK");
             }
         }
 
@@ -607,7 +607,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite登録エラー(アカウント情報) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite登録エラー(アカウント情報) : {ex.Message}", "OK");
             }
         }
     }

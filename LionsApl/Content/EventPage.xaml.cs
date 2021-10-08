@@ -125,8 +125,6 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void File_Button_Clicked(object sender, System.EventArgs e)
         {
-            //DisplayAlert("Disp", $"詳細を見る", "OK");
-
             //Navigation.PushModalAsync(new EventPageFile(_dataNo, _fileName));
             Navigation.PushAsync(new EventPageFile(_dataNo, _fileName));
         }
@@ -169,7 +167,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLServer 出席情報登録エラー : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLServer 出席情報登録エラー : {ex.Message}", "OK");
             }
 
             try
@@ -179,7 +177,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite 出席情報登録エラー : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite 出席情報登録エラー : {ex.Message}", "OK");
             }
 
             DisplayAlert("出欠確認", $"出席情報を登録しました。", "OK");
@@ -308,9 +306,6 @@ namespace LionsApl.Content
                     //recInfo += "オンライン参加=OFF\r\n";
                 }
             }
-
-            //DisplayAlert("Disp", $"キャビネット/出席\r\n{recInfo}", "OK");
-
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -442,9 +437,6 @@ namespace LionsApl.Content
                 _ceventret.OtherCount = int.Parse(MI_OtherUser.Items[MI_OtherUser.SelectedIndex]);
                 //recInfo += "人数=" + MI_OtherUser.Items[MI_OtherUser.SelectedIndex] + "\r\n";
             }
-
-            //DisplayAlert("Disp", $"例会/出席\r\n{recInfo}", "OK");
-
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -482,17 +474,17 @@ namespace LionsApl.Content
             _ceventret.Option5 = string.Empty;
             _ceventret.OtherCount = 0;
 
-            DisplayAlert("Disp", $"Answer : {_ceventret.Answer}" + Environment.NewLine +
-                                 $"AnswerLate : {_ceventret.AnswerLate}" + Environment.NewLine +
-                                 $"AnswerEarly : {_ceventret.AnswerEarly}" + Environment.NewLine +
-                                 $"Online : {_ceventret.Online}" + Environment.NewLine +
-                                 $"Option1 : {_ceventret.Option1}" + Environment.NewLine +
-                                 $"Option2 : {_ceventret.Option2}" + Environment.NewLine +
-                                 $"Option3 : {_ceventret.Option3}" + Environment.NewLine +
-                                 $"Option4 : {_ceventret.Option4}" + Environment.NewLine +
-                                 $"Option5 : {_ceventret.Option5}" + Environment.NewLine +
-                                 $"OtherCount : {_ceventret.OtherCount}" + Environment.NewLine
-                         , "OK");
+            //DisplayAlert("Disp", $"Answer : {_ceventret.Answer}" + Environment.NewLine +
+            //                     $"AnswerLate : {_ceventret.AnswerLate}" + Environment.NewLine +
+            //                     $"AnswerEarly : {_ceventret.AnswerEarly}" + Environment.NewLine +
+            //                     $"Online : {_ceventret.Online}" + Environment.NewLine +
+            //                     $"Option1 : {_ceventret.Option1}" + Environment.NewLine +
+            //                     $"Option2 : {_ceventret.Option2}" + Environment.NewLine +
+            //                     $"Option3 : {_ceventret.Option3}" + Environment.NewLine +
+            //                     $"Option4 : {_ceventret.Option4}" + Environment.NewLine +
+            //                     $"Option5 : {_ceventret.Option5}" + Environment.NewLine +
+            //                     $"OtherCount : {_ceventret.OtherCount}" + Environment.NewLine
+            //             , "OK");
 
             // 出欠情報をコンテンツに設定
             _icom.SetContentToEVENTRET(_ceventret);
@@ -503,7 +495,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLServer 欠席情報登録エラー : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLServer 欠席情報登録エラー : {ex.Message}", "OK");
             }
 
             try
@@ -513,7 +505,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite 欠席情報登録エラー : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite 欠席情報登録エラー : {ex.Message}", "OK");
             }
 
             DisplayAlert("出欠確認", $"欠席情報を登録しました。", "OK");
@@ -706,7 +698,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE/T_DIRECTOR) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE/T_DIRECTOR) : {ex.Message}", "OK");
             }
         }
 

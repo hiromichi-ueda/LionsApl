@@ -63,7 +63,14 @@
                                 Clicked="Button_Account_Clicked" 
                                 >
                             </Button>
-                            
+                            <!-- アップデート -->
+                            <Button 
+                                x:Name="update"
+                                Text="アップデート" 
+                                Clicked="Button_Update_Clicked" 
+                                >
+                            </Button>
+
                         </StackLayout>
                         
                         <!-- 
@@ -72,6 +79,7 @@
                         ************************************
                         -->
                         <StackLayout
+                            x:Name="Develop"
                             Padding="48,0,48,10"
                             >
                             <Label FontSize="Caption" Text="＜各画面遷移関連＞" />
