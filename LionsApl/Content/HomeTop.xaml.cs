@@ -24,10 +24,13 @@ namespace LionsApl.Content
         // Utilityクラス
         private LAUtility _utl;
 
+        // 現在日時
+        private DateTime _nowDt;
+
         // 表示用文字列
-        string NoSloganStr = "スローガン情報はありません。";
-        string NoLetterStr = "キャビネットレター情報はありません。";
-        string NoEventStr = "参加予定のイベントはありません。";
+        string ST_NOSLOGAN = "スローガン情報はありません。";
+        string ST_NOLETTER = "キャビネットレター情報はありません。";
+        string ST_NOEVENT = "参加予定のイベントはありません。";
 
         // 定数
         int LETTER_MAXROW = 5;
@@ -46,9 +49,12 @@ namespace LionsApl.Content
             this.LabelSlogun.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.LabelDistrictGovernor.FontSize = Device.GetNamedSize(NamedSize.Caption, typeof(Label));
 
+            // 処理日時取得
+            _nowDt = DateTime.Now;
+
             // 画面表示の初期化
             // Slogan
-            LabelSlogun.Text = NoSloganStr;
+            LabelSlogun.Text = ST_NOSLOGAN;
             LabelDistrictGovernor.Text = "";
 
             // SQLite マネージャークラス生成
@@ -69,12 +75,23 @@ namespace LionsApl.Content
             // ログイン情報設定
             LoginInfo.Text = _sqlite.LoginInfo;
 
-
             // スローガン情報取得
             SetSlogan();
 
             // キャビネットレター情報取得
             SetLetterLt();
+
+            // 参加予定一覧情報取得
+            SetEventLt();
+
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // 処理日時取得
+            _nowDt = DateTime.Now;
 
             // 参加予定一覧情報取得
             SetEventLt();
@@ -195,6 +212,7 @@ namespace LionsApl.Content
             int idx = 0;
 
             _letterLt.Clear();
+            //LetterStackLayout.Children.Clear();
 
             try
             {
@@ -231,7 +249,7 @@ namespace LionsApl.Content
                 // キャビネットレターがない場合
                 if (idx == 0)
                 {
-                    HomeTopNoData letterRow = new HomeTopNoData(NoLetterStr,
+                    HomeTopNoData letterRow = new HomeTopNoData(ST_NOLETTER,
                                                                 Device.GetNamedSize(NamedSize.Caption, typeof(Label)));
                     // StackLayoutにコントロールテンプレートを追加
                     LetterStackLayout.Children.Add(letterRow);
@@ -255,13 +273,18 @@ namespace LionsApl.Content
             int idx = 0;
             int intDataNo = 0;                              // データNo.設定用
             int intEventDataNo = 0;                         // イベントデータNo.設定用
-            string strTitle = "";                           // タイトル設定用文字列
-            string strDate = "";                            // 月日設定用文字列
-            string strCount = "";                           // 日数設定用文字列
-            string strCancel = "";                          // 中止表示用文字列
-            string strAnswer = "";                          // 出欠設定用文字列
+            string strClass = string.Empty;                 // イベントクラス用文字列
+            string strTitle = string.Empty;                 // タイトル設定用文字列
+            string strDate = string.Empty;                  // 月日設定用文字列
+            string strCount = string.Empty;                 // 日数設定用文字列
+            string strCancel = string.Empty;                // 中止表示用文字列
+            string strAnswer = string.Empty;                // 出欠設定用文字列
+            string strAnswerDate = string.Empty;            // 回答期限日用文字列
+            string strAnswerTime = string.Empty;            // 回答期限時間用文字列
 
             _eventLt.Clear();
+            EventStackLayout.Children.Clear();
+
             try
             {
                 foreach (Table.HOME_EVENT row in _sqlite.Get_HOME_EVENT(
@@ -276,7 +299,11 @@ namespace LionsApl.Content
                                             "t1.CancelFlg, " +
                                             "t2.Title, " +
                                             "t3.MeetingName," +
-                                            "t4.Subject " +
+                                            "t4.Subject, " +
+                                            "t2.AnswerDate AS AnswerDateEv, " +
+                                            "t3.AnswerDate AS AnswerDateMe, " +
+                                            "t3.AnswerTime, " +
+                                            "t4.AnswerDate AS AnswerDateDi " +
                                         "FROM " +
                                             "T_EVENTRET t1 " +
                                         "LEFT OUTER JOIN " +
@@ -300,21 +327,25 @@ namespace LionsApl.Content
                 {
                     intDataNo = 0;                           // データNo.設定用
                     intEventDataNo = 0;                      // イベントデータNo.設定用
-                    strTitle = "";                           // タイトル設定用文字列
-                    strDate = "";                            // 月日設定用文字列
-                    strCount = "";                           // 日数設定用文字列
-                    strCancel = "";                          // 中止表示用文字列
-                    strAnswer = "";                          // 出欠設定用文字列
+                    strClass = string.Empty;                 // イベントクラス用文字列
+                    strTitle = string.Empty;                 // タイトル設定用文字列
+                    strDate = string.Empty;                  // 月日設定用文字列
+                    strCount = string.Empty;                 // 日数設定用文字列
+                    strCancel = string.Empty;                // 中止表示用文字列
+                    strAnswer = string.Empty;                // 出欠設定用文字列
 
                     // イベントリストの各項目値を取得する
                     GetEventListData(row, 
                                      ref intDataNo, 
                                      ref intEventDataNo,
+                                     ref strClass, 
                                      ref strDate, 
                                      ref strTitle, 
                                      ref strCount, 
                                      ref strCancel, 
-                                     ref strAnswer);
+                                     ref strAnswer,
+                                     ref strAnswerDate,
+                                     ref strAnswerTime);
 
                     // イベント出欠に回答していない場合
                     if (strAnswer == "")
@@ -323,16 +354,24 @@ namespace LionsApl.Content
                         continue;
                     }
 
+                    // 回答期限チェック
+                    if (_utl.ChkDate(strDate, string.Empty, _nowDt))
+                    {
+                        // 対象外として次のデータへ
+                        continue;
+                    }
+
                     // コントロールテンプレートを作成
                     HomeTopEvent eventRow = new HomeTopEvent(intDataNo,
-                                                            strDate,
+                                                            strDate.Substring(5, 5),
                                                             strTitle,
                                                             strCount,
                                                             strCancel,
                                                             Device.GetNamedSize(NamedSize.Caption, typeof(Label)));
                     // Labelタップ時の処理追加
+                    // ※intDataN･intEventDataNoを指定すると、最後に設定した値しか渡らないので注意！
                     TapGestureRecognizer tgr0 = new TapGestureRecognizer();
-                    tgr0.Tapped += (s, e) => { EventRow_Tap(s, e, intDataNo, intEventDataNo); };
+                    tgr0.Tapped += (s, e) => { EventRow_Tap(s, e, row.DataNo, row.EventDataNo); };
                     eventRow.GestureRecognizers.Add(tgr0);
 
                     // StackLayoutにコントロールテンプレートを追加
@@ -351,7 +390,7 @@ namespace LionsApl.Content
                 // 参加イベントがない場合
                 if (idx == 0)
                 {
-                    HomeTopNoData eventRow = new HomeTopNoData(NoEventStr,
+                    HomeTopNoData eventRow = new HomeTopNoData(ST_NOEVENT,
                                                                Device.GetNamedSize(NamedSize.Caption, typeof(Label)));
                     // StackLayoutにコントロールテンプレートを追加
                     EventStackLayout.Children.Add(eventRow);
@@ -364,6 +403,7 @@ namespace LionsApl.Content
             }
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// イベントリストの各項目値を取得するして表示用変数に設定する。
         /// </summary>
@@ -373,105 +413,143 @@ namespace LionsApl.Content
         /// <param name="strDate">日付（表示用変数）</param>
         /// <param name="strTitle">タイトル（表示用変数）</param>
         /// <param name="strCount">日数（表示用変数）</param>
-        /// <param name="strCancel"></param>
-        /// <param name="strAnswer"></param>
-        private void GetEventListData(Table.HOME_EVENT row, 
+        /// <param name="strCancel">中止</param>
+        /// <param name="strAnswer">出欠</param>
+        /// <param name="strAnswerDate">回答期限日</param>
+        /// <param name="strAnswerTime">回答期限時刻</param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void GetEventListData(Table.HOME_EVENT row,
                                         ref int intDataNo,
                                         ref int intEventDataNo,
-                                        ref string strDate, 
-                                        ref string strTitle, 
-                                        ref string strCount, 
-                                        ref string strCancel, 
-                                        ref string strAnswer)
+                                        ref string strClass,
+                                        ref string strDate,
+                                        ref string strTitle,
+                                        ref string strCount,
+                                        ref string strCancel,
+                                        ref string strAnswer,
+                                        ref string strAnswerDate,
+                                        ref string strAnswerTime)
         {
             DateTime dt = DateTime.Now;
             DateTime wdt;
             string wkDate = string.Empty;
-            string wkClass = string.Empty;
             TimeSpan countTSpn;
 
-            // データNo.設定
-            if (row.DataNo == 0)
+            try
             {
-                return;
-            }
-            else
-            {
-                intDataNo = row.DataNo;
-            }
-
-            // イベントNo.設定
-            intEventDataNo = row.EventDataNo;
-
-            // 日時・日数設定
-            if (row.EventDate != null)
-            {
-                wkDate = row.EventDate;
-                wdt = DateTime.Parse(wkDate);
-
-                // 日時設定
-                strDate = wkDate.Substring(5, 5);
-
-                // 日数設定
-                countTSpn = wdt - dt;
-
-                if (countTSpn.Days == 0)
+                // データNo.設定
+                if (row.DataNo == 0)
                 {
-                    strCount = "本日";
-                }
-                else if (countTSpn.Days > 0)
-                {
-                    strCount = countTSpn.Days.ToString() + "日前";
+                    return;
                 }
                 else
                 {
-                    strCount = countTSpn.Days.ToString() + "日前";
-                    //strCount = "日時エラー";
+                    intDataNo = row.DataNo;
                 }
-            }
 
-            // タイトル設定
-            wkClass = _utl.GetString(row.EventClass);
-            if (wkClass != string.Empty)
+                // イベントNo.設定
+                intEventDataNo = row.EventDataNo;
+
+                // 日時・日数設定
+                if (row.EventDate != null)
+                {
+                    wkDate = row.EventDate;
+                    wdt = DateTime.Parse(wkDate);
+
+                    // 日時設定
+                    //strDate = wkDate.Substring(5, 5);
+                    strDate = wkDate.Substring(0, 10);
+
+                    // 日数設定
+                    countTSpn = wdt - dt;
+
+                    if (countTSpn.Days == 0)
+                    {
+                        strCount = "本日";
+                    }
+                    else if (countTSpn.Days > 0)
+                    {
+                        strCount = countTSpn.Days.ToString() + "日前";
+                    }
+                    else
+                    {
+                        strCount = countTSpn.Days.ToString() + "日前";
+                        //strCount = "日時エラー";
+                    }
+                }
+
+                // タイトル設定
+                strClass = _utl.GetString(row.EventClass);
+                if (strClass != string.Empty)
+                {
+                    // 1:キャビネット
+                    if (strClass.Equals(_utl.EVENTCLASS_EV))
+                    {
+                        strTitle = _utl.GetString(row.Title);
+                    }
+                    // 2:クラブ（例会）
+                    else if (strClass.Equals(_utl.EVENTCLASS_ME))
+                    {
+                        strTitle = _utl.GetString(row.MeetingName);
+                    }
+                    // 3:クラブ（理事・委員会）
+                    else if (strClass.Equals(_utl.EVENTCLASS_DI))
+                    {
+                        strTitle = _utl.GetString(row.Subject);
+                    }
+                }
+
+                // 中止設定
+                if (row.CancelFlg != null)
+                {
+                    if (row.CancelFlg.Equals("1"))
+                    {
+                        strCancel = "中止";
+                    }
+                }
+
+                // 出欠設定
+                if (row.Answer != null)
+                {
+                    strAnswer = row.Answer;
+
+                    // Null以外の時のみ表示
+                    _eventLt.Add(new CHomeTopEvent(intDataNo, intEventDataNo, strDate, strTitle, strCount, strCancel, strAnswer));
+                }
+
+                // 回答期限日設定
+                if (strClass != string.Empty)
+                {
+                    // 1:キャビネット
+                    if (strClass.Equals(_utl.EVENTCLASS_EV))
+                    {
+                        strAnswerDate = _utl.GetString(row.AnswerDateEv).Substring(0, 10);
+                    }
+                    // 2:クラブ（例会）
+                    else if (strClass.Equals(_utl.EVENTCLASS_ME))
+                    {
+                        strAnswerDate = _utl.GetString(row.AnswerDateMe).Substring(0, 10);
+                    }
+                    // 3:クラブ（理事・委員会）
+                    else if (strClass.Equals(_utl.EVENTCLASS_DI))
+                    {
+                        strAnswerDate = _utl.GetString(row.AnswerDateDi).Substring(0, 10);
+                    }
+                }
+
+                // 回答期限時間設定（年間例会スケジュールのみ）
+                if (strClass.Equals(_utl.EVENTCLASS_ME))
+                {
+                    strAnswerTime = _utl.GetString(row.AnswerTime);
+                }
+
+            }
+            catch (Exception ex)
             {
-                // 1:キャビネット
-                if (wkClass.Equals(_utl.EVENTCLASS_CV))
-                {
-                    strTitle = _utl.GetString(row.Title);
-                }
-                // 2:クラブ（例会）
-                else if (wkClass.Equals(_utl.EVENTCLASS_CL))
-                {
-                    strTitle = _utl.GetString(row.MeetingName);
-                }
-                // 3:クラブ（理事・委員会）
-                else if (wkClass.Equals(_utl.EVENTCLASS_DR))
-                {
-                    strTitle = _utl.GetString(row.Subject);
-                }
+                DisplayAlert("Alert", $"イベント情報取得エラー : &{ex.Message}", "OK");
             }
-
-            // 中止設定
-            if (row.CancelFlg != null)
-            {
-                if (row.CancelFlg.Equals("1"))
-                {
-                    strCancel = "中止";
-                }
-            }
-
-            // 出欠設定
-            if (row.Answer != null)
-            {
-                strAnswer = row.Answer;
-
-                // Null以外の時のみ表示
-                _eventLt.Add(new CHomeTopEvent(intDataNo, intEventDataNo, strDate, strTitle, strCount, strCancel, strAnswer));
-            }
-
 
         }
-
     }
 
     public sealed class CHomeTopSlogan

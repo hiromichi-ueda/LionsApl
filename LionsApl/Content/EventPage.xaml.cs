@@ -39,17 +39,11 @@ namespace LionsApl.Content
         // T_EVENTRET登録クラス
         private CEVENTRET _ceventret;
 
-        // キャビネットイベント表示用クラス
-        //private CEventPageEvent _event;
-        // 年間例会スケジュール表示用クラス
-        //private CEventPageMeeting _meeting;
-        // 理事・委員会表示用クラス
-        //private CEventPageDirect _direct;
-
         // 前画面からの取得情報
         private int _dataNo;                                // データNo.
         private int _eventDataNo;                           // イベントNo.
 
+        private DateTime _nowDt;                            // 現在日時
         private string _eventClass;                         // イベントクラス
         private string _onlineFlg;                          // オンライン参加フラグ
         private string _opt1Flg;                            // オプション1フラグ
@@ -82,6 +76,9 @@ namespace LionsApl.Content
             // 前画面からの取得情報
             _dataNo = dataNo;                           // データNo.
             _eventDataNo = eventDataNo;                 // イベントデータNo.
+
+            // 処理日時取得
+            _nowDt = DateTime.Now;
 
             // 情報通信マネージャー生成
             _icom = IComManager.GetInstance();
@@ -143,17 +140,17 @@ namespace LionsApl.Content
             _ceventret.Answer = _utl.ANSWER_PRE;
 
             // キャビネットイベント
-            if (_eventClass.Equals(_utl.EVENTCLASS_CV))
+            if (_eventClass.Equals(_utl.EVENTCLASS_EV))
             {
                 Present_Cabinet();
             }
             // 年間例会スケジュール
-            else if (_eventClass.Equals(_utl.EVENTCLASS_CL))
+            else if (_eventClass.Equals(_utl.EVENTCLASS_ME))
             {
                 Present_Meeting();
             }
             // 理事・委員会
-            else if (_eventClass.Equals(_utl.EVENTCLASS_DR))
+            else if (_eventClass.Equals(_utl.EVENTCLASS_DI))
             {
                 //Present_Director();
             }
@@ -579,6 +576,7 @@ namespace LionsApl.Content
             this.DD_Agenda.FontSize = wfFontSizse;
             this.lbl_DD_AnsDate.FontSize = wfFontSizse;
             this.DD_AnsDate.FontSize = wfFontSizse;
+            this.lbl_DD_AnsOver.FontSize = wfFontSizse;
 
 
             ////////////////////////
@@ -596,7 +594,8 @@ namespace LionsApl.Content
             this.lbl_EI_Online.FontSize = wfFontSizse;
             this.lbl_EI_AnsDate.FontSize = wfFontSizse;
             this.EI_AnsDate.FontSize = wfFontSizse;
-            this.lbl_EI_footer.FontSize = wfFontSizse;
+            this.lbl_EI_Footer.FontSize = wfFontSizse;
+            this.lbl_EI_AnsOver.FontSize = wfFontSizse;
 
             // 年間例会スケジュール入力
             this.lbl_MI_Header.FontSize = wfFontSizse;
@@ -612,7 +611,8 @@ namespace LionsApl.Content
             this.MI_OtherUser.FontSize = wfFontSizse;
             this.lbl_MI_AnsDate.FontSize = wfFontSizse;
             this.MI_AnsDate.FontSize = wfFontSizse;
-            this.lbl_MI_footer.FontSize = wfFontSizse;
+            this.lbl_MI_Footer.FontSize = wfFontSizse;
+            this.lbl_MI_AnsOver.FontSize = wfFontSizse;
 
         }
 
@@ -644,7 +644,7 @@ namespace LionsApl.Content
                 // イベント別のデータ読み込み・タイトル文字列の設定・各画面の設定を行う
 
                 // キャビネットイベント
-                if (_eventClass.Equals(_utl.EVENTCLASS_CV))
+                if (_eventClass.Equals(_utl.EVENTCLASS_EV))
                 {
                     // キャビネットイベント情報（T_EVENT）を取得する
                     foreach (Table.T_EVENT row in _sqlite.Get_T_EVENT("Select * " +
@@ -661,7 +661,7 @@ namespace LionsApl.Content
 
                 }
                 // 年間例会スケジュール
-                else if (_eventClass.Equals(_utl.EVENTCLASS_CL))
+                else if (_eventClass.Equals(_utl.EVENTCLASS_ME))
                 {
                     // 年間例会スケジュール情報（T_MEETINGSCHEDULE）を取得する
                     foreach (Table.T_MEETINGSCHEDULE row in _sqlite.Get_T_MEETINGSCHEDULE("Select * " +
@@ -678,7 +678,7 @@ namespace LionsApl.Content
 
                 }
                 // 理事・委員会
-                else if (_eventClass.Equals(_utl.EVENTCLASS_DR))
+                else if (_eventClass.Equals(_utl.EVENTCLASS_DI))
                 {
                     // 理事・委員会情報（T_DRECTOR）を取得する
                     foreach (Table.T_DIRECTOR row in _sqlite.Get_T_DIRECTOR("Select * " +
@@ -729,204 +729,223 @@ namespace LionsApl.Content
             string wkOpt5Name = string.Empty;
             string wkAnsDate = string.Empty;
 
-            ////////////////////////////////////////////////////////////////
-            // 表示項目
-
-            // 開催日
-            wkDate = _utl.GetString(_event.EventDate).Substring(0, 10);
-
-            // 中止
-            wkCancel = _utl.StrCancel(_eventret.CancelFlg);
-
-            // 開催日時
-            wkTime = _utl.GetString(_event.EventTimeStart) + "～" +
-                     _utl.GetString(_event.EventTimeEnd);
-
-            // 受付時間
-            wkRecTime = _utl.GetString(_event.ReceptionTime);
-
-            // 開催場所
-            wkPlace = _utl.GetString(_event.EventPlace);
-
-            // 件名
-            wkTitle = _utl.GetString(_event.Title);
-
-            // 内容
-            wkBody = _utl.GetString(_event.Body, _utl.NLC_ON);
-
-            // お酒
-            wkSake = _utl.StrOnOff(_event.Sake);
-
-            // 会議方法
-            wkMeeting = _utl.StrOnline(_event.Meeting);
-
-            // URL
-            wkUrl = _utl.GetString(_event.MeetingUrl);
-
-            // MT ID
-            wkID = _utl.GetString(_event.MeetingID);
-
-            // パスワード
-            wkPW = _utl.GetString(_event.MeetingPW);
-
-            // 備考
-            wkMtOther = _utl.GetString(_event.MeetingOther, _utl.NLC_ON);
-
-            // 詳細資料
-            _fileName = _utl.GetString(_event.FileName);
-
-
-            ////////////////////////////////////////////////////////////////
-            // 入力項目
-
-            // オプション1
-            _opt1Flg = _utl.GetString(_event.OptionRadio1);
-            if (_opt1Flg.Equals(_utl.ONFLG))
+            try
             {
-                // オプション1（項目名）
-                wkOpt1Name = _utl.GetString(_event.OptionName1);
+                ////////////////////////////////////////////////////////////////
+                // 表示項目
 
-                // オプション1（入力値）
-                _ceventret.Option1 = _utl.GetString(_eventret.Option1);
+                // 開催日
+                wkDate = _utl.GetString(_event.EventDate).Substring(0, 10);
+
+                // 中止
+                wkCancel = _utl.StrCancel(_eventret.CancelFlg);
+
+                // 開催日時
+                wkTime = _utl.GetString(_event.EventTimeStart) + "～" +
+                         _utl.GetString(_event.EventTimeEnd);
+
+                // 受付時間
+                wkRecTime = _utl.GetString(_event.ReceptionTime);
+
+                // 開催場所
+                wkPlace = _utl.GetString(_event.EventPlace);
+
+                // 件名
+                wkTitle = _utl.GetString(_event.Title);
+
+                // 内容
+                wkBody = _utl.GetString(_event.Body, _utl.NLC_ON);
+
+                // お酒
+                wkSake = _utl.StrOnOff(_event.Sake);
+
+                // 会議方法
+                wkMeeting = _utl.StrOnline(_event.Meeting);
+
+                // URL
+                wkUrl = _utl.GetString(_event.MeetingUrl);
+
+                // MT ID
+                wkID = _utl.GetString(_event.MeetingID);
+
+                // パスワード
+                wkPW = _utl.GetString(_event.MeetingPW);
+
+                // 備考
+                wkMtOther = _utl.GetString(_event.MeetingOther, _utl.NLC_ON);
+
+                // 詳細資料
+                _fileName = _utl.GetString(_event.FileName);
+
+
+                ////////////////////////////////////////////////////////////////
+                // 入力項目
+
+                // オプション1
+                _opt1Flg = _utl.GetString(_event.OptionRadio1);
+                if (_opt1Flg.Equals(_utl.ONFLG))
+                {
+                    // オプション1（項目名）
+                    wkOpt1Name = _utl.GetString(_event.OptionName1);
+
+                    // オプション1（入力値）
+                    _ceventret.Option1 = _utl.GetString(_eventret.Option1);
+                }
+                // オプション2
+                _opt2Flg = _utl.GetString(_event.OptionRadio2);
+                if (_opt2Flg.Equals(_utl.ONFLG))
+                {
+                    // オプション2（項目名）
+                    wkOpt2Name = _utl.GetString(_event.OptionName2);
+
+                    // オプション2（入力値）
+                    _ceventret.Option2 = _utl.GetString(_eventret.Option2);
+                }
+                // オプション3
+                _opt3Flg = _utl.GetString(_event.OptionRadio3);
+                if (_opt3Flg.Equals(_utl.ONFLG))
+                {
+                    // オプション3（項目名）
+                    wkOpt3Name = _utl.GetString(_event.OptionName3);
+
+                    // オプション3（入力値）
+                    _ceventret.Option3 = _utl.GetString(_eventret.Option3);
+                }
+                // オプション4
+                _opt4Flg = _utl.GetString(_event.OptionRadio4);
+                if (_opt4Flg.Equals(_utl.ONFLG))
+                {
+                    // オプション4（項目名）
+                    wkOpt4Name = _utl.GetString(_event.OptionName4);
+
+                    // オプション4（入力値）
+                    _ceventret.Option4 = _utl.GetString(_eventret.Option4);
+                }
+                // オプション5
+                _opt5Flg = _utl.GetString(_event.OptionRadio5);
+                if (_opt5Flg.Equals(_utl.ONFLG))
+                {
+                    // オプション5（項目名）
+                    wkOpt5Name = _utl.GetString(_event.OptionName5);
+
+                    // オプション5（入力値）
+                    _ceventret.Option5 = _utl.GetString(_eventret.Option5);
+                }
+
+                // 遅刻
+                _ceventret.AnswerLate = _utl.GetString(_eventret.AnswerLate);
+
+                // 早退
+                _ceventret.AnswerEarly = _utl.GetString(_eventret.AnswerEarly);
+
+                // オンライン参加
+                _onlineFlg = _utl.GetString(_event.Meeting);
+                _ceventret.Online = _utl.GetString(_eventret.Online);
+
+                // 回答期限
+                wkAnsDate = _utl.GetString(_event.AnswerDate).Substring(0, 10);
+
+
+                ////////////////////////////////////////////////////////////////
+                // 表示項目設定
+
+                ED_EventDate.Text = wkDate;
+                ED_Cancel.Text = wkCancel;
+                ED_EventTime.Text = wkTime;
+                ED_ReceptionTime.Text = wkRecTime;
+                ED_EventPlace.Text = wkPlace;
+                ED_Title.Text = wkTitle;
+                ED_Body.Text = wkBody;
+                ED_Sake.Text = wkSake;
+
+                // 会議方法～備考
+                if (wkMeeting.Equals(_utl.ST_MEETING_ONLINE))
+                {
+                    ED_Meeting.Text = wkMeeting;
+                    ED_MeetingUrl.Text = wkUrl;
+                    ED_MeetingID.Text = wkID;
+                    ED_MeetingPW.Text = wkPW;
+                    ED_MeetingOther.Text = wkMtOther;
+                }
+                else
+                {
+                    // 会議方法～備考項目非表示
+                    lbl_ED_Meeting.IsVisible = false;
+                    ED_Meeting.IsVisible = false;
+                    lbl_ED_MeetingUrl.IsVisible = false;
+                    ED_MeetingUrl.IsVisible = false;
+                    lbl_ED_MeetingID.IsVisible = false;
+                    ED_MeetingID.IsVisible = false;
+                    lbl_ED_MeetingPW.IsVisible = false;
+                    ED_MeetingPW.IsVisible = false;
+                    lbl_ED_MeetingOther.IsVisible = false;
+                    ED_MeetingOther.IsVisible = false;
+                }
+
+
+                ////////////////////////////////////////////////////////////////
+                // 入力項目設定
+
+                // オプション1
+                SetOptionItem(_opt1Flg, _ceventret.Option1, wkOpt1Name, ref lbl_EI_Opt1Name, ref EI_Opt1Switch);
+
+                // オプション2
+                SetOptionItem(_opt2Flg, _ceventret.Option2, wkOpt2Name, ref lbl_EI_Opt2Name, ref EI_Opt2Switch);
+
+                // オプション3
+                SetOptionItem(_opt3Flg, _ceventret.Option3, wkOpt3Name, ref lbl_EI_Opt3Name, ref EI_Opt3Switch);
+
+                // オプション4
+                SetOptionItem(_opt4Flg, _ceventret.Option4, wkOpt4Name, ref lbl_EI_Opt4Name, ref EI_Opt4Switch);
+
+                // オプション5
+                SetOptionItem(_opt5Flg, _ceventret.Option5, wkOpt5Name, ref lbl_EI_Opt5Name, ref EI_Opt5Switch);
+
+
+                // 遅刻
+                EI_Late.IsToggled = _ceventret.AnswerLate.Equals(_utl.ONFLG);
+
+                // 早退
+                EI_Early.IsToggled = _ceventret.AnswerEarly.Equals(_utl.ONFLG);
+
+                // オンライン参加
+                if (_onlineFlg.Equals(_utl.ONFLG))
+                {
+                    EI_Online.IsToggled = _ceventret.Online.Equals(_utl.ONFLG);
+                }
+                else
+                {
+                    // オンライン参加項目非表示
+                    lbl_EI_Online.IsVisible = false;
+                    EI_Online.IsVisible = false;
+                }
+
+                // 回答期限
+                EI_AnsDate.Text = wkAnsDate;
+
+                // 回答期限チェック
+                if (_utl.ChkAnswerDate(_utl.EVENTCLASS_EV,
+                                       wkAnsDate, 
+                                       string.Empty, 
+                                       _nowDt))
+                {
+                    PresentButton.IsEnabled = false;
+                    AdsentButton.IsEnabled = false;
+                    lbl_EI_AnsOver.IsVisible = true;
+                }
+
+                // 年間例会スケジュール項目非表示
+                MeetingDspSL.IsVisible = false;
+                MeetingInpSL.IsVisible = false;
+
+                // 理事・委員会項目非表示
+                DirectDspSL.IsVisible = false;
+
             }
-            // オプション2
-            _opt2Flg = _utl.GetString(_event.OptionRadio2);
-            if (_opt2Flg.Equals(_utl.ONFLG))
+            catch (Exception ex)
             {
-                // オプション2（項目名）
-                wkOpt2Name = _utl.GetString(_event.OptionName2);
-
-                // オプション2（入力値）
-                _ceventret.Option2 = _utl.GetString(_eventret.Option2);
+                DisplayAlert("Alert", $"キャビネットイベント項目の設定エラー : {ex.Message}", "OK");
             }
-            // オプション3
-            _opt3Flg = _utl.GetString(_event.OptionRadio3);
-            if (_opt3Flg.Equals(_utl.ONFLG))
-            {
-                // オプション3（項目名）
-                wkOpt3Name = _utl.GetString(_event.OptionName3);
-
-                // オプション3（入力値）
-                _ceventret.Option3 = _utl.GetString(_eventret.Option3);
-            }
-            // オプション4
-            _opt4Flg = _utl.GetString(_event.OptionRadio4);
-            if (_opt4Flg.Equals(_utl.ONFLG))
-            {
-                // オプション4（項目名）
-                wkOpt4Name = _utl.GetString(_event.OptionName4);
-
-                // オプション4（入力値）
-                _ceventret.Option4 = _utl.GetString(_eventret.Option4);
-            }
-            // オプション5
-            _opt5Flg = _utl.GetString(_event.OptionRadio5);
-            if (_opt5Flg.Equals(_utl.ONFLG))
-            {
-                // オプション5（項目名）
-                wkOpt5Name = _utl.GetString(_event.OptionName5);
-
-                // オプション5（入力値）
-                _ceventret.Option5 = _utl.GetString(_eventret.Option5);
-            }
-
-            // 遅刻
-            _ceventret.AnswerLate = _utl.GetString(_eventret.AnswerLate);
-
-            // 早退
-            _ceventret.AnswerEarly = _utl.GetString(_eventret.AnswerEarly);
-
-            // オンライン参加
-            _onlineFlg = _utl.GetString(_event.Meeting);
-            _ceventret.Online = _utl.GetString(_eventret.Online);
-
-            // 回答期限
-            wkAnsDate = _utl.GetString(_event.AnswerDate).Substring(0, 10);
-
-
-            ////////////////////////////////////////////////////////////////
-            // 表示項目設定
-
-            ED_EventDate.Text = wkDate;
-            ED_Cancel.Text = wkCancel;
-            ED_EventTime.Text = wkTime;
-            ED_ReceptionTime.Text = wkRecTime;
-            ED_EventPlace.Text = wkPlace;
-            ED_Title.Text = wkTitle;
-            ED_Body.Text = wkBody;
-            ED_Sake.Text = wkSake;
-
-            // 会議方法～備考
-            if (wkMeeting.Equals(_utl.ST_MEETING_ONLINE))
-            {
-                ED_Meeting.Text = wkMeeting;
-                ED_MeetingUrl.Text = wkUrl;
-                ED_MeetingID.Text = wkID;
-                ED_MeetingPW.Text = wkPW;
-                ED_MeetingOther.Text = wkMtOther;
-            }
-            else
-            {
-                // 会議方法～備考項目非表示
-                lbl_ED_Meeting.IsVisible = false;
-                ED_Meeting.IsVisible = false;
-                lbl_ED_MeetingUrl.IsVisible = false;
-                ED_MeetingUrl.IsVisible = false;
-                lbl_ED_MeetingID.IsVisible = false;
-                ED_MeetingID.IsVisible = false;
-                lbl_ED_MeetingPW.IsVisible = false;
-                ED_MeetingPW.IsVisible = false;
-                lbl_ED_MeetingOther.IsVisible = false;
-                ED_MeetingOther.IsVisible = false;
-            }
-
-
-            ////////////////////////////////////////////////////////////////
-            // 入力項目設定
-
-            // オプション1
-            SetOptionItem(_opt1Flg, _ceventret.Option1, wkOpt1Name, ref lbl_EI_Opt1Name, ref EI_Opt1Switch);
-
-            // オプション2
-            SetOptionItem(_opt2Flg, _ceventret.Option2, wkOpt2Name, ref lbl_EI_Opt2Name, ref EI_Opt2Switch);
-
-            // オプション3
-            SetOptionItem(_opt3Flg, _ceventret.Option3, wkOpt3Name, ref lbl_EI_Opt3Name, ref EI_Opt3Switch);
-
-            // オプション4
-            SetOptionItem(_opt4Flg, _ceventret.Option4, wkOpt4Name, ref lbl_EI_Opt4Name, ref EI_Opt4Switch);
-
-            // オプション5
-            SetOptionItem(_opt5Flg, _ceventret.Option5, wkOpt5Name, ref lbl_EI_Opt5Name, ref EI_Opt5Switch);
-
-
-            // 遅刻
-            EI_Late.IsToggled = _ceventret.AnswerLate.Equals(_utl.ONFLG);
-
-            // 早退
-            EI_Early.IsToggled = _ceventret.AnswerEarly.Equals(_utl.ONFLG);
-
-            // オンライン参加
-            if (_onlineFlg.Equals(_utl.ONFLG))
-            {
-                EI_Online.IsToggled = _ceventret.Online.Equals(_utl.ONFLG);
-            }
-            else
-            {
-                // オンライン参加項目非表示
-                lbl_EI_Online.IsVisible = false;
-                EI_Online.IsVisible = false;
-            }
-
-            // 回答期限
-            EI_AnsDate.Text = wkAnsDate;
-
-            // 年間例会スケジュール項目非表示
-            MeetingDspSL.IsVisible = false;
-            MeetingInpSL.IsVisible = false;
-
-            // 理事・委員会項目非表示
-            DirectDspSL.IsVisible = false;
 
         }
 
@@ -950,188 +969,210 @@ namespace LionsApl.Content
             string wkOpt4Name = string.Empty;
             string wkOpt5Name = string.Empty;
             string wkAnsDate = string.Empty;
+            string wkAnsTime = string.Empty;
 
-            ////////////////////////////////////////////////////////////////
-            // 表示項目
-
-            // 例会日
-            wkDate = _utl.GetString(_meetingschedule.MeetingDate).Substring(0, 10) + " " +
-                     _utl.GetString(_meetingschedule.MeetingTime).Substring(0, 5) + "～";
-
-            // 中止
-            wkCancel = _utl.StrCancel(_meetingschedule.CancelFlg);
-
-            // 例会場所
-            wkPlace = _utl.GetString(_meetingschedule.MeetingPlace);
-
-            // 例会回数
-            wkCount = _meetingschedule.MeetingCount;
-
-            // 例会名
-            wkName = _utl.GetString(_meetingschedule.MeetingName);
-
-            // 会議方法
-            wkOnline = _utl.StrOnline(_meetingschedule.Online);
-
-            // お酒
-            wkSake = _utl.StrOnOff(_meetingschedule.Sake);
-
-            ////////////////////////////////////////////////////////////////
-            // 入力項目
-
-            // オプション1
-            _opt1Flg = _utl.GetString(_meetingschedule.OptionRadio1);
-            if (_opt1Flg.Equals(_utl.ONFLG))
+            try
             {
-                // オプション1（項目名）
-                wkOpt1Name = _utl.GetString(_meetingschedule.OptionName1);
+                ////////////////////////////////////////////////////////////////
+                // 表示項目
 
-                // オプション1（入力値）
-                _ceventret.Option1 = _utl.GetString(_eventret.Option1);
-            }
-            // オプション2
-            _opt2Flg = _utl.GetString(_meetingschedule.OptionRadio2);
-            if (_opt2Flg.Equals(_utl.ONFLG))
-            {
-                // オプション2（項目名）
-                wkOpt2Name = _utl.GetString(_meetingschedule.OptionName2);
+                // 例会日
+                wkDate = _utl.GetString(_meetingschedule.MeetingDate).Substring(0, 10) + " " +
+                         _utl.GetString(_meetingschedule.MeetingTime).Substring(0, 5) + "～";
 
-                // オプション2（入力値）
-                _ceventret.Option2 = _utl.GetString(_eventret.Option2);
-            }
-            // オプション3
-            _opt3Flg = _utl.GetString(_meetingschedule.OptionRadio3);
-            if (_opt3Flg.Equals(_utl.ONFLG))
-            {
-                // オプション3（項目名）
-                wkOpt3Name = _utl.GetString(_meetingschedule.OptionName3);
+                // 中止
+                wkCancel = _utl.StrCancel(_meetingschedule.CancelFlg);
 
-                // オプション3（入力値）
-                _ceventret.Option3 = _utl.GetString(_eventret.Option3);
-            }
-            // オプション4
-            _opt4Flg = _utl.GetString(_meetingschedule.OptionRadio4);
-            if (_opt4Flg.Equals(_utl.ONFLG))
-            {
-                // オプション4（項目名）
-                wkOpt4Name = _utl.GetString(_meetingschedule.OptionName4);
+                // 例会場所
+                wkPlace = _utl.GetString(_meetingschedule.MeetingPlace);
 
-                // オプション4（入力値）
-                _ceventret.Option4 = _utl.GetString(_eventret.Option4);
-            }
-            // オプション5
-            _opt5Flg = _utl.GetString(_meetingschedule.OptionRadio5);
-            if (_opt5Flg.Equals(_utl.ONFLG))
-            {
-                // オプション5（項目名）
-                wkOpt5Name = _utl.GetString(_meetingschedule.OptionName5);
+                // 例会回数
+                wkCount = _meetingschedule.MeetingCount;
 
-                // オプション5（入力値）
-                _ceventret.Option5 = _utl.GetString(_eventret.Option5);
-            }
+                // 例会名
+                wkName = _utl.GetString(_meetingschedule.MeetingName);
 
-            // 遅刻
-            _ceventret.AnswerLate = _utl.GetString(_eventret.AnswerLate);
+                // 会議方法
+                wkOnline = _utl.StrOnline(_meetingschedule.Online);
 
-            // 早退
-            _ceventret.AnswerEarly = _utl.GetString(_eventret.AnswerEarly);
+                // お酒
+                wkSake = _utl.StrOnOff(_meetingschedule.Sake);
 
-            // オンライン参加
-            _onlineFlg = _utl.GetString(_meetingschedule.Online);
-            _ceventret.Online = _utl.GetString(_eventret.Online);
+                ////////////////////////////////////////////////////////////////
+                // 入力項目
 
-            // 本人以外の参加数
-            _oCntFlg = _utl.GetString(_meetingschedule.OtherUser);
-            _ceventret.OtherCount = _eventret.OtherCount;
-
-            // 回答期限
-            wkAnsDate = _utl.GetString(_meetingschedule.AnswerDate).Substring(0, 10);
-
-
-            ////////////////////////////////////////////////////////////////
-            // 表示項目設定
-
-            MD_Date.Text = wkDate;
-            MD_Cancel.Text = wkCancel;
-            MD_Place.Text = wkPlace;
-            MD_Count.Text = wkCount.ToString();
-            MD_Name.Text = wkName;
-
-            // 会議方法
-            if (wkOnline.Equals(_utl.ST_MEETING_ONLINE))
-            {
-                MD_Online.Text = wkOnline;
-            }
-            else
-            {
-                // 会議方法項目非表示
-                lbl_MD_Online.IsVisible = false;
-                MD_Online.IsVisible = false;
-            }
-
-            MD_Sake.Text = wkSake;
-
-            ////////////////////////////////////////////////////////////////
-            // 入力項目設定
-
-            // オプション1
-            SetOptionItem(_opt1Flg, _ceventret.Option1, wkOpt1Name, ref lbl_MI_Opt1Name, ref MI_Opt1Switch);
-
-            // オプション2
-            SetOptionItem(_opt2Flg, _ceventret.Option2, wkOpt2Name, ref lbl_MI_Opt2Name, ref MI_Opt2Switch);
-
-            // オプション3
-            SetOptionItem(_opt3Flg, _ceventret.Option3, wkOpt3Name, ref lbl_MI_Opt3Name, ref MI_Opt3Switch);
-
-            // オプション4
-            SetOptionItem(_opt4Flg, _ceventret.Option4, wkOpt4Name, ref lbl_MI_Opt4Name, ref MI_Opt4Switch);
-
-            // オプション5
-            SetOptionItem(_opt5Flg, _ceventret.Option5, wkOpt5Name, ref lbl_MI_Opt5Name, ref MI_Opt5Switch);
-
-            // 遅刻
-            MI_Late.IsToggled = _ceventret.AnswerLate.Equals(_utl.ONFLG);
-
-            // 早退
-            MI_Early.IsToggled = _ceventret.AnswerEarly.Equals(_utl.ONFLG);
-
-            // オンライン参加
-            if (_onlineFlg.Equals(_utl.ONFLG))
-            {
-                MI_Online.IsToggled = _ceventret.Online.Equals(_utl.ONFLG); 
-            }
-            else
-            {
-                // オンライン参加項目非表示
-                lbl_MI_Online.IsVisible = false;
-                MI_Online.IsVisible = false;
-            }
-
-            // 本人以外の参加数
-            if (_oCntFlg.Equals(_utl.ONFLG))
-            {
-                for (int idx = 0; idx <= 15; idx++)
+                // オプション1
+                _opt1Flg = _utl.GetString(_meetingschedule.OptionRadio1);
+                if (_opt1Flg.Equals(_utl.ONFLG))
                 {
-                    MI_OtherUser.Items.Add(idx.ToString());
+                    // オプション1（項目名）
+                    wkOpt1Name = _utl.GetString(_meetingschedule.OptionName1);
+
+                    // オプション1（入力値）
+                    _ceventret.Option1 = _utl.GetString(_eventret.Option1);
                 }
-                MI_OtherUser.SelectedIndex = _ceventret.OtherCount;
+                // オプション2
+                _opt2Flg = _utl.GetString(_meetingschedule.OptionRadio2);
+                if (_opt2Flg.Equals(_utl.ONFLG))
+                {
+                    // オプション2（項目名）
+                    wkOpt2Name = _utl.GetString(_meetingschedule.OptionName2);
+
+                    // オプション2（入力値）
+                    _ceventret.Option2 = _utl.GetString(_eventret.Option2);
+                }
+                // オプション3
+                _opt3Flg = _utl.GetString(_meetingschedule.OptionRadio3);
+                if (_opt3Flg.Equals(_utl.ONFLG))
+                {
+                    // オプション3（項目名）
+                    wkOpt3Name = _utl.GetString(_meetingschedule.OptionName3);
+
+                    // オプション3（入力値）
+                    _ceventret.Option3 = _utl.GetString(_eventret.Option3);
+                }
+                // オプション4
+                _opt4Flg = _utl.GetString(_meetingschedule.OptionRadio4);
+                if (_opt4Flg.Equals(_utl.ONFLG))
+                {
+                    // オプション4（項目名）
+                    wkOpt4Name = _utl.GetString(_meetingschedule.OptionName4);
+
+                    // オプション4（入力値）
+                    _ceventret.Option4 = _utl.GetString(_eventret.Option4);
+                }
+                // オプション5
+                _opt5Flg = _utl.GetString(_meetingschedule.OptionRadio5);
+                if (_opt5Flg.Equals(_utl.ONFLG))
+                {
+                    // オプション5（項目名）
+                    wkOpt5Name = _utl.GetString(_meetingschedule.OptionName5);
+
+                    // オプション5（入力値）
+                    _ceventret.Option5 = _utl.GetString(_eventret.Option5);
+                }
+
+                // 遅刻
+                _ceventret.AnswerLate = _utl.GetString(_eventret.AnswerLate);
+
+                // 早退
+                _ceventret.AnswerEarly = _utl.GetString(_eventret.AnswerEarly);
+
+                // オンライン参加
+                _onlineFlg = _utl.GetString(_meetingschedule.Online);
+                _ceventret.Online = _utl.GetString(_eventret.Online);
+
+                // 本人以外の参加数
+                _oCntFlg = _utl.GetString(_meetingschedule.OtherUser);
+                _ceventret.OtherCount = _eventret.OtherCount;
+
+                // 回答期限日
+                wkAnsDate = _utl.GetString(_meetingschedule.AnswerDate).Substring(0, 10);
+                // 回答期限時刻
+                wkAnsTime = _utl.GetString(_meetingschedule.AnswerTime);
+
+                ////////////////////////////////////////////////////////////////
+                // 表示項目設定
+
+                MD_Date.Text = wkDate;
+                MD_Cancel.Text = wkCancel;
+                MD_Place.Text = wkPlace;
+                MD_Count.Text = wkCount.ToString();
+                MD_Name.Text = wkName;
+
+                // 会議方法
+                if (wkOnline.Equals(_utl.ST_MEETING_ONLINE))
+                {
+                    MD_Online.Text = wkOnline;
+                }
+                else
+                {
+                    // 会議方法項目非表示
+                    lbl_MD_Online.IsVisible = false;
+                    MD_Online.IsVisible = false;
+                }
+
+                MD_Sake.Text = wkSake;
+
+                ////////////////////////////////////////////////////////////////
+                // 入力項目設定
+
+                // オプション1
+                SetOptionItem(_opt1Flg, _ceventret.Option1, wkOpt1Name, ref lbl_MI_Opt1Name, ref MI_Opt1Switch);
+
+                // オプション2
+                SetOptionItem(_opt2Flg, _ceventret.Option2, wkOpt2Name, ref lbl_MI_Opt2Name, ref MI_Opt2Switch);
+
+                // オプション3
+                SetOptionItem(_opt3Flg, _ceventret.Option3, wkOpt3Name, ref lbl_MI_Opt3Name, ref MI_Opt3Switch);
+
+                // オプション4
+                SetOptionItem(_opt4Flg, _ceventret.Option4, wkOpt4Name, ref lbl_MI_Opt4Name, ref MI_Opt4Switch);
+
+                // オプション5
+                SetOptionItem(_opt5Flg, _ceventret.Option5, wkOpt5Name, ref lbl_MI_Opt5Name, ref MI_Opt5Switch);
+
+                // 遅刻
+                MI_Late.IsToggled = _ceventret.AnswerLate.Equals(_utl.ONFLG);
+
+                // 早退
+                MI_Early.IsToggled = _ceventret.AnswerEarly.Equals(_utl.ONFLG);
+
+                // オンライン参加
+                if (_onlineFlg.Equals(_utl.ONFLG))
+                {
+                    MI_Online.IsToggled = _ceventret.Online.Equals(_utl.ONFLG);
+                }
+                else
+                {
+                    // オンライン参加項目非表示
+                    lbl_MI_Online.IsVisible = false;
+                    MI_Online.IsVisible = false;
+                }
+
+                // 本人以外の参加数
+                if (_oCntFlg.Equals(_utl.ONFLG))
+                {
+                    for (int idx = 0; idx <= 15; idx++)
+                    {
+                        MI_OtherUser.Items.Add(idx.ToString());
+                    }
+                    MI_OtherUser.SelectedIndex = _ceventret.OtherCount;
+                }
+                else
+                {
+                    // 本人以外の参加数項目非表示
+                    lbl_MI_OtherUser.IsVisible = false;
+                    MI_OtherUser.IsVisible = false;
+                }
+
+                // 回答期限
+                MI_AnsDate.Text = wkAnsDate + " " + wkAnsTime;
+
+                // 回答期限チェック
+                if (_utl.ChkAnswerDate(_utl.EVENTCLASS_ME,
+                                       wkAnsDate,
+                                       wkAnsTime, 
+                                       _nowDt))
+                {
+                    PresentButton.IsEnabled = false;
+                    AdsentButton.IsEnabled = false;
+                    lbl_MI_AnsOver.IsVisible = true;
+                }
+
+                // キャビネットイベント項目非表示
+                EventDspSL.IsVisible = false;
+                EventInpSL.IsVisible = false;
+
+                // 理事・委員会項目非表示
+                DirectDspSL.IsVisible = false;
+
             }
-            else
+            catch (Exception ex)
             {
-                // 本人以外の参加数項目非表示
-                lbl_MI_OtherUser.IsVisible = false;
-                MI_OtherUser.IsVisible = false;
+                DisplayAlert("Alert", $"年間例会スケジュール項目の設定エラー : {ex.Message}", "OK");
             }
 
-            // 回答期限
-            MI_AnsDate.Text = wkAnsDate;
-
-            // キャビネットイベント項目非表示
-            EventDspSL.IsVisible = false;
-            EventInpSL.IsVisible = false;
-
-            // 理事・委員会項目非表示
-            DirectDspSL.IsVisible = false;
 
         }
 
@@ -1149,47 +1190,66 @@ namespace LionsApl.Content
             string wkAgenda = string.Empty;
             string wkAnsDate = string.Empty;
 
-            ////////////////////////////////////////////////////////////////
-            // 表示項目
+            try
+            {
+                ////////////////////////////////////////////////////////////////
+                // 表示項目
 
-            // 開催日
-            wkDate = _utl.GetString(_director.EventDate).Substring(0, 10) + " " +
-                     _utl.GetString(_director.EventTime).Substring(0, 5) + "～";
+                // 開催日
+                wkDate = _utl.GetString(_director.EventDate).Substring(0, 10) + " " +
+                         _utl.GetString(_director.EventTime).Substring(0, 5) + "～";
 
-            // 中止
-            wkCancel = _utl.StrCancel(_director.CancelFlg);
+                // 中止
+                wkCancel = _utl.StrCancel(_director.CancelFlg);
 
-            // 区分
-            wkSeason = _utl.StrSeason(_director.Season);
+                // 区分
+                wkSeason = _utl.StrSeason(_director.Season);
 
-            // 開催場所
-            wkPlace = _utl.GetString(_director.EventPlace);
+                // 開催場所
+                wkPlace = _utl.GetString(_director.EventPlace);
 
-            // 議題・内容
-            wkAgenda = _utl.GetString(_director.Agenda, _utl.NLC_ON);
+                // 議題・内容
+                wkAgenda = _utl.GetString(_director.Agenda, _utl.NLC_ON);
 
-            // 回答期限
-            wkAnsDate = _utl.GetString(_director.AnswerDate).Substring(0, 10);
-
-
-            ////////////////////////////////////////////////////////////////
-            // 表示項目設定
-
-            DD_Date.Text = wkDate;
-            DD_Cancel.Text = wkCancel;
-            DD_Season.Text = wkSeason;
-            DD_Place.Text = wkPlace;
-            DD_Agenda.Text = wkAgenda;
-            DD_AnsDate.Text = wkAnsDate;
+                // 回答期限
+                wkAnsDate = _utl.GetString(_director.AnswerDate).Substring(0, 10);
 
 
-            // キャビネットイベント項目非表示
-            EventDspSL.IsVisible = false;
-            EventInpSL.IsVisible = false;
+                ////////////////////////////////////////////////////////////////
+                // 表示項目設定
 
-            // 年間例会スケジュール項目非表示
-            MeetingDspSL.IsVisible = false;
-            MeetingInpSL.IsVisible = false;
+                DD_Date.Text = wkDate;
+                DD_Cancel.Text = wkCancel;
+                DD_Season.Text = wkSeason;
+                DD_Place.Text = wkPlace;
+                DD_Agenda.Text = wkAgenda;
+                DD_AnsDate.Text = wkAnsDate;
+
+
+                // 回答期限チェック
+                if (_utl.ChkAnswerDate(_utl.EVENTCLASS_DI,
+                                       wkAnsDate, 
+                                       string.Empty, 
+                                       _nowDt))
+                {
+                    PresentButton.IsEnabled = false;
+                    AdsentButton.IsEnabled = false;
+                    lbl_DD_AnsOver.IsVisible = true;
+                }
+
+                // キャビネットイベント項目非表示
+                EventDspSL.IsVisible = false;
+                EventInpSL.IsVisible = false;
+
+                // 年間例会スケジュール項目非表示
+                MeetingDspSL.IsVisible = false;
+                MeetingInpSL.IsVisible = false;
+
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Alert", $"理事・委員会項目の設定エラー : {ex.Message}", "OK");
+            }
 
         }
 
@@ -1274,125 +1334,5 @@ namespace LionsApl.Content
         }
 
     }
-
-
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    /// <summary>
-    /// キャビネットイベント表示用クラス
-    /// </summary>
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    //public sealed class CEventPageEvent
-    //{
-    //    public CEventPageEvent(string date,
-    //                              string cancel,
-    //                              string stime,
-    //                              string etime,
-    //                              string rectime,
-    //                              string place,
-    //                              string title,
-    //                              string body,
-    //                              string sake,
-    //                              string meeting,
-    //                              string murl,
-    //                              string mid,
-    //                              string mpw,
-    //                              string mother,
-    //                              string fname)
-    //    {
-    //        Data = date;
-    //        Cancel = cancel;
-    //        STime = stime;
-    //        ETime = etime;
-    //        RecTime = rectime;
-    //        Place = place;
-    //        Title = title;
-    //        Body = body;
-    //        Sake = sake;
-    //        Meeting = meeting;
-    //        MUrl = murl;
-    //        MId = mid;
-    //        MPw = mpw;
-    //        MOther = mother;
-    //        FName = fname;
-    //    }
-    //    public string Data { get; set; }
-    //    public string Cancel { get; set; }
-    //    public string STime { get; set; }
-    //    public string ETime { get; set; }
-    //    public string RecTime { get; set; }
-    //    public string Place { get; set; }
-    //    public string Title { get; set; }
-    //    public string Body { get; set; }
-    //    public string Sake { get; set; }
-    //    public string Meeting { get; set; }
-    //    public string MUrl { get; set; }
-    //    public string MId { get; set; }
-    //    public string MPw { get; set; }
-    //    public string MOther { get; set; }
-    //    public string FName { get; set; }
-    //}
-
-
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    /// <summary>
-    /// 年間例会スケジュール表示用クラス
-    /// </summary>
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    //public sealed class CEventPageMeeting
-    //{
-    //    public CEventPageMeeting(string date,
-    //                            string cancel,
-    //                            string place,
-    //                            int count,
-    //                            string name,
-    //                            string online,
-    //                            string sake)
-    //    {
-    //        Data = date;
-    //        Cancel = cancel;
-    //        Place = place;
-    //        Count = count;
-    //        Name = name;
-    //        Online = online;
-    //        Sake = sake;
-    //    }
-    //    public string Data { get; set; }
-    //    public string Cancel { get; set; }
-    //    public string Place { get; set; }
-    //    public int Count { get; set; }
-    //    public string Name { get; set; }
-    //    public string Online { get; set; }
-    //    public string Sake { get; set; }
-    //}
-
-
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    /// <summary>
-    /// 理事・委員会表示用クラス
-    /// </summary>
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    //public sealed class CEventPageDirect
-    //{
-    //    public CEventPageDirect(string date, 
-    //                            string cancel, 
-    //                            string season, 
-    //                            string place, 
-    //                            string agenda, 
-    //                            string ansdate)
-    //    {
-    //        Data = date;
-    //        Cancel = cancel;
-    //        Season = season;
-    //        Place = place;
-    //        Agenda = agenda;
-    //        AnsDate = ansdate;
-    //    }
-    //    public string Data { get; set; }
-    //    public string Cancel { get; set; }
-    //    public string Season { get; set; }
-    //    public string Place { get; set; }
-    //    public string Agenda { get; set; }
-    //    public string AnsDate { get; set; }
-    //}
 
 }

@@ -84,7 +84,7 @@ namespace LionsApl.Content
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            //DisplayAlert("Disp", "OnAppearing", "OK");
+            // イベント情報データ更新
             UpdEventData();
         }
 
@@ -329,34 +329,34 @@ namespace LionsApl.Content
             // イベント区分
             wkEveClass = _utl.GetString(row.EventClass);
             // 1:キャビネット
-            if (wkEveClass.Equals(_utl.EVENTCLASS_CV))
+            if (wkEveClass.Equals(_utl.EVENTCLASS_EV))
             {
                 strDate = strDate + " " + ST_EVENT_1;
             }
             // 2:クラブ（例会）
-            else if (wkEveClass.Equals(_utl.EVENTCLASS_CL))
+            else if (wkEveClass.Equals(_utl.EVENTCLASS_ME))
             {
                 strDate = strDate + " " + ST_EVENT_2;
             }
             // 3:クラブ（理事・委員会）
-            else if (wkEveClass.Equals(_utl.EVENTCLASS_DR))
+            else if (wkEveClass.Equals(_utl.EVENTCLASS_DI))
             {
                 strDate = strDate + " " + ST_EVENT_3;
             }
 
             // タイトル設定
             // 1:キャビネット
-            if (wkEveClass.Equals(_utl.EVENTCLASS_CV))
+            if (wkEveClass.Equals(_utl.EVENTCLASS_EV))
             {
                 strTitle = _utl.GetString(row.Title);
             }
             // 2:クラブ（例会）
-            else if (wkEveClass.Equals(_utl.EVENTCLASS_CL))
+            else if (wkEveClass.Equals(_utl.EVENTCLASS_ME))
             {
                 strTitle = _utl.GetString(row.MeetingName);
             }
             // 3:クラブ（理事・委員会）
-            else if (wkEveClass.Equals(_utl.EVENTCLASS_DR))
+            else if (wkEveClass.Equals(_utl.EVENTCLASS_DI))
             {
                 // クラブイベント区分
                 wkClubEveClass = _utl.GetString(row.ClubEventClass);

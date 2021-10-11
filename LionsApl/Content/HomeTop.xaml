@@ -51,21 +51,27 @@
                     </StackLayout>
                     
                     <!--キャビネットレター-->
+                    <!-- タイトル -->
                     <StackLayout
-                        x:Name="LetterStackLayout"
                         Margin="4,0,4,0"
                         HorizontalOptions="FillAndExpand"
                         >
-                        <!-- タイトル -->
                         <Label 
                             Text="キャビネットレター"
                             Style="{StaticResource Title_Green}"
                             />
                     </StackLayout>
+                    <!-- 本体 -->
+                    <StackLayout
+                        x:Name="LetterStackLayout"
+                        Margin="4,0,4,0"
+                        HorizontalOptions="FillAndExpand"
+                        >
+                    </StackLayout>
                     
                     <!--参加予定一覧-->
+                    <!-- タイトル -->
                     <StackLayout
-                        x:Name="EventStackLayout"
                         Margin="4,0,4,0"
                         HorizontalOptions="FillAndExpand"
                         >
@@ -73,6 +79,13 @@
                             Text="参加予定一覧" 
                             Style="{StaticResource Title_Yellow}"
                         />
+                    </StackLayout>
+                    <!-- 本体 -->
+                    <StackLayout
+                        x:Name="EventStackLayout"
+                        Margin="4,0,4,0"
+                        HorizontalOptions="FillAndExpand"
+                        >
                     </StackLayout>
                     
                 </StackLayout>

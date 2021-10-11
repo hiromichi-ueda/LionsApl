@@ -9,9 +9,9 @@ namespace LionsApl
     {
         // DB項目判定用文字列
         // イベントクラス
-        public string EVENTCLASS_CV = "1";                  // キャビネットイベント
-        public string EVENTCLASS_CL = "2";                  // 年間例会スケジュール
-        public string EVENTCLASS_DR = "3";                  // 理事・委員会
+        public string EVENTCLASS_EV = "1";                  // キャビネットイベント
+        public string EVENTCLASS_ME = "2";                  // 年間例会スケジュール
+        public string EVENTCLASS_DI = "3";                  // 理事・委員会
         // クラブイベントクラス
         public string CLUBEVENTCLASS_RI = "1";              // 理事会
         public string CLUBEVENTCLASS_IN = "2";              // 委員会
@@ -260,6 +260,87 @@ namespace LionsApl
                 }
             }
             return retStr;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 日付チェック
+        /// </summary>
+        /// <param name="answerDate">開催日</param>
+        /// <param name="answerTime">開催時間</param>
+        /// <param name="nowDt">現在日時</param>
+        /// <returns>false=対象／true=対象外</returns>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public bool ChkDate(string eventDate, string eventTime, DateTime nowDt)
+        {
+            bool ret = false;        // 初期値は対象判定
+            DateTime wkDt;
+
+            // 時間指定なしの場合
+            if (eventTime.Equals(string.Empty))
+            {
+                wkDt = DateTime.Parse(eventDate + " 00:00:00").AddDays(1);
+                // 開催日+1日以降であれば対象外
+                if (nowDt >= wkDt)
+                {
+                    ret = true; // 
+                }
+            }
+            // 
+            else
+            {
+                wkDt = DateTime.Parse(eventDate + " " + eventTime + ":00").AddMinutes(1.0);
+                // 開催日時+1分以降であれば対象外
+                if (nowDt >= wkDt)
+                {
+                    ret = true; // 期限切れ
+                }
+            }
+
+            return ret;
+        }
+
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 回答期限チェック
+        /// </summary>
+        /// <param name="eventClass">イベントクラス</param>
+        /// <param name="answerDate">回答期限日</param>
+        /// <param name="answerTime">回答期限時間</param>
+        /// <param name="nowDt">現在日時</param>
+        /// <returns>false=期限内／true=期限切れ</returns>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public bool ChkAnswerDate(string eventClass, string answerDate, string answerTime, DateTime nowDt)
+        {
+            bool ret = false;        // 初期値は期限内判定
+            DateTime wkDt;
+
+            // キャビネットイベント、もしくは理事・委員会の場合
+            if (eventClass.Equals(EVENTCLASS_EV) || 
+                eventClass.Equals(EVENTCLASS_DI) ||
+               (eventClass.Equals(EVENTCLASS_ME) && answerTime.Equals(string.Empty)))
+            {
+                wkDt = DateTime.Parse(answerDate + " 00:00:00").AddDays(1);
+                // 回答期限日+1日以降であれば期限切れ
+                if (nowDt >= wkDt)
+                {
+                    ret = true; // 期限切れ
+                }
+            }
+            // 年間例会スケジュールの場合
+            else if (eventClass.Equals(EVENTCLASS_ME))
+            {
+                wkDt = DateTime.Parse(answerDate + " " + answerTime + ":00").AddMinutes(1.0);
+                // 回答期限日時+1分以降であれば期限切れ
+                if (nowDt >= wkDt)
+                {
+                    ret = true; // 期限切れ
+                }
+            }
+
+            return ret;
         }
 
 
