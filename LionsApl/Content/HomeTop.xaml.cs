@@ -86,6 +86,11 @@ namespace LionsApl.Content
 
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 画面表示時の更新処理
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -93,7 +98,7 @@ namespace LionsApl.Content
             // 処理日時取得
             _nowDt = DateTime.Now;
 
-            // 参加予定一覧情報取得
+            // 参加予定一覧情報をSQLiteファイルから取得して画面に設定する。
             SetEventLt();
 
         }

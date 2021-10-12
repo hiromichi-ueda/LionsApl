@@ -1210,7 +1210,7 @@
                     Text="出席" 
                     BorderWidth="1" 
                     CornerRadius="6"
-                    Clicked="Present_Button_Clicked"
+                    Clicked="Present_Button_ClickedAsync"
                     >
                 </Button>
                 <!-- 欠席 -->
@@ -1222,7 +1222,7 @@
                     Text="欠席" 
                     BorderWidth="1" 
                     CornerRadius="6"
-                    Clicked="Adsent_Button_Clicked"
+                    Clicked="Adsent_Button_ClickedAsync"
                     >
                 </Button>
             </Grid>

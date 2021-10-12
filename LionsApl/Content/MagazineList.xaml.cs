@@ -61,14 +61,14 @@ namespace LionsApl.Content
             this.BuyNumberPicker.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Picker));     //冊子数選択
             this.count.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Picker));               //冊
 
-            // 情報通信マネージャー生成
-            _icom = IComManager.GetInstance();
-
             // Content Utilクラス生成
             _utl = new LAUtility();
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
+
+            // 情報通信マネージャー生成
+            _icom = IComManager.GetInstance(_sqlite.dbFile);
 
             // A_SETTINGデータ取得
             _sqlite.SetSetting();

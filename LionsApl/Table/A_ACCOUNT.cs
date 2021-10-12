@@ -15,6 +15,7 @@ namespace LionsApl.Table
         public string MemberCode { get; set; }
         public string MemberFirstName { get; set; }
         public string MemberLastName { get; set; }
-        public DateTime AccountDate { get; set; }
+        public string AccountDate { get; set; }
+        public string LastUpdDate { get; set; }
     }
 }

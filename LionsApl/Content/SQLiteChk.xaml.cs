@@ -167,7 +167,7 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {
                     foreach (var row in db.Query<Table.A_APLLOG>("Select * From A_APLLOG"))
                     {
@@ -197,7 +197,7 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {   // Select
                     foreach (var row in db.Query<Table.A_SETTING>("Select * From A_SETTING"))
                     {
@@ -229,13 +229,14 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {   // Select
                     foreach (var row in db.Query<Table.A_ACCOUNT>("Select * From A_ACCOUNT"))
                     {
                         ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
-                                            $"{row.Id}, {row.Region}, {row.Zone}, {row.ClubCode}, {row.ClubName},\r\n" +
-                                            $"{row.MemberCode}, {row.MemberFirstName}, {row.MemberLastName}, {row.AccountDate}\r\n";
+                                            $"{row.Id}, {row.Region}, {row.Zone}, {row.ClubCode}, {row.ClubName},{Environment.NewLine}" +
+                                            $"{row.MemberCode}, {row.MemberFirstName}, {row.MemberLastName},{Environment.NewLine}" +
+                                            $"{row.AccountDate}, {row.LastUpdDate}\r\n";
                     }
                 }
             }
@@ -259,7 +260,7 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {   // Select
                     foreach (var row in db.Query<Table.A_FILEPATH>("Select * From A_FILEPATH"))
                     {
@@ -288,7 +289,7 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {   // Select
                     foreach (var row in db.Query<Table.T_SLOGAN>("Select * From T_SLOGAN"))
                     {
@@ -319,7 +320,7 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {   // Select
                     foreach (var row in db.Query<Table.T_LETTER>("Select * From T_LETTER"))
                     {
@@ -350,7 +351,7 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {   // Select
                     foreach (var row in db.Query<Table.T_EVENTRET>("Select * From T_EVENTRET"))
                     {
@@ -383,7 +384,7 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {   // Select
                     foreach (var row in db.Query<Table.T_EVENT>("Select * From T_EVENT"))
                     {
@@ -418,7 +419,7 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {   // Select
                     foreach (var row in db.Query<Table.T_INFOMATION_CABI>("Select * From T_INFOMATION_CABI"))
                     {
@@ -452,7 +453,7 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {
                     foreach (var row in db.Query<Table.T_MAGAZINE>("Select * From T_MAGAZINE"))
                     {
@@ -483,7 +484,7 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {
                     foreach (var row in db.Query<Table.T_MAGAZINEBUY>("Select * From T_MAGAZINEBUY"))
                     {
@@ -514,7 +515,7 @@ namespace LionsApl.Content
         //    // データ取得
         //    try
         //    {
-        //        using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+        //        using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
         //        {
         //            foreach (var row in db.Query<Table.M_DISTRICTOFFICER>("Select * From M_DISTRICTOFFICER"))
         //            {
@@ -541,7 +542,7 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {
                     foreach (var row in db.Query<Table.M_CABINET>("Select * From M_CABINET"))
                     {
@@ -570,7 +571,7 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {
                     foreach (var row in db.Query<Table.M_CLUB>("Select * From M_CLUB"))
                     {
@@ -604,7 +605,7 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {
                     foreach (var row in db.Query<Table.T_CLUBSLOGAN>("Select * From T_CLUBSLOGAN"))
                     {
@@ -635,7 +636,7 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {   // Select
                     foreach (var row in db.Query<Table.T_MEETINGSCHEDULE>("Select * From T_MEETINGSCHEDULE"))
                     {
@@ -668,7 +669,7 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {   // Select
                     foreach (var row in db.Query<Table.T_DIRECTOR>("Select * From T_DIRECTOR"))
                     {
@@ -703,7 +704,7 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {   // Select
                     foreach (var row in db.Query<Table.T_MEETINGPROGRAM>("Select * From T_MEETINGPROGRAM"))
                     {
@@ -738,7 +739,7 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {
                     foreach (var row in db.Query<Table.T_INFOMATION_CLUB>("Select * From T_INFOMATION_CLUB"))
                     {
@@ -772,7 +773,7 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {
                     foreach (var row in db.Query<Table.M_MEMBER>("Select * From M_MEMBER"))
                     {

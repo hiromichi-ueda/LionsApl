@@ -12,9 +12,6 @@ namespace LionsApl
 {
     public partial class MainPage : ContentPage
     {
-        // SQLiteのパス
-        public static string TDbPath { get; } = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SQLiteDataBase.db");
-
         public string startTime;
         public string endTime;
 
@@ -70,6 +67,9 @@ namespace LionsApl
 
             try
             {
+                // SQLiteファイル削除
+                sqliteManager.DelFileDB3();
+
                 // 空DB作成処理
                 sqliteManager.CreateTable_ALL();
 
@@ -94,8 +94,6 @@ namespace LionsApl
         {
             // 処理中ダイアログ表示
             await ((App)Application.Current).DispLoadingDialog();
-
-
 
         }
 
@@ -201,7 +199,7 @@ namespace LionsApl
             try
             {
                 sqliteManager.CreateTable_ALL();
-                ResultText.Text = "Create Table Finish : \r\n" + sqliteManager.DbPath;
+                ResultText.Text = "Create Table Finish : \r\n" + sqliteManager.dbFile;
             }
             catch (Exception ex)
             {
@@ -350,7 +348,7 @@ namespace LionsApl
 
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {
 
                     const string cmdText = "SELECT name FROM sqlite_master WHERE type='table'";
@@ -403,7 +401,7 @@ namespace LionsApl
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {   // Select
                     foreach (Table.HOME_EVENT row in db.Query<Table.HOME_EVENT>(
                                         "SELECT " +
@@ -478,7 +476,7 @@ namespace LionsApl
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.DbPath))
+                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
                 {   // Select
                     foreach (Table.HOME_EVENT row in db.Query<Table.HOME_EVENT>(
                                         "SELECT " +
@@ -555,10 +553,8 @@ namespace LionsApl
 
             try
             {
-                File.Delete(sqliteManager.DbPath);
-                ResultText.Text += "Delete finish : \r\n" + sqliteManager.DbPath + "\r\n";
-                //File.Delete(TDbPath);
-                //ResultText.Text += "Delete finish : " + TDbPath;
+                File.Delete(sqliteManager.dbFile);
+                ResultText.Text += "Delete finish : \r\n" + sqliteManager.dbFile + "\r\n";
             }
             catch (IOException deleteError)
             {

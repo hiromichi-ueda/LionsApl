@@ -107,7 +107,7 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(_sqlite.DbPath))
+                using (var db = new SQLite.SQLiteConnection(_sqlite.dbFile))
                 {
                     foreach (var row in db.Query<Table.T_CLUBSLOGAN>("Select * From T_CLUBSLOGAN"))
                     {

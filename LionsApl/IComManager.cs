@@ -44,12 +44,17 @@ namespace LionsApl
         private static IComManager _single = null;
         private HttpClient _httpClient = null;
 
+        // SQLiteファイルパス
+        private string _dbFile;
+
         public string DbType1 = "ACCOUNT";
         public string DbType2 = "HOME";
         public string DbType3 = "MAGAZINE";
         public string DbType4 = "EVENTRET";
 
-        public string DbPath { get; } = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "LionsAplDB.db3");
+        //public string DbPath { get; } = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "LionsAplDB.db3");
+
+        // コンテンツ
         public MultipartFormDataContent content;
         public static String webServiceUrl = ((App)Application.Current).WebServiceUrl;
 
@@ -58,10 +63,10 @@ namespace LionsApl
         /// コンストラクタ
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private IComManager()
+        private IComManager(string dbFile)
         {
             _httpClient = new HttpClient();
-
+            _dbFile = dbFile;
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -80,11 +85,11 @@ namespace LionsApl
         /// </summary>
         /// <returns></returns>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public static IComManager GetInstance()
+        public static IComManager GetInstance(string dbFile)
         {
             if (_single == null)
             {
-                _single = new IComManager();
+                _single = new IComManager(dbFile);
             }
             return _single;
         }
@@ -231,7 +236,7 @@ namespace LionsApl
             {
                 using (var rescontent = response.Content)
                 using (var stream = await rescontent.ReadAsStreamAsync())
-                using (var fileStream = new FileStream(DbPath, FileMode.Create, FileAccess.Write, FileShare.None))
+                using (var fileStream = new FileStream(_dbFile, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
                     stream.CopyTo(fileStream);
                 }
@@ -256,8 +261,8 @@ namespace LionsApl
             // 処理日時（文字列データ）
             content.Add(new StringContent(nowDt.ToString()), ReqItem2);
             // Sqliteファイル（バイナリデータ）
-            ByteArrayContent sqlite = new ByteArrayContent(File.ReadAllBytes(DbPath));
-            content.Add(sqlite, "Sqlite", Path.GetFileName(DbPath));
+            ByteArrayContent sqlite = new ByteArrayContent(File.ReadAllBytes(_dbFile));
+            content.Add(sqlite, "Sqlite", Path.GetFileName(_dbFile));
 
         }
 

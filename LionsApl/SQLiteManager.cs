@@ -23,14 +23,20 @@ namespace LionsApl
         public Table.A_FILEPATH Db_A_FilePath;               // A_FILEPATHテーブルクラス
         public List<Table.T_LETTER> DbList_T_Letter = new List<Table.T_LETTER>();   // T_LETTERテーブルクラスリスト
 
+        // SQLiteファイル保管先パス
+        //public string DbPath { get; } = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "LionsAplDB.db3");
+        public string dbPath { get; } = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
 
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// テーブル作成
-        ///////////////////////////////////////////////////////////////////////////////////////////
+        // SQLiteファイル名
+        public static string dbFileName = ((App)Application.Current).SQLiteFileName;
+        // SQLiteファイル拡張子
+        public static string dbFileExte = ((App)Application.Current).SQLiteFileExte;
+        // SQLiteファイルパス＋ファイル名＋拡張子
+        public string dbFile = string.Empty;
 
-        //public string sqlliteFileName { get; set; } = "LionsAplDB.db3";
-        public string DbPath { get; } = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "LionsAplDB.db3");
+        // コンテンツ
         public static MultipartFormDataContent content;
+        // WebサーバURL
         public static String webServiceUrl = ((App)Application.Current).WebServiceUrl;
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -40,7 +46,11 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         private SQLiteManager()
         {
+            // HTTPクライアント生成
             _httpClient = new HttpClient();
+
+            //SQLiteファイル名生成
+            dbFile = dbPath + "/" + dbFileName + dbFileExte; 
 
         }
 
@@ -103,7 +113,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void CreateTable_ALL()
         {
-            using (SQLiteConnection db = new SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLiteConnection(dbFile))
             {
                 // Create Table
                 _ = db.CreateTable<Table.A_APLLOG>();
@@ -136,7 +146,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void CreateTable_A_APLLOG()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Create Table
                 db.CreateTable<Table.A_APLLOG>();
@@ -150,7 +160,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void CreateTable_A_SETTING()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Create Table
                 db.CreateTable<Table.A_SETTING>();
@@ -164,7 +174,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void CreateTable_A_ACCOUNT()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Create Table
                 db.CreateTable<Table.A_ACCOUNT>();
@@ -178,7 +188,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void CreateTable_A_FILEPATH()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Create Table
                 db.CreateTable<Table.A_FILEPATH>();
@@ -192,7 +202,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void CreateTable_T_SLOGAN()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Create Table
                 db.CreateTable<Table.T_SLOGAN>();
@@ -206,7 +216,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void CreateTable_T_LETTER()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Create Table
                 db.CreateTable<Table.T_LETTER>();
@@ -220,7 +230,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void CreateTable_T_EVENTRET()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Create Table
                 db.CreateTable<Table.T_EVENTRET>();
@@ -234,7 +244,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void CreateTable_T_EVENT()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Create Table
                 db.CreateTable<Table.T_EVENT>();
@@ -248,7 +258,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void CreateTable_T_INFOMATION_CABI()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Create Table
                 db.CreateTable<Table.T_INFOMATION_CABI>();
@@ -262,7 +272,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void CreateTable_T_MAGAZINE()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Create Table
                 db.CreateTable<Table.T_MAGAZINE>();
@@ -276,7 +286,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void CreateTable_T_MAGAZINEBUY()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Create Table
                 db.CreateTable<Table.T_MAGAZINEBUY>();
@@ -290,7 +300,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         //public void CreateTable_M_DISTRICTOFFICER()
         //{
-        //    using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+        //    using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
         //    {
         //        // Create Table
         //        db.CreateTable<Table.M_DISTRICTOFFICER>();
@@ -304,7 +314,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void CreateTable_M_CABINET()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Create Table
                 db.CreateTable<Table.M_CABINET>();
@@ -318,7 +328,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void CreateTable_M_CLUB()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Create Table
                 db.CreateTable<Table.M_CLUB>();
@@ -332,7 +342,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void CreateTable_T_CLUBSLOGAN()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Create Table
                 db.CreateTable<Table.T_CLUBSLOGAN>();
@@ -346,7 +356,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void CreateTable_T_MEETINGSCHEDULE()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Create Table
                 db.CreateTable<Table.T_MEETINGSCHEDULE>();
@@ -360,7 +370,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void CreateTable_T_DIRECTOR()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Create Table
                 db.CreateTable<Table.T_DIRECTOR>();
@@ -374,7 +384,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void CreateTable_T_MEETINGPROGRAM()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Create Table
                 db.CreateTable<Table.T_MEETINGPROGRAM>();
@@ -388,7 +398,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void CreateTable_T_INFOMATION_CLUB()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Create Table
                 db.CreateTable<Table.T_INFOMATION_CLUB>();
@@ -402,7 +412,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void CreateTable_M_MEMBER()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Create Table
                 db.CreateTable<Table.M_MEMBER>();
@@ -423,7 +433,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void DropTable()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Create Table
                 db.DropTable<Table.A_APLLOG>();
@@ -456,7 +466,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void DropTable_A_APLLOG()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Drop Table
                 db.DropTable<Table.A_APLLOG>();
@@ -470,7 +480,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void DropTable_A_SETTING()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Drop Table
                 db.DropTable<Table.A_SETTING>();
@@ -484,7 +494,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void DropTable_A_ACCOUNT()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Drop Table
                 db.DropTable<Table.A_ACCOUNT>();
@@ -498,7 +508,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void DropTable_A_FILEPATH()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Drop Table
                 db.DropTable<Table.A_FILEPATH>();
@@ -512,7 +522,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void DropTable_T_SLOGAN()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Drop Table
                 db.DropTable<Table.T_SLOGAN>();
@@ -526,7 +536,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void DropTable_T_LETTER()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Drop Table
                 db.DropTable<Table.T_LETTER>();
@@ -540,7 +550,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void DropTable_T_EVENTRET()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Drop Table
                 db.DropTable<Table.T_EVENTRET>();
@@ -554,7 +564,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void DropTable_T_EVENT()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Drop Table
                 db.DropTable<Table.T_EVENT>();
@@ -568,7 +578,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void DropTable_T_INFOMATION_CABI()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Drop Table
                 db.DropTable<Table.T_INFOMATION_CABI>();
@@ -582,7 +592,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void DropTable_T_MAGAZINE()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Drop Table
                 db.DropTable<Table.T_MAGAZINE>();
@@ -596,35 +606,35 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void DropTable_T_MAGAZINEBUY()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Drop Table
                 db.DropTable<Table.T_MAGAZINEBUY>();
             }
         }
 
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// データベーステーブル削除（M_DISTRICTOFFICER）
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        //public void DropTable_M_DISTRICTOFFICER()
-        //{
-        //    using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
-        //    {
-        //        // Drop Table
-        //        db.DropTable<Table.M_DISTRICTOFFICER>();
-        //    }
-        //}
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// データベーステーブル削除（M_DISTRICTOFFICER）
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    //public void DropTable_M_DISTRICTOFFICER()
+    //{
+    //    using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
+    //    {
+    //        // Drop Table
+    //        db.DropTable<Table.M_DISTRICTOFFICER>();
+    //    }
+    //}
 
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// データベーステーブル削除（M_CABINET）
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        public void DropTable_M_CABINET()
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// データベーステーブル削除（M_CABINET）
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    public void DropTable_M_CABINET()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Drop Table
                 db.DropTable<Table.M_CABINET>();
@@ -638,7 +648,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void DropTable_M_CLUB()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Drop Table
                 db.DropTable<Table.M_CLUB>();
@@ -652,7 +662,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void DropTable_T_CLUBSLOGAN()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Drop Table
                 db.DropTable<Table.T_CLUBSLOGAN>();
@@ -667,7 +677,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void DropTable_T_MEETINGSCHEDULE()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Drop Table
                 db.DropTable<Table.T_MEETINGSCHEDULE>();
@@ -681,7 +691,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void DropTable_T_DIRECTOR()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Drop Table
                 db.DropTable<Table.T_DIRECTOR>();
@@ -695,7 +705,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void DropTable_T_MEETINGPROGRAM()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Drop Table
                 db.DropTable<Table.T_MEETINGPROGRAM>();
@@ -709,7 +719,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void DropTable_T_INFOMATION_CLUB()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Drop Table
                 db.DropTable<Table.T_INFOMATION_CLUB>();
@@ -723,7 +733,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void DropTable_M_MEMBER()
         {
-            using (SQLiteConnection db = new SQLite.SQLiteConnection(DbPath))
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
                 // Drop Table
                 db.DropTable<Table.M_MEMBER>();
@@ -749,7 +759,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.A_APLLOG>(command);
                 }
@@ -775,7 +785,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.A_ACCOUNT>(command);
                 }
@@ -801,7 +811,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.A_SETTING>(command);
                 }
@@ -827,7 +837,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.A_FILEPATH>(command);
                 }
@@ -853,7 +863,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.T_SLOGAN>(command);
                 }
@@ -879,7 +889,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.T_LETTER>(command);
                 }
@@ -905,7 +915,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.T_EVENTRET>(command);
                 }
@@ -931,7 +941,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.T_EVENT>(command);
                 }
@@ -957,7 +967,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.T_INFOMATION_CABI>(command);
                 }
@@ -983,7 +993,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.T_MAGAZINE>(command);
                 }
@@ -1009,7 +1019,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.T_MAGAZINEBUY>(command);
                 }
@@ -1023,45 +1033,45 @@ namespace LionsApl
 
         }
 
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// M_DISTRICTOFFICERテーブルデータ取得
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        //public Table.M_DISTRICTOFFICER[] Get_M_DISTRICTOFFICER(string command)
-        //{
-        //    List<Table.M_DISTRICTOFFICER> items = new List<Table.M_DISTRICTOFFICER>();
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// M_DISTRICTOFFICERテーブルデータ取得
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    //public Table.M_DISTRICTOFFICER[] Get_M_DISTRICTOFFICER(string command)
+    //{
+    //    List<Table.M_DISTRICTOFFICER> items = new List<Table.M_DISTRICTOFFICER>();
 
-        //    try
-        //    {
-        //        // データ取得
-        //        using (SQLiteConnection db = new SQLiteConnection(DbPath))
-        //        {   // Select
-        //            items = db.Query<Table.M_DISTRICTOFFICER>(command);
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        throw;
-        //    }
+    //    try
+    //    {
+    //        // データ取得
+    //        using (SQLiteConnection db = new SQLiteConnection(dbFile))
+    //        {   // Select
+    //            items = db.Query<Table.M_DISTRICTOFFICER>(command);
+    //        }
+    //    }
+    //    catch
+    //    {
+    //        throw;
+    //    }
 
-        //    return items.Count > 0 ? items.ToArray() : (new Table.M_DISTRICTOFFICER[0]);
+    //    return items.Count > 0 ? items.ToArray() : (new Table.M_DISTRICTOFFICER[0]);
 
-        //}
+    //}
 
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// M_CABINETテーブルデータ取得
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        public Table.M_CABINET[] Get_M_CABINET(string command)
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// M_CABINETテーブルデータ取得
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    public Table.M_CABINET[] Get_M_CABINET(string command)
         {
             List<Table.M_CABINET> items = new List<Table.M_CABINET>();
 
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.M_CABINET>(command);
                 }
@@ -1087,7 +1097,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.M_CLUB>(command);
                 }
@@ -1113,7 +1123,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.T_CLUBSLOGAN>(command);
                 }
@@ -1139,7 +1149,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.T_MEETINGSCHEDULE>(command);
                 }
@@ -1165,7 +1175,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.T_DIRECTOR>(command);
                 }
@@ -1191,7 +1201,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.T_MEETINGPROGRAM>(command);
                 }
@@ -1217,7 +1227,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.T_INFOMATION_CLUB>(command);
                 }
@@ -1243,7 +1253,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.M_MEMBER>(command);
                 }
@@ -1275,7 +1285,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.HOME_EVENT>(command);
                 }
@@ -1301,7 +1311,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.MAGAZINE_LIST>(command);
                 }
@@ -1327,7 +1337,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.CLUB_MPROG>(command);
                 }
@@ -1353,7 +1363,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.DIRECTOR_LIST>(command);
                 }
@@ -1379,7 +1389,7 @@ namespace LionsApl
             try
             {
                 // データ取得
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {   // Select
                     items = db.Query<Table.EVENT_LIST>(command);
                 }
@@ -1458,7 +1468,8 @@ namespace LionsApl
                         MemberCode = row.MemberCode,
                         MemberFirstName = row.MemberFirstName,
                         MemberLastName = row.MemberLastName,
-                        AccountDate = row.AccountDate
+                        AccountDate = row.AccountDate,
+                        LastUpdDate = row.LastUpdDate
                     };
 
                 }
@@ -1518,7 +1529,7 @@ namespace LionsApl
             // データ登録
             try
             {
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {
                     _ = db.DropTable<Table.A_ACCOUNT>();
                     _ = db.CreateTable<Table.A_ACCOUNT>();
@@ -1531,7 +1542,9 @@ namespace LionsApl
                         MemberCode = account.MemberCode,
                         MemberFirstName = account.MemberFirstName,
                         MemberLastName = account.MemberLastName,
-                        AccountDate = account.AccountDate
+                        AccountDate = account.AccountDate,
+                        LastUpdDate = account.LastUpdDate 
+                        
                     });
                 }
             }
@@ -1552,7 +1565,7 @@ namespace LionsApl
             // データ登録
             try
             {
-                using (SQLiteConnection db = new SQLiteConnection(DbPath))
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
                 {
                     _ = db.Insert(new Table.T_MAGAZINEBUY()
                     {
@@ -1593,7 +1606,7 @@ namespace LionsApl
         public Table.T_EVENTRET[] Set_T_EVENTRET(string command)
         {
 
-            SQLiteConnection db = new SQLiteConnection(DbPath);
+            SQLiteConnection db = new SQLiteConnection(dbFile);
             List<Table.T_EVENTRET> items = db.Query<Table.T_EVENTRET>(command);
             if (items.Count > 0)
             {
@@ -1623,6 +1636,19 @@ namespace LionsApl
             return names;
         }
 
+        public void DelFileDB3()
+        {
+            try
+            {
+                File.Delete(dbFile);
+            }
+            catch (IOException deleteError)
+            {
+                throw;
+            }
+        }
+
+
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// ファイルコンテンツ
@@ -1639,8 +1665,8 @@ namespace LionsApl
             // 処理日時（文字列データ）
             content.Add(new StringContent(nowDt.ToString()), "AplTime");
             // Sqliteファイル（バイナリデータ）
-            ByteArrayContent sqlite = new ByteArrayContent(File.ReadAllBytes(DbPath));
-            content.Add(sqlite, "Sqlite", Path.GetFileName(DbPath));
+            ByteArrayContent sqlite = new ByteArrayContent(File.ReadAllBytes(dbFile));
+            content.Add(sqlite, "Sqlite", Path.GetFileName(dbFile));
 
             return content;
         }
@@ -1661,8 +1687,8 @@ namespace LionsApl
             // 処理日時（文字列データ）
             content.Add(new StringContent(nowDt.ToString()), "AplTime");
             // Sqliteファイル（バイナリデータ）
-            ByteArrayContent sqlite = new ByteArrayContent(File.ReadAllBytes(DbPath));
-            content.Add(sqlite, "Sqlite", Path.GetFileName(DbPath));
+            ByteArrayContent sqlite = new ByteArrayContent(File.ReadAllBytes(dbFile));
+            content.Add(sqlite, "Sqlite", Path.GetFileName(dbFile));
 
             return content;
         }
@@ -1682,7 +1708,7 @@ namespace LionsApl
             {
                 using (var content = response.Content)
                 using (var stream = await content.ReadAsStreamAsync())
-                using (var fileStream = new FileStream(DbPath, FileMode.Create, FileAccess.Write, FileShare.None))
+                using (var fileStream = new FileStream(dbFile, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
                     stream.CopyTo(fileStream);
                 }
@@ -1712,7 +1738,7 @@ namespace LionsApl
             {
                 using (var content = response.Content)
                 using (var stream = await content.ReadAsStreamAsync())
-                using (var fileStream = new FileStream(DbPath, FileMode.Create, FileAccess.Write, FileShare.None))
+                using (var fileStream = new FileStream(dbFile, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
                     label.Text += "File output Start\r\n";
                     stream.CopyTo(fileStream);

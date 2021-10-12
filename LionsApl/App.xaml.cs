@@ -11,9 +11,12 @@ namespace LionsApl
 {
     public partial class App : Application
     {
+        public string AppVersion;
         public string AppServer;
         public string WebServiceUrl;
         public string AndroidPdf;
+        public string SQLiteFileName;
+        public string SQLiteFileExte;
         public string FilePath_Letter;
         public string FilePath_Evnet;
         public string FilePath_Magazine;
@@ -24,11 +27,18 @@ namespace LionsApl
         public App()
         {
             InitializeComponent();
-            
+
+            // Configファイルより値を取得(Version)
+            AppVersion = PCLAppConfig.ConfigurationManager.AppSettings["ApplicationVersion"];
+
             // Configファイルより値を取得(URL)
             AppServer = PCLAppConfig.ConfigurationManager.AppSettings["ApplicationServer"];
             WebServiceUrl = PCLAppConfig.ConfigurationManager.AppSettings["WebServiceUrl"];
             AndroidPdf = PCLAppConfig.ConfigurationManager.AppSettings["AndroidPdfViewer"];
+
+            // Configファイルより値を取得(SQLite)
+            SQLiteFileName = PCLAppConfig.ConfigurationManager.AppSettings["SQLiteFileName"];
+            SQLiteFileExte = PCLAppConfig.ConfigurationManager.AppSettings["SQLiteFileExtension"];
 
             // Configファイルより値を取得(FILEPATH)
             FilePath_Letter = PCLAppConfig.ConfigurationManager.AppSettings["FILEPATH_LETTER"];

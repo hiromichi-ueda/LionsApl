@@ -601,7 +601,9 @@ namespace LionsApl.Content
             // データ登録
             try
             {
-                _account.AccountDate = DateTime.Now;
+                // 処理日時取得
+                DateTime nowDt = DateTime.Now;
+                _account.AccountDate = nowDt.ToString("yyyy/MM/dd HH:mm:ss");
                 _sqlite.Set_A_ACCOUNT(_account);
 
             }

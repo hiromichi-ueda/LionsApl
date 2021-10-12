@@ -80,14 +80,14 @@ namespace LionsApl.Content
             // 処理日時取得
             _nowDt = DateTime.Now;
 
-            // 情報通信マネージャー生成
-            _icom = IComManager.GetInstance();
-
             // Content Utilクラス生成
             _utl = new LAUtility();
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
+
+            // 情報通信マネージャー生成
+            _icom = IComManager.GetInstance(_sqlite.dbFile);
 
             // A_SETTINGデータ取得
             _sqlite.SetSetting();
@@ -133,9 +133,8 @@ namespace LionsApl.Content
         /// <param name="sender"></param>
         /// <param name="e"></param>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private void Present_Button_Clicked(object sender, System.EventArgs e)
+        private async void Present_Button_ClickedAsync(object sender, System.EventArgs e)
         {
-
             // 回答（出席）
             _ceventret.Answer = _utl.ANSWER_PRE;
 
@@ -164,7 +163,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLServer 出席情報登録エラー : {ex.Message}", "OK");
+                await DisplayAlert("Alert", $"SQLServer 出席情報登録エラー : {ex.Message}", "OK");
             }
 
             try
@@ -174,10 +173,13 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite 出席情報登録エラー : {ex.Message}", "OK");
+                await DisplayAlert("Alert", $"SQLite 出席情報登録エラー : {ex.Message}", "OK");
             }
 
-            DisplayAlert("出欠確認", $"出席情報を登録しました。", "OK");
+            await DisplayAlert("出欠確認", $"出席情報を登録しました。", "OK");
+
+            // 一覧に戻る
+            await Navigation.PopAsync(false);
 
         }
 
@@ -454,7 +456,7 @@ namespace LionsApl.Content
         /// <param name="sender"></param>
         /// <param name="e"></param>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private void Adsent_Button_Clicked(object sender, System.EventArgs e)
+        private async void Adsent_Button_ClickedAsync(object sender, System.EventArgs e)
         {
 
             // 回答（欠席）
@@ -492,7 +494,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLServer 欠席情報登録エラー : {ex.Message}", "OK");
+                await DisplayAlert("Alert", $"SQLServer 欠席情報登録エラー : {ex.Message}", "OK");
             }
 
             try
@@ -502,10 +504,13 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite 欠席情報登録エラー : {ex.Message}", "OK");
+                await DisplayAlert("Alert", $"SQLite 欠席情報登録エラー : {ex.Message}", "OK");
             }
 
-            DisplayAlert("出欠確認", $"欠席情報を登録しました。", "OK");
+            await DisplayAlert("出欠確認", $"欠席情報を登録しました。", "OK");
+
+            // 一覧に戻る
+            await Navigation.PopAsync(false);
 
         }
 
