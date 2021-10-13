@@ -16,6 +16,9 @@ namespace LionsApl.Content
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
+        // Utilityクラス
+        private LAUtility _utl;
+
         // リストビュー設定内容
         public List<LetterRow> Items { get; set; }
 
@@ -25,6 +28,9 @@ namespace LionsApl.Content
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
+
+            // Content Utilクラス生成
+            _utl = new LAUtility();
 
             // A_SETTINGデータ取得
             _sqlite.SetSetting();
@@ -56,8 +62,6 @@ namespace LionsApl.Content
             string wkLetterTitle = string.Empty;
             Items = new List<LetterRow>();
 
-            Table.TableUtil Util = new Table.TableUtil();
-
             try
             {
                 foreach (Table.T_LETTER row in _sqlite.Get_T_LETTER("Select * " +
@@ -65,8 +69,8 @@ namespace LionsApl.Content
                                                                     "ORDER BY EventDate DESC, EventTime DESC, DataNo DESC"))
                 {
                     wkDataNo = row.DataNo.ToString();
-                    wkEventDate = Util.GetString(row.EventDate).Substring(0, 10) + "  " + Util.GetString(row.EventTime);
-                    wkLetterTitle = Util.GetString(row.Title);
+                    wkEventDate = _utl.GetString(row.EventDate).Substring(0, 10) + "  " + _utl.GetTimeString(row.EventTime);
+                    wkLetterTitle = _utl.GetString(row.Title);
                     Items.Add(new LetterRow(wkDataNo, wkEventDate, wkLetterTitle));
                 }
                 if (Items.Count == 0)

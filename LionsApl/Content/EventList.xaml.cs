@@ -29,7 +29,8 @@ namespace LionsApl.Content
         public ObservableCollection<EventRow> Items;
 
         // 文字列定数
-        private string ST_EVENT_1 = "[キャビネット]";
+        //private string ST_EVENT_1 = "[キャビネット]";
+        private string ST_EVENT_1 = "[キャビ]";
         private string ST_EVENT_2 = "[クラブ]";
         private string ST_EVENT_3 = "[クラブ]";
 

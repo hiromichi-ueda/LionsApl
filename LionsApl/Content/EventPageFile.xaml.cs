@@ -24,7 +24,7 @@ namespace LionsApl.Content
         public static String AndroidPdf = ((App)Application.Current).AndroidPdf;          // PdfViewer
         public static String FilePath_Event = ((App)Application.Current).FilePath_Evnet;  // 連絡事項(CLUB)
 
-        public EventPageFile(int dataNo, string fileName)
+        public EventPageFile(int eventDataNo, string fileName)
         {
             InitializeComponent();
 
@@ -34,6 +34,12 @@ namespace LionsApl.Content
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
 
+            // A_SETTINGデータ取得
+            _sqlite.SetSetting();
+
+            // タイトル設定
+            Title = _sqlite.Db_A_Setting.CabinetName;
+
             // A_FILEPATHデータ取得
             _sqlite.GetFilePath(FilePath_Event);
 
@@ -42,7 +48,7 @@ namespace LionsApl.Content
 
             // FILEPATH生成
             var fileUrl = AppServer + filepath.Replace("\\", "/").Replace("\r\n", "") +
-                         "/" + dataNo.ToString() + "/" + _utl.GetString(fileName);
+                         "/" + eventDataNo.ToString() + "/" + _utl.GetString(fileName);
 
             // AndroidPDF Viewer
             var googleUrl = AndroidPdf + "?embedded=true&url=";

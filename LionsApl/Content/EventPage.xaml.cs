@@ -122,8 +122,8 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void File_Button_Clicked(object sender, System.EventArgs e)
         {
-            //Navigation.PushModalAsync(new EventPageFile(_dataNo, _fileName));
-            Navigation.PushAsync(new EventPageFile(_dataNo, _fileName));
+            //Navigation.PushModalAsync(new EventPageFile(_eventDataNo, _fileName));
+            Navigation.PushAsync(new EventPageFile(_eventDataNo, _fileName));
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////

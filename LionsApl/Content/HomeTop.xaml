@@ -68,15 +68,15 @@
                         HorizontalOptions="FillAndExpand"
                         >
                     </StackLayout>
-                    
-                    <!--参加予定一覧-->
+
+                    <!--出席予定一覧-->
                     <!-- タイトル -->
                     <StackLayout
                         Margin="4,0,4,0"
                         HorizontalOptions="FillAndExpand"
                         >
                         <Label
-                            Text="参加予定一覧" 
+                            Text="出席予定一覧" 
                             Style="{StaticResource Title_Yellow}"
                         />
                     </StackLayout>

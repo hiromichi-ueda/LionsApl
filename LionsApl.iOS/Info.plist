@@ -34,7 +34,6 @@
 	<string>LionsApl</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
-<!-- HTTPの許可 -->
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -46,12 +45,8 @@
 			</dict>
 		</dict>
 	</dict>
-	<!-- ログファイルの表示 -->
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
-	<!-- 言語の設定？ （ピッカーのボタン"Done"を"完了"に変える）-->
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
 	<key>CFBundleLocalizations</key>
 	<array>
 		<string>en</string>

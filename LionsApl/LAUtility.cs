@@ -29,17 +29,18 @@ namespace LionsApl
         //public string MEETING_ONLINE = "2";
 
         // 時期区分
-        public string SEASON_NOW = "1";
-        public string SEASON_NEXT = "2";
+        public string SEASON_NOW = "1";                     // 今期
+        public string SEASON_NEXT = "2";                    // 次期
 
         // 引数用文字列
         public string NLC_OFF = "0";                        // 改行を削除しない。
         public string NLC_ON = "1";                         // 改行を削除する。
 
         // 各種判定用文字列
-        public readonly string OFFFLG = "0";
-        public readonly string ONFLG = "1";
-        public readonly string NOFLG = string.Empty;
+        public readonly string OFFFLG = "0";                // 区分：OFF
+        public readonly string ONFLG = "1";                 // 区分：ON
+        public readonly string NOFLG = string.Empty;        // 区分：なし
+        public readonly string NOTIME = "00:00";            // 時間設定なし
 
         // 出力文字列
         public readonly string ST_CANCEL = "中止";
@@ -61,7 +62,7 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// 入力したstringがnullかどうかをチェックして入力値かstring.Emptyを返す
+        /// 入力したstringがnullならstring.Emptyを返す
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
@@ -78,29 +79,7 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// 入力したstringがstring.Emptyか、文字列かチェックして「'文字列'」か「NULL」を返す
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        public string GetSQLString(string str)
-        {
-            string retStr = string.Empty;
-            if (str.Equals(string.Empty))
-            {
-                retStr = "NULL";
-            }
-            else
-            {
-                retStr = "'" + str + "'";
-            }
-            return retStr;
-        }
-
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// 入力したstringがnullかどうかをチェックして入力値かstring.Emptyを返す
+        /// 入力したstringがnullならstring.Emptyを返す
         /// 改行コード削除フラグがON（NLC_ON）の場合は入力値から改行コードを削除して返す
         /// </summary>
         /// <param name="str"></param>
@@ -119,6 +98,45 @@ namespace LionsApl
                 }
             }
             return retStr;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 入力したstringがstring.Emptyなら「NULL」、文字列なら「'文字列'」を返す
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public string GetSQLString(string str)
+        {
+            string retStr = string.Empty;
+            if (str.Equals(string.Empty))
+            {
+                retStr = "NULL";
+            }
+            else
+            {
+                retStr = "'" + str + "'";
+            }
+            return retStr;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 入力したstringがNOTIMEと同じならstring.Emptyを返す
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public string GetTimeString(string str)
+        {
+            string retStr = string.Empty;
+            if (!str.Equals(NOTIME))
+            {
+                retStr = str;
+            }
+            return retStr;
+
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////

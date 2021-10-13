@@ -352,8 +352,9 @@ namespace LionsApl.Content
                                      ref strAnswerDate,
                                      ref strAnswerTime);
 
-                    // イベント出欠に回答していない場合
-                    if (strAnswer == "")
+                    // イベント出欠に回答していない、もしくは欠席の場合
+                    if (strAnswer.Equals(_utl.ANSWER_NO) || 
+                        strAnswer.Equals(_utl.ANSWER_AB))
                     {
                         // 対象外として次のデータへ
                         continue;
