@@ -22,7 +22,7 @@ namespace LionsApl.Content
         private LAUtility _utl;
 
         // 前画面からの取得情報
-        private string _DataNo;         // データNo.
+        private int _dataNo;         // データNo.
 
         // Config取得
         public static String AppServer = ((App)Application.Current).AppServer;                              //Url
@@ -39,7 +39,7 @@ namespace LionsApl.Content
         /// </summary>
         /// <param name="datano">データNo.</param>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public ClubInfomationPage(string datano)
+        public ClubInfomationPage(int dataNo)
         {
             InitializeComponent();
 
@@ -52,10 +52,13 @@ namespace LionsApl.Content
             this.Detail.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
 
             // 前画面からの取得情報
-            _DataNo = datano;                   // データ№.
+            _dataNo = dataNo;                   // データ№.
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
+
+            // Content Utilクラス生成
+            _utl = new LAUtility();
 
             // A_SETTINGデータ取得
             _sqlite.SetSetting();
@@ -88,24 +91,22 @@ namespace LionsApl.Content
             // 変数宣言
             string wkClubCode;
 
-            Table.TableUtil Util = new Table.TableUtil();
-
             // 連絡事項情報取得
             try
             {
                 foreach (Table.T_INFOMATION_CLUB row in _sqlite.Get_T_INFOMATION_CLUB("Select * " +
                                                                     "From T_INFOMATION_CLUB " +
-                                                                    "Where DataNo='" + _DataNo + "'"))
+                                                                    "Where DataNo='" + _dataNo + "'"))
                 {
 
                     // 各項目情報取得
-                    wkClubCode = Util.GetString(row.ClubCode);                      //クラブコード
-                    AddDate.Text = Util.GetString(row.AddDate).Substring(0, 10);    //連絡日
-                    Subject.Text = Util.GetString(row.Subject);                     //件名
-                    Detail.Text = Util.GetString(row.Detail);                       //内容
+                    wkClubCode = _utl.GetString(row.ClubCode);                      //クラブコード
+                    AddDate.Text = _utl.GetString(row.AddDate).Substring(0, 10);    //連絡日
+                    Subject.Text = _utl.GetString(row.Subject);                     //件名
+                    Detail.Text = _utl.GetString(row.Detail);                       //内容
 
                     // 添付ファイル
-                    if (Util.GetString(row.FileName) != "")
+                    if (_utl.GetString(row.FileName) != string.Empty)
                     {
                         // ファイル表示高さ設定
                         this.grid.HeightRequest = 600.0;
@@ -115,7 +116,7 @@ namespace LionsApl.Content
                         
                         // FILEPATH生成([ClubCode]変換)
                         var fileUrl = AppServer + filepath.Replace("[ClubCode]", wkClubCode).Replace("\\", "/").Replace("\r\n", "") +
-                                     "/" + row.DataNo.ToString() + "/" + Util.GetString(row.FileName);
+                                     "/" + row.DataNo.ToString() + "/" + _utl.GetString(row.FileName);
 
                         // AndroidPDF Viewer
                         var googleUrl = AndroidPdf + "?embedded=true&url=";

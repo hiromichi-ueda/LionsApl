@@ -15,15 +15,19 @@ namespace LionsApl.Content
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
+        // Utilityクラス
+        private LAUtility _utl;
+
+        // 前画面からの取得情報-
+        private int _dataNo;        // データNo.
+
         // Config取得
         public static String AppServer = ((App)Application.Current).AppServer;                      //Url
         public static String AndroidPdf = ((App)Application.Current).AndroidPdf;                    //PdfViewer
         public static String FilePath_Infometion = ((App)Application.Current).FilePath_Infometion;  //連絡事項(CABINET)
 
-        // 前画面からの取得情報-
-        private string _DataNo;        // データNo.
 
-        public InfomationPage(string dataNo)
+        public InfomationPage(int dataNo)
         {
             InitializeComponent();
 
@@ -36,10 +40,13 @@ namespace LionsApl.Content
             this.Detail.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
 
             // 一覧から取得(データ№)
-            _DataNo = dataNo;
+            _dataNo = dataNo;
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
+
+            // Content Utilクラス生成
+            _utl = new LAUtility();
 
             // A_SETTINGデータ取得
             _sqlite.SetSetting();
@@ -70,33 +77,42 @@ namespace LionsApl.Content
         {
             // 変数
             string wkDataNo = string.Empty;
-
-            Table.TableUtil Util = new Table.TableUtil();
+            string wkFileName = string.Empty;
 
             try
             {
+                // 対象データNo.の連絡事項(クラブ)データを取得
                 foreach (Table.T_INFOMATION_CABI row in _sqlite.Get_T_INFOMATION_CABI("Select * " +
-                                                                    "From Get_T_INFOMATION_CABI " +
-                                                                    "Where DataNo='" + _DataNo + "'"))
+                                                                                      "From T_INFOMATION_CABI " +
+                                                                                      "Where DataNo='" + _dataNo + "'"))
                 {
 
                     // Data№取得
                     wkDataNo = row.DataNo.ToString();
 
                     // 各項目情報取得
-                    AddDate.Text = Util.GetString(row.AddDate).Substring(0, 10);    //連絡日
-                    Subject.Text = Util.GetString(row.Subject);                     //件名
-                    Detail.Text = Util.GetString(row.Detail);                       //内容
+                    AddDate.Text = _utl.GetString(row.AddDate).Substring(0, 10);    //連絡日
+                    Subject.Text = _utl.GetString(row.Subject);                     //件名
+                    Detail.Text = _utl.GetString(row.Detail);                       //内容
 
                     // 添付ファイル
-                    if (Util.GetString(row.FileName) != "")
+                    if (_utl.GetString(row.FileName) != string.Empty)
                     {
                         // ファイル表示高さ設定
                         this.grid.HeightRequest = 600.0;
 
                         // FILEPATH取得(連絡事項)
                         var fileUrl = AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/").Replace("\r\n", "") +
-                                     "/" + wkDataNo + "/" + Util.GetString(row.FileName);
+                                      "/" + wkDataNo + "/" + _utl.GetString(row.FileName);
+
+                        
+                        //// FILEPATH取得
+                        //var filepath = _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/").Replace("\r\n", "");
+
+                        //// FILEPATH生成
+                        //var fileUrl = AppServer + filepath.Replace("\\", "/").Replace("\r\n", "") +
+                        //             "/" + _dataNo.ToString() + "/" + _utl.GetString(row.FileName);
+
 
                         // AndroidPDF Viewer
                         var googleUrl = AndroidPdf + "?embedded=true&url=";
@@ -110,7 +126,7 @@ namespace LionsApl.Content
                             FileName.Source = new UrlWebViewSource() { Url = googleUrl + fileUrl };
                         }
                         lbl_FileName.Text = fileUrl;            //FileName表示
-                        this.lbl_FileName.HeightRequest = 0;    //非表示設定
+                        //this.lbl_FileName.HeightRequest = 0;    //非表示設定
                     }
                     else
                     {
@@ -124,7 +140,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(T_INFOMATION) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(T_INFOMATION) : {ex.Message}", "OK");
             }
         }
 

@@ -16,6 +16,9 @@ namespace LionsApl.Content
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
+        // Utilityクラス
+        private LAUtility _utl;
+
         // リストビュー設定内容
         public List<ClubInfomationRow> Items { get; set; }
 
@@ -25,6 +28,9 @@ namespace LionsApl.Content
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
+
+            // Content Utilクラス生成
+            _utl = new LAUtility();
 
             // A_SETTINGデータ取得
             _sqlite.SetSetting();
@@ -50,7 +56,7 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetClubInfomation()
         {
-            string wkDataNo = string.Empty;
+            int wkDataNo = 0;
             string WorkTypeCode = string.Empty;
             string WorkClubCode = string.Empty;
             string WorkDate = string.Empty;
@@ -59,8 +65,6 @@ namespace LionsApl.Content
             string[] WorkCodeList = null;
             bool AddListFlg = false;
             Items = new List<ClubInfomationRow>();
-
-            Table.TableUtil Util = new Table.TableUtil();
 
             try
             {
@@ -71,7 +75,7 @@ namespace LionsApl.Content
                                                                  "WHERE MemberCode = '" + _sqlite.Db_A_Account.MemberCode + "' "))
                 {
                     // 会員種別を保持
-                    WorkTypeCode = Util.GetString(row.TypeCode);
+                    WorkTypeCode = _utl.GetString(row.TypeCode);
                 }
 
                 // 連絡事項(クラブ)のデータを全件取得
@@ -81,15 +85,15 @@ namespace LionsApl.Content
                                                                  "ORDER BY AddDate DESC"))
                 {
                     AddListFlg = false;
-                    WorkFlg = Util.GetString(row.InfoFlg);
+                    WorkFlg = _utl.GetString(row.InfoFlg);
 
                     // データ№
-                    wkDataNo = row.DataNo.ToString();
+                    wkDataNo = row.DataNo;
 
                     // 全会員の場合
-                    if (WorkFlg == "1")
+                    if (WorkFlg == _utl.INFOFLG_ALL)
                     {
-                        WorkCodeList = Util.GetString(row.TypeCode).Split(',');
+                        WorkCodeList = _utl.GetString(row.TypeCode).Split(',');
                         foreach (string code in WorkCodeList)
                         {
                             // 会員種別を条件にログインユーザーが対象か判定
@@ -102,9 +106,9 @@ namespace LionsApl.Content
                     }
 
                     // 個別設定の場合
-                    else
+                    else if (WorkFlg == _utl.INFOFLG_PRIV)
                     {
-                        WorkCodeList = Util.GetString(row.InfoUser).Split(',');
+                        WorkCodeList = _utl.GetString(row.InfoUser).Split(',');
                         foreach (string code in WorkCodeList)
                         {
                             // 連絡者(会員番号)を条件にログインユーザーが対象か判定
@@ -119,10 +123,11 @@ namespace LionsApl.Content
                     // ログインユーザーが対象の連絡事項を設定
                     if (AddListFlg)
                     {
-                        WorkClubCode = Util.GetString(row.ClubCode);
-                        WorkDate = Util.GetString(row.AddDate).Substring(0, 10);
-                        WorkSubject = Util.GetString(row.Subject);
+                        WorkClubCode = _utl.GetString(row.ClubCode);
+                        WorkDate = _utl.GetString(row.AddDate).Substring(0, 10);
+                        WorkSubject = _utl.GetString(row.Subject);
                         Items.Add(new ClubInfomationRow(wkDataNo, WorkClubCode, WorkDate, WorkSubject));
+
                     }
                 }
 
@@ -130,7 +135,8 @@ namespace LionsApl.Content
                 if (Items.Count == 0)
                 {
                     // メッセージ表示のため空行を追加
-                    Items.Add(new ClubInfomationRow(wkDataNo, WorkClubCode, WorkDate, WorkSubject));
+                    //Items.Add(new ClubInfomationRow(wkDataNo, WorkClubCode, WorkDate, WorkSubject));
+                    Items.Add(new ClubInfomationRow(0, WorkClubCode, WorkDate, WorkSubject));
                 }
                 this.BindingContext = this;
             }
@@ -153,7 +159,7 @@ namespace LionsApl.Content
             ClubInfomationRow item = e.Item as ClubInfomationRow;
 
             // 連絡事項が1件もない(メッセージ行のみ表示している)場合は処理しない
-            if (string.IsNullOrEmpty(item.DataNo))
+            if (item.DataNo == 0)
             {
                 ((ListView)sender).SelectedItem = null;
                 return;
@@ -170,14 +176,14 @@ namespace LionsApl.Content
 
     public sealed class ClubInfomationRow
     {
-        public ClubInfomationRow(string datano, string clubCode, string addDate, string subject)
+        public ClubInfomationRow(int dataNo, string clubCode, string addDate, string subject)
         {
-            DataNo = datano;
+            DataNo = dataNo;
             ClubCode = clubCode;
             AddDate = addDate;
             Subject = subject;
         }
-        public string DataNo { get; set; }
+        public int DataNo { get; set; }
         public string ClubCode { get; set; }
         public string AddDate { get; set; }
         public string Subject { get; set; }
@@ -193,7 +199,7 @@ namespace LionsApl.Content
         {
             // 条件より該当するテンプレートを返す
             var info = (ClubInfomationRow)item;
-            if (!String.IsNullOrEmpty(info.DataNo)){
+            if (info.DataNo > 0){
                 return ExistDataTemplate;
             }
             else

@@ -24,6 +24,10 @@ namespace LionsApl
         public string FilePath_MeetingProgram;
         public string FilePath_ClubInfometion;
 
+        public System.Diagnostics.Stopwatch sw;     // ストップウォッチ
+        public TimeSpan ElapsedTime;                // 経過時間
+        public double RestartTime;                  // アプリのリスタート時間
+
         public App()
         {
             InitializeComponent();
@@ -48,6 +52,12 @@ namespace LionsApl
             FilePath_MeetingProgram = PCLAppConfig.ConfigurationManager.AppSettings["FILEPATH_MEETINGPROGRAM"];
             FilePath_ClubInfometion = PCLAppConfig.ConfigurationManager.AppSettings["FILEPATH_CLUBINFOMETION"];
 
+            // Configファイルより値を取得(リスタート時間)
+            RestartTime = double.Parse(PCLAppConfig.ConfigurationManager.AppSettings["RestartMinutes"]);
+
+            // StopWatch生成
+            sw = new System.Diagnostics.Stopwatch();
+
             // MainPage起動
             MainPage = new MainPage();
 
@@ -55,14 +65,33 @@ namespace LionsApl
 
         protected override void OnStart()
         {
+            //// 計測開始
+            //sw.Start();
         }
 
         protected override void OnSleep()
         {
+            //// 計測停止
+            //sw.Stop();
         }
 
         protected override void OnResume()
         {
+            //// 経過時間設定
+            //ElapsedTime = sw.Elapsed;
+            //// アプリ起動時間がリスタート時間を超えている場合
+            //if (ElapsedTime.TotalMinutes > RestartTime)
+            //{
+            //    // 経過時間リセット後に計測開始
+            //    sw.Restart();
+            //    // 開始ページに遷移
+            //    MainPage = new MainPage();
+            //}
+            //else
+            //{
+            //    // 計測再開
+            //    sw.Start();
+            //}
         }
 
         //-----------------------------------

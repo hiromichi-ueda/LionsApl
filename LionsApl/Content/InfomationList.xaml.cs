@@ -17,6 +17,9 @@ namespace LionsApl.Content
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
+        // Utilityクラス
+        private LAUtility _utl;
+
         // リストビュー設定内容
         public List<InfomationRow> Items { get; set; }
 
@@ -26,6 +29,9 @@ namespace LionsApl.Content
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
+
+            // Content Utilクラス生成
+            _utl = new LAUtility();
 
             // A_SETTINGデータ取得
             _sqlite.SetSetting();
@@ -51,7 +57,7 @@ namespace LionsApl.Content
         private void GetInfomation() 
         {
             // 変数
-            string wkDataNo = string.Empty;
+            int wkDataNo = 0;
             string wkAddDate = string.Empty;
             string wkSubject = string.Empty;
             string wkFlg = string.Empty;
@@ -59,39 +65,36 @@ namespace LionsApl.Content
             string[] wkCodeList = null;
             Items = new List<InfomationRow>();
 
-            Table.TableUtil Util = new Table.TableUtil();
-
             try
             {
-                // 連絡事項(クラブ)のデータを全件取得
-                foreach (Table.T_INFOMATION_CABI row in _sqlite.Get_T_INFOMATION_CABI(
-                                                                 "SELECT * " +
-                                                                 "FROM T_INFOMATION_CABI " +
-                                                                 "ORDER BY AddDate DESC"))
+                // 連絡事項(クラブ)データを全件取得
+                foreach (Table.T_INFOMATION_CABI row in _sqlite.Get_T_INFOMATION_CABI("SELECT * " +
+                                                                                      "FROM T_INFOMATION_CABI " +
+                                                                                      "ORDER BY AddDate DESC"))
                 {
                     // データセット
-                    wkDataNo = row.DataNo.ToString();
-                    wkAddDate = Util.GetString(row.AddDate).Substring(0, 10);
-                    wkSubject = Util.GetString(row.Subject);
-                    wkFlg = Util.GetString(row.InfoFlg);
+                    wkDataNo = row.DataNo;
+                    wkAddDate = _utl.GetString(row.AddDate).Substring(0, 10);
+                    wkSubject = _utl.GetString(row.Subject);
+                    wkFlg = _utl.GetString(row.InfoFlg);
 
-                    if (wkFlg == "1")
+                    if (wkFlg == _utl.INFOFLG_ALL)
                     {
                         //全員対象
                         AddListFlg = true;
-                        break;
+                        //break;
                     }
-                    else
+                    else if (wkFlg == _utl.INFOFLG_PRIV)
                     {
                         //個別選択
-                        wkCodeList = Util.GetString(row.InfoUser).Split(',');
+                        wkCodeList = _utl.GetString(row.InfoUser).Split(',');
                         foreach (string code in wkCodeList)
                         {
                             // 連絡者(会員番号)を条件にログインユーザーが対象か判定
                             if (_sqlite.Db_A_Account.MemberCode.Equals(code))
                             {
                                 AddListFlg = true;
-                                break;
+                                //break;
                             }
                         }
                     }
@@ -101,20 +104,19 @@ namespace LionsApl.Content
                     {
                         Items.Add(new InfomationRow(wkDataNo, wkAddDate, wkSubject));
                     }
-                        
-
-                    // ログインユーザーが対象の連絡事項が1件もない場合
-                    if (Items.Count == 0)
-                    {
-                        // メッセージ表示のため空行を追加
-                        Items.Add(new InfomationRow(wkDataNo, wkAddDate, wkSubject));
-                    }
-                    this.BindingContext = this;
                 }
+                // ログインユーザーが対象の連絡事項が1件もない場合
+                if (Items.Count == 0)
+                {
+                    // メッセージ表示のため空行を追加
+                    Items.Add(new InfomationRow(0, wkAddDate, wkSubject));
+                }
+                this.BindingContext = this;
+
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(T_INFOMATION) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(T_INFOMATIONCABI) : {ex.Message}", "OK");
             }
         }
 
@@ -131,7 +133,7 @@ namespace LionsApl.Content
             InfomationRow item = e.Item as InfomationRow;
 
             // 連絡事項が1件もない(メッセージ行のみ表示している)場合は処理しない
-            if (string.IsNullOrEmpty(item.DataNo))
+            if (item.DataNo == 0)
             {
                 ((ListView)sender).SelectedItem = null;
                 return;
@@ -148,13 +150,13 @@ namespace LionsApl.Content
 
     public sealed class InfomationRow
     {
-        public InfomationRow(string datano, string addDate, string subject)
+        public InfomationRow(int datano, string addDate, string subject)
         {
             DataNo = datano;
             AddDate = addDate;
             Subject = subject;
         }
-        public string DataNo { get; set; }
+        public int DataNo { get; set; }
         public string AddDate { get; set; }
         public string Subject { get; set; }
     }
@@ -169,7 +171,7 @@ namespace LionsApl.Content
         {
             // 条件より該当するテンプレートを返す
             var info = (InfomationRow)item;
-            if (!String.IsNullOrEmpty(info.DataNo))
+            if (info.DataNo > 0)
             {
                 return ExistDataTemplate;
             }

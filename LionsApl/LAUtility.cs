@@ -27,10 +27,13 @@ namespace LionsApl
         public string MEETING_ONLINE = "1";
         //public string MEETING_NORMAL = "1";
         //public string MEETING_ONLINE = "2";
-
         // 時期区分
         public string SEASON_NOW = "1";                     // 今期
         public string SEASON_NEXT = "2";                    // 次期
+        // 連絡区分
+        public string INFOFLG_ALL = "1";                    // 全会員
+        public string INFOFLG_PRIV = "2";                   // 個別設定
+
 
         // 引数用文字列
         public string NLC_OFF = "0";                        // 改行を削除しない。

@@ -12,32 +12,71 @@ namespace LionsApl
 {
     public partial class MainPage : ContentPage
     {
-        public string startTime;
-        public string endTime;
 
-        private SQLiteManager sqliteManager;
+        // SQLiteマネージャークラス
+        private SQLiteManager _sqlite;
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         public MainPage()
         {
             InitializeComponent();
 
-            // SQLクラス
-            sqliteManager = SQLiteManager.GetInstance();
+            // SQLite マネージャークラス生成
+            _sqlite = SQLiteManager.GetInstance();
 
             // 開発用ボタン
             //Develop.IsVisible = false;
 
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 画面表示時の更新処理
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            //// ボタン制御
+            //account.IsEnabled = true;
+            //home.IsEnabled = false;
+            //update.IsEnabled = false;
+
+            //// ファイルがある場合
+            //if (_sqlite.CheckFileDB3())
+            //{
+            //    // 設定ファイル情報がある場合
+            //    _sqlite.SetSetting();
+            //    if (_sqlite.Db_A_Setting != null)
+            //    {
+            //        // アカウント情報がある場合
+            //        _sqlite.SetAccount();
+            //        if (_sqlite.Db_A_Account != null)
+            //        {
+            //            // ホームボタン有効
+            //            home.IsEnabled = true;
+            //        }
+            //    }
+            //}
+        }
 
         // ===============================
         // ボタン押下処理
         // ===============================
         #region 各ボタン処理
 
-        //---------------------------------------
-        // HOME画面
-        //---------------------------------------
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// ホームボタン
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         async void Button_Home_Clicked(object sender, System.EventArgs e)
         {
             // 処理中ダイアログ表示
@@ -46,20 +85,26 @@ namespace LionsApl
             // DB情報取得処理
             try
             {
-                Task<HttpResponseMessage> response = sqliteManager.AsyncPostFileForWebAPI(MessageText, sqliteManager.GetSendFileContent_HOME());
+                Task<HttpResponseMessage> response = _sqlite.AsyncPostFileForWebAPI(MessageText, _sqlite.GetSendFileContent_HOME());
+
+                // HOME画面表示
+                Application.Current.MainPage = new Content.MainTabPage();
+
             }
             catch (Exception ex)
             {
                 ResultText.Text += "HOME処理（エラー） : " + ex.Message;
             }
 
-            // HOME画面表示
-            Application.Current.MainPage = new Content.MainTabPage();
         }
 
-        //---------------------------------------
-        // アカウント設定
-        //---------------------------------------
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// アカウント設定ボタン
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         async void Button_Account_Clicked(object sender, System.EventArgs e)
         {
             // 処理中ダイアログ表示
@@ -68,28 +113,32 @@ namespace LionsApl
             try
             {
                 // SQLiteファイル削除
-                sqliteManager.DelFileDB3();
+                _sqlite.DelFileDB3();
 
                 // 空DB作成処理
-                sqliteManager.CreateTable_ALL();
+                _sqlite.CreateTable_ALL();
 
                 // アカウント情報取得
-                Task<HttpResponseMessage> response = sqliteManager.AsyncPostFileForWebAPI(MessageText, sqliteManager.GetSendFileContent());
-                
+                Task<HttpResponseMessage> response = _sqlite.AsyncPostFileForWebAPI(MessageText, _sqlite.GetSendFileContent());
+
+                // アカウント設定画面表示
+                Application.Current.MainPage = new Content.AccountSetting();
+
             }
             catch (Exception ex)
             {
                 ResultText.Text = "アカウント設定処理（エラー） : " + ex.Message;
             }
-            
-            // アカウント設定画面表示
-            Application.Current.MainPage = new Content.AccountSetting();
 
         }
 
-        //---------------------------------------
-        // アップデート
-        //---------------------------------------
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// アップデートボタン
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         async void Button_Update_Clicked(object sender, System.EventArgs e)
         {
             // 処理中ダイアログ表示
@@ -100,9 +149,10 @@ namespace LionsApl
         #endregion
 
 
+
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// 各画面遷移関連
-        ///////////////////////////////////////////////////////////////////////////////////////////
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -175,7 +225,7 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// SQLite関連（ファイル操作）
-        ///////////////////////////////////////////////////////////////////////////////////////////
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -198,8 +248,8 @@ namespace LionsApl
             // データベース初期設定
             try
             {
-                sqliteManager.CreateTable_ALL();
-                ResultText.Text = "Create Table Finish : \r\n" + sqliteManager.dbFile;
+                _sqlite.CreateTable_ALL();
+                ResultText.Text = "Create Table Finish : \r\n" + _sqlite.dbFile;
             }
             catch (Exception ex)
             {
@@ -238,7 +288,7 @@ namespace LionsApl
             try
             {
                 //HttpResponseMessage response = sqliteTest.AsyncPostFileForWebAPI();
-                Task<HttpResponseMessage> response = sqliteManager.AsyncPostFileForWebAPI(MessageText, sqliteManager.GetSendFileContent());
+                Task<HttpResponseMessage> response = _sqlite.AsyncPostFileForWebAPI(MessageText, _sqlite.GetSendFileContent());
 
                 ResultText.Text += "Send SQLite file Finish : " + response.Result.StatusCode.ToString();
             }
@@ -279,7 +329,7 @@ namespace LionsApl
             try
             {
                 //HttpResponseMessage response = sqliteTest.AsyncPostFileForWebAPI();
-                Task<HttpResponseMessage> response = sqliteManager.AsyncPostFileForWebAPI(MessageText, sqliteManager.GetSendFileContent_HOME());
+                Task<HttpResponseMessage> response = _sqlite.AsyncPostFileForWebAPI(MessageText, _sqlite.GetSendFileContent_HOME());
 
                 ResultText.Text += "Send SQLite file Finish : " + response.Result.StatusCode.ToString();
             }
@@ -314,7 +364,7 @@ namespace LionsApl
             ResultText.Text = "";
 
             //sqliteManager = SQLiteManager.GetInstance();
-            string[] names = sqliteManager.GetFileName();
+            string[] names = _sqlite.GetFileName();
             foreach (string name in names)
             {
                 var lwTime = System.IO.File.GetLastWriteTime(name);
@@ -348,7 +398,7 @@ namespace LionsApl
 
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
+                using (var db = new SQLite.SQLiteConnection(_sqlite.dbFile))
                 {
 
                     const string cmdText = "SELECT name FROM sqlite_master WHERE type='table'";
@@ -396,12 +446,12 @@ namespace LionsApl
             MessageText.Text = "";
             ResultText.Text = "";
 
-            sqliteManager.SetAccount();
+            _sqlite.SetAccount();
 
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
+                using (var db = new SQLite.SQLiteConnection(_sqlite.dbFile))
                 {   // Select
                     foreach (Table.HOME_EVENT row in db.Query<Table.HOME_EVENT>(
                                         "SELECT " +
@@ -428,7 +478,7 @@ namespace LionsApl
                                             "t1.EventClass = '2' and " +
                                             "t1.EventDataNo = t3.DataNo " +
                                         "WHERE " +
-                                            "t1.MemberCode = '" + sqliteManager.Db_A_Account.MemberCode + "'"))
+                                            "t1.MemberCode = '" + _sqlite.Db_A_Account.MemberCode + "'"))
                     {
                         if (row.EventClass.Equals("1"))
                         {
@@ -471,12 +521,12 @@ namespace LionsApl
             MessageText.Text = "";
             ResultText.Text = "";
 
-            sqliteManager.SetAccount();
+            _sqlite.SetAccount();
 
             // データ取得
             try
             {
-                using (var db = new SQLite.SQLiteConnection(sqliteManager.dbFile))
+                using (var db = new SQLite.SQLiteConnection(_sqlite.dbFile))
                 {   // Select
                     foreach (Table.HOME_EVENT row in db.Query<Table.HOME_EVENT>(
                                         "SELECT " +
@@ -503,7 +553,7 @@ namespace LionsApl
                                             "t1.EventClass = '2' and " +
                                             "t1.EventDataNo = t3.DataNo " +
                                         "WHERE " +
-                                            "t1.MemberCode = '" + sqliteManager.Db_A_Account.MemberCode + "'"))
+                                            "t1.MemberCode = '" + _sqlite.Db_A_Account.MemberCode + "'"))
                     {
                         if (row.EventClass.Equals("1"))
                         {
@@ -553,8 +603,8 @@ namespace LionsApl
 
             try
             {
-                File.Delete(sqliteManager.dbFile);
-                ResultText.Text += "Delete finish : \r\n" + sqliteManager.dbFile + "\r\n";
+                File.Delete(_sqlite.dbFile);
+                ResultText.Text += "Delete finish : \r\n" + _sqlite.dbFile + "\r\n";
             }
             catch (IOException deleteError)
             {

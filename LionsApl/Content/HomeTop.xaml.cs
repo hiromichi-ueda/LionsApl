@@ -101,6 +101,8 @@ namespace LionsApl.Content
             // 参加予定一覧情報をSQLiteファイルから取得して画面に設定する。
             SetEventLt();
 
+            //DisplayAlert("Disp", $"経過時間(分) : {((App)Application.Current).ElapsedTime.TotalMinutes}", "OK");
+
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -203,7 +205,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(スローガン) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(スローガン) : {ex.Message}", "OK");
             }
         }
 
@@ -264,7 +266,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(T_LETTER) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(T_LETTER) : {ex.Message}", "OK");
             }
         }
 
@@ -405,7 +407,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE/T_DIRECTOR) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE/T_DIRECTOR) : {ex.Message}", "OK");
             }
         }
 
@@ -552,7 +554,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"イベント情報取得エラー : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"イベント情報取得エラー : {ex.Message}", "OK");
             }
 
         }
