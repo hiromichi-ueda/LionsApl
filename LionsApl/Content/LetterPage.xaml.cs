@@ -21,9 +21,9 @@ namespace LionsApl.Content
         public static String FilePath_Letter = ((App)Application.Current).FilePath_Letter;          //キャビネットレター
 
         // 前画面からの取得情報-
-        private string _DataNo;        // データNo.
+        private int _dataNo;        // データNo.
 
-        public LetterPage(string dataNo)
+        public LetterPage(int dataNo)
         {
             InitializeComponent();
 
@@ -35,7 +35,7 @@ namespace LionsApl.Content
             this.Body.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
 
             // 一覧から取得(データ№)
-            _DataNo = dataNo;
+            _dataNo = dataNo;
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
@@ -81,7 +81,7 @@ namespace LionsApl.Content
             {
                 foreach (Table.T_LETTER row in _sqlite.Get_T_LETTER("Select * " +
                                                                     "From T_LETTER " +
-                                                                    "Where DataNo='" + _DataNo + "'"))
+                                                                    "Where DataNo='" + _dataNo + "'"))
                 {
                     wkDataNo = row.DataNo.ToString();
                     if(Util.GetString(row.EventTime).Substring(0,5) == "00:00")

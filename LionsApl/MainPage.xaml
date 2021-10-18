@@ -71,6 +71,12 @@
                                 >
                             </Button>
 
+                            <Label 
+                                x:Name="AppVersion"  
+                                Style="{StaticResource List_Base_End}"
+                                HorizontalOptions="FillAndExpand"
+                                />
+
                         </StackLayout>
                         
                         <!-- 
@@ -149,15 +155,6 @@
                                 BackgroundColor="AliceBlue"  
                                 FontSize="16"
                                 />
-                            <!--<Label 
-                                x:Name="FileText"  
-                                Text="File..." 
-                                HorizontalTextAlignment="left" 
-                                HorizontalOptions="FillAndExpand"
-                                LineBreakMode="CharacterWrap"
-                                BackgroundColor="AliceBlue"   
-                                FontSize="16"
-                                />-->
                             <Label 
                                 x:Name="CommandText"  
                                 Text="Command..." 

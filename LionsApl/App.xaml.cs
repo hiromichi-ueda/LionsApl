@@ -14,6 +14,7 @@ namespace LionsApl
         public string AppVersion;
         public string AppServer;
         public string WebServiceUrl;
+        public string AppDownloadUrl;
         public string AndroidPdf;
         public string SQLiteFileName;
         public string SQLiteFileExte;
@@ -38,6 +39,7 @@ namespace LionsApl
             // Configファイルより値を取得(URL)
             AppServer = PCLAppConfig.ConfigurationManager.AppSettings["ApplicationServer"];
             WebServiceUrl = PCLAppConfig.ConfigurationManager.AppSettings["WebServiceUrl"];
+            AppDownloadUrl = PCLAppConfig.ConfigurationManager.AppSettings["AppDownloadUrl"];
             AndroidPdf = PCLAppConfig.ConfigurationManager.AppSettings["AndroidPdfViewer"];
 
             // Configファイルより値を取得(SQLite)

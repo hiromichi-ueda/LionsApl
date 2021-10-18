@@ -28,7 +28,10 @@ namespace LionsApl
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
 
-            // 開発用ボタン
+            // アプリケーションバージョン設定
+            AppVersion.Text = "Version " + ((App)Application.Current).AppVersion;
+
+            // 開発用ボタンを非表示にする
             //Develop.IsVisible = false;
 
         }
@@ -42,27 +45,54 @@ namespace LionsApl
         {
             base.OnAppearing();
 
-            //// ボタン制御
-            //account.IsEnabled = true;
-            //home.IsEnabled = false;
-            //update.IsEnabled = false;
+            double dbVer = 0.0;
+            double appVer = 0.0;
 
-            //// ファイルがある場合
-            //if (_sqlite.CheckFileDB3())
-            //{
-            //    // 設定ファイル情報がある場合
-            //    _sqlite.SetSetting();
-            //    if (_sqlite.Db_A_Setting != null)
-            //    {
-            //        // アカウント情報がある場合
-            //        _sqlite.SetAccount();
-            //        if (_sqlite.Db_A_Account != null)
-            //        {
-            //            // ホームボタン有効
-            //            home.IsEnabled = true;
-            //        }
-            //    }
-            //}
+            // ボタン制御
+            account.IsEnabled = true;
+            home.IsEnabled = false;
+            update.IsEnabled = false;
+            try
+            {
+                // SQLiteファイル存在チェック
+                if (_sqlite.CheckFileDB3())
+                {
+                    // ファイルがある場合
+                    // 設定ファイル情報（A_SETTING）取得
+                    _sqlite.SetSetting();
+                    // 設定ファイル情報存在チェック
+                    if (_sqlite.Db_A_Setting != null)
+                    {
+                        // 設定ファイル情報がある場合
+                        // アカウント情報（A_ACCOUNT）取得
+                        _sqlite.SetAccount();
+                        // アカウント情報存在チェック
+                        if (_sqlite.Db_A_Account != null)
+                        {
+                            // アカウント情報がある場合
+                            // ホームボタン有効
+                            home.IsEnabled = true;
+                        }
+
+                        // DB設定アプリバージョン取得
+                        dbVer = double.Parse(_sqlite.Db_A_Setting.VersionNo);
+                        // ローカルアプリバージョン取得
+                        appVer = double.Parse(((App)Application.Current).AppVersion);
+                        // バージョンチェック
+                        if (dbVer > appVer)
+                        {
+                            // DB設定アプリバージョンの方が新しい場合
+                            // ダウンロードボタン有効
+                            update.IsEnabled = true;
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Alert", $"画面ロードエラー(OnAppearing) : {ex.Message}", "OK");
+            }
         }
 
         // ===============================
@@ -270,7 +300,7 @@ namespace LionsApl
         /// <param name="sender"></param>
         /// <param name="e"></param>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private void Button_SendSQLite_Clicked(object sender, EventArgs e)
+        private async void Button_SendSQLite_Clicked(object sender, EventArgs e)
         {
             /// 開始時間表示
             DateTime stDt = DateTime.Now;
@@ -285,6 +315,12 @@ namespace LionsApl
             ResultText.Text = "";
 
             MessageText.Text = "Click Send SQLite File ACCOUNT\r\n";
+
+            await DisplayAlert("Disp", $"URL : {_sqlite.webServiceUrl}", "OK");
+
+            // 処理中ダイアログ表示
+            await ((App)Application.Current).DispLoadingDialog();
+
             try
             {
                 //HttpResponseMessage response = sqliteTest.AsyncPostFileForWebAPI();
@@ -311,7 +347,7 @@ namespace LionsApl
         /// <param name="sender"></param>
         /// <param name="e"></param>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private void Button_SendSQLite_HOME_Clicked(object sender, EventArgs e)
+        private async void Button_SendSQLite_HOME_Clicked(object sender, EventArgs e)
         {
             /// 開始時間表示
             DateTime stDt = DateTime.Now;
@@ -326,6 +362,10 @@ namespace LionsApl
             ResultText.Text = "";
 
             MessageText.Text = "Click Send SQLite File HOME\r\n";
+
+            // 処理中ダイアログ表示
+            await ((App)Application.Current).DispLoadingDialog();
+
             try
             {
                 //HttpResponseMessage response = sqliteTest.AsyncPostFileForWebAPI();

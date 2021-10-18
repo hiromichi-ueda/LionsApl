@@ -651,7 +651,7 @@
                                 <Label 
                                     Grid.Row="5"
                                     Grid.Column="0"
-                                    Grid.ColumnSpan="2"
+                                    Grid.ColumnSpan="3"
                                     Grid.RowSpan="1"
                                     x:Name="lbl_DD_AnsOver"
                                     Text="回答期限が過ぎています。変更がある場合は事務局に連絡してください。" 

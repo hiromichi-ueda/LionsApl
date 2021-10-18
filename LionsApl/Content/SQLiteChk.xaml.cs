@@ -205,7 +205,7 @@ namespace LionsApl.Content
                                             $"{row.Id}, {row.DistrictCode}, {row.DistrictName}, {row.CabinetName},\r\n" +
                                             $"{row.PeriodStart}, {row.PeriodEnd}, {row.DistrictID}, {row.MagazineMoney}, {row.EventDataDay},\r\n" +
                                             $"{row.AdminID}, {row.AdminName}, {row.AdminPassWord},\r\n" +
-                                            $"{row.CabinetEmailAddeess}, {row.AdminEmailAddress}, {row.CabinetTelNo}, {row.AdminTelNo},\r\n";
+                                            $"{row.CabinetEmailAddeess}, {row.AdminEmailAddress}, {row.CabinetTelNo}, {row.AdminTelNo}, {row.VersionNo},\r\n";
                     }
                 }
             }

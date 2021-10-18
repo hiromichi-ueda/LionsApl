@@ -31,14 +31,21 @@
                     </StackLayout>
 
                     <!-- クラブスローガン -->
+                    <!-- タイトル -->
                     <StackLayout 
-                        Margin="4"
+                        Margin="4,0,4,0"
                         HorizontalOptions="FillAndExpand"
                         >
                         <Label
                             Text="クラブスローガン" 
                             Style="{StaticResource Title_Blue}"
                         />
+                    </StackLayout>
+                    <!-- 本体 -->
+                    <StackLayout
+                        Margin="4"
+                        HorizontalOptions="FillAndExpand"
+                        >
                         <Label x:Name="ClubSlogan"
                             HorizontalTextAlignment="Center"
                             Margin="4"

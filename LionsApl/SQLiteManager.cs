@@ -36,7 +36,7 @@ namespace LionsApl
         // コンテンツ
         public static MultipartFormDataContent content;
         // WebサーバURL
-        public static String webServiceUrl = ((App)Application.Current).WebServiceUrl;
+        public string webServiceUrl = ((App)Application.Current).WebServiceUrl;
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -1420,6 +1420,7 @@ namespace LionsApl
                 {
                     Db_A_Setting = new Table.A_SETTING
                     {
+                        Id = row.Id,
                         DistrictCode = row.DistrictCode,
                         DistrictName = row.DistrictName,
                         CabinetName = row.CabinetName,
@@ -1427,14 +1428,21 @@ namespace LionsApl
                         PeriodEnd = row.PeriodEnd,
                         DistrictID = row.DistrictID,
                         MagazineMoney = row.MagazineMoney,
-                        EventDataDay = row.EventDataDay
+                        EventDataDay = row.EventDataDay,
+                        AdminID = row.AdminID,
+                        AdminName = row.AdminName,
+                        AdminPassWord = row.AdminPassWord,
+                        CabinetEmailAddeess = row.CabinetEmailAddeess,
+                        AdminEmailAddress = row.AdminEmailAddress,
+                        CabinetTelNo = row.CabinetTelNo,
+                        AdminTelNo = row.AdminTelNo,
+                        VersionNo = row.VersionNo
                     };
 
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                //DisplayAlert("Alert", $"SQLite検索エラー(スローガン) : &{ex.Message}", "OK");
                 throw;
             }
         }
@@ -1447,6 +1455,7 @@ namespace LionsApl
         public void SetAccount()
         {
             Db_A_Account = null;
+            LoginInfo = string.Empty;
 
             // データ取得
             try
@@ -1455,6 +1464,7 @@ namespace LionsApl
                 {
                     Db_A_Account = new Table.A_ACCOUNT
                     {
+                        Id = row.Id,
                         Region = row.Region,
                         Zone = row.Zone,
                         ClubCode = row.ClubCode,
@@ -1465,13 +1475,11 @@ namespace LionsApl
                         AccountDate = row.AccountDate,
                         LastUpdDate = row.LastUpdDate
                     };
-
+                    LoginInfo = Db_A_Account.ClubName + "　" + Db_A_Account.MemberFirstName + " " + Db_A_Account.MemberLastName;
                 }
-                LoginInfo = Db_A_Account.ClubName + "　" + Db_A_Account.MemberFirstName + " " + Db_A_Account.MemberLastName;
             }
-            catch (Exception ex)
+            catch
             {
-                ///DisplayAlert("Alert", $"SQLite検索エラー(スローガン) : &{ex.Message}", "OK");
                 throw;
             }
         }
@@ -1493,6 +1501,7 @@ namespace LionsApl
                 {
                     Db_A_FilePath = new Table.A_FILEPATH
                     {
+                        Id = row.Id,
                         DataClass = row.DataClass,
                         FilePath = row.FilePath
                     };

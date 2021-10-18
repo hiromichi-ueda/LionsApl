@@ -50,7 +50,7 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetMeetingProgram()
         {
-            string wkDataNo = string.Empty;
+            int wkDataNo = 0;
             string wkMeetingDate = string.Empty;
             string wkMeetingName = string.Empty;
             string wkMeeting = string.Empty;
@@ -79,7 +79,7 @@ namespace LionsApl.Content
                                                                     "t1.ScheduleDataNo = t2.DataNo " +
                                                                 "ORDER BY t2.MeetingDate DESC"))
                 {
-                    wkDataNo = row.DataNo.ToString();
+                    wkDataNo = row.DataNo;
                     wkMeeting = "";
                     if (Util.GetString(row.Meeting) == "2")
                     {
@@ -92,7 +92,7 @@ namespace LionsApl.Content
                 if (Items.Count == 0)
                 {
                     // メッセージ表示のため空行を追加
-                    Items.Add(new MeetingProgramRow(wkDataNo, wkMeetingDate, wkMeetingName));
+                    Items.Add(new MeetingProgramRow(0, wkMeetingDate, wkMeetingName));
                 }
                 this.BindingContext = this;
             }
@@ -116,7 +116,7 @@ namespace LionsApl.Content
             MeetingProgramRow item = e.Item as MeetingProgramRow;
 
             // 1件もない(メッセージ行のみ表示している)場合は処理しない
-            if (string.IsNullOrEmpty(item.DataNo))
+            if (item.DataNo == 0)
             {
                 ((ListView)sender).SelectedItem = null;
                 return;
@@ -133,13 +133,13 @@ namespace LionsApl.Content
 
     public sealed class MeetingProgramRow
     {
-        public MeetingProgramRow(string datano, string meetingdate, string meetingname)
+        public MeetingProgramRow(int dataNo, string meetingDate, string meetingName)
         {
-            DataNo = datano;
-            MeetingDate = meetingdate;
-            MeetingName = meetingname;
+            DataNo = dataNo;
+            MeetingDate = meetingDate;
+            MeetingName = meetingName;
         }
-        public string DataNo { get; set; }
+        public int DataNo { get; set; }
         public string MeetingDate { get; set; }
         public string MeetingName { get; set; }
     }
@@ -154,7 +154,7 @@ namespace LionsApl.Content
         {
             // 条件より該当するテンプレートを返す
             var info = (MeetingProgramRow)item;
-            if (!String.IsNullOrEmpty(info.MeetingName))
+            if (info.DataNo > 0)
             {
                 return ExistDataTemplate;
             }

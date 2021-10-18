@@ -23,5 +23,6 @@ namespace LionsApl.Table
         public string AdminEmailAddress { get; set; }
         public string CabinetTelNo { get; set; }
         public string AdminTelNo { get; set; }
+        public string VersionNo { get; set; }
     }
 }

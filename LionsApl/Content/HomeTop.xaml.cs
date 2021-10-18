@@ -28,9 +28,9 @@ namespace LionsApl.Content
         private DateTime _nowDt;
 
         // 表示用文字列
-        string ST_NOSLOGAN = "スローガン情報はありません。";
+        string ST_NOSLOGAN = "地区スローガン情報はありません。";
         string ST_NOLETTER = "キャビネットレター情報はありません。";
-        string ST_NOEVENT = "参加予定のイベントはありません。";
+        string ST_NOEVENT = "出席予定のイベントはありません。";
 
         // 定数
         int LETTER_MAXROW = 5;
@@ -163,7 +163,7 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void LetterRow_Tap(object sender, System.EventArgs e, int dataNo)
         {
-            Navigation.PushAsync(new LetterPage(dataNo.ToString()));
+            Navigation.PushAsync(new LetterPage(dataNo));
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////

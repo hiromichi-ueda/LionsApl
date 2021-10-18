@@ -388,7 +388,7 @@
             >
             <Setter 
                 Property="HorizontalOptions"
-                Value="Start"
+                Value="StartAndExpand"
                 />
             <Setter 
                 Property="VerticalOptions"

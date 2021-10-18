@@ -104,7 +104,7 @@ namespace LionsApl.Content
             EventRow item = e.Item as EventRow;
 
             // 1件もない(メッセージ行のみ表示している)場合は処理しない
-            if (string.IsNullOrEmpty(item.Title))
+            if (item.DataNo == 0)
             {
                 ((ListView)sender).SelectedItem = null;
                 return;
@@ -196,7 +196,14 @@ namespace LionsApl.Content
                     EventRow eventRow = new EventRow(intDataNo, intEventDataNo, strDate, strCancel, strTitle, strAnswer);
                     Items.Add(eventRow);
                 }
+                if (Items.Count == 0)
+                {
+                    // メッセージ表示のため空行を追加
+                    Items.Add(new EventRow(0, intEventDataNo, strDate, strCancel, strTitle, strAnswer));
+                }
                 EventListView.ItemsSource = Items;
+                this.BindingContext = this;
+
             }
             catch (Exception ex)
             {
@@ -284,7 +291,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE/T_DIRECTOR) : {ex.Message}", "OK");
+                DisplayAlert("Alert", $"UpdateSQLite検索エラー(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE/T_DIRECTOR) : {ex.Message}", "OK");
             }
         }
 
@@ -548,7 +555,7 @@ namespace LionsApl.Content
         {
             // 条件より該当するテンプレートを返す
             var info = (EventRow)item;
-            if (!String.IsNullOrEmpty(info.EventDate))
+            if (info.DataNo > 0)
             {
                 return ExistDataTemplate;
             }

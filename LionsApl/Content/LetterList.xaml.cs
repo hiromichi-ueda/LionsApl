@@ -57,7 +57,7 @@ namespace LionsApl.Content
         private void GetLetter()
         {
             // 変数
-            string wkDataNo = string.Empty;
+            int wkDataNo = 0;
             string wkEventDate = string.Empty;
             string wkLetterTitle = string.Empty;
             Items = new List<LetterRow>();
@@ -68,7 +68,7 @@ namespace LionsApl.Content
                                                                     "From T_LETTER " +
                                                                     "ORDER BY EventDate DESC, EventTime DESC, DataNo DESC"))
                 {
-                    wkDataNo = row.DataNo.ToString();
+                    wkDataNo = row.DataNo;
                     wkEventDate = _utl.GetString(row.EventDate).Substring(0, 10) + "  " + _utl.GetTimeString(row.EventTime);
                     wkLetterTitle = _utl.GetString(row.Title);
                     Items.Add(new LetterRow(wkDataNo, wkEventDate, wkLetterTitle));
@@ -76,13 +76,13 @@ namespace LionsApl.Content
                 if (Items.Count == 0)
                 {
                     // メッセージ表示のため空行を追加
-                    Items.Add(new LetterRow(wkDataNo, wkEventDate, wkLetterTitle));
+                    Items.Add(new LetterRow(0, wkEventDate, wkLetterTitle));
                 }
                 this.BindingContext = this;
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(T_LETTER) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(T_LETTER) : {ex.Message}", "OK");
             }
         }
 
@@ -99,7 +99,7 @@ namespace LionsApl.Content
             LetterRow item = e.Item as LetterRow;
 
             // 1件もない(メッセージ行のみ表示している)場合は処理しない
-            if (string.IsNullOrEmpty(item.DataNo))
+            if (item.DataNo == 0)
             {
                 ((ListView)sender).SelectedItem = null;
                 return;
@@ -121,13 +121,13 @@ namespace LionsApl.Content
     ///////////////////////////////////////////////////////////////////////////////////////////
     public sealed class LetterRow
     {
-        public LetterRow(string dataNo, string eventdate, string lettertitle)
+        public LetterRow(int dataNo, string eventdate, string lettertitle)
         {
             DataNo = dataNo;
             EventDate = eventdate;
             LetterTitle = lettertitle;
         }
-        public string DataNo { get; set; }
+        public int DataNo { get; set; }
         public string EventDate { get; set; }
         public string LetterTitle { get; set; }
     }
@@ -142,7 +142,7 @@ namespace LionsApl.Content
         {
             // 条件より該当するテンプレートを返す
             var info = (LetterRow)item;
-            if (!String.IsNullOrEmpty(info.DataNo))
+            if (info.DataNo > 0)
             {
                 return ExistDataTemplate;
             }

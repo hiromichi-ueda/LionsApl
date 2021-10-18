@@ -17,6 +17,9 @@ namespace LionsApl.Content
 
         public ObservableCollection<string> Items { get; set; }
 
+        // 表示用文字列
+        string ST_NOCLUBSLOGAN = "クラブスローガン情報はありません。";
+
         public ClubTop()
         {
             InitializeComponent();
@@ -121,7 +124,10 @@ namespace LionsApl.Content
                         {
                             ExecutiveName.Text = "会長 " + row.ExecutiveName;
                         }
-
+                    }
+                    if (ClubSlogan.Text == null)
+                    {
+                        ClubSlogan.Text = ST_NOCLUBSLOGAN;
                     }
                 }
             }

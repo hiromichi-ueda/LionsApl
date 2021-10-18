@@ -22,7 +22,7 @@ namespace LionsApl.Content
         private LAUtility _utl;
 
         // 前画面からの取得情報
-        private string _DataNo;         // データNo.
+        private int _dataNo;         // データNo.
 
         // Config取得
         public static String AppServer = ((App)Application.Current).AppServer;                              //Url
@@ -42,7 +42,7 @@ namespace LionsApl.Content
         /// </summary>
         /// <param name="dataNo">DataNo</param>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public ClubMeetingProgramPage(string dataNo)
+        public ClubMeetingProgramPage(int dataNo)
         {
             InitializeComponent();
 
@@ -63,7 +63,7 @@ namespace LionsApl.Content
             this.MeetingOther.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
 
             // 対象データNo.設定
-            _DataNo = dataNo;
+            _dataNo = dataNo;
 
             // Content Utilクラス生成
             _utl = new LAUtility();
@@ -143,7 +143,7 @@ namespace LionsApl.Content
                                                                 "ON " +
                                                                     "t1.ScheduleDataNo = t2.DataNo " +
                                                                 "WHERE " +
-                                                                    "t1.DataNo = '" + _DataNo + "' " +
+                                                                    "t1.DataNo = '" + _dataNo + "' " +
                                                                 "ORDER BY t2.MeetingDate DESC"))
                 {
                     wkDataNo = row.DataNo;
