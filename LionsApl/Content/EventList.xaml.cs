@@ -35,9 +35,9 @@ namespace LionsApl.Content
         private string ST_EVENT_3 = "[クラブ]";
 
         //private string ANSWER_NO = "未登録";
-        private string ST_ANSWER_NO = "未回答";
-        private string ST_ANSWER_1 = "出席";
-        private string ST_ANSWER_2 = "欠席";
+        public const string ST_ANSWER_NO = "未回答";
+        public const string ST_ANSWER_1 = "出席";
+        public const string ST_ANSWER_2 = "欠席";
 
         private string ST_CLUSEVENT_1 = "[理事会]";
         private string ST_CLUSEVENT_2 = "[委員会]";
@@ -61,13 +61,13 @@ namespace LionsApl.Content
             _utl = new LAUtility();
 
             // A_SETTINGデータ取得
-            _sqlite.SetSetting();
+            _sqlite.GetSetting();
 
             // タイトル設定
             Title = _sqlite.Db_A_Setting.CabinetName;
 
             // A_ACCOUNTデータ取得
-            _sqlite.SetAccount();
+            _sqlite.GetAccount();
 
             // ログイン情報設定
             LoginInfo.Text = _sqlite.LoginInfo;
@@ -286,6 +286,7 @@ namespace LionsApl.Content
 
                     // 出欠を設定
                     Items[idx].Answer = strAnswer;
+
                     idx++;
                 }
             }
@@ -293,6 +294,7 @@ namespace LionsApl.Content
             {
                 DisplayAlert("Alert", $"UpdateSQLite検索エラー(T_EVENTRET/T_EVENT/T_MEETINGSCHEDULE/T_DIRECTOR) : {ex.Message}", "OK");
             }
+
         }
 
 
@@ -404,15 +406,6 @@ namespace LionsApl.Content
                 strAnswer = ST_ANSWER_NO;
             }
 
-            //DisplayAlert("Disp", $" DataNo : {intDataNo}\r\n" +
-            //         $" Class : {wkEveClass}\r\n" +
-            //         $" EventDataNo : {intEventDataNo}\r\n" +
-            //         $" Date : {strDate}\r\n" +
-            //         $" Cancel : {strCancel}\r\n" +
-            //         $" Title : {strTitle}\r\n" +
-            //         $" ClubClass : {wkClubEveClass}\r\n" +
-            //         $" Answer : {strAnswer}", "OK");
-
         }
 
     }
@@ -432,8 +425,14 @@ namespace LionsApl.Content
         private string _eventCancel = string.Empty;
         private string _title = string.Empty;
         private string _answer = string.Empty;
+        private string _answerColor = string.Empty;
 
-        public EventRow(int dataNo, int eventDataNo, string eventDate, string eventCancel, string title, string answer)
+        public EventRow(int dataNo, 
+                        int eventDataNo, 
+                        string eventDate, 
+                        string eventCancel, 
+                        string title, 
+                        string answer)
         {
             DataNo = dataNo;
             EventDataNo = eventDataNo;
@@ -441,6 +440,15 @@ namespace LionsApl.Content
             EventCancel = eventCancel;
             Title = title;
             Answer = answer;
+            // 文字色設定
+            if (answer.Equals(EventList.ST_ANSWER_NO))
+            {
+                AnswerColor = LAUtility.STRCOL_RED;
+            }
+            else
+            {
+                AnswerColor = LAUtility.STRCOL_STRDEF;
+            }
         }
 
         public int DataNo 
@@ -533,6 +541,21 @@ namespace LionsApl.Content
                     if (PropertyChanged != null)
                     {
                         PropertyChanged(this, new PropertyChangedEventArgs(nameof(Answer)));
+                    }
+                }
+            }
+        }
+        public string AnswerColor
+        {
+            get { return _answerColor; }
+            set
+            {
+                if (_answerColor != value)
+                {
+                    _answerColor = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs(nameof(AnswerColor)));
                     }
                 }
             }

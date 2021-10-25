@@ -61,8 +61,8 @@ namespace LionsApl
             sw = new System.Diagnostics.Stopwatch();
 
             // MainPage起動
-            MainPage = new MainPage();
-
+            //MainPage = new MainPage();
+            MainPage = new Content.TopLogo();
         }
 
         protected override void OnStart()
@@ -79,6 +79,8 @@ namespace LionsApl
 
         protected override void OnResume()
         {
+            // TOP画面に遷移する
+            MainPage = new MainPage();
             //// 経過時間設定
             //ElapsedTime = sw.Elapsed;
             //// アプリ起動時間がリスタート時間を超えている場合

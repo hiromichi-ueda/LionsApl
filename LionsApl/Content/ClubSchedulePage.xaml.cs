@@ -54,13 +54,13 @@ namespace LionsApl.Content
             _sqlite = SQLiteManager.GetInstance();
 
             // A_SETTINGデータ取得
-            _sqlite.SetSetting();
+            _sqlite.GetSetting();
 
             // タイトル設定
             Title = _sqlite.Db_A_Setting.CabinetName;
 
             // A_ACCOUNTデータ取得
-            _sqlite.SetAccount();
+            _sqlite.GetAccount();
 
             // ログイン情報設定
             LoginInfo.Text = _sqlite.LoginInfo;
@@ -109,9 +109,10 @@ namespace LionsApl.Content
             string OtherStr = "本人以外の参加";
             string OtherVal = string.Empty;
 
-            string WrkRIStr = string.Empty;
-            string WrkRCStr = string.Empty;
-            string WrkRStr = string.Empty;
+            string WrkRIStr = string.Empty;                 // 備考項目名（例会備考1～10）
+            string WrkRCStr = string.Empty;                 // 備考（例会備考1～10）
+            string WrkRStr = string.Empty;                  // 備考 作成用
+            string WrkRMStr = string.Empty;                 // 備考欄
 
             int rowCount = 0;
 
@@ -175,12 +176,21 @@ namespace LionsApl.Content
                     RemarksStr = _utl.GetString(row.Remarks);
                     if (!RemarksStr.Equals(string.Empty))
                     {
-                        Remarks = _utl.CreateLabel_Style(RemarksStr,
-                                                       NamedSize.Default,
-                                                       LayoutOptions.Center,
-                                                       "Page_HeightFree",
-                                                       5, 1, 2);
-                        DetailGrid.Children.Add(Remarks);
+
+                        if (RemarksItems.Text.Equals(_utl.ST_NOSTR))
+                        {
+                            RemarksItems.Text = RemarksStr;
+                        }
+                        else
+                        {
+                            // 備考欄用のLabelを作成してDetailGridに
+                            Remarks = _utl.CreateLabel_Style(RemarksStr,
+                                                           NamedSize.Default,
+                                                           LayoutOptions.Center,
+                                                           "Page_HeightFree",
+                                                           5, 1, 2);
+                            DetailGrid.Children.Add(Remarks);
+                        }
                     }
 
                     // --------------------------

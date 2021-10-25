@@ -35,7 +35,7 @@ namespace LionsApl.Content
             _sqlite = SQLiteManager.GetInstance();
 
             // A_SETTINGデータ取得
-            _sqlite.SetSetting();
+            _sqlite.GetSetting();
 
             // タイトル設定
             Title = _sqlite.Db_A_Setting.CabinetName;

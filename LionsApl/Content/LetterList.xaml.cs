@@ -33,13 +33,13 @@ namespace LionsApl.Content
             _utl = new LAUtility();
 
             // A_SETTINGデータ取得
-            _sqlite.SetSetting();
+            _sqlite.GetSetting();
 
             // タイトル設定
             Title = _sqlite.Db_A_Setting.CabinetName;
 
             // A_ACCOUNTデータ取得
-            _sqlite.SetAccount();
+            _sqlite.GetAccount();
 
             // ログイン情報設定
             LoginInfo.Text = _sqlite.LoginInfo;

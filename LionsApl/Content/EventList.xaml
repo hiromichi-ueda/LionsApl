@@ -116,6 +116,7 @@
                         Grid.RowSpan="2"
                         Text="{Binding Answer}" 
                         Style="{StaticResource List_Base}"
+                        TextColor="{Binding AnswerColor}"
                     />
 
                     <!-- マーク -->

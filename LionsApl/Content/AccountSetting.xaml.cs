@@ -535,21 +535,22 @@ namespace LionsApl.Content
         /// <param name="sender"></param>
         /// <param name="e"></param>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private void Button_AccountSet_Clicked(object sender, System.EventArgs e)
+        private async void Button_AccountSet_Clicked(object sender, System.EventArgs e)
         {
             if (_selRegion == null ||
                 _selZone == null ||
                 _selClub == null ||
                 _selMember == null)
             {
-                DisplayAlert("アカウント設定", "選択していない項目があります。", "OK");
+                await DisplayAlert("アカウント設定", "選択していない項目があります。", "OK");
             }
             else
             {
                 // データ登録
                 SetAccountInfo();
-                DisplayAlert("アカウント設定", "アカウントを登録しました。", "OK");
+                await DisplayAlert("アカウント設定", "アカウントを登録しました。", "OK");
 
+                // TOP画面に遷移する
                 Application.Current.MainPage = new MainPage();
 
             }

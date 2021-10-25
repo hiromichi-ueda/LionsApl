@@ -34,6 +34,14 @@ namespace LionsApl
             // 開発用ボタンを非表示にする
             //Develop.IsVisible = false;
 
+            // ボタンコントロール初期値
+            account.IsEnabled = false;
+            home.IsEnabled = false;
+            update.IsEnabled = false;
+
+            // ボタンコントロール
+            ControlButtonEnable();
+
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -45,53 +53,112 @@ namespace LionsApl
         {
             base.OnAppearing();
 
-            double dbVer = 0.0;
-            double appVer = 0.0;
+            //try
+            //{
+            //    // SQLiteファイル存在チェック
+            //    if (_sqlite.CheckFileDB3() == _sqlite.SQLITE_NOFILE)
+            //    {
+            //        // ファイルがない場合
 
-            // ボタン制御
-            account.IsEnabled = true;
-            home.IsEnabled = false;
-            update.IsEnabled = false;
+            //        // SQLiteファイル＆ALLテーブル作成
+            //        _sqlite.CreateTable_ALL();
+
+            //    }
+            //    // TOP情報取得
+            //    GetTopInfoAsync();
+
+            //    // ボタンコントロール
+            //    this.account.IsEnabled = true;
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    DisplayAlert("Alert", $"画面ロードエラー(OnAppearing) : {ex.Message}", "OK");
+            //}
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// 画面制御
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// ボタンコントロール
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        void ControlButtonEnable()
+        {
+
             try
             {
                 // SQLiteファイル存在チェック
-                if (_sqlite.CheckFileDB3())
+                if (_sqlite.CheckFileDB3() == _sqlite.SQLITE_NOFILE)
+                {
+                    // ファイルがない場合
+                    DisplayAlert("Alert", $"エラーが発生しました。{Environment.NewLine}" +
+                                           "アプリを終了して再起動してください。", "OK");
+
+                    // SQLiteファイル＆ALLテーブル作成
+                    //_sqlite.CreateTable_ALL();
+
+                }
+                else
                 {
                     // ファイルがある場合
                     // 設定ファイル情報（A_SETTING）取得
-                    _sqlite.SetSetting();
+                    _sqlite.GetSetting();
                     // 設定ファイル情報存在チェック
                     if (_sqlite.Db_A_Setting != null)
                     {
+                        // アカウントボタンON
+                        this.account.IsEnabled = true;
+
                         // 設定ファイル情報がある場合
                         // アカウント情報（A_ACCOUNT）取得
-                        _sqlite.SetAccount();
+                        _sqlite.GetAccount();
                         // アカウント情報存在チェック
                         if (_sqlite.Db_A_Account != null)
                         {
                             // アカウント情報がある場合
                             // ホームボタン有効
-                            home.IsEnabled = true;
+                            this.home.IsEnabled = true;
                         }
-
-                        // DB設定アプリバージョン取得
-                        dbVer = double.Parse(_sqlite.Db_A_Setting.VersionNo);
-                        // ローカルアプリバージョン取得
-                        appVer = double.Parse(((App)Application.Current).AppVersion);
-                        // バージョンチェック
-                        if (dbVer > appVer)
-                        {
-                            // DB設定アプリバージョンの方が新しい場合
-                            // ダウンロードボタン有効
-                            update.IsEnabled = true;
-                        }
+                        // ボタンコントロール（アップデートボタン）
+                        ControlUpdBtnEnable();
                     }
                 }
 
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"画面ロードエラー(OnAppearing) : {ex.Message}", "OK");
+                DisplayAlert("Alert", $"ボタン制御エラー : {ex.Message}", "OK");
+            }
+        }
+
+        /// <summary>
+        /// ボタンコントロール（アップデートボタン）
+        /// </summary>
+        void ControlUpdBtnEnable()
+        {
+            double dbVer = 0.0;
+            double appVer = 0.0;
+
+            try
+            {
+                // DB設定アプリバージョン取得
+                dbVer = double.Parse(_sqlite.Db_A_Setting.VersionNo);
+                // ローカルアプリバージョン取得
+                appVer = double.Parse(((App)Application.Current).AppVersion);
+                // バージョンチェック
+                if (dbVer > appVer)
+                {
+                    // DB設定アプリバージョンの方が新しい場合
+                    // ダウンロードボタン有効
+                    this.update.IsEnabled = true;
+                }
+            }
+            catch
+            {
+                throw;
             }
         }
 
@@ -143,10 +210,10 @@ namespace LionsApl
             try
             {
                 // SQLiteファイル削除
-                _sqlite.DelFileDB3();
+                //_sqlite.DelFileDB3();
 
                 // 空DB作成処理
-                _sqlite.CreateTable_ALL();
+                //_sqlite.CreateTable_ALL();
 
                 // アカウント情報取得
                 Task<HttpResponseMessage> response = _sqlite.AsyncPostFileForWebAPI(MessageText, _sqlite.GetSendFileContent());
@@ -169,10 +236,13 @@ namespace LionsApl
         /// <param name="sender"></param>
         /// <param name="e"></param>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        async void Button_Update_Clicked(object sender, System.EventArgs e)
+        //async void Button_Update_Clicked(object sender, System.EventArgs e)
+        [Obsolete]
+        void Button_Update_Clicked(object sender, System.EventArgs e)
         {
             // 処理中ダイアログ表示
-            await ((App)Application.Current).DispLoadingDialog();
+            //            await ((App)Application.Current).DispLoadingDialog();
+            Device.OpenUri(new Uri("http://ap.insat.co.jp/LionsApl/DownLoad.html"));
 
         }
 
@@ -342,7 +412,7 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// アカウント情報を元にDB情報を取得する
+        /// アカウント情報を元にHOME用DB情報を取得する
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -383,6 +453,49 @@ namespace LionsApl
             DateTime edDt = DateTime.Now;
             EndText.Text = edDt.ToString();
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// TOP用DB情報を取得する
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private async void Button_SendSQLite_TOP_Clicked(object sender, EventArgs e)
+        {
+            /// 開始時間表示
+            DateTime stDt = DateTime.Now;
+            StartText.Text = stDt.ToString();
+
+            /// label clear
+            CommandText.Text = "Send SQLite File HOME";
+            MessageText.Text = "";
+            ResultText.Text = "";
+
+            MessageText.Text = "Click Send SQLite File HOME\r\n";
+
+            // 処理中ダイアログ表示
+            await ((App)Application.Current).DispLoadingDialog();
+
+            try
+            {
+                //HttpResponseMessage response = sqliteTest.AsyncPostFileForWebAPI();
+                Task<HttpResponseMessage> response = _sqlite.AsyncPostFileForWebAPI(MessageText, _sqlite.GetSendFileContent_TOP());
+
+                ResultText.Text += "Send SQLite file Finish : " + response.Result.StatusCode.ToString();
+            }
+            catch (Exception ex)
+            {
+                ResultText.Text += "Send SQLite file Error : " + ex.Message;
+
+            }
+
+            /// 終了時間表示
+            DateTime edDt = DateTime.Now;
+            EndText.Text = edDt.ToString();
+        }
+
+
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -468,156 +581,6 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
 
 
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// Button4_Select_JOIN_Clicked
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        private void Button_Select_JOIN_Clicked(object sender, EventArgs e)
-        {
-            /// 開始時間表示
-            DateTime stDt = DateTime.Now;
-            StartText.Text = stDt.ToString();
-
-            /// label clear
-            CommandText.Text = "Select JOIN";
-            MessageText.Text = "";
-            ResultText.Text = "";
-
-            _sqlite.SetAccount();
-
-            // データ取得
-            try
-            {
-                using (var db = new SQLite.SQLiteConnection(_sqlite.dbFile))
-                {   // Select
-                    foreach (Table.HOME_EVENT row in db.Query<Table.HOME_EVENT>(
-                                        "SELECT " +
-                                            "t1.DataNo, " +
-                                            "t1.EventClass, " +
-                                            "t1.EventDataNo, " +
-                                            "t1.EventDate, " +
-                                            "t1.ClubCode, " +
-                                            "t1.MemberCode, " +
-                                            "t1.Answer, " +
-                                            "t1.CancelFlg, " +
-                                            "t2.Title, " +
-                                            "t3.MeetingName " +
-                                        "FROM " +
-                                            "T_EVENTRET t1 " +
-                                        "LEFT OUTER JOIN " +
-                                            "T_EVENT t2 " +
-                                        "ON " +
-                                            "t1.EventClass = '1' and " +
-                                            "t1.EventDataNo = t2.DataNo " +
-                                        "LEFT OUTER JOIN " +
-                                            "T_MEETINGSCHEDULE t3 " +
-                                        "ON " +
-                                            "t1.EventClass = '2' and " +
-                                            "t1.EventDataNo = t3.DataNo " +
-                                        "WHERE " +
-                                            "t1.MemberCode = '" + _sqlite.Db_A_Account.MemberCode + "'"))
-                    {
-                        if (row.EventClass.Equals("1"))
-                        {
-                            ResultText.Text += $"HOME_EVENT:\r\n " +
-                                               $"{row.DataNo}, {row.EventClass}, {row.EventDate}, {row.EventDataNo}, {row.Title}\r\n";
-                        }
-                        else
-                        {
-                            ResultText.Text += $"HOME_EVENT:\r\n " +
-                                               $"{row.DataNo}, {row.EventClass}, {row.EventDate}, {row.EventDataNo}, {row.MeetingName}\r\n";
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ResultText.Text = "Select JOIN Error : " + ex.Message;
-            }
-
-            /// 終了時間表示
-            DateTime edDt = DateTime.Now;
-            EndText.Text = edDt.ToString();
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// Button4_Select_JOINT_Clicked
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        private void Button_Select_JOINT_Clicked(object sender, EventArgs e)
-        {
-            /// 開始時間表示
-            DateTime stDt = DateTime.Now;
-            StartText.Text = stDt.ToString();
-
-            /// label clear
-            CommandText.Text = "Select JOINT";
-            MessageText.Text = "";
-            ResultText.Text = "";
-
-            _sqlite.SetAccount();
-
-            // データ取得
-            try
-            {
-                using (var db = new SQLite.SQLiteConnection(_sqlite.dbFile))
-                {   // Select
-                    foreach (Table.HOME_EVENT row in db.Query<Table.HOME_EVENT>(
-                                        "SELECT " +
-                                            "t1.DataNo, " +
-                                            "t1.EventClass, " +
-                                            "t1.EventDataNo, " +
-                                            "t1.EventDate, " +
-                                            "t1.ClubCode, " +
-                                            "t1.MemberCode, " +
-                                            "t1.Answer, " +
-                                            "t1.CancelFlg, " +
-                                            "t2.Title, " +
-                                            "t3.MeetingName " +
-                                        "FROM " +
-                                            "T_EVENTRET t1 " +
-                                        "LEFT OUTER JOIN " +
-                                            "T_EVENT t2 " +
-                                        "ON " +
-                                            "t1.EventClass = '1' and " +
-                                            "t1.EventDataNo = t2.DataNo " +
-                                        "LEFT OUTER JOIN " +
-                                            "T_MEETINGSCHEDULE t3 " +
-                                        "ON " +
-                                            "t1.EventClass = '2' and " +
-                                            "t1.EventDataNo = t3.DataNo " +
-                                        "WHERE " +
-                                            "t1.MemberCode = '" + _sqlite.Db_A_Account.MemberCode + "'"))
-                    {
-                        if (row.EventClass.Equals("1"))
-                        {
-                            ResultText.Text += $"HOME_EVENT:\r\n " +
-                                               $"{row.DataNo}, {row.EventClass}, {row.EventDate}, {row.EventDataNo}, {row.Title}\r\n";
-                        }
-                        else
-                        {
-                            ResultText.Text += $"HOME_EVENT:\r\n " +
-                                               $"{row.DataNo}, {row.EventClass}, {row.EventDate}, {row.EventDataNo}, {row.MeetingName}\r\n";
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ResultText.Text = "Select JOINT Error : " + ex.Message;
-            }
-
-            /// 終了時間表示
-            DateTime edDt = DateTime.Now;
-            EndText.Text = edDt.ToString();
-        }
-
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -657,9 +620,29 @@ namespace LionsApl
         }
 
 
-        private void CheckDB3File()
-        {
 
+
+
+        private async Task GetTopInfo()
+        {
+            await GetTopInfoAsync();
+        }
+
+        private async Task GetTopInfoAsync()
+        {
+            // 処理中ダイアログ表示
+            await ((App)Application.Current).DispLoadingDialog();
+
+            // DB情報取得処理
+            try
+            {
+                // TOP情報取得
+                Task<HttpResponseMessage> response = _sqlite.AsyncPostFileForWebAPI(_sqlite.GetSendFileContent_TOP());
+            }
+            catch
+            {
+                throw;
+            }
         }
 
 

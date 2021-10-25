@@ -90,13 +90,13 @@ namespace LionsApl.Content
             _icom = IComManager.GetInstance(_sqlite.dbFile);
 
             // A_SETTINGデータ取得
-            _sqlite.SetSetting();
+            _sqlite.GetSetting();
 
             // タイトル設定
             Title = _sqlite.Db_A_Setting.CabinetName;
 
             // A_ACCOUNTデータ取得
-            _sqlite.SetAccount();
+            _sqlite.GetAccount();
 
             // ログイン情報設定
             LoginInfo.Text = _sqlite.LoginInfo;
@@ -179,7 +179,7 @@ namespace LionsApl.Content
             await DisplayAlert("出欠確認", $"出席情報を登録しました。", "OK");
 
             // 一覧に戻る
-            await Navigation.PopAsync(false);
+            await Navigation.PopAsync();
 
         }
 
@@ -473,18 +473,6 @@ namespace LionsApl.Content
             _ceventret.Option5 = string.Empty;
             _ceventret.OtherCount = 0;
 
-            //DisplayAlert("Disp", $"Answer : {_ceventret.Answer}" + Environment.NewLine +
-            //                     $"AnswerLate : {_ceventret.AnswerLate}" + Environment.NewLine +
-            //                     $"AnswerEarly : {_ceventret.AnswerEarly}" + Environment.NewLine +
-            //                     $"Online : {_ceventret.Online}" + Environment.NewLine +
-            //                     $"Option1 : {_ceventret.Option1}" + Environment.NewLine +
-            //                     $"Option2 : {_ceventret.Option2}" + Environment.NewLine +
-            //                     $"Option3 : {_ceventret.Option3}" + Environment.NewLine +
-            //                     $"Option4 : {_ceventret.Option4}" + Environment.NewLine +
-            //                     $"Option5 : {_ceventret.Option5}" + Environment.NewLine +
-            //                     $"OtherCount : {_ceventret.OtherCount}" + Environment.NewLine
-            //             , "OK");
-
             // 出欠情報をコンテンツに設定
             _icom.SetContentToEVENTRET(_ceventret);
             try
@@ -510,7 +498,7 @@ namespace LionsApl.Content
             await DisplayAlert("出欠確認", $"欠席情報を登録しました。", "OK");
 
             // 一覧に戻る
-            await Navigation.PopAsync(false);
+            await Navigation.PopAsync();
 
         }
 
@@ -733,6 +721,7 @@ namespace LionsApl.Content
             string wkOpt4Name = string.Empty;
             string wkOpt5Name = string.Empty;
             string wkAnsDate = string.Empty;
+            string wkAnswer = string.Empty;
 
             try
             {
@@ -740,17 +729,17 @@ namespace LionsApl.Content
                 // 表示項目
 
                 // 開催日
-                wkDate = _utl.GetString(_event.EventDate).Substring(0, 10);
+                wkDate = _utl.GetDateString(_event.EventDate);
 
                 // 中止
                 wkCancel = _utl.StrCancel(_eventret.CancelFlg);
 
                 // 開催日時
-                wkTime = _utl.GetString(_event.EventTimeStart) + "～" +
-                         _utl.GetString(_event.EventTimeEnd);
+                wkTime = _utl.GetTimeString(_event.EventTimeStart) + "～" +
+                         _utl.GetTimeString(_event.EventTimeEnd);
 
                 // 受付時間
-                wkRecTime = _utl.GetString(_event.ReceptionTime);
+                wkRecTime = _utl.GetTimeString(_event.ReceptionTime);
 
                 // 開催場所
                 wkPlace = _utl.GetString(_event.EventPlace);
@@ -847,8 +836,11 @@ namespace LionsApl.Content
                 _onlineFlg = _utl.GetString(_event.Meeting);
                 _ceventret.Online = _utl.GetString(_eventret.Online);
 
+                // 出欠
+                wkAnswer = GetAnswerStr(_eventret.Answer);
+
                 // 回答期限
-                wkAnsDate = _utl.GetString(_event.AnswerDate).Substring(0, 10);
+                wkAnsDate = _utl.GetDateString(_event.AnswerDate);
 
 
                 ////////////////////////////////////////////////////////////////
@@ -926,7 +918,7 @@ namespace LionsApl.Content
                 }
 
                 // 回答期限
-                EI_AnsDate.Text = wkAnsDate;
+                EI_AnsDate.Text = wkAnsDate + wkAnswer;
 
                 // 回答期限チェック
                 if (_utl.ChkAnswerDate(_utl.EVENTCLASS_EV,
@@ -975,6 +967,7 @@ namespace LionsApl.Content
             string wkOpt5Name = string.Empty;
             string wkAnsDate = string.Empty;
             string wkAnsTime = string.Empty;
+            string wkAnswer = string.Empty;
 
             try
             {
@@ -1071,10 +1064,14 @@ namespace LionsApl.Content
                 _oCntFlg = _utl.GetString(_meetingschedule.OtherUser);
                 _ceventret.OtherCount = _eventret.OtherCount;
 
+                // 出欠
+                wkAnswer = GetAnswerStr(_eventret.Answer);
+
                 // 回答期限日
-                wkAnsDate = _utl.GetString(_meetingschedule.AnswerDate).Substring(0, 10);
+                wkAnsDate = _utl.GetDateString(_meetingschedule.AnswerDate);
                 // 回答期限時刻
-                wkAnsTime = _utl.GetString(_meetingschedule.AnswerTime);
+                wkAnsTime = _utl.GetTimeString(_meetingschedule.AnswerTime);
+
 
                 ////////////////////////////////////////////////////////////////
                 // 表示項目設定
@@ -1152,7 +1149,7 @@ namespace LionsApl.Content
                 }
 
                 // 回答期限
-                MI_AnsDate.Text = wkAnsDate + " " + wkAnsTime;
+                MI_AnsDate.Text = wkAnsDate + " " + wkAnsTime + wkAnswer;
 
                 // 回答期限チェック
                 if (_utl.ChkAnswerDate(_utl.EVENTCLASS_ME,
@@ -1194,6 +1191,7 @@ namespace LionsApl.Content
             string wkPlace = string.Empty;
             string wkAgenda = string.Empty;
             string wkAnsDate = string.Empty;
+            string wkAnswer = string.Empty;
 
             try
             {
@@ -1201,8 +1199,8 @@ namespace LionsApl.Content
                 // 表示項目
 
                 // 開催日
-                wkDate = _utl.GetString(_director.EventDate).Substring(0, 10) + " " +
-                         _utl.GetString(_director.EventTime).Substring(0, 5) + "～";
+                wkDate = _utl.GetDateString(_director.EventDate) + " " +
+                         _utl.GetTimeString(_director.EventTime) + "～";
 
                 // 中止
                 wkCancel = _utl.StrCancel(_director.CancelFlg);
@@ -1216,9 +1214,11 @@ namespace LionsApl.Content
                 // 議題・内容
                 wkAgenda = _utl.GetString(_director.Agenda, _utl.NLC_ON);
 
-                // 回答期限
-                wkAnsDate = _utl.GetString(_director.AnswerDate).Substring(0, 10);
+                // 出欠
+                wkAnswer = GetAnswerStr(_eventret.Answer);
 
+                // 回答期限
+                wkAnsDate = _utl.GetDateString(_director.AnswerDate);
 
                 ////////////////////////////////////////////////////////////////
                 // 表示項目設定
@@ -1228,8 +1228,7 @@ namespace LionsApl.Content
                 DD_Season.Text = wkSeason;
                 DD_Place.Text = wkPlace;
                 DD_Agenda.Text = wkAgenda;
-                DD_AnsDate.Text = wkAnsDate;
-
+                DD_AnsDate.Text = wkAnsDate + wkAnswer;
 
                 // 回答期限チェック
                 if (_utl.ChkAnswerDate(_utl.EVENTCLASS_DI,
@@ -1338,6 +1337,28 @@ namespace LionsApl.Content
             }
         }
 
-    }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 出欠文字列の取得
+        /// </summary>
+        /// <param name="answer"></param>
+        /// <returns></returns>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private string GetAnswerStr(string answer)
+        {
+            string retSt = string.Empty;
+
+            retSt = _utl.StrAnswer(answer);
+
+            if (retSt != string.Empty)
+            {
+                retSt = " (" + retSt + ")";
+            }
+
+            return retSt;
+        }
+
+
+    }
 }

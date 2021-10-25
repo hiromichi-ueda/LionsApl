@@ -9,18 +9,18 @@ namespace LionsApl
     {
         // DB項目判定用文字列
         // イベントクラス
-        public string EVENTCLASS_EV = "1";                  // キャビネットイベント
-        public string EVENTCLASS_ME = "2";                  // 年間例会スケジュール
-        public string EVENTCLASS_DI = "3";                  // 理事・委員会
+        public string EVENTCLASS_EV = "1";            // キャビネットイベント
+        public string EVENTCLASS_ME = "2";            // 年間例会スケジュール
+        public string EVENTCLASS_DI = "3";            // 理事・委員会
         // クラブイベントクラス
-        public string CLUBEVENTCLASS_RI = "1";              // 理事会
-        public string CLUBEVENTCLASS_IN = "2";              // 委員会
+        public string CLUBEVENTCLASS_RI = "1";        // 理事会
+        public string CLUBEVENTCLASS_IN = "2";        // 委員会
         // 中止フラグ
-        public string CANCELFLG = "1";                      // 中止
+        public string CANCELFLG = "1";                // 中止
         // 出欠フラグ
-        public string ANSWER_PRE = "1";                     // 出席
-        public string ANSWER_AB = "2";                      // 欠席
-        public string ANSWER_NO = string.Empty;             // 未回答（初期値）
+        public string ANSWER_PRE = "1";               // 出席
+        public string ANSWER_AB = "2";                // 欠席
+        public string ANSWER_NO = "";                 // 未回答（初期値）
         // オンラインフラグ
         public string ONLINEFLG = "1";
         // 会議フラグ
@@ -28,31 +28,44 @@ namespace LionsApl
         //public string MEETING_NORMAL = "1";
         //public string MEETING_ONLINE = "2";
         // 時期区分
-        public string SEASON_NOW = "1";                     // 今期
-        public string SEASON_NEXT = "2";                    // 次期
+        public string SEASON_NOW = "1";               // 今期
+        public string SEASON_NEXT = "2";              // 次期
         // 連絡区分
-        public string INFOFLG_ALL = "1";                    // 全会員
-        public string INFOFLG_PRIV = "2";                   // 個別設定
+        public string INFOFLG_ALL = "1";              // 全会員
+        public string INFOFLG_PRIV = "2";                  // 個別設定
 
 
         // 引数用文字列
-        public string NLC_OFF = "0";                        // 改行を削除しない。
-        public string NLC_ON = "1";                         // 改行を削除する。
+        public string NLC_OFF = "0";                  // 改行を削除しない。
+        public string NLC_ON = "1";                   // 改行を削除する。
 
         // 各種判定用文字列
-        public readonly string OFFFLG = "0";                // 区分：OFF
-        public readonly string ONFLG = "1";                 // 区分：ON
-        public readonly string NOFLG = string.Empty;        // 区分：なし
-        public readonly string NOTIME = "00:00";            // 時間設定なし
+        public string OFFFLG = "0";                   // 区分：OFF
+        public string ONFLG = "1";                    // 区分：ON
+        public string NOFLG = "";                     // 区分：なし
+        public string NOTIME = "00:00";               // 時間設定なし
+
+        public bool NOFILE = false;                   // ファイルが存在しない
+        public bool EXFILE = true;                    // ファイルが存在する
 
         // 出力文字列
-        public readonly string ST_CANCEL = "中止";
-        public readonly string ST_SEASON_NOW = "今期";
-        public readonly string ST_SEASON_NEXT = "時期";
-        public readonly string ST_ON = "有り";
-        public readonly string ST_OFF = "無し";
-        public readonly string ST_MEETING_NORMAL = "通常";
-        public readonly string ST_MEETING_ONLINE = "オンライン";
+        public string ST_NOSTR = "";
+        public string ST_CANCEL = "中止";
+        public string ST_SEASON_NOW = "今期";
+        public string ST_SEASON_NEXT = "時期";
+        public string ST_ON = "有り";
+        public string ST_OFF = "無し";
+        public string ST_MEETING_NORMAL = "通常";
+        public string ST_MEETING_ONLINE = "オンライン";
+        public string ST_BOARD = "理事会";
+        public string ST_COMM = "委員会";
+        public string ST_ANSWER_NO = "未回答";
+        public string ST_ANSWER_ATT = "出席";
+        public string ST_ANSWER_ABS = "欠席";
+
+        // 基本文字列
+        public const string STRCOL_STRDEF = "#151515";
+        public const string STRCOL_RED = "Red";
 
 
         public LAUtility()
@@ -134,13 +147,42 @@ namespace LionsApl
         public string GetTimeString(string str)
         {
             string retStr = string.Empty;
-            if (!str.Equals(NOTIME))
+            if (str != null)
             {
-                retStr = str;
+                if (str != string.Empty)
+                {
+                    if (!str.Equals(NOTIME))
+                    {
+                        retStr = str;
+                    }
+                }
             }
             return retStr;
 
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 入力したstringがnull、string.Empty以外なら先頭から10桁を返す。
+        /// null、string.Emptyならstring.Emptyを返す。
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public string GetDateString(string str)
+        {
+            string retStr = string.Empty;
+            if (str != null)
+            { 
+                if (str != string.Empty)
+                {
+                    retStr = str.Substring(0, 10);
+                }
+            }
+
+            return retStr;
+        }
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -285,6 +327,62 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
+        /// 入力した回答区分から文字列を返す。
+        /// 出席・欠席以外は未回答
+        /// </summary>
+        /// <param name="answer"></param>
+        /// <returns></returns>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public string StrAnswer(string answer)
+        {
+            string retStr = LADef.ST_ANSWER_NO;
+            if (answer != null)
+            {
+                if (answer.Equals(LADef.ANSWER_PRE))
+                {
+                    retStr = LADef.ST_ANSWER_PRE;
+                }
+                else if (answer.Equals(LADef.ANSWER_ABS))
+                {
+                    retStr = LADef.ST_ANSWER_ABS;
+                }
+                //else if (answer.Equals(LADef.ANSWER_NO))
+                //{
+                //    retStr = LADef.ST_ANSWER_NO;
+                //}
+            }
+
+            return retStr;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 入力した回答区分から文字色及びstring.Emptyを返す。
+        /// </summary>
+        /// <param name="answer"></param>
+        /// <returns></returns>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public string StrAnswerColor(string answer)
+        {
+            string retStr = string.Empty;
+            if (answer.Equals(LADef.ANSWER_PRE))
+            {
+                retStr = LADef.STRCOL_STRDEF;
+            }
+            else if (answer.Equals(LADef.ANSWER_ABS))
+            {
+                retStr = LADef.STRCOL_STRDEF;
+            }
+            else if (answer.Equals(LADef.ANSWER_NO))
+            {
+                retStr = LADef.STRCOL_RED;
+            }
+            return retStr;
+        }
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
         /// 日付チェック
         /// </summary>
         /// <param name="answerDate">開催日</param>
@@ -326,6 +424,7 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// 回答期限チェック
+        /// 回答期限が設定されていない場合は期限内
         /// </summary>
         /// <param name="eventClass">イベントクラス</param>
         /// <param name="answerDate">回答期限日</param>
@@ -338,26 +437,32 @@ namespace LionsApl
             bool ret = false;        // 初期値は期限内判定
             DateTime wkDt;
 
-            // キャビネットイベント、もしくは理事・委員会の場合
-            if (eventClass.Equals(EVENTCLASS_EV) || 
-                eventClass.Equals(EVENTCLASS_DI) ||
-               (eventClass.Equals(EVENTCLASS_ME) && answerTime.Equals(string.Empty)))
+            // 回答期限の確認
+            if (answerDate != string.Empty)
             {
-                wkDt = DateTime.Parse(answerDate + " 00:00:00").AddDays(1);
-                // 回答期限日+1日以降であれば期限切れ
-                if (nowDt >= wkDt)
+                // 回答期限が設定されている場合
+
+                // キャビネットイベント、もしくは理事・委員会の場合
+                if (eventClass.Equals(EVENTCLASS_EV) ||
+                    eventClass.Equals(EVENTCLASS_DI) ||
+                   (eventClass.Equals(EVENTCLASS_ME) && answerTime.Equals(string.Empty)))
                 {
-                    ret = true; // 期限切れ
+                    wkDt = DateTime.Parse(answerDate + " 00:00:00").AddDays(1);
+                    // 回答期限日+1日以降であれば期限切れ
+                    if (nowDt >= wkDt)
+                    {
+                        ret = true; // 期限切れ
+                    }
                 }
-            }
-            // 年間例会スケジュールの場合
-            else if (eventClass.Equals(EVENTCLASS_ME))
-            {
-                wkDt = DateTime.Parse(answerDate + " " + answerTime + ":00").AddMinutes(1.0);
-                // 回答期限日時+1分以降であれば期限切れ
-                if (nowDt >= wkDt)
+                // 年間例会スケジュールの場合
+                else if (eventClass.Equals(EVENTCLASS_ME))
                 {
-                    ret = true; // 期限切れ
+                    wkDt = DateTime.Parse(answerDate + " " + answerTime + ":00").AddMinutes(1.0);
+                    // 回答期限日時+1分以降であれば期限切れ
+                    if (nowDt >= wkDt)
+                    {
+                        ret = true; // 期限切れ
+                    }
                 }
             }
 

@@ -22,7 +22,7 @@ namespace LionsApl.Content
         private LAUtility _utl;
 
         // 前画面からの取得情報
-        private string _DataNo;         // 対象データNo.
+        private int _dataNo;         // 対象データNo.
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -34,7 +34,7 @@ namespace LionsApl.Content
         /// </summary>
         /// <param name="dataNo"></param>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public ClubDirectorPage(string dataNo)
+        public ClubDirectorPage(int dataNo)
         {
             InitializeComponent();
 
@@ -54,7 +54,7 @@ namespace LionsApl.Content
             AnswerDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
 
             // 前画面からの取得情報
-            _DataNo = dataNo;           // データNo.
+            _dataNo = dataNo;           // データNo.
 
             // Content Utilクラス生成
             _utl = new LAUtility();
@@ -63,13 +63,13 @@ namespace LionsApl.Content
             _sqlite = SQLiteManager.GetInstance();
 
             // A_SETTINGデータ取得
-            _sqlite.SetSetting();
+            _sqlite.GetSetting();
 
             // タイトル設定
             Title = _sqlite.Db_A_Setting.CabinetName;
 
             // A_ACCOUNTデータ取得
-            _sqlite.SetAccount();
+            _sqlite.GetAccount();
 
             // ログイン情報設定
             LoginInfo.Text = _sqlite.LoginInfo;
@@ -97,7 +97,7 @@ namespace LionsApl.Content
             {
                 foreach (Table.T_DIRECTOR row in _sqlite.Get_T_DIRECTOR("Select * " +
                                                                         "From T_DIRECTOR " +
-                                                                        "Where DataNo = '" + _DataNo + "'"))
+                                                                        "Where DataNo = '" + _dataNo + "'"))
                 {
 
                     // 中止

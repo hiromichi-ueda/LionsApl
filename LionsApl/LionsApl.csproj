@@ -17,11 +17,8 @@
 
   <ItemGroup>
     <Compile Remove="Assets\**" />
-    <Compile Remove="新しいフォルダー\**" />
     <EmbeddedResource Remove="Assets\**" />
-    <EmbeddedResource Remove="新しいフォルダー\**" />
     <None Remove="Assets\**" />
-    <None Remove="新しいフォルダー\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -120,6 +117,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Content\SQLiteChk.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Content\TopLogo.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="LionsAplToastView.xaml">

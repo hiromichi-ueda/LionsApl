@@ -26,8 +26,10 @@ namespace LionsApl
         // SQLiteファイル保管先パス
         public string dbPath { get; } = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
 
-        // SQLiteファイル名
+        // SQLiteファイル名(初期値)
         public static string dbFileName = ((App)Application.Current).SQLiteFileName;
+        // SQLiteファイル名(会員番号)
+        public static string dbFileNameID = ((App)Application.Current).SQLiteFileName;
         // SQLiteファイル拡張子
         public static string dbFileExte = ((App)Application.Current).SQLiteFileExte;
         // SQLiteファイルパス＋ファイル名＋拡張子
@@ -37,6 +39,10 @@ namespace LionsApl
         public static MultipartFormDataContent content;
         // WebサーバURL
         public string webServiceUrl = ((App)Application.Current).WebServiceUrl;
+
+        // 定数
+        public bool SQLITE_NOFILE = false;                   // SQLiteファイルが存在しない
+        public bool SQLITE_EXFILE = true;                    // SQLiteファイルが存在する
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -1409,7 +1415,7 @@ namespace LionsApl
         /// 設定ファイル情報をSQLiteファイルから取得する。
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public void SetSetting()
+        public void GetSetting()
         {
             Db_A_Setting = null;
 
@@ -1452,7 +1458,7 @@ namespace LionsApl
         /// アカウント情報をSQLiteファイルから取得する。
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public void SetAccount()
+        public void GetAccount()
         {
             Db_A_Account = null;
             LoginInfo = string.Empty;
@@ -1548,7 +1554,9 @@ namespace LionsApl
                         LastUpdDate = account.LastUpdDate 
                         
                     });
+                    db.Commit();
                 }
+                
             }
             catch (Exception)
             {
@@ -1589,6 +1597,7 @@ namespace LionsApl
                         Payment = magazineBuy.Payment,
                         DelFlg = magazineBuy.DelFlg
                     });
+                    db.Commit();
                 }
             }
             catch (Exception)
@@ -1614,6 +1623,7 @@ namespace LionsApl
             {
                 // Update
                 db.Update(items);
+                db.Commit();
             }
 
             return items.Count > 0 ? items.ToArray() : (new Table.T_EVENTRET[0]);
@@ -1641,13 +1651,32 @@ namespace LionsApl
         /// <summary>
         /// ファイル存在チェック
         /// </summary>
-        /// <returns>false:ファイルなし／true:ファイルあり</returns>
+        /// <returns>SQLITE_NOFILE（false）:ファイルなし
+        ///          SQLITE_EXFILE（true）:ファイルあり</returns>
         ///////////////////////////////////////////////////////////////////////////////////////////
         public bool CheckFileDB3()
         {
             bool ret;
 
             string[] fileList = Directory.GetFiles(dbPath, $"{dbFileName}*");
+
+            ret = fileList.Length > 0;
+
+            return ret;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// ファイル存在チェック（ID付き）
+        /// </summary>
+        /// <returns>SQLITE_NOFILE（false）:ファイルなし
+        ///          SQLITE_EXFILE（true）:ファイルあり</returns>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public bool CheckIDFileDB3()
+        {
+            bool ret;
+
+            string[] fileList = Directory.GetFiles(dbPath, $"{dbFileNameID}*");
 
             ret = fileList.Length > 0;
 
@@ -1672,12 +1701,17 @@ namespace LionsApl
             {
                 File.Delete(dbFile);
             }
-            catch (IOException deleteError)
+            catch
             {
                 throw;
             }
         }
 
+
+        public void MoveFileDB3()
+        {
+
+        }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -1722,6 +1756,29 @@ namespace LionsApl
 
             return content;
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// ファイルコンテンツ（TOP）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public MultipartFormDataContent GetSendFileContent_TOP()
+        {
+            // 処理日時取得
+            DateTime nowDt = DateTime.Now;
+
+            content = new MultipartFormDataContent();
+            // DBデータ種別（文字列データ）
+            content.Add(new StringContent("TOP"), "DbType");
+            // 処理日時（文字列データ）
+            content.Add(new StringContent(nowDt.ToString()), "AplTime");
+            // Sqliteファイル（バイナリデータ）
+            ByteArrayContent sqlite = new ByteArrayContent(File.ReadAllBytes(dbFile));
+            content.Add(sqlite, "Sqlite", Path.GetFileName(dbFile));
+
+            return content;
+        }
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>

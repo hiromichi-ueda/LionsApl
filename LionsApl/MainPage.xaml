@@ -114,12 +114,17 @@
                                 >
                             </Button>
                             <Button 
+                                Text="TOP情報取得" 
+                                Clicked="Button_SendSQLite_TOP_Clicked" 
+                                >
+                            </Button>
+                            <Button 
                                 Text="アカウント情報取得" 
                                 Clicked="Button_SendSQLite_Clicked" 
                                 >
                             </Button>
                             <Button 
-                                Text="その他表示情報取得" 
+                                Text="HOME情報取得" 
                                 Clicked="Button_SendSQLite_HOME_Clicked" 
                                 >
                             </Button>

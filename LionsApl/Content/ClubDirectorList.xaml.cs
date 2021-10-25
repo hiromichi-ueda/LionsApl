@@ -16,6 +16,9 @@ namespace LionsApl.Content
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
+        // Utilityクラス
+        private LAUtility _utl;
+
         // リストビュー設定内容
         public List<ClubDirectorRow> Items { get; set; }
 
@@ -26,14 +29,17 @@ namespace LionsApl.Content
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
 
+            // Content Utilクラス生成
+            _utl = new LAUtility();
+
             // A_SETTINGデータ取得
-            _sqlite.SetSetting();
+            _sqlite.GetSetting();
 
             // タイトル設定
             Title = _sqlite.Db_A_Setting.CabinetName;
 
             // A_ACCOUNTデータ取得
-            _sqlite.SetAccount();
+            _sqlite.GetAccount();
 
             // ログイン情報設定
             LoginInfo.Text = _sqlite.LoginInfo;
@@ -50,7 +56,7 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetClubDirector()
         {
-            string wkDataNo = string.Empty;
+            int wkDataNo = 0;
             string wkEventClass = string.Empty;
             string wkEventDate = string.Empty;
             string wkEventTime = string.Empty;
@@ -60,8 +66,6 @@ namespace LionsApl.Content
             string[] wkUserList = null;
             bool wkTargetFlg = false;
             Items = new List<ClubDirectorRow>();
-
-            Table.TableUtil Util = new Table.TableUtil();
 
             try
             {
@@ -83,42 +87,42 @@ namespace LionsApl.Content
                                                                 "ORDER BY TD.EventDate DESC"))
                 {
                     // DataNo
-                    wkDataNo = row.DataNo.ToString();
+                    wkDataNo = row.DataNo;
 
                     // 区分
-                    if (Util.GetString(row.EventClass) == "1")
+                    if (_utl.GetString(row.EventClass) == "1")
                     {
-                        wkEventClass = "理事会";
+                        wkEventClass = _utl.ST_BOARD;
                     }
                     else
                     {
-                        wkEventClass = "委員会";
+                        wkEventClass = _utl.ST_COMM;
                     }
 
                     // 開催日時
-                    wkEventTime = Util.GetString(row.EventTime).Substring(0, 5);
+                    wkEventTime = _utl.GetTimeString(row.EventTime);
                     if (wkEventTime == "00:00")
                     {
-                        wkEventDate = Util.GetString(row.EventDate).Substring(0, 10);
+                        wkEventDate = _utl.GetString(row.EventDate).Substring(0, 10);
                     }
                     else
                     {
-                        wkEventDate = Util.GetString(row.EventDate).Substring(0, 10) + " " + wkEventTime;
+                        wkEventDate = _utl.GetString(row.EventDate).Substring(0, 10) + " " + wkEventTime;
                     }
 
                     // 件名
-                    wkSubject = Util.GetString(row.Subject);
+                    wkSubject = _utl.GetString(row.Subject);
 
                     // 中止
                     wkCancel = "";
-                    if(Util.GetString(row.CancelFlg) == "1")
+                    if(_utl.GetString(row.CancelFlg) == "1")
                     {
-                        wkCancel = "中止";
+                        wkCancel = LADef.ST_CANCEL;
                     }
 
                     // ログインユーザーが対象か判定
                     wkTargetFlg = false;
-                    wkUserList = Util.GetString(row.Member).Split(',');
+                    wkUserList = _utl.GetString(row.Member).Split(',');
                     foreach (string code in wkUserList)
                     {
                         // [メンバー]を検索
@@ -128,7 +132,8 @@ namespace LionsApl.Content
                             break;
                         }
                     }
-                    wkUserList = Util.GetString(row.MemberAdd).Split(',');
+
+                    wkUserList = _utl.GetString(row.MemberAdd).Split(',');
                     foreach (string code in wkUserList)
                     {
                         // [メンバー追加]を検索
@@ -144,17 +149,20 @@ namespace LionsApl.Content
                     if (wkTargetFlg)
                     {
                         // 対象者の場合は回答をセット
-                        if (Util.GetString(row.Answer) == "1")
+                        if (_utl.GetString(row.Answer).Equals(LADef.ANSWER_PRE))
                         {
-                            wkAnswer = "出席";
+                            // 出席
+                            wkAnswer = LADef.ST_ANSWER_PRE;
                         }
-                        else if (Util.GetString(row.Answer) == "2")
+                        else if (_utl.GetString(row.Answer).Equals(LADef.ANSWER_ABS))
                         {
-                            wkAnswer = "欠席";
+                            // 欠席
+                            wkAnswer = LADef.ST_ANSWER_ABS;
                         }
                         else
                         {
-                            wkAnswer = "未回答";
+                            // 未回答
+                            wkAnswer = LADef.ST_ANSWER_NO;
                         }
                     }
 
@@ -164,7 +172,7 @@ namespace LionsApl.Content
                 if (Items.Count == 0)
                 {
                     // メッセージ表示のため空行を追加
-                    Items.Add(new ClubDirectorRow(wkDataNo, wkEventClass, wkEventDate, wkSubject, wkAnswer, wkCancel));
+                    Items.Add(new ClubDirectorRow(0, wkEventClass, wkEventDate, wkSubject, wkAnswer, wkCancel));
                 }
                 this.BindingContext = this;
             }
@@ -188,7 +196,7 @@ namespace LionsApl.Content
             ClubDirectorRow item = e.Item as ClubDirectorRow;
 
             // 1件もない(メッセージ行のみ表示している)場合は処理しない
-            if (string.IsNullOrEmpty(item.DataNo))
+            if (item.DataNo == 0)
             {
                 ((ListView)sender).SelectedItem = null;
                 return;
@@ -202,24 +210,37 @@ namespace LionsApl.Content
         }
     }
 
-
     public sealed class ClubDirectorRow
     {
-        public ClubDirectorRow(string datano, string eventclass, string eventdate, string subject, string answer, string cancelflg)
+        public ClubDirectorRow(int datano, 
+                               string eventclass, 
+                               string eventdate, 
+                               string subject, 
+                               string answer, 
+                               string cancelflg)
         {
             DataNo = datano;
             EventClass = eventclass;
             EventDate = eventdate;
             Subject = subject;
-            CancelFlg = cancelflg;
             Answer = answer;
+            CancelFlg = cancelflg;
+            if (Answer.Equals(LADef.ST_ANSWER_NO))
+            {
+                AnswerColor = LADef.STRCOL_RED;
+            }
+            else
+            {
+                AnswerColor = LADef.STRCOL_STRDEF;
+            }
         }
-        public string DataNo { get; set; }
+        public int DataNo { get; set; }
         public string EventClass { get; set; }
         public string EventDate { get; set; }
         public string Subject { get; set; }
         public string CancelFlg { get; set; }
         public string Answer { get; set; }
+        public string AnswerColor { get; set; }
     }
 
     public class MyClubDirectorSelector : DataTemplateSelector
@@ -232,7 +253,7 @@ namespace LionsApl.Content
         {
             // 条件より該当するテンプレートを返す
             var info = (ClubDirectorRow)item;
-            if (!String.IsNullOrEmpty(info.DataNo))
+            if (info.DataNo != 0)
             {
                 return ExistDataTemplate;
             }
