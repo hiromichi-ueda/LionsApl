@@ -708,7 +708,7 @@
                                     Grid.ColumnSpan="2"
                                     Grid.RowSpan="1"
                                     x:Name="lbl_EI_Header"
-                                    Text="必要な項目を選択して、「出席・欠席」を選択してください"
+                                    Text="必要な項目を選択して、「出席・欠席」を選択して下さい"
                                     Style="{StaticResource Event_Label_Base}"
                                     TextColor="Red"
                                     />
@@ -864,10 +864,20 @@
                                     x:Name="EI_Online"
                                     Style="{StaticResource Event_Switch}"
                                     />
+                                <!-- 説明 -->
+                                <Label 
+                                    Grid.Row="10"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    Grid.RowSpan="1"
+                                    x:Name="lbl_EI_Footer"
+                                    Text="要（利用する）は、ON（緑・赤）にして下さい&#xd;&#xa;不要（利用しない）は、OFF（グレー）にして下さい" 
+                                    Style="{StaticResource Event_Label_Base}"
+                                    />
 
                                 <!-- 回答期限 -->
                                 <Label 
-                                    Grid.Row="10"
+                                    Grid.Row="11"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
@@ -877,7 +887,7 @@
                                     TextColor="Red"
                                     />
                                 <Label 
-                                    Grid.Row="10"
+                                    Grid.Row="11"
                                     Grid.Column="1"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
@@ -889,26 +899,15 @@
 
                                 <!-- 回答期限説明 -->
                                 <Label 
-                                    Grid.Row="11"
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="2"
-                                    Grid.RowSpan="1"
-                                    x:Name="lbl_EI_AnsOver"
-                                    Text="回答期限が過ぎています。変更がある場合は事務局に連絡してください。" 
-                                    Style="{StaticResource Event_Label_Base}"
-                                    TextColor="Red"
-                                    IsVisible="false"
-                                    />
-
-                                <!-- 説明 -->
-                                <Label 
                                     Grid.Row="12"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="2"
                                     Grid.RowSpan="1"
-                                    x:Name="lbl_EI_Footer"
-                                    Text="要（利用する）などはONにしてください。" 
+                                    x:Name="lbl_EI_AnsOver"
+                                    Text="回答期限が過ぎています。変更がある場合は事務局に連絡して下さい" 
                                     Style="{StaticResource Event_Label_Base}"
+                                    TextColor="Red"
+                                    IsVisible="false"
                                     />
 
                             </Grid>
@@ -960,7 +959,7 @@
                                     Grid.ColumnSpan="2"
                                     Grid.RowSpan="1"
                                     x:Name="lbl_MI_Header"
-                                    Text="必要な項目を選択して、「出席・欠席」を選択してください"
+                                    Text="必要な項目を選択して、「出席・欠席」を選択して下さい"
                                     Style="{StaticResource Event_Label_Base}"
                                     TextColor="Red"
                                     />
@@ -1136,9 +1135,20 @@
                                     >
                                 </Picker>
 
-                                <!-- 回答期限 -->
+                                <!-- 説明 -->
                                 <Label 
                                     Grid.Row="11"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    Grid.RowSpan="1"
+                                    x:Name="lbl_MI_Footer"
+                                    Text="要（利用する）は、ON（緑・赤）にして下さい&#xa;不要（利用しない）は、OFF（グレー）にして下さい" 
+                                    Style="{StaticResource Event_Label_Base}"
+                                    />
+
+                                <!-- 回答期限 -->
+                                <Label 
+                                    Grid.Row="12"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
@@ -1148,7 +1158,7 @@
                                     TextColor="Red"
                                     />
                                 <Label 
-                                    Grid.Row="11"
+                                    Grid.Row="12"
                                     Grid.Column="1"
                                     Grid.ColumnSpan="1"
                                     Grid.RowSpan="1"
@@ -1160,26 +1170,15 @@
 
                                 <!-- 回答期限説明 -->
                                 <Label 
-                                    Grid.Row="12"
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="2"
-                                    Grid.RowSpan="1"
-                                    x:Name="lbl_MI_AnsOver"
-                                    Text="回答期限が過ぎています。変更がある場合は事務局に連絡してください。" 
-                                    Style="{StaticResource Event_Label_Base}"
-                                    TextColor="Red"
-                                    IsVisible="false"
-                                    />
-
-                                <!-- 説明 -->
-                                <Label 
                                     Grid.Row="13"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="2"
                                     Grid.RowSpan="1"
-                                    x:Name="lbl_MI_Footer"
-                                    Text="要（利用する）などはONにしてください。" 
+                                    x:Name="lbl_MI_AnsOver"
+                                    Text="回答期限が過ぎています。変更がある場合は事務局に連絡して下さい" 
                                     Style="{StaticResource Event_Label_Base}"
+                                    TextColor="Red"
+                                    IsVisible="false"
                                     />
 
                             </Grid>
@@ -1208,6 +1207,7 @@
                     Grid.ColumnSpan="1"
                     x:Name="PresentButton"
                     Text="出席" 
+                    FontSize="18"
                     BorderWidth="1" 
                     CornerRadius="6"
                     Clicked="Present_Button_ClickedAsync"
@@ -1220,6 +1220,7 @@
                     Grid.ColumnSpan="1"
                     x:Name="AdsentButton"
                     Text="欠席" 
+                    FontSize="18"
                     BorderWidth="1" 
                     CornerRadius="6"
                     Clicked="Adsent_Button_ClickedAsync"

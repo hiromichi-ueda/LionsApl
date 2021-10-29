@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
 using System.Net.Http;
 
 using Xamarin.Forms;
@@ -10,12 +11,25 @@ using Xamarin.Forms.Xaml;
 
 namespace LionsApl.Content
 {
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// TOPロゴ画面クラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////////
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TopLogo : ContentPage
     {
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// プロパティ
 
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
+
+        // 処理パスフラグ
+        private bool pathFlg = false;
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// メソッド
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -29,7 +43,6 @@ namespace LionsApl.Content
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
 
-
             // SQLiteファイル存在チェック
             if (_sqlite.CheckFileDB3() == _sqlite.SQLITE_NOFILE)
             {
@@ -40,11 +53,6 @@ namespace LionsApl.Content
 
             }
 
-            //var image = new Image { 
-            //    Source = ImageSource.FromResource("ImageSample.Resources.LCI_emblem_white.png"),
-            //};
-            //ImageStack.VerticalOptions = LayoutOptions.Center;
-            //ImageStack.Children.Add(image);
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -52,11 +60,27 @@ namespace LionsApl.Content
         /// 画面表示時の更新処理
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        protected async override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            await LogoProgress.ProgressTo(1.0, 1000, Easing.Linear);
+            await ScrCtrlAndGetTopInfo();
+
+            if (!pathFlg)
+            {
+                // MainPage起動
+                Application.Current.MainPage = new TopMenu();
+            }
+
+        }
+
+        private async Task ScrCtrlAndGetTopInfo()
+        {
+            while (LogoProgress.Progress < 0.5)
+            {
+                await Task.Delay(10);
+                LogoProgress.Progress += 0.01;
+            }
 
             try
             {
@@ -66,13 +90,41 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Alert", $"TOP情報取得エラー(OnAppearing) : {ex.Message}", "OK");
+                await DisplayAlert("Alert", $"TOP情報取得エラー : {ex.Message}", "OK");
             }
 
-            // MainPage起動
-            Application.Current.MainPage = new MainPage();
+            while (LogoProgress.Progress < 1.0)
+            {
+                await Task.Delay(10);
+                LogoProgress.Progress += 0.01;
+            }
 
+            //Task<HttpResponseMessage> response = null;
+            //try
+            //{
+            //    // TOP情報取得
+            //    response = _sqlite.NAsyncPostFileForWebAPI(_sqlite.GetSendFileContent_TOP());
+            //}
+            //catch (Exception ex)
+            //{
+            //    await DisplayAlert("Alert", $"TOP情報取得エラー : {ex.Message}", "OK");
+            //}
+
+            //while (LogoProgress.Progress < 1.0)
+            //{
+            //    await Task.Delay(10);
+            //    LogoProgress.Progress += 0.001;
+
+            //    if (response != null)
+            //    {
+            //    //    if (response.Result.StatusCode == HttpStatusCode.OK)
+            //    //    {
+            //    //        LogoProgress.Progress = 1.0;
+            //    //    }
+            //    }
+            //}
         }
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -82,14 +134,6 @@ namespace LionsApl.Content
         //private async Task GetTopInfo()
         private void GetTopInfo()
         {
-            //Device.StartTimer(System.TimeSpan.FromMilliseconds(200), () =>
-            //{
-            //    LogoProgress.Progress += 0.01;
-            //    return LogoProgress.Progress != 1;
-            //});
-
-            //await LogoProgress.ProgressTo(0.8, 5000, Easing.Linear);
-
             // DB情報取得処理
             try
             {
@@ -100,6 +144,13 @@ namespace LionsApl.Content
             {
                 throw;
             }
+        }
+
+        private void OnLogoTapped(object sender, EventArgs e)
+        {
+            pathFlg = true;
+            Application.Current.MainPage = new TopMenu();
+
         }
     }
 }

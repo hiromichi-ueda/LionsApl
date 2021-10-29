@@ -5,6 +5,11 @@ using Xamarin.Forms;
 
 namespace LionsApl
 {
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// LionsApl用ユーティリティクラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////////
     internal class LAUtility
     {
         // DB項目判定用文字列
@@ -25,14 +30,12 @@ namespace LionsApl
         public string ONLINEFLG = "1";
         // 会議フラグ
         public string MEETING_ONLINE = "1";
-        //public string MEETING_NORMAL = "1";
-        //public string MEETING_ONLINE = "2";
         // 時期区分
         public string SEASON_NOW = "1";               // 今期
         public string SEASON_NEXT = "2";              // 次期
         // 連絡区分
         public string INFOFLG_ALL = "1";              // 全会員
-        public string INFOFLG_PRIV = "2";                  // 個別設定
+        public string INFOFLG_PRIV = "2";             // 個別設定
 
 
         // 引数用文字列
@@ -49,24 +52,23 @@ namespace LionsApl
         public bool EXFILE = true;                    // ファイルが存在する
 
         // 出力文字列
-        public string ST_NOSTR = "";
-        public string ST_CANCEL = "中止";
-        public string ST_SEASON_NOW = "今期";
-        public string ST_SEASON_NEXT = "時期";
-        public string ST_ON = "有り";
-        public string ST_OFF = "無し";
-        public string ST_MEETING_NORMAL = "通常";
-        public string ST_MEETING_ONLINE = "オンライン";
-        public string ST_BOARD = "理事会";
-        public string ST_COMM = "委員会";
-        public string ST_ANSWER_NO = "未回答";
-        public string ST_ANSWER_ATT = "出席";
-        public string ST_ANSWER_ABS = "欠席";
+        //public string ST_NOSTR = "";
+        //public string ST_CANCEL = "中止";
+        //public string ST_SEASON_NOW = "今期";
+        //public string ST_SEASON_NEXT = "時期";
+        //public string ST_ON = "有り";
+        //public string ST_OFF = "無し";
+        //public string ST_MEETING_NORMAL = "通常";
+        //public string ST_MEETING_ONLINE = "オンライン";
+        //public string ST_BOARD = "理事会";
+        //public string ST_COMM = "委員会";
+        //public string ST_ANSWER_NO = "未回答";
+        //public string ST_ANSWER_ATT = "出席";
+        //public string ST_ANSWER_ABS = "欠席";
 
         // 基本文字列
-        public const string STRCOL_STRDEF = "#151515";
-        public const string STRCOL_RED = "Red";
-
+        //public const string STRCOL_STRDEF = "#151515";
+        //public const string STRCOL_RED = "Red";
 
         public LAUtility()
         {
@@ -86,10 +88,12 @@ namespace LionsApl
         public string GetString(string str)
         {
             string retStr = string.Empty;
+
             if (str != null)
             {
                 retStr = str;
             }
+
             return retStr;
         }
 
@@ -104,6 +108,7 @@ namespace LionsApl
         public string GetString(string str, string nlcFlg)
         {
             string retStr = string.Empty;
+
             if (str != null)
             {
                 retStr = str;
@@ -113,6 +118,7 @@ namespace LionsApl
                     retStr = DelNewLine(retStr);
                 }
             }
+
             return retStr;
         }
 
@@ -126,6 +132,7 @@ namespace LionsApl
         public string GetSQLString(string str)
         {
             string retStr = string.Empty;
+
             if (str.Equals(string.Empty))
             {
                 retStr = "NULL";
@@ -134,6 +141,7 @@ namespace LionsApl
             {
                 retStr = "'" + str + "'";
             }
+
             return retStr;
         }
 
@@ -147,18 +155,19 @@ namespace LionsApl
         public string GetTimeString(string str)
         {
             string retStr = string.Empty;
+
             if (str != null)
             {
                 if (str != string.Empty)
                 {
-                    if (!str.Equals(NOTIME))
+                    if (!str.Equals(LADef.NOTIME))
                     {
                         retStr = str;
                     }
                 }
             }
-            return retStr;
 
+            return retStr;
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -172,6 +181,7 @@ namespace LionsApl
         public string GetDateString(string str)
         {
             string retStr = string.Empty;
+
             if (str != null)
             { 
                 if (str != string.Empty)
@@ -198,8 +208,13 @@ namespace LionsApl
             retStr = str;
             retStr = retStr.Replace("\r", "").Replace("\n", "");
             retStr = retStr.Replace("Environment.NewLine", "");
+
             return retStr;
         }
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// 指定された値から文字列を作成する
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -211,17 +226,19 @@ namespace LionsApl
         public string StrOnOff(string item)
         {
             string retStr = string.Empty;
+
             if (item != null)
             {
-                if (item == OFFFLG)
+                if (item == LADef.OFFFLG)
                 {
-                    retStr = ST_OFF;
+                    retStr = LADef.ST_OFF;
                 }
-                else if(item == ONFLG)
+                else if(item == LADef.ONFLG)
                 {
-                    retStr = ST_ON;
+                    retStr = LADef.ST_ON;
                 }
             }
+
             return retStr;
         }
 
@@ -235,16 +252,18 @@ namespace LionsApl
         public string StrCancel(string item)
         {
             string retStr = string.Empty;
+
             if (item != null)
             {
                 if (item != string.Empty)
                 {
-                    if (item == CANCELFLG)
+                    if (item == LADef.CANCELFLG)
                     {
-                        retStr = ST_CANCEL;
+                        retStr = LADef.ST_CANCEL;
                     }
                 }
             }
+
             return retStr;
         }
 
@@ -258,20 +277,22 @@ namespace LionsApl
         public string StrSeason(string item)
         {
             string retStr = string.Empty;
+
             if (item != null)
             {
                 if (item != string.Empty)
                 {
-                    if (item == SEASON_NOW)
+                    if (item == LADef.SEASON_NOW)
                     {
-                        retStr = ST_SEASON_NOW;
+                        retStr = LADef.ST_SEASON_NOW;
                     }
-                    else if (item == SEASON_NEXT)
+                    else if (item == LADef.SEASON_NEXT)
                     {
-                        retStr = ST_SEASON_NEXT;
+                        retStr = LADef.ST_SEASON_NEXT;
                     }
                 }
             }
+
             return retStr;
         }
 
@@ -312,16 +333,18 @@ namespace LionsApl
         public string StrOnline(string item)
         {
             string retStr = string.Empty;
+ 
             if (item != null)
             {
                 if (item != string.Empty)
                 {
-                    if (item == ONLINEFLG)
+                    if (item == LADef.ONLINEFLG)
                     {
-                        retStr = ST_MEETING_ONLINE;
+                        retStr = LADef.ST_MEETING_ONLINE;
                     }
                 }
             }
+ 
             return retStr;
         }
 
@@ -336,6 +359,7 @@ namespace LionsApl
         public string StrAnswer(string answer)
         {
             string retStr = LADef.ST_ANSWER_NO;
+
             if (answer != null)
             {
                 if (answer.Equals(LADef.ANSWER_PRE))
@@ -355,6 +379,20 @@ namespace LionsApl
             return retStr;
         }
 
+        public string StrAnswerPg(string answer)
+        {
+            string retSt = string.Empty;
+
+            retSt = StrAnswer(answer);
+
+            if (retSt != string.Empty)
+            {
+                retSt = " (" + retSt + ")";
+            }
+
+            return retSt;
+        }
+
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// 入力した回答区分から文字色及びstring.Emptyを返す。
@@ -365,6 +403,7 @@ namespace LionsApl
         public string StrAnswerColor(string answer)
         {
             string retStr = string.Empty;
+
             if (answer.Equals(LADef.ANSWER_PRE))
             {
                 retStr = LADef.STRCOL_STRDEF;
@@ -377,9 +416,40 @@ namespace LionsApl
             {
                 retStr = LADef.STRCOL_RED;
             }
+
             return retStr;
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 入力したフラグから性別文字列を返す。
+        /// </summary>
+        /// <param name="sex"></param>
+        /// <returns></returns>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public string StrSex(string sex)
+        {
+            string retStr = string.Empty;
+
+            if (sex == LADef.SEX_MAIL)
+            {
+                retStr = LADef.ST_MALE;
+            }
+            else if (sex == LADef.SEX_FEMAIL)
+            {
+                retStr = LADef.ST_FEMALE;
+            }
+            else
+            {
+                retStr = LADef.ST_OTHER;
+            }
+
+            return retStr;
+        }
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// 汎用チェック処理
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -420,7 +490,6 @@ namespace LionsApl
         }
 
 
-
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// 回答期限チェック
@@ -443,9 +512,9 @@ namespace LionsApl
                 // 回答期限が設定されている場合
 
                 // キャビネットイベント、もしくは理事・委員会の場合
-                if (eventClass.Equals(EVENTCLASS_EV) ||
-                    eventClass.Equals(EVENTCLASS_DI) ||
-                   (eventClass.Equals(EVENTCLASS_ME) && answerTime.Equals(string.Empty)))
+                if (eventClass.Equals(LADef.EVENTCLASS_EV) ||
+                    eventClass.Equals(LADef.EVENTCLASS_DI) ||
+                   (eventClass.Equals(LADef.EVENTCLASS_ME) && answerTime.Equals(string.Empty)))
                 {
                     wkDt = DateTime.Parse(answerDate + " 00:00:00").AddDays(1);
                     // 回答期限日+1日以降であれば期限切れ
@@ -455,7 +524,7 @@ namespace LionsApl
                     }
                 }
                 // 年間例会スケジュールの場合
-                else if (eventClass.Equals(EVENTCLASS_ME))
+                else if (eventClass.Equals(LADef.EVENTCLASS_ME))
                 {
                     wkDt = DateTime.Parse(answerDate + " " + answerTime + ":00").AddMinutes(1.0);
                     // 回答期限日時+1分以降であれば期限切れ

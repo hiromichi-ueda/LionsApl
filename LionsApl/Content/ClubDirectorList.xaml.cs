@@ -10,9 +10,17 @@ using Xamarin.Forms.Xaml;
 
 namespace LionsApl.Content
 {
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// クラブ：理事・委員会一覧クラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ClubDirectorList : ContentPage
     {
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// プロパティ
+
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
@@ -22,6 +30,15 @@ namespace LionsApl.Content
         // リストビュー設定内容
         public List<ClubDirectorRow> Items { get; set; }
 
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// メソッド
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         public ClubDirectorList()
         {
             InitializeComponent();
@@ -57,14 +74,17 @@ namespace LionsApl.Content
         private void GetClubDirector()
         {
             int wkDataNo = 0;
+            string flgEventClass = string.Empty;
             string wkEventClass = string.Empty;
             string wkEventDate = string.Empty;
             string wkEventTime = string.Empty;
             string wkSubject = string.Empty;
             string wkCancel = string.Empty;
             string wkAnswer = string.Empty;
+            string wkAnsFlg = string.Empty;
             string[] wkUserList = null;
             bool wkTargetFlg = false;
+            Color wkAnswerColor = Color.Default;
             Items = new List<ClubDirectorRow>();
 
             try
@@ -90,13 +110,18 @@ namespace LionsApl.Content
                     wkDataNo = row.DataNo;
 
                     // 区分
-                    if (_utl.GetString(row.EventClass) == "1")
+                    flgEventClass = _utl.GetString(row.EventClass);
+                    if (flgEventClass == LADef.CLUBEVENTCLASS_RI)
                     {
-                        wkEventClass = _utl.ST_BOARD;
+                        wkEventClass = LADef.ST_BOARD;
+                    }
+                    else if(flgEventClass == LADef.CLUBEVENTCLASS_IN)
+                    {
+                        wkEventClass = LADef.ST_COMM;
                     }
                     else
                     {
-                        wkEventClass = _utl.ST_COMM;
+                        wkEventClass = LADef.ST_ETC;
                     }
 
                     // 開催日時
@@ -145,34 +170,38 @@ namespace LionsApl.Content
                     }
 
                     // 回答
+                    wkAnsFlg = _utl.GetString(row.Answer);
                     wkAnswer = "";
                     if (wkTargetFlg)
                     {
                         // 対象者の場合は回答をセット
-                        if (_utl.GetString(row.Answer).Equals(LADef.ANSWER_PRE))
+                        if (wkAnsFlg.Equals(LADef.ANSWER_PRE))
                         {
                             // 出席
                             wkAnswer = LADef.ST_ANSWER_PRE;
+                            wkAnswerColor = Color.FromHex(LADef.STRCOL_STRDEF);
                         }
-                        else if (_utl.GetString(row.Answer).Equals(LADef.ANSWER_ABS))
+                        else if (wkAnsFlg.Equals(LADef.ANSWER_ABS))
                         {
                             // 欠席
                             wkAnswer = LADef.ST_ANSWER_ABS;
+                            wkAnswerColor = Color.FromHex(LADef.STRCOL_STRDEF);
                         }
                         else
                         {
                             // 未回答
                             wkAnswer = LADef.ST_ANSWER_NO;
+                            wkAnswerColor = Color.FromHex(LADef.STRCOL_RED);
                         }
                     }
 
                     // List DataSet
-                    Items.Add(new ClubDirectorRow(wkDataNo, wkEventClass, wkEventDate, wkSubject, wkAnswer, wkCancel));
+                    Items.Add(new ClubDirectorRow(wkDataNo, wkEventClass, wkEventDate, wkSubject, wkAnswer, wkCancel, wkAnswerColor));
                 }
                 if (Items.Count == 0)
                 {
                     // メッセージ表示のため空行を追加
-                    Items.Add(new ClubDirectorRow(0, wkEventClass, wkEventDate, wkSubject, wkAnswer, wkCancel));
+                    Items.Add(new ClubDirectorRow(0, wkEventClass, wkEventDate, wkSubject, wkAnswer, wkCancel, wkAnswerColor));
                 }
                 this.BindingContext = this;
             }
@@ -203,7 +232,7 @@ namespace LionsApl.Content
             }
 
             // 理事・委員会画面へ
-            Navigation.PushAsync(new ClubDirectorPage(item.DataNo));
+            Navigation.PushAsync(new ClubDirectorPage(item.DataNo, item.Answer));
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
@@ -217,7 +246,8 @@ namespace LionsApl.Content
                                string eventdate, 
                                string subject, 
                                string answer, 
-                               string cancelflg)
+                               string cancelflg,
+                               Color answerColor)
         {
             DataNo = datano;
             EventClass = eventclass;
@@ -225,14 +255,8 @@ namespace LionsApl.Content
             Subject = subject;
             Answer = answer;
             CancelFlg = cancelflg;
-            if (Answer.Equals(LADef.ST_ANSWER_NO))
-            {
-                AnswerColor = LADef.STRCOL_RED;
-            }
-            else
-            {
-                AnswerColor = LADef.STRCOL_STRDEF;
-            }
+            AnswerColor = answerColor;
+
         }
         public int DataNo { get; set; }
         public string EventClass { get; set; }
@@ -240,7 +264,7 @@ namespace LionsApl.Content
         public string Subject { get; set; }
         public string CancelFlg { get; set; }
         public string Answer { get; set; }
-        public string AnswerColor { get; set; }
+        public Color AnswerColor { get; set; }
     }
 
     public class MyClubDirectorSelector : DataTemplateSelector

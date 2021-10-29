@@ -80,7 +80,8 @@ namespace LionsApl
         protected override void OnResume()
         {
             // TOP画面に遷移する
-            MainPage = new MainPage();
+            MainPage = new Content.TopMenu();
+            //MainPage = new MainPage();
             //// 経過時間設定
             //ElapsedTime = sw.Elapsed;
             //// アプリ起動時間がリスタート時間を超えている場合

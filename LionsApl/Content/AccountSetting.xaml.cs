@@ -10,9 +10,27 @@ using Xamarin.Forms.Xaml;
 
 namespace LionsApl.Content
 {
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// アカウント設定画面クラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////////
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AccountSetting : ContentPage
     {
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// プロパティ
+
+        // SQLiteマネージャークラス
+        private SQLiteManager _sqlite;
+
+        // Utilityクラス
+        private LAUtility _utl;
+
+        // A_ACCOUNTテーブルクラス
+        private Table.A_ACCOUNT _account;
+
+        // ピッカー用変数
         public ObservableCollection<CRegionPicker> _regionPk = new ObservableCollection<CRegionPicker>();
         public ObservableCollection<CZonePicker> _zonePk = new ObservableCollection<CZonePicker>();
         public ObservableCollection<CClubPicker> _clubPk = new ObservableCollection<CClubPicker>();
@@ -23,8 +41,10 @@ namespace LionsApl.Content
         private string _selZone = null;
         private string _selClub = null;
         private string _selMember = null;
-        private SQLiteManager _sqlite;                      // SQLiteマネージャークラス
-        private Table.A_ACCOUNT _account;                   // A_ACCOUNTテーブルクラス
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// メソッド
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -49,8 +69,12 @@ namespace LionsApl.Content
             // ピッカーセレクト処理OFF
             _pickerSelect = false;
 
+            // Content Utilクラス生成
+            _utl = new LAUtility();
+
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
+
             // 選択リジョン情報クリア
             ClearSelectRegionInfo();
             // 選択ゾーン情報クリア
@@ -525,7 +549,7 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void Button_Back_Clicked(object sender, System.EventArgs e)
         {
-            Application.Current.MainPage = new MainPage();
+            Application.Current.MainPage = new TopMenu();
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -551,7 +575,7 @@ namespace LionsApl.Content
                 await DisplayAlert("アカウント設定", "アカウントを登録しました。", "OK");
 
                 // TOP画面に遷移する
-                Application.Current.MainPage = new MainPage();
+                Application.Current.MainPage = new TopMenu();
 
             }
         }
@@ -572,14 +596,14 @@ namespace LionsApl.Content
                 {
                     _account = new Table.A_ACCOUNT
                     {
-                        Region = row.Region,
-                        Zone = row.Zone,
-                        ClubCode = row.ClubCode,
-                        ClubName = row.ClubName,
-                        MemberCode = row.MemberCode,
-                        MemberFirstName = row.MemberFirstName,
-                        MemberLastName = row.MemberLastName,
-                        AccountDate = row.AccountDate
+                        Region = _utl.GetString(row.Region),
+                        Zone = _utl.GetString(row.Zone),
+                        ClubCode = _utl.GetString(row.ClubCode),
+                        ClubName = _utl.GetString(row.ClubName),
+                        MemberCode = _utl.GetString(row.MemberCode),
+                        MemberFirstName = _utl.GetString(row.MemberFirstName),
+                        MemberLastName = _utl.GetString(row.MemberLastName),
+                        AccountDate = _utl.GetString(row.AccountDate)
                     };
 
                 }

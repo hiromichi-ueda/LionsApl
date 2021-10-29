@@ -10,11 +10,22 @@ using Xamarin.Essentials;
 
 namespace LionsApl.Content
 {
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// 地区誌ページクラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////////
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MagazinePage : ContentPage
     {
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// プロパティ
+
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
+
+        // Utilityクラス
+        private LAUtility _utl;
 
         // Config取得
         public static String AppServer = ((App)Application.Current).AppServer;                      //Url
@@ -24,12 +35,25 @@ namespace LionsApl.Content
         // 前画面からのデータNo取得情報
         private int _dataNo;
 
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// メソッド
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="dataNo"></param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         public MagazinePage(int dataNo)
         {
             InitializeComponent();
 
             // DataNo取得(Key)
             _dataNo = dataNo;
+
+            // Content Utilクラス生成
+            _utl = new LAUtility();
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
@@ -64,7 +88,7 @@ namespace LionsApl.Content
             // 変数
             string wkDataNo = string.Empty;
 
-            Table.TableUtil Util = new Table.TableUtil();
+            //Table.TableUtil Util = new Table.TableUtil();
 
             try
             {
@@ -76,36 +100,41 @@ namespace LionsApl.Content
                     wkDataNo = row.DataNo.ToString();
 
                     // 添付ファイル
-                    if (Util.GetString(row.FileName) != "")
+                    if (_utl.GetString(row.FileName) != string.Empty)
                     {
 
                         // ファイル表示高さ設定
-                        this.grid.HeightRequest = 600.0;
+                        //this.grid.HeightRequest = 600.0;
+                        PdfWebView.HeightRequest = 600.0;
 
                         // FILEPATH取得(地区誌)
                         var pdfUrl = AppServer + _sqlite.Db_A_FilePath.FilePath.Substring(2).Replace("\\", "/").Replace("\r\n", "") +
-                                     "/" + wkDataNo + "/" + Util.GetString(row.FileName);
+                                     "/" + wkDataNo + "/" + _utl.GetString(row.FileName);
 
                         // AndroidPDF Viewer
                         var googleUrl = AndroidPdf + "?embedded=true&url=";
 
                         if (Device.RuntimePlatform == Device.iOS)
                         {
-                            FileName.Source = pdfUrl;
+                            PdfWebView.Source = pdfUrl;
                         }
                         else if (Device.RuntimePlatform == Device.Android)
                         {
-                            FileName.Source = new UrlWebViewSource() { Url = googleUrl + pdfUrl };
+                            PdfWebView.Source = new UrlWebViewSource() { Url = googleUrl + pdfUrl };
                         }
-                        lbl_FileName.Text = pdfUrl;             //FileName表示
-                        this.lbl_FileName.HeightRequest = 0;    //非表示設定
+                        //lbl_PdfView.Text = pdfUrl;        //FileName表示
+                        lbl_PdfView.Text = _utl.GetString(row.Magazine);        //タイトル
+
                     }
                     else
                     {
                         // WebViewの高さ消す
-                        this.grid.HeightRequest = 0;
-                        this.FileName.IsVisible = false;
-                        lbl_FileName.Text = "";
+                        //grid.HeightRequest = 0;
+                        // 非表示設定
+                        lbl_PdfView.Text = string.Empty;
+                        lbl_PdfView.IsVisible = false;
+                        PdfWebView.IsVisible = false;
+                        stack.IsVisible = false;
                     }
                 }
             }
@@ -115,9 +144,26 @@ namespace LionsApl.Content
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void WebviewNavigating(object sender, WebNavigatingEventArgs e)
+        {
+            stack.IsVisible = true;
+        }
+
+        void WebviewNavigated(object sender, WebNavigatedEventArgs e)
+        {
+            stack.IsVisible = false;
+            lbl_PdfView.IsVisible = false;
+        }
+
         private void Push_MagazineList()
         {
             Navigation.PushAsync(new MagazineList());
         }
+
     }
 }

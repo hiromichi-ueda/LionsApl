@@ -35,12 +35,13 @@ namespace LionsApl.Content
         private string ST_EVENT_3 = "[クラブ]";
 
         //private string ANSWER_NO = "未登録";
-        public const string ST_ANSWER_NO = "未回答";
-        public const string ST_ANSWER_1 = "出席";
-        public const string ST_ANSWER_2 = "欠席";
+        //public const string ST_ANSWER_NO = "未回答";
+        //public const string ST_ANSWER_1 = "出席";
+        //public const string ST_ANSWER_2 = "欠席";
 
         private string ST_CLUSEVENT_1 = "[理事会]";
         private string ST_CLUSEVENT_2 = "[委員会]";
+        private string ST_CLUSEVENT_3 = "[その他]";
 
         private string ST_CANCEL = "中止";
 
@@ -131,6 +132,7 @@ namespace LionsApl.Content
             string strCancel = "";                          // 中止表示用文字列
             string strTitle = "";                           // タイトル設定用文字列
             string strAnswer = "";                          // 出欠設定用文字列
+            Color colAnswer = Color.Default;                // 出欠設定文字色用値
             Items = new ObservableCollection<EventRow>();
 
             try
@@ -181,6 +183,7 @@ namespace LionsApl.Content
                     strCancel = "";                          // 中止表示用文字列
                     strTitle = "";                           // タイトル設定用文字列
                     strAnswer = "";                          // 出欠設定用文字列
+                    colAnswer = Color.Default;               // 出欠設定文字色用値
 
 
                     // イベントリストの各項目値を取得する
@@ -190,16 +193,17 @@ namespace LionsApl.Content
                                      ref strDate,
                                      ref strCancel,
                                      ref strTitle,
-                                     ref strAnswer);
+                                     ref strAnswer,
+                                     ref colAnswer);
 
                     // イベントリスト行クラスを作成する。
-                    EventRow eventRow = new EventRow(intDataNo, intEventDataNo, strDate, strCancel, strTitle, strAnswer);
+                    EventRow eventRow = new EventRow(intDataNo, intEventDataNo, strDate, strCancel, strTitle, strAnswer, colAnswer);
                     Items.Add(eventRow);
                 }
                 if (Items.Count == 0)
                 {
                     // メッセージ表示のため空行を追加
-                    Items.Add(new EventRow(0, intEventDataNo, strDate, strCancel, strTitle, strAnswer));
+                    Items.Add(new EventRow(0, intEventDataNo, strDate, strCancel, strTitle, strAnswer, colAnswer));
                 }
                 EventListView.ItemsSource = Items;
                 this.BindingContext = this;
@@ -224,6 +228,7 @@ namespace LionsApl.Content
             string strCancel = "";                          // 中止表示用文字列
             string strTitle = "";                           // タイトル設定用文字列
             string strAnswer = "";                          // 出欠設定用文字列
+            Color colAnswer = Color.Default;                // 出欠設定文字色用値
             int idx = 0;
 
             try
@@ -282,10 +287,13 @@ namespace LionsApl.Content
                                      ref strDate,
                                      ref strCancel,
                                      ref strTitle,
-                                     ref strAnswer);
+                                     ref strAnswer,
+                                     ref colAnswer);
 
                     // 出欠を設定
                     Items[idx].Answer = strAnswer;
+                    // 文字色を設定
+                    Items[idx].AnswerColor = colAnswer;
 
                     idx++;
                 }
@@ -309,6 +317,7 @@ namespace LionsApl.Content
         /// <param name="strCancel">キャンセル（表示用変数）</param>
         /// <param name="strTitle">タイトル（表示用変数）</param>
         /// <param name="strAnswer">回答（表示用変数）</param>
+        /// <param name="colAnswer">回答文字色（表示用変数）</param>
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetEventListData(Table.EVENT_LIST row,
                                         ref int intDataNo,
@@ -316,7 +325,8 @@ namespace LionsApl.Content
                                         ref string strDate,
                                         ref string strCancel,
                                         ref string strTitle,
-                                        ref string strAnswer)
+                                        ref string strAnswer,
+                                        ref Color colAnswer)
         {
             string wkEveClass = string.Empty;
             string wkClubEveClass = string.Empty;
@@ -341,69 +351,77 @@ namespace LionsApl.Content
             // イベント区分
             wkEveClass = _utl.GetString(row.EventClass);
             // 1:キャビネット
-            if (wkEveClass.Equals(_utl.EVENTCLASS_EV))
+            if (wkEveClass.Equals(LADef.EVENTCLASS_EV))
             {
                 strDate = strDate + " " + ST_EVENT_1;
             }
             // 2:クラブ（例会）
-            else if (wkEveClass.Equals(_utl.EVENTCLASS_ME))
+            else if (wkEveClass.Equals(LADef.EVENTCLASS_ME))
             {
                 strDate = strDate + " " + ST_EVENT_2;
             }
             // 3:クラブ（理事・委員会）
-            else if (wkEveClass.Equals(_utl.EVENTCLASS_DI))
+            else if (wkEveClass.Equals(LADef.EVENTCLASS_DI))
             {
                 strDate = strDate + " " + ST_EVENT_3;
             }
 
             // タイトル設定
             // 1:キャビネット
-            if (wkEveClass.Equals(_utl.EVENTCLASS_EV))
+            if (wkEveClass.Equals(LADef.EVENTCLASS_EV))
             {
                 strTitle = _utl.GetString(row.Title);
             }
             // 2:クラブ（例会）
-            else if (wkEveClass.Equals(_utl.EVENTCLASS_ME))
+            else if (wkEveClass.Equals(LADef.EVENTCLASS_ME))
             {
                 strTitle = _utl.GetString(row.MeetingName);
             }
             // 3:クラブ（理事・委員会）
-            else if (wkEveClass.Equals(_utl.EVENTCLASS_DI))
+            else if (wkEveClass.Equals(LADef.EVENTCLASS_DI))
             {
                 // クラブイベント区分
                 wkClubEveClass = _utl.GetString(row.ClubEventClass);
 
                 // 理事会
-                if (wkClubEveClass.Equals(_utl.CLUBEVENTCLASS_RI))
+                if (wkClubEveClass.Equals(LADef.CLUBEVENTCLASS_RI))
                 {
                     strTitle = ST_CLUSEVENT_1 + " " + _utl.GetString(row.Subject);
                 }
                 // 委員会
-                else if (wkClubEveClass.Equals(_utl.CLUBEVENTCLASS_IN))
+                else if (wkClubEveClass.Equals(LADef.CLUBEVENTCLASS_IN))
                 {
                     strTitle = ST_CLUSEVENT_2 + " " + _utl.GetString(row.Subject);
+                }
+                // その他
+                else if (wkClubEveClass.Equals(LADef.CLUBEVENTCLASS_ET))
+                {
+                    strTitle = ST_CLUSEVENT_3 + " " + _utl.GetString(row.Subject);
                 }
             }
 
             // 中止設定
             if (_utl.GetString(row.CancelFlg).Equals(_utl.CANCELFLG))
             {
-                strCancel = ST_CANCEL;
+                strCancel = LADef.ST_CANCEL;
             }
 
             // 出欠設定
             wkAnswer = _utl.GetString(row.Answer);
-            if (wkAnswer.Equals(_utl.ANSWER_PRE))
+            if (wkAnswer.Equals(LADef.ANSWER_PRE))
             {
-                strAnswer = ST_ANSWER_1;
+                strAnswer = LADef.ST_ANSWER_PRE;
+                colAnswer = Color.FromHex(LADef.STRCOL_STRDEF);
             }
-            else if (wkAnswer.Equals(_utl.ANSWER_AB))
+            else if (wkAnswer.Equals(LADef.ANSWER_ABS))
             {
-                strAnswer = ST_ANSWER_2;
+                strAnswer = LADef.ST_ANSWER_ABS;
+                colAnswer = Color.FromHex(LADef.STRCOL_STRDEF);
             }
-            else if (wkAnswer.Equals(_utl.ANSWER_NO))
+            else if (wkAnswer.Equals(LADef.ANSWER_NO))
             {
-                strAnswer = ST_ANSWER_NO;
+                strAnswer = LADef.ST_ANSWER_NO;
+                colAnswer = Color.FromHex(LADef.STRCOL_RED);
             }
 
         }
@@ -425,14 +443,15 @@ namespace LionsApl.Content
         private string _eventCancel = string.Empty;
         private string _title = string.Empty;
         private string _answer = string.Empty;
-        private string _answerColor = string.Empty;
+        private Color _answerColor = Color.Default;
 
         public EventRow(int dataNo, 
                         int eventDataNo, 
                         string eventDate, 
                         string eventCancel, 
                         string title, 
-                        string answer)
+                        string answer,
+                        Color answerColor)
         {
             DataNo = dataNo;
             EventDataNo = eventDataNo;
@@ -440,15 +459,8 @@ namespace LionsApl.Content
             EventCancel = eventCancel;
             Title = title;
             Answer = answer;
-            // 文字色設定
-            if (answer.Equals(EventList.ST_ANSWER_NO))
-            {
-                AnswerColor = LAUtility.STRCOL_RED;
-            }
-            else
-            {
-                AnswerColor = LAUtility.STRCOL_STRDEF;
-            }
+            AnswerColor = answerColor;
+
         }
 
         public int DataNo 
@@ -545,7 +557,7 @@ namespace LionsApl.Content
                 }
             }
         }
-        public string AnswerColor
+        public Color AnswerColor
         {
             get { return _answerColor; }
             set

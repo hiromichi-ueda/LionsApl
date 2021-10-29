@@ -9,6 +9,11 @@ using Xamarin.Forms;
 
 namespace LionsApl
 {
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// SQLiteマネージャークラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////////
     class SQLiteManager
     {
 
@@ -1802,6 +1807,32 @@ namespace LionsApl
             }
             return response;
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 同期にてSQLiteファイルを送受信する（ファイル保管まで行う）
+        /// 受信－ファイル書き出し
+        /// </summary>
+        /// <param name="sendContent"></param>
+        /// <returns></returns>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public async Task<HttpResponseMessage> NAsyncPostFileForWebAPI(MultipartFormDataContent sendContent)
+        {
+            HttpResponseMessage response = null;
+            response = await _httpClient.PostAsync(webServiceUrl, sendContent);
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                using (HttpContent content = response.Content)
+                using (Stream stream = await content.ReadAsStreamAsync())
+                using (FileStream fileStream = new FileStream(dbFile, FileMode.Create, FileAccess.Write, FileShare.None))
+                {
+                    stream.CopyTo(fileStream);
+                }
+            }
+            return response;
+        }
+
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>

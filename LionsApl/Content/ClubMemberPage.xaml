@@ -158,7 +158,7 @@
                     <StackLayout 
                         Margin="8,0,0,0"
                         HorizontalOptions="FillAndExpand"
-                        Background="#FFF"
+                        Background="#FFFFFF"
                         >
                         <Grid BackgroundColor="#FFFFFF" Margin="10" HorizontalOptions="Start">
                             <Grid.RowDefinitions>

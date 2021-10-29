@@ -10,11 +10,11 @@ using Xamarin.Forms.Xaml;
 
 namespace LionsApl.Content
 {
-    ///////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
     /// <summary>
     /// 出欠確認画面クラス
     /// </summary>
-    ///////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EventPage : ContentPage
     {
@@ -59,7 +59,7 @@ namespace LionsApl.Content
         // 文字列定数
         private string ST_EVENT_1 = "キャビネット出欠の確認";
         private string ST_EVENT_2 = "例会出欠の確認";
-        private string ST_EVENT_3 = "理事・委員会出欠の確認";
+        private string ST_EVENT_3 = "理事・委員会・その他出欠の確認";
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -440,7 +440,7 @@ namespace LionsApl.Content
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// 理事・委員会
+        /// 理事・委員会・その他
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void Present_Direct()
@@ -837,7 +837,8 @@ namespace LionsApl.Content
                 _ceventret.Online = _utl.GetString(_eventret.Online);
 
                 // 出欠
-                wkAnswer = GetAnswerStr(_eventret.Answer);
+                //wkAnswer = GetAnswerStr(_eventret.Answer);
+                wkAnswer = _utl.StrAnswerPg(_eventret.Answer);
 
                 // 回答期限
                 wkAnsDate = _utl.GetDateString(_event.AnswerDate);
@@ -856,7 +857,7 @@ namespace LionsApl.Content
                 ED_Sake.Text = wkSake;
 
                 // 会議方法～備考
-                if (wkMeeting.Equals(_utl.ST_MEETING_ONLINE))
+                if (wkMeeting.Equals(LADef.ST_MEETING_ONLINE))
                 {
                     ED_Meeting.Text = wkMeeting;
                     ED_MeetingUrl.Text = wkUrl;
@@ -1083,7 +1084,7 @@ namespace LionsApl.Content
                 MD_Name.Text = wkName;
 
                 // 会議方法
-                if (wkOnline.Equals(_utl.ST_MEETING_ONLINE))
+                if (wkOnline.Equals(LADef.ST_MEETING_ONLINE))
                 {
                     MD_Online.Text = wkOnline;
                 }
@@ -1180,7 +1181,7 @@ namespace LionsApl.Content
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// 理事・委員会項目の設定
+        /// 理事・委員会・その他項目の設定
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void SetCEventPageDirect()
@@ -1252,7 +1253,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"理事・委員会項目の設定エラー : {ex.Message}", "OK");
+                DisplayAlert("Alert", $"理事・委員会・その他項目の設定エラー : {ex.Message}", "OK");
             }
 
         }

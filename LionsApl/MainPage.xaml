@@ -35,8 +35,11 @@
                         />
                     <Label 
                         Text="Lions Apl"
-                        VerticalOptions="Center"
-                        />
+                        VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLogoTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
                 </StackLayout>
             </StackLayout>
 
@@ -48,35 +51,45 @@
 
                         <StackLayout
                             Padding="48"
+                            VerticalOptions="FillAndExpand"
                             >
-                            <!-- HOMEボタン -->
-                            <Button 
-                                x:Name="home"
-                                Text="ホーム" 
-                                Clicked="Button_Home_Clicked" 
-                                >
-                            </Button>
-                            <!-- アカウント設定ボタン -->
-                            <Button 
-                                x:Name="account"
-                                Text="アカウント設定" 
-                                Clicked="Button_Account_Clicked" 
-                                >
-                            </Button>
-                            <!-- アップデート -->
-                            <Button 
-                                x:Name="update"
-                                Text="アップデート" 
-                                Clicked="Button_Update_Clicked" 
-                                >
-                            </Button>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+                                <!-- HOMEボタン -->
+                                <Button 
+                                    Grid.Row="0"
+                                    x:Name="home"
+                                    Text="ホーム" 
+                                    Clicked="Button_Home_Clicked" 
+                                    >
+                                </Button>
+                                <!-- アカウント設定ボタン -->
+                                <Button 
+                                    Grid.Row="1"
+                                    x:Name="account"
+                                    Text="アカウント設定" 
+                                    Clicked="Button_Account_Clicked" 
+                                    >
+                                </Button>
+                                <!-- アップデート -->
+                                <Button 
+                                    Grid.Row="2"
+                                    x:Name="update"
+                                    Text="アップデート" 
+                                    Clicked="Button_Update_Clicked" 
+                                    >
+                                </Button>
 
+                            </Grid>
                             <Label 
                                 x:Name="AppVersion"  
                                 Style="{StaticResource List_Base_End}"
-                                HorizontalOptions="FillAndExpand"
+                                HorizontalOptions="EndAndExpand"
                                 />
-
                         </StackLayout>
                         
                         <!-- 

@@ -9,6 +9,11 @@ using Xamarin.Forms.Xaml;
 
 namespace LionsApl.Content
 {
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// クラブ：理事・委員会ページクラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ClubDirectorPage : ContentPage
     {
@@ -22,8 +27,8 @@ namespace LionsApl.Content
         private LAUtility _utl;
 
         // 前画面からの取得情報
-        private int _dataNo;         // 対象データNo.
-
+        private int _dataNo;                                // 対象データNo.
+        private string _answer;                             // 出欠
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// メソッド
@@ -33,8 +38,9 @@ namespace LionsApl.Content
         /// コンストラクタ
         /// </summary>
         /// <param name="dataNo"></param>
+        /// <param name="answer"></param>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public ClubDirectorPage(int dataNo)
+        public ClubDirectorPage(int dataNo, string answer)
         {
             InitializeComponent();
 
@@ -55,6 +61,7 @@ namespace LionsApl.Content
 
             // 前画面からの取得情報
             _dataNo = dataNo;           // データNo.
+            _answer = answer;           // 出欠
 
             // Content Utilクラス生成
             _utl = new LAUtility();
@@ -101,36 +108,43 @@ namespace LionsApl.Content
                 {
 
                     // 中止
-                    cancelFlg = _utl.GetString(row.CancelFlg);
-                    if (cancelFlg == "1")
-                    {
-                        Cancel.Text = "中止";
-                    }
+                    Cancel.Text = _utl.StrCancel(row.CancelFlg);
+                    //cancelFlg = _utl.GetString(row.CancelFlg);
+                    //if (cancelFlg == "1")
+                    //{
+                    //    Cancel.Text = "中止";
+                    //}
 
                     // 開催日
-                    eventDate = _utl.GetString(row.EventDate).Substring(0, 10) + " " + _utl.GetString(row.EventTime);
-                    EventDate.Text = eventDate;
+                    EventDate.Text = _utl.GetDateString(row.EventDate) + " " + _utl.GetTimeString(row.EventTime);
+                    //eventDate = _utl.GetDateString(row.EventDate) + " " + _utl.GetTimeString(row.EventTime);
+                    //EventDate.Text = eventDate;
 
                     // シーズン区分
-                    seasonFlg = _utl.GetString(row.Season);
-                    if (seasonFlg == "1")
-                    {
-                        Season.Text = "今期";
-                    }
-                    else if (seasonFlg == "2")
-                    {
-                        Season.Text = "次期";
-                    }
+                    Season.Text = _utl.StrSeason(row.Season);
+                    //seasonFlg = _utl.GetString(row.Season);
+                    //if (seasonFlg == "1")
+                    //{
+                    //    Season.Text = "今期";
+                    //}
+                    //else if (seasonFlg == "2")
+                    //{
+                    //    Season.Text = "次期";
+                    //}
 
                     // 区分
                     eventFlg = _utl.GetString(row.EventClass);
-                    if (eventFlg == "1")
+                    if (eventFlg == LADef.CLUBEVENTCLASS_RI)
                     {
                         EventClass.Text = "理事会";
                     }
-                    else if (eventFlg == "2")
+                    else if (eventFlg == LADef.CLUBEVENTCLASS_IN)
                     {
                         EventClass.Text = _utl.GetString(row.CommitteeName);
+                    }
+                    else
+                    {
+                        EventClass.Text = "その他";
                     }
 
                     // 開催場所
@@ -144,7 +158,14 @@ namespace LionsApl.Content
                     Agenda.Text = agendaStr;
 
                     // 回答期限
-                    AnswerDate.Text = _utl.GetString(row.AnswerDate).Substring(0, 10);
+                    if (_answer == string.Empty)
+                    {
+                        AnswerDate.Text = _utl.GetDateString(row.AnswerDate);
+                    }
+                    else
+                    {
+                        AnswerDate.Text = _utl.GetDateString(row.AnswerDate) + " (" + _answer + ")";
+                    }
 
                 }
             }

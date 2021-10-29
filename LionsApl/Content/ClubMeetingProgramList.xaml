@@ -69,6 +69,7 @@
                     >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
@@ -94,6 +95,15 @@
                         Text="{Binding MeetingDate}" 
                         Style="{StaticResource List_Base_End}"
                     />
+                    <Label 
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="{Binding Cancel}" 
+                        Style="{StaticResource List_Base_End}"
+                        TextColor="Red"
+                    />
 
                     <!-- 例会名 -->
                     <Label 
@@ -107,7 +117,7 @@
                     <Label 
                         Grid.Row="1"
                         Grid.Column="1"
-                        Grid.ColumnSpan="1"
+                        Grid.ColumnSpan="2"
                         Grid.RowSpan="1"
                         Text="{Binding MeetingName}" 
                         Style="{StaticResource List_Base_Start}"
@@ -116,7 +126,7 @@
                     <!-- マーク -->
                     <Label 
                         Grid.Row="0"
-                        Grid.Column="2"
+                        Grid.Column="3"
                         Grid.ColumnSpan="1"
                         Grid.RowSpan="2"
                         VerticalOptions="Center"

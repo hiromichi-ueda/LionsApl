@@ -134,9 +134,11 @@ namespace LionsApl
             }
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// ボタンコントロール（アップデートボタン）
         /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         void ControlUpdBtnEnable()
         {
             double dbVer = 0.0;
@@ -246,6 +248,11 @@ namespace LionsApl
 
         }
 
+        private void OnLogoTapped(object sender, EventArgs e)
+        {
+            Application.Current.MainPage = new Content.TopMenu();
+        }
+
         #endregion
 
 
@@ -343,7 +350,7 @@ namespace LionsApl
             /// sqlite class
             //sqliteManager = SQLiteManager.GetInstance();
 
-            ResultText.Text = "";
+            ResultText.Text = string.Empty;
 
             // データベース初期設定
             try
@@ -381,8 +388,8 @@ namespace LionsApl
 
             /// label clear
             CommandText.Text = "Send SQLite File ACCOUNT";
-            MessageText.Text = "";
-            ResultText.Text = "";
+            MessageText.Text = string.Empty;
+            ResultText.Text = string.Empty;
 
             MessageText.Text = "Click Send SQLite File ACCOUNT\r\n";
 
@@ -428,8 +435,8 @@ namespace LionsApl
 
             /// label clear
             CommandText.Text = "Send SQLite File HOME";
-            MessageText.Text = "";
-            ResultText.Text = "";
+            MessageText.Text = string.Empty;
+            ResultText.Text = string.Empty;
 
             MessageText.Text = "Click Send SQLite File HOME\r\n";
 
@@ -469,8 +476,8 @@ namespace LionsApl
 
             /// label clear
             CommandText.Text = "Send SQLite File HOME";
-            MessageText.Text = "";
-            ResultText.Text = "";
+            MessageText.Text = string.Empty;
+            ResultText.Text = string.Empty;
 
             MessageText.Text = "Click Send SQLite File HOME\r\n";
 
@@ -513,8 +520,8 @@ namespace LionsApl
 
             /// label clear
             CommandText.Text = "Get File Names";
-            MessageText.Text = "";
-            ResultText.Text = "";
+            MessageText.Text = string.Empty;
+            ResultText.Text = string.Empty;
 
             //sqliteManager = SQLiteManager.GetInstance();
             string[] names = _sqlite.GetFileName();
@@ -544,8 +551,8 @@ namespace LionsApl
 
             /// label clear
             CommandText.Text = "Get DB Table Names";
-            MessageText.Text = "";
-            ResultText.Text = "";
+            MessageText.Text = string.Empty;
+            ResultText.Text = string.Empty;
 
             //sqliteManager = SQLiteManager.GetInstance();
 
@@ -601,8 +608,8 @@ namespace LionsApl
 
             /// label clear
             CommandText.Text = "Delete DB3";
-            MessageText.Text = "";
-            ResultText.Text = "";
+            MessageText.Text = string.Empty;
+            ResultText.Text = string.Empty;
 
             try
             {

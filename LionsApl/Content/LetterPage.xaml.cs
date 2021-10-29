@@ -63,6 +63,33 @@ namespace LionsApl.Content
 
         }
 
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // 処理中表示制御
+            if (Image1.IsLoading)
+            {
+                stack1.IsVisible = true;
+            }
+            if (Image2.IsLoading) 
+            {
+                stack2.IsVisible = true;
+            }
+
+            while (Image1.IsLoading || Image2.IsLoading)
+            {
+                await Task.Delay(10);
+                if (!Image1.IsLoading)
+                {
+                    stack1.IsVisible = false;
+                }
+                if (!Image2.IsLoading)
+                {
+                    stack2.IsVisible = false;
+                }
+            }
+        }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>

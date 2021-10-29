@@ -31,5 +31,6 @@ namespace LionsApl.Table
         public string MeetingTime { get; set; }
         public string MeetingPlace { get; set; }
         public string MeetingName { get; set; }
+        public string CancelFlg { get; set; }
     }
 }

@@ -196,9 +196,9 @@
                     <StackLayout 
                         Margin="0,0,0,0"
                         HorizontalOptions="FillAndExpand"
-                        Background="#FFF"
+                        Background="#FFFFFF"
                         >
-                        <Grid BackgroundColor="#FFF" Margin="10" HorizontalOptions="Center">
+                        <Grid BackgroundColor="#FFFFFF" Margin="10" HorizontalOptions="Center">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -218,9 +218,8 @@
                                 Grid.Column="0"
                                 x:Name="Cabinet"
                                 Text="" 
-                                Style="{StaticResource Page_Base}"
+                                Style="{StaticResource Page_HeightFree}"
                             />
-
                         </Grid>
                     </StackLayout>
 
@@ -242,7 +241,8 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button 
+                <Button
+                    x:Name="EditButton"
                     Grid.Row="0"
                     Grid.Column="3"
                     Grid.ColumnSpan="1"

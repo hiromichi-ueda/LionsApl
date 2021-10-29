@@ -12,6 +12,8 @@ namespace LionsApl.Content
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EventPageFile : ContentPage
     {
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// プロパティ
 
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
@@ -24,6 +26,17 @@ namespace LionsApl.Content
         public static String AndroidPdf = ((App)Application.Current).AndroidPdf;          // PdfViewer
         public static String FilePath_Event = ((App)Application.Current).FilePath_Evnet;  // 連絡事項(CLUB)
 
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// メソッド
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="eventDataNo"></param>
+        /// <param name="fileName"></param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         public EventPageFile(int eventDataNo, string fileName)
         {
             InitializeComponent();
@@ -63,8 +76,36 @@ namespace LionsApl.Content
             {
                 PdfWebView.Source = new UrlWebViewSource() { Url = googleUrl + fileUrl };
             }
+            // URLラベル設定（テスト表示用）
             PdfLabel.Text = fileUrl;
+            // URLラベル非表示にする
+            PdfLabel.IsVisible = false;
 
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// ナビゲーション開始
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        void WebviewNavigating(object sender, WebNavigatingEventArgs e)
+        {
+            stack.IsVisible = true;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// ナビゲーション終了
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        void WebviewNavigated(object sender, WebNavigatedEventArgs e)
+        {
+            stack.IsVisible = false;
+        }
+
     }
 }

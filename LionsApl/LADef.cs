@@ -4,9 +4,17 @@ using System.Text;
 
 namespace LionsApl
 {
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// LionsApl用定数クラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////////
     class LADef
     {
         // DB項目判定用文字列
+        //
+        public const string SEX_MAIL = "1";                 // 男性
+        public const string SEX_FEMAIL = "2";               // 女性
         // イベントクラス
         public const string EVENTCLASS_EV = "1";            // キャビネットイベント
         public const string EVENTCLASS_ME = "2";            // 年間例会スケジュール
@@ -14,6 +22,7 @@ namespace LionsApl
         // クラブイベントクラス
         public const string CLUBEVENTCLASS_RI = "1";        // 理事会
         public const string CLUBEVENTCLASS_IN = "2";        // 委員会
+        public const string CLUBEVENTCLASS_ET = "3";        // その他
         // 中止フラグ
         public const string CANCELFLG = "1";                // 中止
         // 出欠フラグ
@@ -54,12 +63,19 @@ namespace LionsApl
         public const string ST_MEETING_ONLINE = "オンライン";
         public const string ST_BOARD = "理事会";
         public const string ST_COMM = "委員会";
+        public const string ST_ETC = "その他";
         public const string ST_ANSWER_NO = "未回答";
         public const string ST_ANSWER_PRE = "出席";
         public const string ST_ANSWER_ABS = "欠席";
+        public const string ST_MALE = "男性";
+        public const string ST_FEMALE = "女性";
+        public const string ST_OTHER = "その他";
+        public const string ST_CHAIRMAN = "委員長";
+        public const string ST_VICECHAIRMAN = "副委員長";
+
 
         // 基本文字列
         public const string STRCOL_STRDEF = "#151515";
-        public const string STRCOL_RED = "Red";
+        public const string STRCOL_RED = "#FF0000";
     }
 }

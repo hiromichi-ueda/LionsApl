@@ -10,10 +10,23 @@
                 VerticalOptions="Center"
                 Text=""
                 />
+            <StackLayout 
+                x:Name="stack" 
+                Padding="10"
+                IsVisible="False"
+                HorizontalOptions="FillAndExpand"
+                >
+                <ActivityIndicator
+                    x:Name="indicator"
+                    IsRunning="True"
+                    />
+            </StackLayout>
             <WebView 
                 x:Name="PdfWebView"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand"
+                Navigated="WebviewNavigated"
+                Navigating="WebviewNavigating"
                 />
         </StackLayout>
     </ContentPage.Content>

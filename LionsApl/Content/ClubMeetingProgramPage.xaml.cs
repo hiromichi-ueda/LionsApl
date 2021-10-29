@@ -9,6 +9,11 @@ using Xamarin.Forms.Xaml;
 
 namespace LionsApl.Content
 {
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// クラブ：例会プログラムページクラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ClubMeetingProgramPage : ContentPage
     {
@@ -25,9 +30,9 @@ namespace LionsApl.Content
         private int _dataNo;         // データNo.
 
         // Config取得
-        public static String AppServer = ((App)Application.Current).AppServer;                              //Url
-        public static String AndroidPdf = ((App)Application.Current).AndroidPdf;                            //PdfViewer
-        public static String FilePath_MeetingProgram = ((App)Application.Current).FilePath_MeetingProgram;  //例会プログラム(CLUB)
+        public static string AppServer = ((App)Application.Current).AppServer;                              //Url
+        public static string AndroidPdf = ((App)Application.Current).AndroidPdf;                            //PdfViewer
+        public static string FilePath_MeetingProgram = ((App)Application.Current).FilePath_MeetingProgram;  //例会プログラム(CLUB)
 
         // 表示定数
         private readonly string OnlineStr = "オンライン";
@@ -49,6 +54,7 @@ namespace LionsApl.Content
             // font-size
             this.lbl_MeetingDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.MeetingDate.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
+            this.Cancel.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.lbl_MeetingName.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.MeetingName.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.lbl_Meeting.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
@@ -135,7 +141,8 @@ namespace LionsApl.Content
                                                                     "t2.MeetingDate, " +
                                                                     "t2.MeetingTime, " +
                                                                     "t2.MeetingPlace, " +
-                                                                    "t2.MeetingName " +
+                                                                    "t2.MeetingName, " +
+                                                                    "t2.CancelFlg " +
                                                                 "FROM " +
                                                                     "T_MEETINGPROGRAM t1 " +
                                                                 "LEFT OUTER JOIN " +
@@ -149,7 +156,10 @@ namespace LionsApl.Content
                     wkDataNo = row.DataNo;
 
                     // 例会日
-                    MeetingDate.Text = _utl.GetString(row.MeetingDate).Substring(0, 10);
+                    MeetingDate.Text = _utl.GetDateString(row.MeetingDate);
+
+                    // 中止
+                    Cancel.Text = _utl.StrCancel(row.CancelFlg);
 
                     // 例会名
                     MeetingName.Text = _utl.GetString(row.MeetingName);
@@ -177,11 +187,21 @@ namespace LionsApl.Content
                     // 例会方法が通常の場合
                     else
                     {
+                        lbl_Meeting.IsVisible = false;
+                        Meeting.IsVisible = false;
+                        lbl_MeetingUrl.IsVisible = false;
+                        MeetingUrl.IsVisible = false;
+                        lbl_MeetingID.IsVisible = false;
+                        MeetingID.IsVisible = false;
+                        lbl_MeetingPW.IsVisible = false;
+                        MeetingPW.IsVisible = false;
+                        lbl_MeetingOther.IsVisible = false;
+                        MeetingOther.IsVisible = false;
                         // Meeting以下の項目の高さを0にする。
-                        GRDef_Meeting.Height = 0;
-                        GRDef_MeetingUrl.Height = 0;
-                        GRDef_MeetingIDPW.Height = 0;
-                        GRDef_MeetingOther.Height = 0;
+                        //GRDef_Meeting.Height = 0;
+                        //GRDef_MeetingUrl.Height = 0;
+                        //GRDef_MeetingIDPW.Height = 0;
+                        //GRDef_MeetingOther.Height = 0;
                     }
 
                     wkClubCode = _utl.GetString(row.ClubCode);
@@ -201,22 +221,22 @@ namespace LionsApl.Content
                         wkFileName5 != string.Empty)
                     {
                         // 添付ファイルの表示情報を設定する
-                        SetAttachFileInfo(wkDataNo, wkClubCode, wkFileName, ref FileName, ref lbl_FileName, ref grd_FileName);
+                        SetAttachFileInfo(wkDataNo, wkClubCode, wkFileName, ref FileName, ref lbl_FileName, ref stack);
 
                         // 添付ファイル1の表示情報を設定する
-                        SetAttachFileInfo(wkDataNo, wkClubCode, wkFileName1, ref FileName1, ref lbl_FileName1, ref grd_FileName1);
+                        SetAttachFileInfo(wkDataNo, wkClubCode, wkFileName1, ref FileName1, ref lbl_FileName1, ref stack1);
 
                         // 添付ファイル2の表示情報を設定する
-                        SetAttachFileInfo(wkDataNo, wkClubCode, wkFileName2, ref FileName2, ref lbl_FileName2, ref grd_FileName2);
+                        SetAttachFileInfo(wkDataNo, wkClubCode, wkFileName2, ref FileName2, ref lbl_FileName2, ref stack2);
 
                         // 添付ファイル3の表示情報を設定する
-                        SetAttachFileInfo(wkDataNo, wkClubCode, wkFileName3, ref FileName3, ref lbl_FileName3, ref grd_FileName3);
+                        SetAttachFileInfo(wkDataNo, wkClubCode, wkFileName3, ref FileName3, ref lbl_FileName3, ref stack3);
 
                         // 添付ファイル4の表示情報を設定する
-                        SetAttachFileInfo(wkDataNo, wkClubCode, wkFileName4, ref FileName4, ref lbl_FileName4, ref grd_FileName4);
+                        SetAttachFileInfo(wkDataNo, wkClubCode, wkFileName4, ref FileName4, ref lbl_FileName4, ref stack4);
 
                         // 添付ファイル5の表示情報を設定する
-                        SetAttachFileInfo(wkDataNo, wkClubCode, wkFileName5, ref FileName5, ref lbl_FileName5, ref grd_FileName5);
+                        SetAttachFileInfo(wkDataNo, wkClubCode, wkFileName5, ref FileName5, ref lbl_FileName5, ref stack5);
 
                     }
                 }
@@ -238,19 +258,25 @@ namespace LionsApl.Content
         /// <param name="fileName">FileName</param>
         /// <param name="webView">WebView</param>
         /// <param name="label">Label</param>
-        private void SetAttachFileInfo(int dataNo, string clubCode, string fileName, ref WebView webView, ref Label label, ref RowDefinition rowDef)
+        private void SetAttachFileInfo(int dataNo, string clubCode, string fileName, ref WebView webView, ref Label label, ref StackLayout stackLayout)
         {
             if (fileName != string.Empty)
             {
-                // WebViewにファイルのURLを設定する
-                lbl_FileName.Text = SetFileUrl(dataNo, clubCode, fileName, ref webView);
+                // WebViewにファイルのURLを設定する（＆テスト表示用URLラベル設定）
+                label.Text = SetFileUrl(dataNo, clubCode, fileName, ref webView);
+                // URLラベルは非表示にする
+                label.IsVisible = false;
             }
             else
             {
-                webView.HeightRequest = 0.0;    //非表示設定
-                rowDef.Height = 0.0;            //非表示設定
+                //非表示設定
+                label.IsVisible = false;
+                stackLayout.IsVisible = false;
+                webView.IsVisible = false;
+                //webView.HeightRequest = 0.0;    //非表示設定
+                //rowDef.Height = 0.0;            //非表示設定
             }
-            label.HeightRequest = 0.0;    //非表示設定
+            //label.HeightRequest = 0.0;    //非表示設定
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -290,5 +316,82 @@ namespace LionsApl.Content
 
             return fileUrl;
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// ナビゲーション開始
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void WebviewNavigating(object sender, WebNavigatingEventArgs e)
+        {
+            if (ReferenceEquals(sender, FileName))
+            {
+                stack.IsVisible = true;
+            }
+            else if (ReferenceEquals(sender, FileName1))
+            {
+                stack1.IsVisible = true;
+            }
+            else if (ReferenceEquals(sender, FileName2))
+            {
+                stack2.IsVisible = true;
+            }
+            else if (ReferenceEquals(sender, FileName3))
+            {
+                stack3.IsVisible = true;
+            }
+            else if (ReferenceEquals(sender, FileName4))
+            {
+                stack4.IsVisible = true;
+            }
+            else if (ReferenceEquals(sender, FileName5))
+            {
+                stack5.IsVisible = true;
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// ナビゲーション終了
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void WebviewNavigated(object sender, WebNavigatedEventArgs e)
+        {
+            if (ReferenceEquals(sender, FileName))
+            {
+                stack.IsVisible = false;
+                lbl_FileName.IsVisible = false;
+            }
+            else if (ReferenceEquals(sender, FileName1))
+            {
+                stack1.IsVisible = false;
+                lbl_FileName1.IsVisible = false;
+            }
+            else if (ReferenceEquals(sender, FileName2))
+            {
+                stack2.IsVisible = false;
+                lbl_FileName2.IsVisible = false;
+            }
+            else if (ReferenceEquals(sender, FileName3))
+            {
+                stack3.IsVisible = false;
+                lbl_FileName3.IsVisible = false;
+            }
+            else if (ReferenceEquals(sender, FileName4))
+            {
+                stack4.IsVisible = false;
+                lbl_FileName4.IsVisible = false;
+            }
+            else if (ReferenceEquals(sender, FileName5))
+            {
+                stack5.IsVisible = false;
+                lbl_FileName5.IsVisible = false;
+            }
+        }
+
     }
 }

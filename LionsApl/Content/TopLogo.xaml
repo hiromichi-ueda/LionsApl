@@ -13,7 +13,11 @@
                 <Image
                     x:Name="LogoImage"
                     Source="wait.png"
-                    />
+                    >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnLogoTapped"/>
+                    </Image.GestureRecognizers>
+                </Image>
                 <ProgressBar
                     x:Name="LogoProgress"
                     VerticalOptions="End"

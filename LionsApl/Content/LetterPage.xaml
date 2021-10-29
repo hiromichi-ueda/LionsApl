@@ -106,7 +106,19 @@
                                 Aspect="AspectFill"
                                 x:Name="Image1">
                             </Image>
-                            
+                            <StackLayout 
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                x:Name="stack1" 
+                                IsVisible="False"
+                                HorizontalOptions="FillAndExpand"
+                                >
+                                <ActivityIndicator
+                                    x:Name="indicator1"
+                                    IsRunning="True"
+                                    />
+                            </StackLayout>
                             <!-- 画像② -->
                             <Image
                                 Grid.Row="4"
@@ -115,7 +127,20 @@
                                 Aspect="AspectFill"
                                 x:Name="Image2">
                             </Image>
-                            
+                            <StackLayout 
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                x:Name="stack2" 
+                                IsVisible="False"
+                                HorizontalOptions="FillAndExpand"
+                                >
+                                <ActivityIndicator
+                                    x:Name="indicator2"
+                                    IsRunning="True"
+                                    />
+                            </StackLayout>
+
                         </Grid>
                     </StackLayout>
 

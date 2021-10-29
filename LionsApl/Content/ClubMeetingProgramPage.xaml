@@ -41,8 +41,9 @@
                     <!-- BODY -->
                     <StackLayout>
                         <Grid
-                            Padding="10"
                             x:Name="Grid_Meeting"
+                            Padding="10"
+                            Style="{StaticResource Page_Grid}"
                             >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" x:Name="GRDef_MeetingDate" />
@@ -70,12 +71,20 @@
                             <Label 
                                 Grid.Row="0"
                                 Grid.Column="1"
-                                Grid.ColumnSpan="3"
+                                Grid.ColumnSpan="1"
                                 x:Name="MeetingDate" 
                                 Text=""
                                 Style="{StaticResource Page_Base}"
                                 />
-                            
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Grid.ColumnSpan="2"
+                                x:Name="Cancel" 
+                                Text=""
+                                Style="{StaticResource Page_Base}"
+                                TextColor="Red" 
+                                />
                             <!-- 例会名 -->
                             <Label 
                                 Grid.Row="1"
@@ -188,9 +197,23 @@
                         <Grid
                             x:Name="grid"
                             Padding="3"
+                            Style="{StaticResource Page_Grid}"
                             >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto" x:Name="grd_FileName"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto" x:Name="grd_FileName1"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto" x:Name="grd_FileName2"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto" x:Name="grd_FileName3"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto" x:Name="grd_FileName4"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto" x:Name="grd_FileName5"/>
+
+                                <!--<RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*" x:Name="grd_FileName"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*" x:Name="grd_FileName1"/>
@@ -201,10 +224,11 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*" x:Name="grd_FileName4"/>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*" x:Name="grd_FileName5"/>
+                                <RowDefinition Height="*" x:Name="grd_FileName5"/>-->
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
+                                <!--<ColumnDefinition Width="Auto"/>-->
+                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
                             <Label 
@@ -216,13 +240,29 @@
                                 VerticalOptions="Center" 
                                 HorizontalTextAlignment="Start" 
                                 />
+                            <StackLayout 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="1"
+                                x:Name="stack" 
+                                IsVisible="False"
+                                HorizontalOptions="FillAndExpand"
+                                >
+                                <ActivityIndicator
+                                    x:Name="indicator"
+                                    IsRunning="True"
+                                    />
+                            </StackLayout>
                             <WebView
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="1"
+                                x:Name="FileName"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="FillAndExpand"
-                                x:Name="FileName">
+                                Navigated="WebviewNavigated"
+                                Navigating="WebviewNavigating"                                
+                                >
                             </WebView>
                             <Label 
                                 Grid.Row="2"
@@ -233,13 +273,29 @@
                                 VerticalOptions="Center" 
                                 HorizontalTextAlignment="Start" 
                                 />
+                            <StackLayout 
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="1"
+                                x:Name="stack1" 
+                                IsVisible="False"
+                                HorizontalOptions="FillAndExpand"
+                                >
+                                <ActivityIndicator
+                                    x:Name="indicator1"
+                                    IsRunning="True"
+                                    />
+                            </StackLayout>
                             <WebView
                                 Grid.Row="3"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="1"
+                                x:Name="FileName1"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="FillAndExpand"
-                                x:Name="FileName1">
+                                Navigated="WebviewNavigated"
+                                Navigating="WebviewNavigating"                                
+                                >
                             </WebView>
                             <Label 
                                 Grid.Row="4"
@@ -250,13 +306,29 @@
                                 VerticalOptions="Center" 
                                 HorizontalTextAlignment="Start" 
                                 />
+                            <StackLayout 
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="1"
+                                x:Name="stack2" 
+                                IsVisible="False"
+                                HorizontalOptions="FillAndExpand"
+                                >
+                                <ActivityIndicator
+                                    x:Name="indicator2"
+                                    IsRunning="True"
+                                    />
+                            </StackLayout>
                             <WebView
                                 Grid.Row="5"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="1"
+                                x:Name="FileName2"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="FillAndExpand"
-                                x:Name="FileName2">
+                                Navigated="WebviewNavigated"
+                                Navigating="WebviewNavigating"                                
+                                >
                             </WebView>
                             <Label 
                                 Grid.Row="6"
@@ -267,13 +339,29 @@
                                 VerticalOptions="Center" 
                                 HorizontalTextAlignment="Start" 
                                 />
+                            <StackLayout 
+                                Grid.Row="6"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="1"
+                                x:Name="stack3" 
+                                IsVisible="False"
+                                HorizontalOptions="FillAndExpand"
+                                >
+                                <ActivityIndicator
+                                    x:Name="indicator3"
+                                    IsRunning="True"
+                                    />
+                            </StackLayout>
                             <WebView
                                 Grid.Row="7"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="1"
+                                x:Name="FileName3"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="FillAndExpand"
-                                x:Name="FileName3">
+                                Navigated="WebviewNavigated"
+                                Navigating="WebviewNavigating"
+                                >
                             </WebView>
                             <Label 
                                 Grid.Row="8"
@@ -284,13 +372,29 @@
                                 VerticalOptions="Center" 
                                 HorizontalTextAlignment="Start" 
                                 />
+                            <StackLayout 
+                                Grid.Row="8"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="1"
+                                x:Name="stack4" 
+                                IsVisible="False"
+                                HorizontalOptions="FillAndExpand"
+                                >
+                                <ActivityIndicator
+                                    x:Name="indicator4"
+                                    IsRunning="True"
+                                    />
+                            </StackLayout>
                             <WebView
                                 Grid.Row="9"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="1"
+                                x:Name="FileName4"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="FillAndExpand"
-                                x:Name="FileName4">
+                                Navigated="WebviewNavigated"
+                                Navigating="WebviewNavigating"
+                                >
                             </WebView>
                             <Label 
                                 Grid.Row="10"
@@ -301,13 +405,29 @@
                                 VerticalOptions="Center" 
                                 HorizontalTextAlignment="Start" 
                                 />
+                            <StackLayout 
+                                Grid.Row="10"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="1"
+                                x:Name="stack5" 
+                                IsVisible="False"
+                                HorizontalOptions="FillAndExpand"
+                                >
+                                <ActivityIndicator
+                                    x:Name="indicator5"
+                                    IsRunning="True"
+                                    />
+                            </StackLayout>
                             <WebView
                                 Grid.Row="11"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="1"
+                                x:Name="FileName5"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="FillAndExpand"
-                                x:Name="FileName5">
+                                Navigated="WebviewNavigated"
+                                Navigating="WebviewNavigating"
+                                >
                             </WebView>
 
                         </Grid>

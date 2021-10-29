@@ -10,11 +10,22 @@ using Xamarin.Forms.Xaml;
 
 namespace LionsApl.Content
 {
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// アカウントTOP画面クラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AccountTop : ContentPage
     {
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// プロパティ
+
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
+
+        // Utilityクラス
+        private LAUtility _utl;
 
         // 変数
         private string wkDistrictName;          //地区役員
@@ -23,6 +34,14 @@ namespace LionsApl.Content
         private string wkCommitteeFlg;          //委員長・副委員長
         private string wkClubDistrictName;      //クラブ役員
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// メソッド
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         public AccountTop()
         {
             InitializeComponent();
@@ -45,7 +64,10 @@ namespace LionsApl.Content
             this.Sex.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.lbl_cabnet.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
             this.Cabinet.FontSize = Device.GetNamedSize(NamedSize.Default, typeof(Label));
-            
+
+            // Content Utilクラス生成
+            _utl = new LAUtility();
+
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
 
@@ -75,9 +97,11 @@ namespace LionsApl.Content
             // 変数宣言
             string wkMemberNo = string.Empty;              //会員番号
             string wkMemberName = string.Empty;            //会員名設定
-            string wkSex = string.Empty;                   //性別
+            
+            //Table.TableUtil Util = new Table.TableUtil();
 
-            Table.TableUtil Util = new Table.TableUtil();
+            // 編集ボタン無効化
+            EditButton.IsVisible = false;
 
             // 会員番号、会員名設定
             wkMemberNo = _sqlite.Db_A_Account.MemberCode;
@@ -99,22 +123,10 @@ namespace LionsApl.Content
                                                                     "Where MemberCode='" + wkMemberNo + "'"))
                 {
                     //入会日
-                    JoinDate.Text = Util.GetString(row.JoinDate).Substring(0, 10);
+                    JoinDate.Text = _utl.GetString(row.JoinDate).Substring(0, 10);
 
                     //性別
-                    if (Util.GetString(row.Sex) == "1")
-                    {
-                        wkSex = "男性";
-                    } 
-                    else if (row.Sex == "2")
-                    {
-                        wkSex = "女性";
-                    }
-                    else
-                    {
-                        wkSex = "その他";
-                    }
-                    Sex.Text = wkSex;
+                    Sex.Text = _utl.StrSex(row.Sex);
 
                     //会員名
                     MemberName.Text = wkMemberName;
@@ -124,81 +136,85 @@ namespace LionsApl.Content
                     // --------------------------
 
                     // 初期化
-                    wkExecutiveName = "";
-                    wkCommitteeName = "";
+                    wkExecutiveName = string.Empty;
+                    wkCommitteeName = string.Empty;
 
                     //執行部名
-                    if (Util.GetString(row.ExecutiveCode) != "")
+                    if (_utl.GetString(row.ExecutiveCode) != string.Empty)
                     {
-                        wkExecutiveName = Util.GetString(row.ExecutiveName);
+                        wkExecutiveName = _utl.GetString(row.ExecutiveName);
                     }
 
                     //執行部名(兼務)
-                    if (Util.GetString(row.ExecutiveCode1) != "")
+                    if (_utl.GetString(row.ExecutiveCode1) != string.Empty)
                     {
-                        wkExecutiveName = wkExecutiveName + "\r\n" + Util.GetString(row.ExecutiveName1);
+                        wkExecutiveName = wkExecutiveName + Environment.NewLine + _utl.GetString(row.ExecutiveName1);
                     }
                     
                     //委員会(主)
-                    if (Util.GetString(row.CommitteeCode) != "")
+                    if (_utl.GetString(row.CommitteeCode) != string.Empty)
                     {
-                        if(Util.GetString(row.CommitteeFlg) == "1")
+                        wkCommitteeFlg = string.Empty;
+                        if (_utl.GetString(row.CommitteeFlg) == "1")
                         {
                             wkCommitteeFlg = "（委員長）";
                         }
-                        else if (Util.GetString(row.CommitteeFlg) == "1")
+                        else if (_utl.GetString(row.CommitteeFlg) == "2")
                         {
                             wkCommitteeFlg = "（副委員長）";
                         }
-                        wkCommitteeName = Util.GetString(row.CommitteeName) + wkCommitteeFlg;
+                        wkCommitteeName = _utl.GetString(row.CommitteeName) + wkCommitteeFlg;
                     }
 
                     //委員会(兼務1)
-                    if (Util.GetString(row.CommitteeCode1) != "")
+                    if (_utl.GetString(row.CommitteeCode1) != string.Empty)
                     {
-                        if (Util.GetString(row.CommitteeFlg1) == "1")
+                        wkCommitteeFlg = string.Empty;
+                        if (_utl.GetString(row.CommitteeFlg1) == "1")
                         {
                             wkCommitteeFlg = "（委員長）";
                         }
-                        else if (Util.GetString(row.CommitteeFlg1) == "1")
+                        else if (_utl.GetString(row.CommitteeFlg1) == "2")
                         {
                             wkCommitteeFlg = "（副委員長）";
                         }
-                        wkCommitteeName = "\r\n" + Util.GetString(row.CommitteeName1) + wkCommitteeFlg;
+                        wkCommitteeName += Environment.NewLine + _utl.GetString(row.CommitteeName1) + wkCommitteeFlg;
                     }
 
                     //委員会(兼務2)
-                    if (Util.GetString(row.CommitteeCode2) != "")
+                    if (_utl.GetString(row.CommitteeCode2) != string.Empty)
                     {
-                        if (Util.GetString(row.CommitteeFlg2) == "1")
+                        wkCommitteeFlg = string.Empty;
+                        if (_utl.GetString(row.CommitteeFlg2) == "1")
                         {
                             wkCommitteeFlg = "（委員長）";
                         }
-                        else if (Util.GetString(row.CommitteeFlg2) == "2")
+                        else if (_utl.GetString(row.CommitteeFlg2) == "2")
                         {
                             wkCommitteeFlg = "（副委員長）";
                         }
-                        wkCommitteeName = "\r\n" + Util.GetString(row.CommitteeName2) + wkCommitteeFlg;
+                        wkCommitteeName += Environment.NewLine + _utl.GetString(row.CommitteeName2) + wkCommitteeFlg;
                     }
 
                     //委員会(兼務3)
-                    if (Util.GetString(row.CommitteeCode3) != "")
+                    if (_utl.GetString(row.CommitteeCode3) != string.Empty)
                     {
-                        if (row.CommitteeFlg3 == "1")
+                        wkCommitteeFlg = string.Empty;
+                        if (_utl.GetString(row.CommitteeFlg3) == "1")
                         {
                             wkCommitteeFlg = "（委員長）";
                         }
-                        else if (Util.GetString(row.CommitteeFlg3) == "2")
+                        else if (_utl.GetString(row.CommitteeFlg3) == "2")
                         {
                             wkCommitteeFlg = "（副委員長）";
                         }
-                        wkCommitteeName = "\r\n" + Util.GetString(row.CommitteeName3) + wkCommitteeFlg;
+                        wkCommitteeName += Environment.NewLine + _utl.GetString(row.CommitteeName3) + wkCommitteeFlg;
                     }
                     
                     // 執行部・委員会生成
-                    if (wkExecutiveName != "")
+                    if (wkExecutiveName != string.Empty)
                     {
-                        wkClubDistrictName = wkExecutiveName + "\r\n" + wkCommitteeName;
+                        wkClubDistrictName = wkExecutiveName + Environment.NewLine + wkCommitteeName;
                     }
                     else
                     {
@@ -208,7 +224,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(M_MEMBER) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(M_MEMBER) : {ex.Message}", "OK");
             }
 
             //-----------------------
@@ -221,38 +237,38 @@ namespace LionsApl.Content
                                                                     "Where MemberCode='" + wkMemberNo + "'"))
                 {
                     //地区役職設定
-                    wkDistrictName = "";
-                    if (Util.GetString(row.DistrictName) != "")
+                    wkDistrictName = string.Empty;
+                    if (_utl.GetString(row.DistrictName) != string.Empty)
                     {
-                        wkDistrictName = row.DistrictName;             //地区役員名
+                        wkDistrictName = _utl.GetString(row.DistrictName);                                           //地区役員名
                     }
-                    if (Util.GetString(row.DistrictName1) != "")
+                    if (_utl.GetString(row.DistrictName1) != string.Empty)
                     {
-                        wkDistrictName = wkDistrictName + "\r\n" + Util.GetString(row.DistrictName1);   //地区役員名(兼務1)
+                        wkDistrictName = wkDistrictName + Environment.NewLine + _utl.GetString(row.DistrictName1);   //地区役員名(兼務1)
                     }
-                    if (Util.GetString(row.DistrictName2) != "")
+                    if (_utl.GetString(row.DistrictName2) != string.Empty)
                     {
-                        wkDistrictName = wkDistrictName + "\r\n" + Util.GetString(row.DistrictName2);   //地区役員名(兼務2)
+                        wkDistrictName = wkDistrictName + Environment.NewLine + _utl.GetString(row.DistrictName2);   //地区役員名(兼務2)
                     }
-                    if (Util.GetString(row.DistrictName3) != "")
+                    if (_utl.GetString(row.DistrictName3) != string.Empty)
                     {
-                        wkDistrictName = wkDistrictName + "\r\n" + Util.GetString(row.DistrictName3);   //地区役員名(兼務3)
+                        wkDistrictName = wkDistrictName + Environment.NewLine + _utl.GetString(row.DistrictName3);   //地区役員名(兼務3)
                     }
-                    if (Util.GetString(row.DistrictName4) != "")
+                    if (_utl.GetString(row.DistrictName4) != string.Empty)
                     {
-                        wkDistrictName = wkDistrictName + "\r\n" + Util.GetString(row.DistrictName4);   //地区役員名(兼務4)
+                        wkDistrictName = wkDistrictName + Environment.NewLine + _utl.GetString(row.DistrictName4);   //地区役員名(兼務4)
                     }
-                    if (Util.GetString(row.DistrictName5) != "")
+                    if (_utl.GetString(row.DistrictName5) != string.Empty)
                     {
-                        wkDistrictName = wkDistrictName + "\r\n" + Util.GetString(row.DistrictName5);   //地区役員名(兼務5)
+                        wkDistrictName = wkDistrictName + Environment.NewLine + _utl.GetString(row.DistrictName5);   //地区役員名(兼務5)
                     }
                 }
 
                 // 画面表示
-                if (wkDistrictName != "")
+                if (wkDistrictName != string.Empty)
                 {
                     // 地区役員 + クラブ役員表示
-                    Cabinet.Text = wkDistrictName + "\r\n" + wkClubDistrictName;
+                    Cabinet.Text = wkDistrictName + Environment.NewLine + wkClubDistrictName;
                 }
                 else
                 {
@@ -263,7 +279,7 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(M_CABINET) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(M_CABINET) : {ex.Message}", "OK");
             }
 
         }

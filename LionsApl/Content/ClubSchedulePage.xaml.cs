@@ -177,7 +177,7 @@ namespace LionsApl.Content
                     if (!RemarksStr.Equals(string.Empty))
                     {
 
-                        if (RemarksItems.Text.Equals(_utl.ST_NOSTR))
+                        if (RemarksItems.Text.Equals(LADef.ST_NOSTR))
                         {
                             RemarksItems.Text = RemarksStr;
                         }

@@ -33,7 +33,7 @@
                         HorizontalOptions="FillAndExpand"
                         >
                         <Label 
-                            Text="理事・委員会"
+                            Text="理事・委員会・その他"
                             Style="{StaticResource Title_Blue}"
                         />
                     </StackLayout>

@@ -10,21 +10,44 @@ using Xamarin.Forms.Xaml;
 
 namespace LionsApl.Content
 {
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// クラブ：例会プログラム一覧クラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ClubMeetingProgramList : ContentPage
     {
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// プロパティ
+
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
+
+        // Utilityクラス
+        private LAUtility _utl;
 
         // リストビュー設定内容
         public List<MeetingProgramRow> Items { get; set; }
 
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// メソッド
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         public ClubMeetingProgramList()
         {
             InitializeComponent();
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
+
+            // Content Utilクラス生成
+            _utl = new LAUtility();
 
             // A_SETTINGデータ取得
             _sqlite.GetSetting();
@@ -51,12 +74,13 @@ namespace LionsApl.Content
         private void GetMeetingProgram()
         {
             int wkDataNo = 0;
+            string wkMeeting = string.Empty;
             string wkMeetingDate = string.Empty;
             string wkMeetingName = string.Empty;
-            string wkMeeting = string.Empty;
+            string wkCancel = string.Empty;
             Items = new List<MeetingProgramRow>();
 
-            Table.TableUtil Util = new Table.TableUtil();
+            //Table.TableUtil Util = new Table.TableUtil();
 
             try
             {
@@ -70,7 +94,8 @@ namespace LionsApl.Content
                                                                     "t2.MeetingDate, " +
                                                                     "t2.MeetingTime, " +
                                                                     "t2.MeetingPlace, " +
-                                                                    "t2.MeetingName " +
+                                                                    "t2.MeetingName, " +
+                                                                    "t2.CancelFlg " +
                                                                 "FROM " +
                                                                     "T_MEETINGPROGRAM t1 " +
                                                                 "LEFT OUTER JOIN " +
@@ -81,24 +106,25 @@ namespace LionsApl.Content
                 {
                     wkDataNo = row.DataNo;
                     wkMeeting = "";
-                    if (Util.GetString(row.Meeting) == "2")
+                    if (_utl.GetString(row.Meeting) == "2")
                     {
                         wkMeeting = "[オンライン]";
                     }
-                    wkMeetingDate = Util.GetString(row.MeetingDate).Substring(0, 10) + "  " + wkMeeting;
-                    wkMeetingName = Util.GetString(row.MeetingName);
-                    Items.Add(new MeetingProgramRow(wkDataNo, wkMeetingDate, wkMeetingName));
+                    wkMeetingDate = _utl.GetDateString(row.MeetingDate) + "  " + wkMeeting;
+                    wkMeetingName = _utl.GetString(row.MeetingName);
+                    wkCancel = _utl.StrCancel(row.CancelFlg);
+                    Items.Add(new MeetingProgramRow(wkDataNo, wkMeetingDate, wkMeetingName, wkCancel));
                 }
                 if (Items.Count == 0)
                 {
                     // メッセージ表示のため空行を追加
-                    Items.Add(new MeetingProgramRow(0, wkMeetingDate, wkMeetingName));
+                    Items.Add(new MeetingProgramRow(0, wkMeetingDate, wkMeetingName, wkCancel));
                 }
                 this.BindingContext = this;
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(CLUB_MPROG) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(CLUB_MPROG) : {ex.Message}", "OK");
             }
 
         }
@@ -133,15 +159,17 @@ namespace LionsApl.Content
 
     public sealed class MeetingProgramRow
     {
-        public MeetingProgramRow(int dataNo, string meetingDate, string meetingName)
+        public MeetingProgramRow(int dataNo, string meetingDate, string meetingName, string cancel)
         {
             DataNo = dataNo;
             MeetingDate = meetingDate;
             MeetingName = meetingName;
+            Cancel = cancel;
         }
         public int DataNo { get; set; }
         public string MeetingDate { get; set; }
         public string MeetingName { get; set; }
+        public string Cancel { get; set; }
     }
 
     public class MyClubMeetingProgramSelector : DataTemplateSelector

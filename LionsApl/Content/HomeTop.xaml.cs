@@ -10,9 +10,17 @@ using Xamarin.Forms.Xaml;
 
 namespace LionsApl.Content
 {
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// ホームTOP画面クラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////////
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomeTop : ContentPage
     {
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// プロパティ
+
         // キャビネットレターリスト
         public ObservableCollection<CHomeTopLetter> _letterLt = new ObservableCollection<CHomeTopLetter>();
         // 参加予定リスト
@@ -35,6 +43,9 @@ namespace LionsApl.Content
         // 定数
         int LETTER_MAXROW = 5;
         int EVENT_MAXROW = 4;
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// メソッド
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -226,7 +237,7 @@ namespace LionsApl.Content
 
                 foreach (Table.T_LETTER row in _sqlite.Get_T_LETTER("Select * " +
                                                                     "From T_LETTER " +
-                                                                    "ORDER BY EventDate DESC, EventTime DESC"))
+                                                                    "ORDER BY EventDate DESC, EventTime DESC, DataNo DESC"))
                 {
                     // データをリストに追加
                     _letterLt.Add(new CHomeTopLetter(_utl.GetString(row.EventDate), _utl.GetString(row.Title), row.DataNo));
@@ -438,7 +449,7 @@ namespace LionsApl.Content
                                         ref string strAnswerDate,
                                         ref string strAnswerTime)
         {
-            DateTime dt = DateTime.Now;
+            DateTime dt = DateTime.Now.Date;
             DateTime wdt;
             string wkDate = string.Empty;
             TimeSpan countTSpn;

@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LionsApl.Content.TopMenu">
+
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS" Value="0,40,0,0" />
+            <On Platform="Android, UWP" Value="0,0,0,0" />
+        </OnPlatform>
+    </ContentPage.Padding>
+
+    <ContentPage.Content>
+        <StackLayout>
+
+            <!-- APL HEADER -->
+            <StackLayout
+                HorizontalOptions="Fill"
+                StyleClass="aplheaderbg"
+                >
+                <StackLayout 
+                    Orientation="Horizontal" 
+                    HorizontalOptions="Center"
+                    VerticalOptions="CenterAndExpand"
+                    StyleClass="aplhedaer"
+                    >
+                    <Image 
+                        Source="icon_white.png"
+                        />
+                    <Label 
+                        Text="Lions Apl"
+                        VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLogoTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+            </StackLayout>
+
+            <!-- BODY -->
+            <StackLayout
+                Padding="32"
+                HeightRequest="300"
+                VerticalOptions="StartAndExpand"
+                >
+                <!-- ホームボタン -->
+               <Button 
+                    x:Name="home"
+                    Text="ホーム"
+                    FontSize="32"
+                    HeightRequest="64"
+                    Clicked="Button_Home_Clicked" 
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    >
+                </Button>
+            </StackLayout>
+            <StackLayout
+                Padding="32"
+                VerticalOptions="EndAndExpand"
+                >
+                
+                <!-- アカウント設定ボタン -->
+
+                <Button 
+                    x:Name="account"
+                    Text="アカウント設定" 
+                    FontSize="16"
+                    Clicked="Button_Account_Clicked" 
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="EndAndExpand"
+                    >
+                </Button>
+                
+                <!-- アップデートボタン -->
+
+                <Button 
+                    x:Name="update"
+                    Text="アップデート" 
+                    FontSize="16"
+                    Clicked="Button_Update_Clicked" 
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="EndAndExpand"
+                    >
+                </Button>
+
+                <!-- メッセージ -->
+                
+                <Label
+                    Grid.Row="3"
+                    x:Name="message"
+                    TextColor="Red"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="StartAndExpand"
+                    >
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="最新のアプリケーションがあります。"/>
+                            <Span Text="{x:Static x:Environment.NewLine}" />
+                            <Span Text="アプリケーションをアップデートして下さい。"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label 
+                    x:Name="AppVersion"  
+                    Style="{StaticResource List_Base_End}"
+                    HorizontalOptions="EndAndExpand"
+                    VerticalOptions="End"
+                    />
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
