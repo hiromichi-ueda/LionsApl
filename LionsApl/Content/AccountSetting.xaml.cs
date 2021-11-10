@@ -629,7 +629,14 @@ namespace LionsApl.Content
                 // 処理日時取得
                 DateTime nowDt = DateTime.Now;
                 _account.AccountDate = nowDt.ToString("yyyy/MM/dd HH:mm:ss");
+                // アプリケーションバージョン
+                _account.VersionNo = ((App)Application.Current).AppVersion;
+                // アカウント情報追加
                 _sqlite.Set_A_ACCOUNT(_account);
+                // HOME対象テーブル削除
+                _sqlite.DropTable_Home();
+                // HOME対象テーブル作成
+                _sqlite.CreateTable_Home();
 
             }
             catch (Exception ex)

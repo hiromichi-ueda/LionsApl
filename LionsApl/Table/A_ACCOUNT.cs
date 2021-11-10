@@ -17,5 +17,6 @@ namespace LionsApl.Table
         public string MemberLastName { get; set; }
         public string AccountDate { get; set; }
         public string LastUpdDate { get; set; }
+        public string VersionNo { get; set; }
     }
 }

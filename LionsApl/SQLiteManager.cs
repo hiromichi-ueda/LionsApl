@@ -16,6 +16,9 @@ namespace LionsApl
     ///////////////////////////////////////////////////////////////////////////////////////////////
     class SQLiteManager
     {
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// プロパティ
+        #region プロパティ
 
         // ログイン情報（ユーザ文字列（クラブ名＋氏名））
         public string LoginInfo;
@@ -34,7 +37,7 @@ namespace LionsApl
         // SQLiteファイル名(初期値)
         public static string dbFileName = ((App)Application.Current).SQLiteFileName;
         // SQLiteファイル名(会員番号)
-        public static string dbFileNameID = ((App)Application.Current).SQLiteFileName;
+        public static string dbFileNameID = string.Empty;
         // SQLiteファイル拡張子
         public static string dbFileExte = ((App)Application.Current).SQLiteFileExte;
         // SQLiteファイルパス＋ファイル名＋拡張子
@@ -49,6 +52,12 @@ namespace LionsApl
         public bool SQLITE_NOFILE = false;                   // SQLiteファイルが存在しない
         public bool SQLITE_EXFILE = true;                    // SQLiteファイルが存在する
 
+        #endregion
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// メソッド
+        #region メソッド
+
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// コンストラクタ
@@ -58,9 +67,14 @@ namespace LionsApl
         {
             // HTTPクライアント生成
             _httpClient = new HttpClient();
+            _httpClient.Timeout = TimeSpan.FromSeconds(600);  // タイムアウト：10分
 
             //SQLiteファイル名生成
-            dbFile = dbPath + "/" + dbFileName + dbFileExte; 
+            dbFile = dbPath + "/" + dbFileName + dbFileExte;
+            
+            Db_A_Setting = null;
+            Db_A_Account = null;
+            Db_A_FilePath = null;
 
         }
 
@@ -111,8 +125,8 @@ namespace LionsApl
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////
-        /// テーブル作成
-
+        /// 各テーブルの作成
+        #region テーブル作成
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -137,6 +151,105 @@ namespace LionsApl
                 _ = db.CreateTable<Table.T_MAGAZINEBUY>();
                 //_ = db.CreateTable<Table.M_DISTRICTOFFICER>();
                 _ = db.CreateTable<Table.M_CABINET>();
+                _ = db.CreateTable<Table.M_CLUB>();
+                _ = db.CreateTable<Table.T_CLUBSLOGAN>();
+                _ = db.CreateTable<Table.T_MEETINGSCHEDULE>();
+                _ = db.CreateTable<Table.T_DIRECTOR>();
+                _ = db.CreateTable<Table.T_MEETINGPROGRAM>();
+                _ = db.CreateTable<Table.T_INFOMATION_CLUB>();
+                _ = db.CreateTable<Table.M_MEMBER>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル作成（A_ACCOUNT以外）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void CreateTable_ExAccount()
+        {
+            using (SQLiteConnection db = new SQLiteConnection(dbFile))
+            {
+                // Create Table
+                _ = db.CreateTable<Table.A_APLLOG>();
+                _ = db.CreateTable<Table.A_SETTING>();
+                //_ = db.CreateTable<Table.A_ACCOUNT>();
+                _ = db.CreateTable<Table.A_FILEPATH>();
+                _ = db.CreateTable<Table.T_SLOGAN>();
+                _ = db.CreateTable<Table.T_LETTER>();
+                _ = db.CreateTable<Table.T_EVENTRET>();
+                _ = db.CreateTable<Table.T_EVENT>();
+                _ = db.CreateTable<Table.T_INFOMATION_CABI>();
+                _ = db.CreateTable<Table.T_MAGAZINE>();
+                _ = db.CreateTable<Table.T_MAGAZINEBUY>();
+                //_ = db.CreateTable<Table.M_DISTRICTOFFICER>();
+                _ = db.CreateTable<Table.M_CABINET>();
+                _ = db.CreateTable<Table.M_CLUB>();
+                _ = db.CreateTable<Table.T_CLUBSLOGAN>();
+                _ = db.CreateTable<Table.T_MEETINGSCHEDULE>();
+                _ = db.CreateTable<Table.T_DIRECTOR>();
+                _ = db.CreateTable<Table.T_MEETINGPROGRAM>();
+                _ = db.CreateTable<Table.T_INFOMATION_CLUB>();
+                _ = db.CreateTable<Table.M_MEMBER>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル作成（TOP対象）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void CreateTable_Top()
+        {
+            using (SQLiteConnection db = new SQLiteConnection(dbFile))
+            {
+                // Create Table
+                //_ = db.CreateTable<Table.A_APLLOG>();
+                _ = db.CreateTable<Table.A_SETTING>();
+                //_ = db.CreateTable<Table.A_ACCOUNT>();
+                _ = db.CreateTable<Table.A_FILEPATH>();
+                _ = db.CreateTable<Table.T_SLOGAN>();
+                //_ = db.CreateTable<Table.T_LETTER>();
+                //_ = db.CreateTable<Table.T_EVENTRET>();
+                //_ = db.CreateTable<Table.T_EVENT>();
+                //_ = db.CreateTable<Table.T_INFOMATION_CABI>();
+                _ = db.CreateTable<Table.T_MAGAZINE>();
+                //_ = db.CreateTable<Table.T_MAGAZINEBUY>();
+                //_ = db.CreateTable<Table.M_DISTRICTOFFICER>();
+                _ = db.CreateTable<Table.M_CABINET>();
+                //_ = db.CreateTable<Table.M_CLUB>();
+                //_ = db.CreateTable<Table.T_CLUBSLOGAN>();
+                //_ = db.CreateTable<Table.T_MEETINGSCHEDULE>();
+                //_ = db.CreateTable<Table.T_DIRECTOR>();
+                //_ = db.CreateTable<Table.T_MEETINGPROGRAM>();
+                //_ = db.CreateTable<Table.T_INFOMATION_CLUB>();
+                //_ = db.CreateTable<Table.M_MEMBER>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル作成（HOME対象）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void CreateTable_Home()
+        {
+            using (SQLiteConnection db = new SQLiteConnection(dbFile))
+            {
+                // Create Table
+                //_ = db.CreateTable<Table.A_APLLOG>();
+                //_ = db.CreateTable<Table.A_SETTING>();
+                //_ = db.CreateTable<Table.A_ACCOUNT>();
+                //_ = db.CreateTable<Table.A_FILEPATH>();
+                //_ = db.CreateTable<Table.T_SLOGAN>();
+                _ = db.CreateTable<Table.T_LETTER>();
+                _ = db.CreateTable<Table.T_EVENTRET>();
+                _ = db.CreateTable<Table.T_EVENT>();
+                _ = db.CreateTable<Table.T_INFOMATION_CABI>();
+                //_ = db.CreateTable<Table.T_MAGAZINE>();
+                _ = db.CreateTable<Table.T_MAGAZINEBUY>();
+                //_ = db.CreateTable<Table.M_DISTRICTOFFICER>();
+                //_ = db.CreateTable<Table.M_CABINET>();
                 _ = db.CreateTable<Table.M_CLUB>();
                 _ = db.CreateTable<Table.T_CLUBSLOGAN>();
                 _ = db.CreateTable<Table.T_MEETINGSCHEDULE>();
@@ -427,22 +540,22 @@ namespace LionsApl
             }
         }
 
-
+        #endregion
 
         ///////////////////////////////////////////////////////////////////////////////////////////
-        /// テーブル削除
-
+        /// 各テーブルの削除
+        #region テーブル削除
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// データベーステーブル削除
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public void DropTable()
+        public void DropTableAll()
         {
             using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
             {
-                // Create Table
+                // Drop Table
                 db.DropTable<Table.A_APLLOG>();
                 db.DropTable<Table.A_SETTING>();
                 db.DropTable<Table.A_ACCOUNT>();
@@ -456,6 +569,105 @@ namespace LionsApl
                 db.DropTable<Table.T_MAGAZINEBUY>();
                 //db.DropTable<Table.M_DISTRICTOFFICER>();
                 db.DropTable<Table.M_CABINET>();
+                db.DropTable<Table.M_CLUB>();
+                db.DropTable<Table.T_CLUBSLOGAN>();
+                db.DropTable<Table.T_MEETINGSCHEDULE>();
+                db.DropTable<Table.T_DIRECTOR>();
+                db.DropTable<Table.T_MEETINGPROGRAM>();
+                db.DropTable<Table.T_INFOMATION_CLUB>();
+                db.DropTable<Table.M_MEMBER>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル削除（A_ACCOUNT以外）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void DropTable_ExAccount()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
+            {
+                // Drop Table
+                db.DropTable<Table.A_APLLOG>();
+                db.DropTable<Table.A_SETTING>();
+                //db.DropTable<Table.A_ACCOUNT>();
+                db.DropTable<Table.A_FILEPATH>();
+                db.DropTable<Table.T_SLOGAN>();
+                db.DropTable<Table.T_LETTER>();
+                db.DropTable<Table.T_EVENTRET>();
+                db.DropTable<Table.T_EVENT>();
+                db.DropTable<Table.T_INFOMATION_CABI>();
+                db.DropTable<Table.T_MAGAZINE>();
+                db.DropTable<Table.T_MAGAZINEBUY>();
+                //db.DropTable<Table.M_DISTRICTOFFICER>();
+                db.DropTable<Table.M_CABINET>();
+                db.DropTable<Table.M_CLUB>();
+                db.DropTable<Table.T_CLUBSLOGAN>();
+                db.DropTable<Table.T_MEETINGSCHEDULE>();
+                db.DropTable<Table.T_DIRECTOR>();
+                db.DropTable<Table.T_MEETINGPROGRAM>();
+                db.DropTable<Table.T_INFOMATION_CLUB>();
+                db.DropTable<Table.M_MEMBER>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル削除（TOP対象）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void DropTable_Top()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
+            {
+                // Drop Table
+                //db.DropTable<Table.A_APLLOG>();
+                db.DropTable<Table.A_SETTING>();
+                //db.DropTable<Table.A_ACCOUNT>();
+                db.DropTable<Table.A_FILEPATH>();
+                db.DropTable<Table.T_SLOGAN>();
+                //db.DropTable<Table.T_LETTER>();
+                //db.DropTable<Table.T_EVENTRET>();
+                //db.DropTable<Table.T_EVENT>();
+                //db.DropTable<Table.T_INFOMATION_CABI>();
+                db.DropTable<Table.T_MAGAZINE>();
+                //db.DropTable<Table.T_MAGAZINEBUY>();
+                //db.DropTable<Table.M_DISTRICTOFFICER>();
+                db.DropTable<Table.M_CABINET>();
+                //db.DropTable<Table.M_CLUB>();
+                //db.DropTable<Table.T_CLUBSLOGAN>();
+                //db.DropTable<Table.T_MEETINGSCHEDULE>();
+                //db.DropTable<Table.T_DIRECTOR>();
+                //db.DropTable<Table.T_MEETINGPROGRAM>();
+                //db.DropTable<Table.T_INFOMATION_CLUB>();
+                //db.DropTable<Table.M_MEMBER>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル削除（HOME対象）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void DropTable_Home()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
+            {
+                // Drop Table
+                //db.DropTable<Table.A_APLLOG>();
+                //db.DropTable<Table.A_SETTING>();
+                //db.DropTable<Table.A_ACCOUNT>();
+                //db.DropTable<Table.A_FILEPATH>();
+                //db.DropTable<Table.T_SLOGAN>();
+                db.DropTable<Table.T_LETTER>();
+                db.DropTable<Table.T_EVENTRET>();
+                db.DropTable<Table.T_EVENT>();
+                db.DropTable<Table.T_INFOMATION_CABI>();
+                //db.DropTable<Table.T_MAGAZINE>();
+                db.DropTable<Table.T_MAGAZINEBUY>();
+                //db.DropTable<Table.M_DISTRICTOFFICER>();
+                //db.DropTable<Table.M_CABINET>();
                 db.DropTable<Table.M_CLUB>();
                 db.DropTable<Table.T_CLUBSLOGAN>();
                 db.DropTable<Table.T_MEETINGSCHEDULE>();
@@ -747,11 +959,11 @@ namespace LionsApl
             }
         }
 
-
+        #endregion
 
         ///////////////////////////////////////////////////////////////////////////////////////////
-        /// データ取得
-
+        /// 各テーブルからデータを取得
+        #region データ取得
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -1273,11 +1485,11 @@ namespace LionsApl
 
         }
 
-
+        #endregion
 
         ///////////////////////////////////////////////////////////////////////////////////////////
-        /// 複数テーブルからの取得
-
+        /// 複数テーブルからデータを取得
+        #region 複数テーブルからの取得
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -1409,11 +1621,11 @@ namespace LionsApl
 
         }
 
-
+        #endregion
 
         ///////////////////////////////////////////////////////////////////////////////////////////
-        /// 取得したデータのテーブル展開
-
+        /// 取得したデータのメモリ展開
+        #region 取得したデータのテーブル展開
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -1484,7 +1696,8 @@ namespace LionsApl
                         MemberFirstName = row.MemberFirstName,
                         MemberLastName = row.MemberLastName,
                         AccountDate = row.AccountDate,
-                        LastUpdDate = row.LastUpdDate
+                        LastUpdDate = row.LastUpdDate,
+                        VersionNo = row.VersionNo
                     };
                     LoginInfo = Db_A_Account.ClubName + "　" + Db_A_Account.MemberFirstName + " " + Db_A_Account.MemberLastName;
                 }
@@ -1519,18 +1732,17 @@ namespace LionsApl
 
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                ///DisplayAlert("Alert", $"SQLite検索エラー(スローガン) : &{ex.Message}", "OK");
                 throw;
             }
         }
 
-
+        #endregion
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// データ登録
-
+        #region データ登録
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -1556,7 +1768,8 @@ namespace LionsApl
                         MemberFirstName = account.MemberFirstName,
                         MemberLastName = account.MemberLastName,
                         AccountDate = account.AccountDate,
-                        LastUpdDate = account.LastUpdDate 
+                        LastUpdDate = account.LastUpdDate, 
+                        VersionNo = account.VersionNo
                         
                     });
                     db.Commit();
@@ -1619,7 +1832,7 @@ namespace LionsApl
         /// <param name="command">更新用SQLコマンド</param>
         /// <returns></returns>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        public Table.T_EVENTRET[] Set_T_EVENTRET(string command)
+        public Table.T_EVENTRET[] Upd_T_EVENTRET(string command)
         {
 
             SQLiteConnection db = new SQLiteConnection(dbFile);
@@ -1635,11 +1848,77 @@ namespace LionsApl
 
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// A_ACCOUNTテーブルデータ更新
+        /// </summary>
+        /// <param name="command">更新用SQLコマンド</param>
+        /// <returns></returns>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.A_ACCOUNT[] Upd_A_ACCOUNT(string command)
+        {
 
+            SQLiteConnection db = new SQLiteConnection(dbFile);
+            List<Table.A_ACCOUNT> items = db.Query<Table.A_ACCOUNT>(command);
+            if (items.Count > 0)
+            {
+                // Update
+                db.Update(items);
+                db.Commit();
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.A_ACCOUNT[0]);
+
+        }
+
+        #endregion
 
         ///////////////////////////////////////////////////////////////////////////////////////////
-        /// ファイル操作
+        /// SQLiteファイル操作
+        #region ファイル操作
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// ID付きSQLiteファイル名作成
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void SetFileNameID()
+        {
+            if (Db_A_Account != null)
+            {
+                // SQLiteファイル名（ID付き）
+                dbFileNameID = dbFileName + Db_A_Account.MemberCode + dbFileExte;
+            }
+        }
+
+        /// <summary>
+        /// ID付きSQLiteファイル名と設定されたIDが同じかどうか
+        /// （ID付きSQLiteファイル名を変える必要があるかどうか）
+        /// </summary>
+        /// <returns>false:ファイル名とIDが異なる/true:ファイル名とIDが同じ</returns>
+        public bool ChkFileNameID()
+        {
+            bool ret = false;
+
+            if (Db_A_Account != null)
+            {
+                // アカウント情報がある場合
+                if (dbFileNameID != null)
+                {
+                    // アカウント情報確定後
+
+                    // 前回のアカウント情報とアカウント情報がある場合
+                    ret = dbFile.Equals(dbPath + "/" + dbFileName + Db_A_Account.MemberCode + dbFileExte);
+                }
+            }
+            else
+            {
+                // アカウント情報がない場合
+                
+            }
+
+            return ret;
+        }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -1688,8 +1967,6 @@ namespace LionsApl
             return ret;
         }
 
-
-
         public void CreateFileDB3()
         {
 
@@ -1702,9 +1979,14 @@ namespace LionsApl
         ///////////////////////////////////////////////////////////////////////////////////////////
         public void DelFileDB3()
         {
+            string _file = dbPath + "/" + dbFileName + "*";
             try
             {
-                File.Delete(dbFile);
+                string[] files = System.IO.Directory.GetFiles(_file);
+                foreach(string file in files)
+                {
+                    File.Delete(file);
+                }
             }
             catch
             {
@@ -1712,15 +1994,38 @@ namespace LionsApl
             }
         }
 
-
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// ファイル名変更（IDなし⇒IDあり）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
         public void MoveFileDB3()
         {
+            try
+            {
+                // 変更後ファイル名
+                string newdbFile = dbPath + "/" + dbFileNameID;
 
+                File.Move(dbFile, newdbFile);
+
+                // 更新後SQLiteファイル名生成
+                dbFile = newdbFile;
+            }
+            catch
+            {
+                throw;
+            }
         }
+
+        #endregion
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// ファイルコンテンツ
+        #region ファイルコンテンツ
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// ファイルコンテンツ
+        /// ファイルコンテンツ（ACCOUNT）
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
         public MultipartFormDataContent GetSendFileContent()
@@ -1784,6 +2089,7 @@ namespace LionsApl
             return content;
         }
 
+        #endregion
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -1836,7 +2142,7 @@ namespace LionsApl
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// 同期にてSQLiteファイルを送受信する（ファイル保管まで行う）
+        /// 同期にてSQLiteファイルを送受信する（ファイル保管まで行う）：MainPage用
         /// 受信－ファイル書き出し
         /// テスト用画面に情報の表示含む
         /// </summary>
@@ -1902,5 +2208,7 @@ namespace LionsApl
         }
 
     }
+
+    #endregion
 
 }

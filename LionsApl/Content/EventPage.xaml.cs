@@ -1321,7 +1321,7 @@ namespace LionsApl.Content
             string _option5 = _utl.GetSQLString(_ceventret.Option5);
             string _otherCount = _ceventret.OtherCount.ToString();
 
-            foreach (Table.T_EVENTRET row in _sqlite.Set_T_EVENTRET("UPDATE T_EVENTRET SET" +
+            foreach (Table.T_EVENTRET row in _sqlite.Upd_T_EVENTRET("UPDATE T_EVENTRET SET" +
                                                                     " Answer = " + _answer + ", " +
                                                                     " AnswerLate = " + _answerLate + ", " +
                                                                     " AnswerEarly = " + _answerEarly + ", " +

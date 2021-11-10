@@ -14,7 +14,7 @@
     <AssemblyName>LionsApl.iOS</AssemblyName>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
-    <ProvisioningType>manual</ProvisioningType>
+    <ProvisioningType>automatic</ProvisioningType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -68,11 +68,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Distribution: INSAT Inc.</CodesignKey>
+    <CodesignKey>Apple Development: 上田 裕達 (697Q2HZ9CA)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchDebug>false</MtouchDebug>
     <BuildIpa>true</BuildIpa>
-    <CodesignProvision>LionsApl-In-House</CodesignProvision>
+    <CodesignProvision>VS: WildCard Development</CodesignProvision>
     <OptimizePNGs>false</OptimizePNGs>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchLink>None</MtouchLink>
@@ -152,13 +152,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AiForms.Dialogs">
-      <Version>1.0.12</Version>
+      <Version>1.0.13</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>4.7.11</Version>
+      <Version>4.7.12</Version>
     </PackageReference>
     <PackageReference Include="NLog.Config">
-      <Version>4.7.11</Version>
+      <Version>4.7.12</Version>
     </PackageReference>
     <PackageReference Include="PCLAppConfig">
       <Version>1.0.1</Version>
@@ -166,7 +166,7 @@
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.8.116</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2125" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

@@ -12,6 +12,7 @@
         public string ClubNameShort { get; set; }
         public string MemberCode { get; set; }
         public string MemberName { get; set; }
+        public string DirectorName { get; set; }
         public string Answer { get; set; }
         public string AnswerLate { get; set; }
         public string AnswerEarly { get; set; }
@@ -22,8 +23,7 @@
         public string Option4 { get; set; }
         public string Option5 { get; set; }
         public int OtherCount { get; set; }
-        public string CancelFlg { get; set; }
         public string TargetFlg { get; set; }
-        public string UpFlg { get; set; }
+        public string CancelFlg { get; set; }
     }
 }

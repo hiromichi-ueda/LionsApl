@@ -66,6 +66,7 @@ namespace LionsApl
         private IComManager(string dbFile)
         {
             _httpClient = new HttpClient();
+            _httpClient.Timeout = TimeSpan.FromSeconds(600);  // タイムアウト：10分
             _dbFile = dbFile;
         }
 
