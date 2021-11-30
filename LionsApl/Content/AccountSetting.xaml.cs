@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -27,8 +28,14 @@ namespace LionsApl.Content
         // Utilityクラス
         private LAUtility _utl;
 
+        // 情報通信マネージャクラス
+        private IComManager _icom;
+
         // A_ACCOUNTテーブルクラス
         private Table.A_ACCOUNT _account;
+
+        // T_MEMBER更新用クラス
+        private CACCOUNTREG _caccountreg;
 
         // ピッカー用変数
         public ObservableCollection<CRegionPicker> _regionPk = new ObservableCollection<CRegionPicker>();
@@ -74,6 +81,9 @@ namespace LionsApl.Content
 
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
+
+            // 情報通信マネージャークラス生成
+            _icom = IComManager.GetInstance(_sqlite.dbFile);
 
             // 選択リジョン情報クリア
             ClearSelectRegionInfo();
@@ -549,6 +559,11 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void Button_Back_Clicked(object sender, System.EventArgs e)
         {
+            // HOME対象テーブル削除
+            _sqlite.DropTable_Home();
+            // HOME対象テーブル作成
+            _sqlite.CreateTable_Home();
+
             Application.Current.MainPage = new TopMenu();
         }
 
@@ -570,8 +585,10 @@ namespace LionsApl.Content
             }
             else
             {
-                // データ登録
+                // アカウント情報登録
                 SetAccountInfo();
+                // アカウント設定日をDBへ登録する
+                RegAccountDate();
                 await DisplayAlert("アカウント設定", "アカウントを登録しました。", "OK");
 
                 // TOP画面に遷移する
@@ -643,6 +660,35 @@ namespace LionsApl.Content
             {
                 DisplayAlert("Alert", $"SQLite登録エラー(アカウント情報) : {ex.Message}", "OK");
             }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// アカウント設定日をDBへ登録する
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void RegAccountDate()
+        {
+            // アカウント設定登録情報クラス生成
+            _caccountreg = new CACCOUNTREG(_account.AccountDate,
+                                           _account.Region,
+                                           _account.Zone,
+                                           _account.ClubCode,
+                                           _account.MemberCode);
+
+            // アカウント設定日情報をコンテンツに設定
+            _icom.SetContentToACCOUNTREG(_caccountreg);
+            try
+            {
+                // SQLServerへ登録
+                Task<HttpResponseMessage> response = _icom.AsyncPostTextForWebAPI();
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Alert", $"SQLServer アカウント設定登録エラー : {ex.Message}", "OK");
+                throw;
+            }
+
         }
     }
 

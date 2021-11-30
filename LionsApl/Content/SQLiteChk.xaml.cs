@@ -236,7 +236,7 @@ namespace LionsApl.Content
                         ResultLabel.Text += $"----------------------------------------------------------------\r\n" + 
                                             $"{row.Id}, {row.Region}, {row.Zone}, {row.ClubCode}, {row.ClubName},{Environment.NewLine}" +
                                             $"{row.MemberCode}, {row.MemberFirstName}, {row.MemberLastName},{Environment.NewLine}" +
-                                            $"{row.AccountDate}, {row.LastUpdDate}\r\n";
+                                            $"{row.AccountDate}, {row.LastUpdDate}, {row.VersionNo}\r\n";
                     }
                 }
             }

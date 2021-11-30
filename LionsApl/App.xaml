@@ -268,7 +268,34 @@
                 Value="8,0,8,0"
                 />
         </Style>
-        
+
+        <!-- List画面(End & NoWrap) -->
+        <Style
+            x:Key="List_Base_EndNW"
+            TargetType="Label"
+            >
+            <Setter 
+                Property="TextColor"
+                Value="#151515"
+                />
+            <Setter
+                Property="VerticalOptions"
+                Value="End"
+                />
+            <Setter
+                Property="HorizontalTextAlignment"
+                Value="Start"
+                />
+            <Setter
+                Property="LineBreakMode"
+                Value="NoWrap"
+                />
+            <Setter
+                Property="Margin"
+                Value="8,0,8,0"
+                />
+        </Style>
+
         <!-- Page画面(ベース) -->
         <Style 
             x:Key="Page_Base"
@@ -511,6 +538,140 @@
                 Value="8,0,8,0"
                 />
         </Style>
+
+        
+        <!-- Event List -->
+        <!-- List_Grid -->
+        <Style
+            x:Key="ListGrid_EV"
+            TargetType="Grid"
+            >
+            <Setter
+                Property="RowSpacing"
+                Value="0"
+                />
+            <Setter
+                Property="ColumnSpacing"
+                Value="0"
+                />
+            <Setter 
+                Property="Margin"
+                Value="8"
+                />
+            <Setter
+                Property="BackgroundColor"
+                Value="#FFFFFF"
+                />
+        </Style>
+
+        <!-- List画面(ベース) -->
+        <Style
+            x:Key="List_Base_EV"
+            TargetType="Label"
+            >
+            <Setter 
+                Property="TextColor"
+                Value="#151515"
+                />
+            <Setter
+                Property="VerticalOptions"
+                Value="Center"
+                />
+            <Setter
+                Property="HorizontalTextAlignment"
+                Value="Start"
+                />
+            <Setter
+                Property="LineBreakMode"
+                Value="TailTruncation"
+                />
+            <Setter
+                Property="Margin"
+                Value="8,4,8,4"
+                />
+        </Style>
+
+        <!-- List画面(Start) -->
+        <Style
+            x:Key="List_Base_EV_Start"
+            TargetType="Label"
+            >
+            <Setter 
+                Property="TextColor"
+                Value="#151515"
+                />
+            <Setter
+                Property="VerticalOptions"
+                Value="Start"
+                />
+            <Setter
+                Property="HorizontalTextAlignment"
+                Value="Start"
+                />
+            <Setter
+                Property="LineBreakMode"
+                Value="TailTruncation"
+                />
+            <Setter
+                Property="Margin"
+                Value="8,2,8,4"
+                />
+        </Style>
+
+        <!-- List画面(End) -->
+        <Style
+            x:Key="List_Base_EV_End"
+            TargetType="Label"
+            >
+            <Setter 
+                Property="TextColor"
+                Value="#151515"
+                />
+            <Setter
+                Property="VerticalOptions"
+                Value="End"
+                />
+            <Setter
+                Property="HorizontalTextAlignment"
+                Value="Start"
+                />
+            <Setter
+                Property="LineBreakMode"
+                Value="TailTruncation"
+                />
+            <Setter
+                Property="Margin"
+                Value="8,4,8,2"
+                />
+        </Style>
+
+        <!-- List画面(End & NoWrap) -->
+        <Style
+            x:Key="List_Base_EV_EndNW"
+            TargetType="Label"
+            >
+            <Setter 
+                Property="TextColor"
+                Value="#151515"
+                />
+            <Setter
+                Property="VerticalOptions"
+                Value="End"
+                />
+            <Setter
+                Property="HorizontalTextAlignment"
+                Value="Start"
+                />
+            <Setter
+                Property="LineBreakMode"
+                Value="NoWrap"
+                />
+            <Setter
+                Property="Margin"
+                Value="8,4,8,2"
+                />
+        </Style>
+
 
     </Application.Resources>
 

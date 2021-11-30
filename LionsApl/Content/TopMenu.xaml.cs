@@ -199,6 +199,17 @@ namespace LionsApl.Content
                 // 空DB作成処理
                 //_sqlite.CreateTable_ALL();
 
+
+                // アカウント情報存在チェック
+                if (_sqlite.Db_A_Account != null)
+                {
+                    // アカウント情報がある場合
+                    // アカウント情報の再取得が必要なため最終更新日クリア
+                    _sqlite.Db_A_Account.LastUpdDate = LADef.NOSTR;
+                    // アカウント情報追加（更新）
+                    _sqlite.Set_A_ACCOUNT(_sqlite.Db_A_Account);
+                }
+
                 // アカウント情報取得
                 Task<HttpResponseMessage> response = _sqlite.AsyncPostFileForWebAPI(_sqlite.GetSendFileContent());
 

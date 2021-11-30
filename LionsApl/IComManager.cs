@@ -41,6 +41,12 @@ namespace LionsApl
         private string EventItem10 = "Option5";
         private string EventItem11 = "OtherCount";
 
+        private string AccountItem1 = "AccountDate";
+        private string AccountItem2 = "Region";
+        private string AccountItem3 = "Zone";
+        private string AccountItem4 = "ClubCode";
+        private string AccountItem5 = "MemberCode";
+
         private static IComManager _single = null;
         private HttpClient _httpClient = null;
 
@@ -51,6 +57,8 @@ namespace LionsApl
         public string DbType2 = "HOME";
         public string DbType3 = "MAGAZINE";
         public string DbType4 = "EVENTRET";
+        public string DbType5 = "TOP";
+        public string DbType6 = "ACCOUNTREG";
 
         //public string DbPath { get; } = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "LionsAplDB.db3");
 
@@ -222,6 +230,36 @@ namespace LionsApl
 
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// アカウント設定日情報をコンテンツに設定
+        /// </summary>
+        /// <param name="accountreg">アカウント設定登録情報</param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void SetContentToACCOUNTREG(CACCOUNTREG accountreg)
+        {
+            // 処理日時取得
+            DateTime nowDt = DateTime.Now;
+
+            content = new MultipartFormDataContent();
+            // DBデータ種別（文字列データ）
+            content.Add(new StringContent(DbType6), ReqItem1);
+            // 処理日時（文字列データ）
+            content.Add(new StringContent(nowDt.ToString()), ReqItem2);
+
+            // アカウント設定日（文字列データ）
+            content.Add(new StringContent(accountreg.AccountDate), AccountItem1);
+            // リジョン（文字列データ）
+            content.Add(new StringContent(accountreg.Region), AccountItem2);
+            // ゾーン（文字列データ）
+            content.Add(new StringContent(accountreg.Zone), AccountItem3);
+            // クラブコード（文字列データ）
+            content.Add(new StringContent(accountreg.ClubCode), AccountItem4);
+            // 会員コード（文字列データ）
+            content.Add(new StringContent(accountreg.MemberCode), AccountItem5);
+
+        }
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -268,6 +306,7 @@ namespace LionsApl
         }
 
     }
+    
 
     ///////////////////////////////////////////////////////////////////////////////////////////
     /// <summary>
@@ -366,4 +405,32 @@ namespace LionsApl
         public string Option5 { get; set; }
         public int OtherCount { get; set; }
     }
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// アカウント情報登録クラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    public sealed class CACCOUNTREG
+    {
+        public CACCOUNTREG(string accountDate,
+                           string region,
+                           string zone,
+                           string clubCode,
+                           string memberCode)
+        {
+            AccountDate = accountDate;
+            Region = region;
+            Zone = zone;
+            ClubCode = clubCode;
+            MemberCode = memberCode;
+        }
+        public string AccountDate { get; set; }
+        public string Region { get; set; }
+        public string Zone { get; set; }
+        public string ClubCode { get; set; }
+        public string MemberCode { get; set; }
+    }
+
 }

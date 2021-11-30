@@ -82,7 +82,7 @@ namespace LionsApl.Content
                                 // アカウント情報のバージョンNo.が古い場合
 
                                 // アカウント情報の更新、およびそれ以外のテーブルのクリア
-                                //UpdAccountAndClrExTbl();
+                                UpdAccountAndClrExTbl();
 
                             }
                         }
@@ -91,7 +91,7 @@ namespace LionsApl.Content
                             // アカウント情報のバージョンNo.がない場合
 
                             // アカウント情報の更新、およびそれ以外のテーブルのクリア
-                            //UpdAccountAndClrExTbl();
+                            UpdAccountAndClrExTbl();
                         }
                     }
                 }
@@ -131,12 +131,20 @@ namespace LionsApl.Content
 
             // アカウント情報のバージョンNo.が古い場合
             // アカウント情報のバージョンNo.の更新、及び最終更新日のクリア
-            foreach (Table.A_ACCOUNT row in _sqlite.Upd_A_ACCOUNT("UPDATE A_ACCOUNT SET" +
-                                                                  " LastUpdDate = NULL, " +
-                                                                  " VersionNo = '" + appVer + "'"))
-            {
-                _sqlite.Db_A_Account = row;
-            }
+            //foreach (Table.A_ACCOUNT row in _sqlite.Upd_A_ACCOUNT("UPDATE A_ACCOUNT SET" +
+            //                                                      " LastUpdDate = NULL, " +
+            //                                                      " VersionNo = '" + appVer + "'"))
+            //{
+            //    _sqlite.Db_A_Account = row;
+            //}
+            // バージョンNo.の更新
+            _sqlite.Db_A_Account.VersionNo = appVer;
+            // 最終更新日のクリア
+            _sqlite.Db_A_Account.LastUpdDate = LADef.NOSTR;
+            // アカウント情報の追加
+            _sqlite.Set_A_ACCOUNT(_sqlite.Db_A_Account);
+
+
 
             // アカウント情報以外のテーブルクリア
             _sqlite.DropTable_ExAccount();

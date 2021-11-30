@@ -82,7 +82,6 @@ namespace LionsApl.Content
             string wkCancel = string.Empty;
             string wkAnswer = string.Empty;
             string wkAnsFlg = string.Empty;
-            string[] wkUserList = null;
             bool wkTargetFlg = false;
             Color wkAnswerColor = Color.Default;
             Items = new List<ClubDirectorRow>();
@@ -147,27 +146,8 @@ namespace LionsApl.Content
 
                     // ログインユーザーが対象か判定
                     wkTargetFlg = false;
-                    wkUserList = _utl.GetString(row.Member).Split(',');
-                    foreach (string code in wkUserList)
-                    {
-                        // [メンバー]を検索
-                        if (_sqlite.Db_A_Account.MemberCode.Equals(code))
-                        {
-                            wkTargetFlg = true;
-                            break;
-                        }
-                    }
-
-                    wkUserList = _utl.GetString(row.MemberAdd).Split(',');
-                    foreach (string code in wkUserList)
-                    {
-                        // [メンバー追加]を検索
-                        if (_sqlite.Db_A_Account.MemberCode.Equals(code))
-                        {
-                            wkTargetFlg = true;
-                            break;
-                        }
-                    }
+                    ChkMember(row.Member, _sqlite.Db_A_Account.MemberCode, ref wkTargetFlg);
+                    ChkMember(row.MemberAdd, _sqlite.Db_A_Account.MemberCode, ref wkTargetFlg);
 
                     // 回答
                     wkAnsFlg = _utl.GetString(row.Answer);
@@ -207,9 +187,60 @@ namespace LionsApl.Content
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", $"SQLite検索エラー(T_DIRECTOR) : &{ex.Message}", "OK");
+                DisplayAlert("Alert", $"SQLite検索エラー(T_DIRECTOR) : {ex.Message}", "OK");
             }
 
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Memberに自分が含まれるかチェックする。
+        /// </summary>
+        /// <param name="members"></param>
+        /// <param name="memberCode"></param>
+        /// <param name="targetFlg"></param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void ChkMember(string members, string memberCode, ref bool targetFlg)
+        {
+            string[] wkUserList = null;
+
+            // 値がない場合は終了
+            if (members == null)
+            {
+                return;
+            }
+            if (members.Equals(string.Empty))
+            {
+                return;
+            }
+
+            // ','で文字列を分割する
+            wkUserList = _utl.GetString(members).Split(',');
+            foreach (string code in wkUserList)
+            {
+                string chkCode = string.Empty;
+                // コードに"_XX"が含まれるか確認する
+                if (code.IndexOf('_', 0) > 0)
+                {
+                    // コードに"_XX"が含まれる場合
+
+                    // コードから"_XX"を除く
+                    string[] codes = code.Split('_');
+                    string code_x = codes[0];
+                    chkCode = code_x;
+                }
+                else
+                {
+                    // コードに"_XX"が含まれない場合
+                    chkCode = code;
+                }
+                // [メンバー]を検索
+                if (memberCode.Equals(chkCode))
+                {
+                    targetFlg = true;
+                    break;
+                }
+            }
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -237,6 +268,7 @@ namespace LionsApl.Content
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
         }
+
     }
 
     public sealed class ClubDirectorRow
