@@ -161,9 +161,9 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void Matching_Button_Clicked(object sender, System.EventArgs e)
         {
-
+            //2021/12 ADD
+            Navigation.PushAsync(new MatchingList());
         }
-
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>

@@ -158,6 +158,9 @@ namespace LionsApl
                 _ = db.CreateTable<Table.T_MEETINGPROGRAM>();
                 _ = db.CreateTable<Table.T_INFOMATION_CLUB>();
                 _ = db.CreateTable<Table.M_MEMBER>();
+                _ = db.CreateTable<Table.M_AREA>();   //2021/12 ADD
+                _ = db.CreateTable<Table.M_JOB>();   //2021/12 ADD
+                _ = db.CreateTable<Table.T_MATCHING>();   //2021/12 ADD
             }
         }
 
@@ -191,6 +194,9 @@ namespace LionsApl
                 _ = db.CreateTable<Table.T_MEETINGPROGRAM>();
                 _ = db.CreateTable<Table.T_INFOMATION_CLUB>();
                 _ = db.CreateTable<Table.M_MEMBER>();
+                _ = db.CreateTable<Table.M_AREA>();   //2021/12 ADD
+                _ = db.CreateTable<Table.M_JOB>();   //2021/12 ADD
+                _ = db.CreateTable<Table.T_MATCHING>();   //2021/12 ADD
             }
         }
 
@@ -224,6 +230,9 @@ namespace LionsApl
                 //_ = db.CreateTable<Table.T_MEETINGPROGRAM>();
                 //_ = db.CreateTable<Table.T_INFOMATION_CLUB>();
                 //_ = db.CreateTable<Table.M_MEMBER>();
+                _ = db.CreateTable<Table.M_AREA>();   //2021/12 ADD
+                _ = db.CreateTable<Table.M_JOB>();   //2021/12 ADD
+                _ = db.CreateTable<Table.T_MATCHING>();   //2021/12 ADD
             }
         }
 
@@ -257,6 +266,9 @@ namespace LionsApl
                 _ = db.CreateTable<Table.T_MEETINGPROGRAM>();
                 _ = db.CreateTable<Table.T_INFOMATION_CLUB>();
                 _ = db.CreateTable<Table.M_MEMBER>();
+                //_ = db.CreateTable<Table.M_AREA>();   //2021/12 ADD
+                //_ = db.CreateTable<Table.M_JOB>();   //2021/12 ADD
+                //_ = db.CreateTable<Table.T_MATCHING>();   //2021/12 ADD
             }
         }
 
@@ -540,6 +552,48 @@ namespace LionsApl
             }
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル作成（M_AREA）    2021/12 ADD
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void CreateTable_M_AREA()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
+            {
+                // Create Table
+                db.CreateTable<Table.M_AREA>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル作成（M_JOB）    2021/12 ADD
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void CreateTable_M_JOB()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
+            {
+                // Create Table
+                db.CreateTable<Table.M_JOB>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル作成（T_MATCHING）    2021/12 ADD
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void CreateTable_T_MATCHING()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
+            {
+                // Create Table
+                db.CreateTable<Table.T_MATCHING>();
+            }
+        }
+
         #endregion
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -576,6 +630,9 @@ namespace LionsApl
                 db.DropTable<Table.T_MEETINGPROGRAM>();
                 db.DropTable<Table.T_INFOMATION_CLUB>();
                 db.DropTable<Table.M_MEMBER>();
+                db.DropTable<Table.M_AREA>();       //2021/12 ADD
+                db.DropTable<Table.M_JOB>();        //2021/12 ADD
+                db.DropTable<Table.T_MATCHING>();   //2021/12 ADD
             }
         }
 
@@ -609,6 +666,9 @@ namespace LionsApl
                 db.DropTable<Table.T_MEETINGPROGRAM>();
                 db.DropTable<Table.T_INFOMATION_CLUB>();
                 db.DropTable<Table.M_MEMBER>();
+                db.DropTable<Table.M_AREA>();       //2021/12 ADD
+                db.DropTable<Table.M_JOB>();        //2021/12 ADD
+                db.DropTable<Table.T_MATCHING>();   //2021/12 ADD
             }
         }
 
@@ -642,6 +702,9 @@ namespace LionsApl
                 //db.DropTable<Table.T_MEETINGPROGRAM>();
                 //db.DropTable<Table.T_INFOMATION_CLUB>();
                 //db.DropTable<Table.M_MEMBER>();
+                db.DropTable<Table.M_AREA>();       //2021/12 ADD
+                db.DropTable<Table.M_JOB>();        //2021/12 ADD
+                db.DropTable<Table.T_MATCHING>();   //2021/12 ADD
             }
         }
 
@@ -675,6 +738,9 @@ namespace LionsApl
                 db.DropTable<Table.T_MEETINGPROGRAM>();
                 db.DropTable<Table.T_INFOMATION_CLUB>();
                 db.DropTable<Table.M_MEMBER>();
+                //db.DropTable<Table.M_AREA>();       //2021/12 ADD
+                //db.DropTable<Table.M_JOB>();        //2021/12 ADD
+                //db.DropTable<Table.T_MATCHING>();   //2021/12 ADD
             }
         }
 
@@ -956,6 +1022,48 @@ namespace LionsApl
             {
                 // Drop Table
                 db.DropTable<Table.M_MEMBER>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル削除（M_AREA）    2021/12 ADD
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void DropTable_M_AREA()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
+            {
+                // Drop Table
+                db.DropTable<Table.M_AREA>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル削除（M_JOB）    2021/12 ADD
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void DropTable_M_JOB()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
+            {
+                // Drop Table
+                db.DropTable<Table.M_JOB>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル削除（T_MATCHING）    2021/12 ADD
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void DropTable_T_MATCHING()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
+            {
+                // Drop Table
+                db.DropTable<Table.T_MATCHING>();
             }
         }
 
@@ -1482,6 +1590,84 @@ namespace LionsApl
             }
 
             return items.Count > 0 ? items.ToArray() : (new Table.M_MEMBER[0]);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// M_AREAテーブルデータ取得 2021/12 ADD
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.M_AREA[] Get_M_AREA(string command)
+        {
+            List<Table.M_AREA> items = new List<Table.M_AREA>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
+                {   // Select
+                    items = db.Query<Table.M_AREA>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.M_AREA[0]);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// M_JOBテーブルデータ取得 2021/12 ADD
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.M_JOB[] Get_M_JOB(string command)
+        {
+            List<Table.M_JOB> items = new List<Table.M_JOB>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
+                {   // Select
+                    items = db.Query<Table.M_JOB>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.M_JOB[0]);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// T_MATCHINGテーブルデータ取得 2021/12 ADD
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.T_MATCHING[] Get_T_MATCHING(string command)
+        {
+            List<Table.T_MATCHING> items = new List<Table.T_MATCHING>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
+                {   // Select
+                    items = db.Query<Table.T_MATCHING>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.T_MATCHING[0]);
 
         }
 

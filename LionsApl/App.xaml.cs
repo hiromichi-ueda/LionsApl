@@ -22,6 +22,7 @@ namespace LionsApl
         public string FilePath_Evnet;
         public string FilePath_Magazine;
         public string FilePath_Infometion;
+        public string FilePath_Matching;
         public string FilePath_MeetingProgram;
         public string FilePath_ClubInfometion;
 
@@ -51,6 +52,7 @@ namespace LionsApl
             FilePath_Evnet = PCLAppConfig.ConfigurationManager.AppSettings["FILEPATH_EVENT"];
             FilePath_Magazine = PCLAppConfig.ConfigurationManager.AppSettings["FILEPATH_MAGAZINE"];
             FilePath_Infometion = PCLAppConfig.ConfigurationManager.AppSettings["FILEPATH_INFOMETION"];
+            FilePath_Matching = PCLAppConfig.ConfigurationManager.AppSettings["FILEPATH_MATCHING"];
             FilePath_MeetingProgram = PCLAppConfig.ConfigurationManager.AppSettings["FILEPATH_MEETINGPROGRAM"];
             FilePath_ClubInfometion = PCLAppConfig.ConfigurationManager.AppSettings["FILEPATH_CLUBINFOMETION"];
 

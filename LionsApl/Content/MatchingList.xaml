@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LionsApl.Content.MatchingList"
+             xmlns:local="clr-namespace:LionsApl.Content"
              >
 
     <!-- 
@@ -10,65 +11,230 @@
     +++++++++++++++++++++++++++++++++++++
     -->
 
-    <ContentPage.Content>
+    <StackLayout>
+
         <StackLayout>
 
-            <ListView 
-                x:Name="MatchingListView"
-                ItemTapped="Handle_ItemTapped"
-                CachingStrategy="RecycleElement"
-                RowHeight="68"
+            <!-- ログイン情報 ※固定位置表示-->
+            <StackLayout
+                HeightRequest="18"
+                Margin="2" 
                 >
+                <Label
+                    x:Name="LoginInfo"
+                    Style="{StaticResource Login}"
+                    />
+            </StackLayout>
 
-                <!-- HEADER -->
-                <ListView.Header>
-                    <StackLayout>
+            <!-- タイトル -->
+            <StackLayout
+                Margin="4,0,4,0"
+                HorizontalOptions="FillAndExpand"
+                >
+                <Label
+                    x:Name="title"
+                    Text="マッチング" 
+                    Style="{StaticResource Title_Blue}"
+                    />
+            </StackLayout>
 
-                        <!-- ログイン情報 -->
-                        <StackLayout 
-                            HeightRequest="18"
-                            Margin="2"
-                            >
-                            <Label
-                                x:Name="LoginInfo"
-                                TextColor="#2E2E2E"
-                                Style="{StaticResource Login}"
-                            />
-                        </StackLayout>
-
-                        <!-- タイトル -->
-                        <StackLayout
-                            Margin="4,0,4,0"
-                            HorizontalOptions="FillAndExpand"
-                            >
-                            <Label
-                                x:Name="title"
-                                Text="マッチング" 
-                                Style="{StaticResource Title_Blue}"
-                            />
-                        </StackLayout>
-
-                    </StackLayout>
-                </ListView.Header>
-
-                <!-- LIST -->
-                <ListView.ItemTemplate>
-
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid 
-                                StyleClass="list_grid"
-                                >
-
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-
-                </ListView.ItemTemplate>
-
-            </ListView>
-
+            <Grid
+                HorizontalOptions="Fill" 
+                VerticalOptions="EndAndExpand" 
+                Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition  Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label 
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Text="地域" 
+                        TextColor="Black"
+                        x:Name="AreaLabel"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center" />
+                <Picker 
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        x:Name="AreaPicker"
+                        Title="地域選択"
+                        TitleColor="GRAY"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedIndexChanged="AreaPicker_SelectedIndexChanged"
+                        Style="{StaticResource Page_Picker}" />
+                <Label 
+                        Grid.Row="1" 
+                        Grid.Column="0"
+                        Text="職種" 
+                        TextColor="Black"
+                        x:Name="JobLabel"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center" />
+                <Picker 
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        x:Name="JobPicker"
+                        Title="職種選択"
+                        TitleColor="GRAY"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedIndexChanged="JobPicker_SelectedIndexChanged"
+                        Style="{StaticResource Page_Picker}" />
+                <Button
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Text="検索" 
+                        Clicked="Button_Search_Clicked" />
+            </Grid>
         </StackLayout>
-    </ContentPage.Content>
+
+        <ListView 
+            x:Name="MatchingListView"
+            ItemTapped="Handle_ItemTapped"
+            CachingStrategy="RecycleElement"
+            RowHeight="68"
+            HasUnevenRows="True"
+            ItemTemplate="{StaticResource myMatchingSelector}"
+            ItemsSource="{Binding Items}">
+
+            <!-- HEADER なし-->
+        </ListView>
+    </StackLayout>
+             
+    <!-- BODY -->
+    <ContentPage.Resources>
+
+        <!-- データあり -->
+        <DataTemplate x:Key="ExistDataTemplate">
+
+            <ViewCell>
+                <Grid 
+                    Style="{StaticResource ListGrid_Base}"
+                    >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="1.*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- 画像 -->
+                    <Image 
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="3"
+                        Source="{Binding FileName}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center" />
+                    <!-- 会社名 -->
+                    <Label 
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="{Binding CompanyName}" 
+                        Style="{StaticResource List_Base}"
+                    />
+                    <!-- 掲載用コメント -->
+                    <Label 
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="{Binding Comment}" 
+                        Style="{StaticResource List_Base}"
+                        MaxLines="2"
+                    />
+                    <!-- クラブ名＋会員名 -->
+                    <Label 
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="1"
+                        Text="{Binding MemberName}" 
+                        Style="{StaticResource List_Base_End}"
+                        HorizontalTextAlignment="End"
+                    />
+                    <Label 
+                        Grid.Column="2"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="3"
+                        Text="〉" 
+                        Style="{StaticResource List_Base}"
+                    />
+                </Grid>
+            </ViewCell>
+        </DataTemplate>
+
+        <!-- 初期画面表示 -->
+        <DataTemplate x:Key="LoadTemplate">
+            <ViewCell>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- メッセージ -->
+                    <Label 
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="2"
+                        Text="検索条件を指定して、検索して下さい" 
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource List_Base}"
+                        />
+                </Grid>
+            </ViewCell>
+        </DataTemplate>
+
+        <!-- データなし -->
+        <DataTemplate x:Key="NoDataTemplate">
+            <ViewCell>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- メッセージ -->
+                    <Label 
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="1"
+                        Grid.RowSpan="2"
+                        Text="対象となるデータはありませんでした" 
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource List_Base}"
+                        />
+                </Grid>
+            </ViewCell>
+        </DataTemplate>
+        
+        <local:MyMatchingSelector
+            x:Key="myMatchingSelector"
+            ExistDataTemplate="{StaticResource ExistDataTemplate}"
+            LoadTemplate="{StaticResource LoadTemplate}"
+            NoDataTemplate="{StaticResource NoDataTemplate}" />
+            
+    </ContentPage.Resources>
 
 </ContentPage>

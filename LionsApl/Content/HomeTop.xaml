@@ -147,7 +147,6 @@
                     BorderWidth="1" 
                     CornerRadius="6"
                     Clicked="Matching_Button_Clicked"
-                    Background="#D8D8D8"
                     >
                 </Button>
             </Grid>

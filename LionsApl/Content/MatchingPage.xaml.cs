@@ -15,10 +15,7 @@ namespace LionsApl.Content
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
-        // url取得
-        public static String AppServer = ((App)Application.Current).AppServer;
-
-        public MatchingPage()
+        public MatchingPage(string strHP)
         {
             InitializeComponent();
 
@@ -31,19 +28,8 @@ namespace LionsApl.Content
             // タイトル設定
             Title = _sqlite.Db_A_Setting.CabinetName;
 
-            // A_ACCOUNTデータ取得
-            _sqlite.GetAccount();
-
-            // ログイン情報設定
-            LoginInfo.Text = _sqlite.LoginInfo;
-
-            // A_FILEPATHデータ取得
-            //_sqlite.GetFilePath();
-
-            // マッチング情報設定
-
-
-
+            // 選択URL設定
+            SelectHPWebView.Source = strHP;
         }
     }
 }
