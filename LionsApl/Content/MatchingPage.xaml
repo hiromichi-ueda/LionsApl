@@ -12,12 +12,37 @@
 
     <ContentPage.Content>
         <StackLayout>
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label 
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Text="" 
+                    TextColor="White"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center" />
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Text="×閉じる"
+                    FontSize="32"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="Center"
+                    Clicked="Button_Clicked"
+                    BorderWidth="0" />
+            </Grid>
 
             <!-- ブラウザ -->
             <WebView x:Name ="SelectHPWebView" 
                      VerticalOptions="FillAndExpand"
-                     android:WebView.EnableZoomControls="true"
-                     android:WebView.DisplayZoomControls="true"/>
+                     HorizontalOptions="FillAndExpand" />
 
         </StackLayout>
     </ContentPage.Content>

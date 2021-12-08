@@ -343,7 +343,8 @@ namespace LionsApl.Content
             }
 
             //マッチング画面へ遷移
-            Navigation.PushAsync(new MatchingPage(item.HP));
+            //Navigation.PushAsync(new MatchingPage(item.HP));
+            Navigation.PushModalAsync(new MatchingPage(item.HP));
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
