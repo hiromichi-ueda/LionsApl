@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LionsApl.Content.MatchingList"
+             x:Class="LionsApl.Content.Ztest1"
              xmlns:local="clr-namespace:LionsApl.Content"
              >
 
@@ -59,15 +59,18 @@
                         x:Name="AreaLabel"
                         HorizontalOptions="End"
                         VerticalOptions="Center" />
-                <Picker 
+                <Label 
                         Grid.Row="0"
                         Grid.Column="1"
                         x:Name="AreaPicker"
-                        Title="地域選択"
-                        TitleColor="GRAY"
-                        ItemDisplayBinding="{Binding Name}"
-                        SelectedIndexChanged="AreaPicker_SelectedIndexChanged"
-                        Style="{StaticResource Page_Picker}" />
+                        Text="選択して下さい" 
+                        TextColor="Gray"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="AreaPickerClicked" />
+                    </Label.GestureRecognizers>
+                </Label>
                 <Label 
                         Grid.Row="1" 
                         Grid.Column="0"
@@ -76,20 +79,23 @@
                         x:Name="JobLabel"
                         HorizontalOptions="End"
                         VerticalOptions="Center" />
-                <Picker 
+                <Label 
                         Grid.Row="1"
                         Grid.Column="1"
                         x:Name="JobPicker"
-                        Title="職種選択"
-                        TitleColor="GRAY"
-                        ItemDisplayBinding="{Binding Name}"
-                        SelectedIndexChanged="JobPicker_SelectedIndexChanged"
-                        Style="{StaticResource Page_Picker}" />
+                        Text="選択して下さい"
+                        TextColor="GRAY"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="JobPickerClicked" />
+                    </Label.GestureRecognizers>
+                </Label>
                 <Button
                         Grid.Row="1"
                         Grid.Column="2"
                         Text="検索" 
-                        Clicked="Button_Search_Clicked" />
+                        Clicked="Button_S_Clicked" />
             </Grid>
         </StackLayout>
 
@@ -99,13 +105,13 @@
             CachingStrategy="RecycleElement"
             RowHeight="140"
             HasUnevenRows="True"
-            ItemTemplate="{StaticResource myMatchingSelector}"
+            ItemTemplate="{StaticResource MyMatchingASelector}"
             ItemsSource="{Binding Items}">
 
             <!-- HEADER なし-->
         </ListView>
     </StackLayout>
-             
+
     <!-- BODY -->
     <ContentPage.Resources>
 
@@ -228,13 +234,13 @@
                 </Grid>
             </ViewCell>
         </DataTemplate>
-        
-        <local:MyMatchingSelector
-            x:Key="myMatchingSelector"
+
+        <local:MyMatchingASelector
+            x:Key="MyMatchingASelector"
             ExistDataTemplate="{StaticResource ExistDataTemplate}"
             LoadTemplate="{StaticResource LoadTemplate}"
             NoDataTemplate="{StaticResource NoDataTemplate}" />
-            
+
     </ContentPage.Resources>
 
 </ContentPage>

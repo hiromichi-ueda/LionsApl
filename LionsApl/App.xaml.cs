@@ -26,6 +26,7 @@ namespace LionsApl
         public string FilePath_MeetingProgram;
         public string FilePath_ClubInfometion;
 
+
         public System.Diagnostics.Stopwatch sw;     // ストップウォッチ
         public TimeSpan ElapsedTime;                // 経過時間
         public double RestartTime;                  // アプリのリスタート時間
@@ -81,8 +82,10 @@ namespace LionsApl
 
         protected override void OnResume()
         {
+
             // TOP画面に遷移する
-            MainPage = new Content.TopMenu();
+            //MainPage = new Content.TopMenu();
+
             //MainPage = new MainPage();
             //// 経過時間設定
             //ElapsedTime = sw.Elapsed;

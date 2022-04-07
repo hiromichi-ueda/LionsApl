@@ -41,6 +41,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Content\Ztest2.xaml.cs">
+      <DependentUpon>Ztest2.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Content\Ztest1.xaml.cs">
+      <DependentUpon>Ztest1.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="Content\ClubDirectorList.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

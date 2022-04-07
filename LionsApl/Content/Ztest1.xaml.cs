@@ -9,18 +9,11 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Xamarin.Essentials;
 
-
 namespace LionsApl.Content
 {
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    /// <summary>
-    /// マッチング一覧画面クラス
-    /// </summary>
-    ///////////////////////////////////////////////////////////////////////////////////////////////
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MatchingList : ContentPage
+    public partial class Ztest1 : ContentPage
     {
-
         //----------------
         /// プロパティ
         //----------------
@@ -35,18 +28,15 @@ namespace LionsApl.Content
         public static String AppServer = ((App)Application.Current).AppServer;                      //Url
         public static String FilePath_Matching = ((App)Application.Current).FilePath_Matching;          //キャビネットレター
 
-
         // リストビュー設定内容
-        public ObservableCollection<MatchingRow> Items { get; set; }
-
-        // ピッカー用変数
-        public ObservableCollection<CAreaPicker> _areaPk = new ObservableCollection<CAreaPicker>();
-        public ObservableCollection<CJobPicker> _jobPk = new ObservableCollection<CJobPicker>();
+        public ObservableCollection<MatchingARow> Items { get; set; }
 
         private bool _pickerSelect = false;
         private string _selArea = null;
         private string _selJob = null;
-        private string _nameDefult = "選択して下さい";
+        private string _nameDefult = "選択してください";
+        private string[] _areaList;
+        private string[] _jobList;
 
         //----------------
         /// メソッド
@@ -57,7 +47,7 @@ namespace LionsApl.Content
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
 
-        public MatchingList()
+        public Ztest1()
         {
             InitializeComponent();
 
@@ -95,22 +85,60 @@ namespace LionsApl.Content
             // ピッカーセレクト処理OFF
             _pickerSelect = false;
 
-            // 地域情報取得
+            // 地域選択リスト作成
             SetAreaInfo();
-            // 職種情報取得
+            // 職種選択リスト作成
             SetJobInfo();
-
-            // 地域インデックス設定
-            AreaPicker.SelectedIndex = GetAreaIndex(_selArea);
-            // 職種インデックス設定
-            JobPicker.SelectedIndex = GetJobIndex(_selJob);
 
             // マッチング情報データ取得
             GetMatchig();
 
             // ピッカーセレクト処理ON
             _pickerSelect = true;
+        }
 
+
+        private async void AreaPickerClicked(object sender, EventArgs e)
+        {
+            string selA = await DisplayActionSheet("地域選択", null, "キャンセル", _areaList[0], _areaList[1]);
+            if(selA == "キャンセル")
+            {
+                return;
+            }
+            AreaPicker.Text = selA;
+            if (selA == _nameDefult)
+            {
+                AreaPicker.TextColor = Color.Gray;
+            }
+            else
+            {
+                AreaPicker.TextColor = Color.Black;
+            }
+            _selArea = selA;
+
+        }
+
+        private async void JobPickerClicked(object sender, EventArgs e)
+        {
+            await DisplayAlert("マッチング検索", "検索が完了しました。", "OK");
+
+            /*
+            string selJ = await DisplayActionSheet("職種選択", null, "キャンセル", _jobList[0], _jobList[1]);
+            if (selJ == "キャンセル")
+            {
+                return;
+            }
+            JobPicker.Text = selJ;
+            if (selJ == _nameDefult)
+            {
+                JobPicker.TextColor = Color.Gray;
+            }
+            else
+            {
+                JobPicker.TextColor = Color.Black;
+            }
+            _selJob = selJ;
+            */
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -134,12 +162,12 @@ namespace LionsApl.Content
                 if (_pickerSelect == false)
                 {
                     //初期表示
-                    Items = new ObservableCollection<MatchingRow>();
+                    Items = new ObservableCollection<MatchingARow>();
 
                     // メッセージ表示のため空行を追加
                     WorkDataNo = 9999999999;
-                    Items.Add(new MatchingRow(WorkDataNo, strCompanyName, strComment, menberName, FileName, hp));
-                    
+                    Items.Add(new MatchingARow(WorkDataNo, strCompanyName, strComment, menberName, FileName, hp));
+
                     BindingContext = this;
                     //MatchingListView.ItemsSource = Items;
 
@@ -167,12 +195,12 @@ namespace LionsApl.Content
                         strSQL += "JobName like '%" + _selJob + "%' ";
                     }
                     strSQL += "ORDER BY DataNo ASC";
-                    
+
                     foreach (Table.T_MATCHING row in _sqlite.Get_T_MATCHING(strSQL))
                     {
                         WorkDataNo = row.DataNo;
                         strCompanyName = _utl.GetString(row.CompanyName);
-                        strComment = _utl.GetString(row.Comment);                       
+                        strComment = _utl.GetString(row.Comment);
                         menberName = _utl.GetString(row.ClubNameShort) + " " + _utl.GetString(row.MemberName);
                         if (_utl.GetString(row.HP) == string.Empty || _utl.GetString(row.HP).Length == 0)
                         {
@@ -190,18 +218,18 @@ namespace LionsApl.Content
                             //No image画像
                             FileName = "noimage.png";
                         }
-                        
+
                         hp = _utl.GetString(row.HP);
-                        
-                        Items.Add(new MatchingRow(WorkDataNo, strCompanyName, strComment, menberName, FileName, hp));
+
+                        Items.Add(new MatchingARow(WorkDataNo, strCompanyName, strComment, menberName, FileName, hp));
                     }
                     if (Items.Count == 0)
                     {
                         // メッセージ表示のため空行を追加
-                        Items.Add(new MatchingRow(WorkDataNo, strCompanyName, strComment, menberName, FileName, hp));
+                        Items.Add(new MatchingARow(WorkDataNo, strCompanyName, strComment, menberName, FileName, hp));
                     }
                 }
-                
+
                 BindingContext = this;
 
             }
@@ -222,48 +250,21 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                _areaPk.Clear();
-                _areaPk.Add(new CAreaPicker(_nameDefult));
+                _areaList = new string[1];
+                _areaList[_areaList.Length-1] = _nameDefult;
+
                 foreach (Table.M_AREA row in _sqlite.Get_M_AREA("Select AreaName From M_AREA ORDER BY SortNo"))
                 {
-                    _areaPk.Add(new CAreaPicker(row.AreaName));
+                    Array.Resize(ref _areaList, _areaList.Length + 1);
+                    _areaList[_areaList.Length-1] =row.AreaName;
                 }
                 // AreaPickerにCRegionPickerクラスを設定する
-                AreaPicker.ItemsSource = _areaPk;
                 _selArea = _nameDefult;
             }
             catch (Exception ex)
             {
                 DisplayAlert("Alert", $"SQLite検索エラー(地域) : {ex.Message}", "OK");
             }
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// 地域情報から対象のインデックスを取得
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        private int GetAreaIndex(string chkArea)
-        {
-            int idx = 0;
-            // インデックス取得
-            try
-            {
-                foreach (CAreaPicker item in AreaPicker.ItemsSource)
-                {
-                    // 値をチェックする
-                    if (item.Name.Equals(chkArea))
-                    {
-                        break;
-                    }
-                    idx++;
-                }
-            }
-            catch (Exception ex)
-            {
-                DisplayAlert("Alert", $"Picker検索エラー(地域) : {ex.Message}", "OK");
-            }
-            return idx;
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -276,48 +277,22 @@ namespace LionsApl.Content
             // データ取得
             try
             {
-                _jobPk.Clear();
-                _jobPk.Add(new CJobPicker(_nameDefult));
+                _jobList = new string[1];
+                _jobList[_jobList.Length-1] = _nameDefult;
+
                 foreach (Table.M_JOB row in _sqlite.Get_M_JOB("Select JobName From M_JOB ORDER BY JobCode"))
                 {
-                    _jobPk.Add(new CJobPicker(row.JobName));
+                    Array.Resize(ref _jobList, _jobList.Length + 1);
+                    _jobList[_jobList.Length-1] = row.JobName;
                 }
                 // JobPickerにCRegionPickerクラスを設定する
-                JobPicker.ItemsSource = _jobPk;
                 _selJob = _nameDefult;
+                _selJob = "製造業";
             }
             catch (Exception ex)
             {
                 DisplayAlert("Alert", $"SQLite検索エラー(職種) : {ex.Message}", "OK");
             }
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// 職種情報から対象のインデックスを取得
-        /// </summary>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        private int GetJobIndex(string chkJob)
-        {
-            int idx = 0;
-            // インデックス取得
-            try
-            {
-                foreach (CJobPicker item in JobPicker.ItemsSource)
-                {
-                    // 値をチェックする
-                    if (item.Name.Equals(chkJob))
-                    {
-                        break;
-                    }
-                    idx++;
-                }
-            }
-            catch (Exception ex)
-            {
-                DisplayAlert("Alert", $"Picker検索エラー(職種) : {ex.Message}", "OK");
-            }
-            return idx;
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -331,7 +306,7 @@ namespace LionsApl.Content
             if (e.Item == null)
                 return;
 
-            MatchingRow item = e.Item as MatchingRow;
+            MatchingARow item = e.Item as MatchingARow;
 
             if (item.DataNo == 0 || item.DataNo == 9999999999)
             {
@@ -346,79 +321,31 @@ namespace LionsApl.Content
 
             //マッチング画面へ遷移
             //Navigation.PushAsync(new MatchingPage(item.HP));
-            //Navigation.PushModalAsync(new MatchingPage(item.HP));
-            Browser.OpenAsync(item.HP, BrowserLaunchMode.SystemPreferred);
-            //Device.OpenUri(new Uri(item.HP));
+            Navigation.PushModalAsync(new MatchingPage(item.HP));
+            //Browser.OpenAsync(item.HP, BrowserLaunchMode.SystemPreferred);
+
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
 
-           
+
         }
 
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// 地域選択
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        private void AreaPicker_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            if (_pickerSelect == false)
-            {
-                // ピッカー選択処理がOFFの場合
-                return;
-            }
-            //DisplayAlert("Alert", $"地域ピッカー選択", "OK");
-
-            var item = AreaPicker.SelectedItem as CAreaPicker;
-            if (item != null)
-            {
-                // 選択地域情報設定
-                _selArea = item.Name.ToString();
-            }
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// 職種選択
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        private void JobPicker_SelectedIndexChanged(object sender, System.EventArgs e)
-        {            
-            if (_pickerSelect == false)
-            {
-                // ピッカー選択処理がOFFの場合
-                return;
-            }
-            //DisplayAlert("Alert", $"職種ピッカー選択", "OK");
-
-            var item = JobPicker.SelectedItem as CJobPicker;
-            if (item != null)
-            {
-                // 選択職種情報設定
-                _selJob = item.Name.ToString();
-            }
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
+       ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// 検索ボタン押下
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private async void Button_Search_Clicked(object sender, System.EventArgs e)
+        private async void Button_S_Clicked(object sender, System.EventArgs e)
         {
 
             if ((_selArea == null || _selArea == _nameDefult) && (_selJob == null || _selJob == _nameDefult))
-             {
-                 await DisplayAlert("マッチング検索", "地域、または職種の条件を選択してください。", "OK");
-             }
-             else
-             {
+            {
+                await DisplayAlert("マッチング検索", "地域、または職種の条件を選択してください。", "OK");
+            }
+            else
+            {
                 // マッチング情報データ取得
                 GetMatchig();
 
@@ -433,9 +360,9 @@ namespace LionsApl.Content
     /// マッチング行情報クラス
     /// </summary>
     ///////////////////////////////////////////////////////////////////////////////////////////
-    public sealed class MatchingRow
+    public sealed class MatchingARow
     {
-        public MatchingRow(long dataNo, string companyName, string comment, string memberName, string fileName, string hp)
+        public MatchingARow(long dataNo, string companyName, string comment, string memberName, string fileName, string hp)
         {
             DataNo = dataNo;
             CompanyName = companyName;
@@ -452,7 +379,7 @@ namespace LionsApl.Content
         public string HP { get; set; }
     }
 
-    public class MyMatchingSelector : DataTemplateSelector
+    public class MyMatchingASelector : DataTemplateSelector
     {
         //切り替えるテンプレートを保持するプロパティを用意する
         public DataTemplate ExistDataTemplate { get; set; }
@@ -462,7 +389,7 @@ namespace LionsApl.Content
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
             // 条件より該当するテンプレートを返す
-            var info = (MatchingRow)item;
+            var info = (MatchingARow)item;
             if (info.DataNo == 9999999999)
             {
                 return LoadTemplate;
@@ -480,32 +407,5 @@ namespace LionsApl.Content
             }
 
         }
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    /// <summary>
-    /// Areaピッカークラス
-    /// </summary>
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    public class CAreaPicker
-    {   public string Name { get; set; }
-        public CAreaPicker(string name)
-        {
-            Name = name;
-        }
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    /// <summary>
-    /// Jobピッカークラス
-    /// </summary>
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    public class CJobPicker
-    {
-        public string Name { get; set; }
-        public CJobPicker(string name)
-        {
-            Name = name;
-        }
-    }
+    } 
 }

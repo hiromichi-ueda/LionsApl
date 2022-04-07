@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -10,12 +11,13 @@ using Xamarin.Forms.Xaml;
 namespace LionsApl.Content
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MatchingPage : ContentPage
+    public partial class ZTest2 : ContentPage
     {
         // SQLiteマネージャークラス
         private SQLiteManager _sqlite;
 
-        public MatchingPage(string strHP)
+
+        public ZTest2()
         {
             InitializeComponent();
 
@@ -25,25 +27,10 @@ namespace LionsApl.Content
             // A_SETTINGデータ取得
             _sqlite.GetSetting();
 
+
             // タイトル設定
             Title = _sqlite.Db_A_Setting.CabinetName;
-
-            // 選択URL設定
-            SelectHPWebView.Source = strHP;
-
         }
 
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// ×ボタン押下
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        private async void Button_Clicked(object sender, System.EventArgs e)
-        {
-
-            await Navigation.PopModalAsync();
-        }
     }
 }
