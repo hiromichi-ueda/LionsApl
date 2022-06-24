@@ -78,9 +78,10 @@
     <MtouchLink>None</MtouchLink>
     <MtouchFastDev>false</MtouchFastDev>
     <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;</DefineConstants>
-    <MtouchInterpreter>
-    </MtouchInterpreter>
+    <MtouchInterpreter>-all</MtouchInterpreter>
     <MtouchNoSymbolStrip>false</MtouchNoSymbolStrip>
+    <IpaPackageName>
+    </IpaPackageName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
