@@ -14,7 +14,7 @@
     <AssemblyName>LionsApl.iOS</AssemblyName>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
-    <ProvisioningType>manual</ProvisioningType>
+    <ProvisioningType>automatic</ProvisioningType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -68,11 +68,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Distribution: INSAT Inc.</CodesignKey>
+    <CodesignKey>Apple Development: 昌二 池田 (AR8X6APXNC)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchDebug>false</MtouchDebug>
     <BuildIpa>true</BuildIpa>
-    <CodesignProvision>LionsApl-In-House</CodesignProvision>
+    <CodesignProvision>VS: WildCard Development</CodesignProvision>
     <OptimizePNGs>false</OptimizePNGs>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchLink>None</MtouchLink>
