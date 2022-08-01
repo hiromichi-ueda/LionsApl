@@ -2,6 +2,7 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:LionsApl.Content;assembly=LionsApl"
+             xmlns:plugin="clr-namespace:Plugin.Badge.Abstractions;assembly=Plugin.Badge.Abstractions"
              x:Class="LionsApl.Content.MainTabPage"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              android:TabbedPage.ToolbarPlacement="Bottom"
@@ -25,7 +26,8 @@
     <!-- クラブ -->
     <NavigationPage Title="クラブ" 
                     x:Name="ClubNavi"
-                    IconImageSource="club.png">
+                    IconImageSource="club.png"
+                    plugin:TabBadge.BadgeText="{Binding ClubCount}">
         <x:Arguments>
             <pages:ClubTop />
         </x:Arguments>
@@ -34,7 +36,8 @@
     <!-- 出欠確認 -->
     <NavigationPage Title="出欠確認" 
                     x:Name="EventNavi"
-                    IconImageSource="event.png">
+                    IconImageSource="event.png"
+                    plugin:TabBadge.BadgeText="{Binding EventCount}">
         <x:Arguments>
             <pages:EventList />
         </x:Arguments>

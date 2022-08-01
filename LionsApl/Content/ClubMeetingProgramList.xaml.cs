@@ -148,8 +148,18 @@ namespace LionsApl.Content
                 return;
             }
 
-            // 例会プログラム画面へ
-            Navigation.PushAsync(new ClubMeetingProgramPage(item.DataNo));
+            // iOSの場合
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                // 例会プログラム画面へ
+                Navigation.PushAsync(new ClubMeetingProgramPage(item.DataNo));
+            }
+            // Androidの場合
+            else if (Device.RuntimePlatform == Device.Android)
+            {
+                // 例会プログラム画面(Android用)へ
+                Navigation.PushAsync(new ClubMeetingProgramPageAndroid(item.DataNo));
+            }
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;

@@ -39,8 +39,8 @@
 
             <!-- BODY -->
             <StackLayout
-                Padding="32"
-                HeightRequest="300"
+                Padding="32,20,32,20"
+                HeightRequest="350"
                 VerticalOptions="StartAndExpand"
                 >
                 <!-- ホームボタン -->
@@ -54,9 +54,44 @@
                     VerticalOptions="CenterAndExpand"
                     >
                 </Button>
+                <StackLayout
+                    x:Name="BadgeInfo"
+                    VerticalOptions="StartAndExpand"
+                    >
+                    <Frame
+                        x:Name="BadgeFrame"
+                        BorderColor="#000000"
+                        BackgroundColor="#FFFFFF"
+                        VerticalOptions="FillAndExpand"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        >
+                        <StackLayout
+                            VerticalOptions="FillAndExpand"
+                            >
+                            <Label
+                                Text="新着情報" 
+                                FontSize="24"
+                                Style="{StaticResource Badge_Info_Label_Title}"
+                            />
+                            <Grid 
+                                x:Name="grdBadge"
+                                Style="{StaticResource ListGrid_Base}"
+                                >   
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                            </Grid>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
             </StackLayout>
             <StackLayout
-                Padding="32"
+                Padding="32,20,32,20"
                 VerticalOptions="EndAndExpand"
                 >
                 

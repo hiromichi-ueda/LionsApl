@@ -26,5 +26,7 @@ namespace LionsApl.Table
         public string Subject { get; set; }
         public string ClubEventClass { get; set; }
         public string ClubEventPlace { get; set; }
+        // T_BADGE
+        public string Badge { get; set; }
     }
 }

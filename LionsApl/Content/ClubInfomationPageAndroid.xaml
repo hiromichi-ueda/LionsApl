@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LionsApl.Content.ClubInfomationPageAndroid">
+
+    <!-- 
+    +++++++++++++++++++++++++++++++++++++
+    　画面名: 連絡事項（クラブ）画面
+    +++++++++++++++++++++++++++++++++++++
+    -->
+
+    <ContentPage.Content>
+        <StackLayout>
+
+            <ScrollView>
+
+                <StackLayout>
+
+                    <!-- ログイン情報 -->
+                    <StackLayout 
+                        HeightRequest="18"
+                        Margin="2"
+                        >
+                        <Label
+                            x:Name="LoginInfo"
+                            Style="{StaticResource Login}"
+                            />
+                    </StackLayout>
+
+                    <!-- タイトル -->
+                    <StackLayout 
+                        Margin="4,0,4,0"
+                        HorizontalOptions="FillAndExpand"
+                        >
+                        <Label 
+                            Text="連絡事項（クラブ）"
+                            Style="{StaticResource Title_Blue}"
+                        />
+                    </StackLayout>
+
+                    <!-- BODY -->
+                    <StackLayout>
+                        <Grid
+                            Padding="10"
+                            >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- 連絡日 -->
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                x:Name="lbl_AddDate"
+                                Text="連絡日"
+                                Style="{StaticResource Page_Base}"
+                             />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                x:Name="AddDate" 
+                                Text=""
+                                Style="{StaticResource Page_Base}"
+                             />
+
+                            <!-- 件名 -->
+                            <Label 
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                x:Name="lbl_Subject"
+                                Text="件　名"
+                                Style="{StaticResource Page_Base}"
+                             />
+                            <Label 
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                x:Name="Subject" 
+                                Text=""
+                                Style="{StaticResource Page_HeightFree}"
+                             />
+
+                            <!-- 連絡事項 -->
+                            <Label 
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                x:Name="lbl_Detail"
+                                Text="連絡事項"
+                                Style="{StaticResource Page_Base}"
+                             />
+                            <Label 
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                x:Name="Detail" 
+                                Text=""
+                                Style="{StaticResource Page_HeightFree}"
+                             />
+
+                        </Grid>
+
+                    </StackLayout>
+
+                    <StackLayout>
+                        <ListView
+                            x:Name="InfomationFileListView"
+                            ItemTapped="Handle_ItemTapped"
+                            CachingStrategy="RecycleElement"
+                            RowHeight="51"
+                            >
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Grid 
+                                            Style="{StaticResource ListGrid_Base}"
+                                            >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="1.*"/>
+                                            </Grid.RowDefinitions>
+
+                                            <!-- 行見出し -->
+                                            <Label 
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Grid.ColumnSpan="1"
+                                                Grid.RowSpan="1"
+                                                VerticalOptions="Center"
+                                                Text="添付ファイル" 
+                                                Style="{StaticResource List_Base_Start}"
+                                            />
+
+                                            <!-- ファイル名 -->
+                                            <Label 
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="1"
+                                                Grid.RowSpan="1"
+                                                VerticalOptions="Center"
+                                                Text="{Binding FileName}" 
+                                                Style="{StaticResource List_Base_Start}"
+                                            />
+
+                                            <!-- マーク -->
+                                            <Label 
+                                                Grid.Row="0"
+                                                Grid.Column="2"
+                                                Grid.ColumnSpan="1"
+                                                Grid.RowSpan="1"
+                                                VerticalOptions="Center"
+                                                Text="〉" 
+                                                Style="{StaticResource List_Base}"
+                                            />
+                                        </Grid>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                    </StackLayout>
+
+                    <!--<StackLayout>
+                        <Grid
+                            x:Name="grid"
+                            Padding="3"
+                            >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            --><!-- 添付ファイル --><!--
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="1"
+                                x:Name="lbl_FileName" 
+                                Text=""
+                                VerticalOptions="Center" 
+                                HorizontalTextAlignment="Start" 
+                                />
+                            <WebView
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="1"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand"
+                                x:Name="FileName">
+                            </WebView>
+
+                        </Grid>
+                    </StackLayout>-->
+                    
+                </StackLayout>
+
+            </ScrollView>
+
+        </StackLayout>
+    </ContentPage.Content>
+    
+</ContentPage>

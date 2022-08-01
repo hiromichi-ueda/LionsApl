@@ -16,5 +16,6 @@ namespace LionsApl.Table
         public string MemberAdd { get; set; }
         public string CancelFlg { get; set; }
         public string Answer { get; set; }
+        public string Badge { get; set; }
     }
 }

@@ -36,6 +36,10 @@ namespace LionsApl
         // 連絡区分
         public string INFOFLG_ALL = "1";              // 全会員
         public string INFOFLG_PRIV = "2";             // 個別設定
+        // データクラス
+        public string DATACLASS_EV = "1";            // 出欠
+        public string DATACLASS_DI = "2";            // 理事・委員会
+        public string DATACLASS_IN = "3";            // 連絡事項
 
 
         // 引数用文字列

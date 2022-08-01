@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
-
+using System.Net.Http;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -24,6 +21,12 @@ namespace LionsApl.Content
 
         // Utilityクラス
         private LAUtility _utl;
+
+        // 情報通信マネージャクラス
+        private IComManager _icom;
+
+        // T_BADGE登録クラス
+        private CBADGE _cbadge;
 
         // リストビュー設定内容
         public ObservableCollection<EventRow> Items;
@@ -61,6 +64,9 @@ namespace LionsApl.Content
             // Content Utilクラス生成
             _utl = new LAUtility();
 
+            // 情報通信マネージャー生成
+            _icom = IComManager.GetInstance(_sqlite.dbFile);
+
             // A_SETTINGデータ取得
             _sqlite.GetSetting();
 
@@ -72,6 +78,9 @@ namespace LionsApl.Content
 
             // ログイン情報設定
             LoginInfo.Text = _sqlite.LoginInfo;
+
+            // 未読情報クラス生成
+            _cbadge = new CBADGE("", 0, "", "");
 
             // イベント情報データ取得
             GetEventData();
@@ -97,7 +106,7 @@ namespace LionsApl.Content
         /// タップ処理
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        private async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             if (e.Item == null)
                 return;
@@ -111,8 +120,43 @@ namespace LionsApl.Content
                 return;
             }
 
+            // 未読の場合は既読にする
+            if (item.Badge.Equals(LADef.ST_BADGE))
+            {
+                // 未読情報のキーを設定
+                _cbadge.DataClass = _utl.DATACLASS_EV;
+                _cbadge.DataNo = item.DataNo;
+                _cbadge.ClubCode = _sqlite.Db_A_Account.ClubCode;
+                _cbadge.MemberCode = _sqlite.Db_A_Account.MemberCode;
+
+                // 未読情報をコンテンツに設定
+                _icom.SetContentToBADGE(_cbadge);
+                try
+                {
+                    // SQLServerへ削除
+                    Task<HttpResponseMessage> response = _icom.AsyncPostTextForWebAPI();
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Alert", $"SQLServer 未読情報削除エラー : {ex.Message}", "OK");
+                }
+
+                try
+                {
+                    // SQLiteへ削除
+                    SetBadgeSQlite();
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Alert", $"SQLite 未読情報削除エラー : {ex.Message}", "OK");
+                }
+
+                // タブページのバッジ更新
+                ((MainTabPage)((App)Application.Current).TabPage).SetBadgeInfo();
+            }
+
             // 出欠確認画面へ
-            Navigation.PushAsync(new EventPage(item.DataNo, item.EventDataNo));
+            await Navigation.PushAsync(new EventPage(item.DataNo, item.EventDataNo));
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
@@ -133,6 +177,7 @@ namespace LionsApl.Content
             string strTitle = "";                           // タイトル設定用文字列
             string strAnswer = "";                          // 出欠設定用文字列
             Color colAnswer = Color.Default;                // 出欠設定文字色用値
+            string strBadge = "";                           // 未読設定用文字列
             Items = new ObservableCollection<EventRow>();
 
             try
@@ -153,7 +198,8 @@ namespace LionsApl.Content
                                             "t3.MeetingPlace AS MeetingPlace," +
                                             "t4.Subject AS Subject," +
                                             "t4.EventClass AS ClubEventClass, " +
-                                            "t4.EventPlace AS ClubEventPlace " +
+                                            "t4.EventPlace AS ClubEventPlace, " +
+                                            "t5.DataNo AS Badge " +
                                         "FROM " +
                                             "T_EVENTRET t1 " +
                                         "LEFT OUTER JOIN " +
@@ -171,6 +217,11 @@ namespace LionsApl.Content
                                         "ON " +
                                             "t1.EventClass = '3' and " +
                                             "t1.EventDataNo = t4.DataNo " +
+                                        "LEFT OUTER JOIN " +
+                                            "T_BADGE t5 " +
+                                        "ON " +
+                                            "t5.DataClass = '1' and " +
+                                            "t1.EventDataNo = t5.DataNo " +
                                         "WHERE " +
                                             "t1.MemberCode = '" + _sqlite.Db_A_Account.MemberCode + "' " +
                                         "ORDER BY t1.EventDate DESC, t1.DataNo DESC"))
@@ -184,7 +235,7 @@ namespace LionsApl.Content
                     strTitle = "";                           // タイトル設定用文字列
                     strAnswer = "";                          // 出欠設定用文字列
                     colAnswer = Color.Default;               // 出欠設定文字色用値
-
+                    strBadge = "";                           // 未読設定用文字列
 
                     // イベントリストの各項目値を取得する
                     GetEventListData(row,
@@ -194,16 +245,17 @@ namespace LionsApl.Content
                                      ref strCancel,
                                      ref strTitle,
                                      ref strAnswer,
-                                     ref colAnswer);
+                                     ref colAnswer,
+                                     ref strBadge);
 
                     // イベントリスト行クラスを作成する。
-                    EventRow eventRow = new EventRow(intDataNo, intEventDataNo, strDate, strCancel, strTitle, strAnswer, colAnswer);
+                    EventRow eventRow = new EventRow(intDataNo, intEventDataNo, strDate, strCancel, strTitle, strAnswer, colAnswer, strBadge);
                     Items.Add(eventRow);
                 }
                 if (Items.Count == 0)
                 {
                     // メッセージ表示のため空行を追加
-                    Items.Add(new EventRow(0, intEventDataNo, strDate, strCancel, strTitle, strAnswer, colAnswer));
+                    Items.Add(new EventRow(0, intEventDataNo, strDate, strCancel, strTitle, strAnswer, colAnswer, strBadge));
                 }
                 EventListView.ItemsSource = Items;
                 this.BindingContext = this;
@@ -220,7 +272,7 @@ namespace LionsApl.Content
         /// イベント情報をSQLiteファイルから取得して画面に設定する。(更新用)
         /// </summary>
         ///////////////////////////////////////////////////////////////////////////////////////////
-        private void UpdEventData()
+        public void UpdEventData()
         {
             int intDataNo = 0;                              // データNo.設定用
             int intEventDataNo = 0;                         // イベントデータNo.設定用
@@ -229,6 +281,7 @@ namespace LionsApl.Content
             string strTitle = "";                           // タイトル設定用文字列
             string strAnswer = "";                          // 出欠設定用文字列
             Color colAnswer = Color.Default;                // 出欠設定文字色用値
+            string strBadge = "";                           // 未読設定用文字列
             int idx = 0;
 
             try
@@ -249,7 +302,8 @@ namespace LionsApl.Content
                                             "t3.MeetingPlace AS MeetingPlace," +
                                             "t4.Subject AS Subject," +
                                             "t4.EventClass AS ClubEventClass, " +
-                                            "t4.EventPlace AS ClubEventPlace " +
+                                            "t4.EventPlace AS ClubEventPlace, " +
+                                            "t5.DataNo AS Badge " +
                                         "FROM " +
                                             "T_EVENTRET t1 " +
                                         "LEFT OUTER JOIN " +
@@ -267,6 +321,11 @@ namespace LionsApl.Content
                                         "ON " +
                                             "t1.EventClass = '3' and " +
                                             "t1.EventDataNo = t4.DataNo " +
+                                        "LEFT OUTER JOIN " +
+                                            "T_BADGE t5 " +
+                                        "ON " +
+                                            "t5.DataClass = '1' and " +
+                                            "t1.DataNo = t5.DataNo " +
                                         "WHERE " +
                                             "t1.MemberCode = '" + _sqlite.Db_A_Account.MemberCode + "' " +
                                         "ORDER BY t1.EventDate DESC, t1.DataNo DESC"))
@@ -279,6 +338,7 @@ namespace LionsApl.Content
                     strCancel = "";                          // 中止表示用文字列
                     strTitle = "";                           // タイトル設定用文字列
                     strAnswer = "";                          // 出欠設定用文字列
+                    strBadge = "";                           // 未読設定用文字列
 
                     // イベントリストの各項目値を取得する
                     GetEventListData(row,
@@ -288,12 +348,15 @@ namespace LionsApl.Content
                                      ref strCancel,
                                      ref strTitle,
                                      ref strAnswer,
-                                     ref colAnswer);
+                                     ref colAnswer,
+                                     ref strBadge);
 
                     // 出欠を設定
                     Items[idx].Answer = strAnswer;
                     // 文字色を設定
                     Items[idx].AnswerColor = colAnswer;
+                    // 未読を設定
+                    Items[idx].Badge = strBadge;
 
                     idx++;
                 }
@@ -318,6 +381,7 @@ namespace LionsApl.Content
         /// <param name="strTitle">タイトル（表示用変数）</param>
         /// <param name="strAnswer">回答（表示用変数）</param>
         /// <param name="colAnswer">回答文字色（表示用変数）</param>
+        /// <param name="strBadge">未読（表示用変数）</param>
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void GetEventListData(Table.EVENT_LIST row,
                                         ref int intDataNo,
@@ -326,11 +390,13 @@ namespace LionsApl.Content
                                         ref string strCancel,
                                         ref string strTitle,
                                         ref string strAnswer,
-                                        ref Color colAnswer)
+                                        ref Color colAnswer,
+                                        ref string strBadge)
         {
             string wkEveClass = string.Empty;
             string wkClubEveClass = string.Empty;
             string wkAnswer = string.Empty;
+            string wkBadge = string.Empty;
 
             // データNo.設定
             if (row.DataNo == 0)
@@ -424,6 +490,33 @@ namespace LionsApl.Content
                 colAnswer = Color.FromHex(LADef.STRCOL_RED);
             }
 
+            // 未読設定
+            wkBadge = _utl.GetString(row.Badge);
+            if (!wkBadge.Equals(string.Empty))
+            {
+                strBadge = LADef.ST_BADGE;
+            }
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 未読情報削除（SQLite）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void SetBadgeSQlite()
+        {
+            string _dataClass = _utl.GetSQLString(_cbadge.DataClass);
+            string _dataNo = _cbadge.DataNo.ToString();
+            string _clubCode = _utl.GetSQLString(_cbadge.ClubCode);
+            string _memberCode = _utl.GetSQLString(_cbadge.MemberCode);
+
+            foreach (Table.T_BADGE row in _sqlite.Del_T_BADGE("DELETE FROM T_BADGE " +
+                                                              "WHERE DataClass = " + _dataClass + " " +
+                                                              "AND DataNo = " + _dataNo + " " +
+                                                              "AND ClubCode = " + _clubCode + " " +
+                                                              "AND MemberCode = " + _memberCode + " "))
+            { }
         }
 
     }
@@ -444,6 +537,7 @@ namespace LionsApl.Content
         private string _title = string.Empty;
         private string _answer = string.Empty;
         private Color _answerColor = Color.Default;
+        private string _badge = string.Empty;
 
         public EventRow(int dataNo, 
                         int eventDataNo, 
@@ -451,7 +545,8 @@ namespace LionsApl.Content
                         string eventCancel, 
                         string title, 
                         string answer,
-                        Color answerColor)
+                        Color answerColor,
+                        string badge)
         {
             DataNo = dataNo;
             EventDataNo = eventDataNo;
@@ -460,7 +555,7 @@ namespace LionsApl.Content
             Title = title;
             Answer = answer;
             AnswerColor = answerColor;
-
+            Badge = badge;
         }
 
         public int DataNo 
@@ -568,6 +663,21 @@ namespace LionsApl.Content
                     if (PropertyChanged != null)
                     {
                         PropertyChanged(this, new PropertyChangedEventArgs(nameof(AnswerColor)));
+                    }
+                }
+            }
+        }
+        public string Badge
+        {
+            get { return _badge; }
+            set
+            {
+                if (_badge != value)
+                {
+                    _badge = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs(nameof(Badge)));
                     }
                 }
             }

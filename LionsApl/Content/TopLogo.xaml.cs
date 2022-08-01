@@ -8,6 +8,7 @@ using System.Net.Http;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Threading;
 
 namespace LionsApl.Content
 {
@@ -160,27 +161,31 @@ namespace LionsApl.Content
         ///////////////////////////////////////////////////////////////////////////////////////////
         private async Task ScrCtrlAndGetTopInfo()
         {
-            while (LogoProgress.Progress < 0.5)
+            //while (LogoProgress.Progress < 0.5)
+            //{
+            //    await Task.Delay(10);
+            //    LogoProgress.Progress += 0.01;
+            //}
+            Thread thread = new Thread(new ThreadStart(() =>
             {
-                await Task.Delay(10);
-                LogoProgress.Progress += 0.01;
-            }
+                // TOP情報取得
+                GetTopInfo();
+            }));
 
             try
             {
-                // TOP情報取得
-                //_ = GetTopInfo();
-                GetTopInfo();
-            }
-            catch (Exception ex)
-            {
-                await DisplayAlert("Alert", $"TOP情報取得エラー : {ex.Message}", "OK");
-            }
+                thread.Start();
 
-            while (LogoProgress.Progress < 1.0)
+                while (LogoProgress.Progress < 1.0)
+                {
+                    await Task.Delay(10);
+                    LogoProgress.Progress += 0.001;
+                }
+                thread.Join();
+            }
+            finally
             {
-                await Task.Delay(10);
-                LogoProgress.Progress += 0.01;
+                thread = null;
             }
 
         }
@@ -204,9 +209,9 @@ namespace LionsApl.Content
                 // TOP情報取得
                 Task<HttpResponseMessage> response = _sqlite.AsyncPostFileForWebAPI(_sqlite.GetSendFileContent_TOP());
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                DisplayAlert("Alert", $"TOP情報取得エラー : {ex.Message}", "OK");
             }
         }
 

@@ -2,6 +2,7 @@
 using AiForms.Dialogs.Abstractions;
 using System;
 using System.Configuration;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -25,11 +26,15 @@ namespace LionsApl
         public string FilePath_Matching;
         public string FilePath_MeetingProgram;
         public string FilePath_ClubInfometion;
+        public TabbedPage TabPage; 
 
 
         public System.Diagnostics.Stopwatch sw;     // ストップウォッチ
         public TimeSpan ElapsedTime;                // 経過時間
         public double RestartTime;                  // アプリのリスタート時間
+        public int AndroidAlarmInterval;            // アラーム動作のインターバル(Android用)
+        public int iOSNotFetchFromTime;          // フェッチの停止時刻From(iOS用)
+        public int iOSNotFetchToTime;            // フェッチの停止時刻To(iOS用)
 
         public App()
         {
@@ -60,6 +65,13 @@ namespace LionsApl
             // Configファイルより値を取得(リスタート時間)
             RestartTime = double.Parse(PCLAppConfig.ConfigurationManager.AppSettings["RestartMinutes"]);
 
+            // Configファイルより値を取得(アラーム動作インターバル)
+            AndroidAlarmInterval = int.Parse(PCLAppConfig.ConfigurationManager.AppSettings["AndroidAlarmInterval"]);
+
+            // Configファイルより値を取得(フェッチ停止時刻)
+            iOSNotFetchFromTime = int.Parse(PCLAppConfig.ConfigurationManager.AppSettings["iOSNotFetchFromTime"]);
+            iOSNotFetchToTime = int.Parse(PCLAppConfig.ConfigurationManager.AppSettings["iOSNotFetchToTime"]);
+
             // StopWatch生成
             sw = new System.Diagnostics.Stopwatch();
 
@@ -84,7 +96,7 @@ namespace LionsApl
         {
 
             // TOP画面に遷移する
-            //MainPage = new Content.TopMenu();
+            MainPage = new Content.TopMenu();
 
             //MainPage = new MainPage();
             //// 経過時間設定
@@ -129,6 +141,40 @@ namespace LionsApl
                     await Task.Delay(10);
                 }
             });
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 未読情報設定
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public int GetBadgeCount()
+        {
+            // 変数
+            SQLiteManager _sqlite;
+            int badgeCount = 0;
+
+            // データ取得
+            try
+            {
+                // SQLite マネージャークラス生成
+                _sqlite = SQLiteManager.GetInstance();
+
+                Task<HttpResponseMessage> response = _sqlite.AsyncPostFileForWebAPI(_sqlite.GetSendFileContent_BADGEUPD());
+
+                // 未読情報を取得
+                foreach (Table.T_BADGE row in _sqlite.Get_T_BADGE("SELECT * " +
+                                                                    "FROM T_BADGE "))
+                {
+                    badgeCount += 1;
+                }
+                return badgeCount;
+                
+            }
+            catch
+            {
+                return 0;
+            }
         }
     }
 }

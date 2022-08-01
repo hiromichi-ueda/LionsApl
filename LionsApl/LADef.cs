@@ -41,6 +41,10 @@ namespace LionsApl
         // 連絡区分
         public const string INFOFLG_ALL = "1";              // 全会員
         public const string INFOFLG_PRIV = "2";             // 個別設定
+        // データ種別
+        public const string DATACLASS_EV = "1";            // 出欠
+        public const string DATACLASS_DI = "2";            // 理事・委員会
+        public const string DATACLASS_IN = "3";            // 連絡事項
 
         // 各種判定用文字列
         public const string OFFFLG = "0";                   // 区分：OFF
@@ -72,6 +76,8 @@ namespace LionsApl
         public const string ST_OTHER = "その他";
         public const string ST_CHAIRMAN = "委員長";
         public const string ST_VICECHAIRMAN = "副委員長";
+        public const string ST_BADGE = "未読";
+        public const string ST_TOP_BADGE = "(未読あり)";
 
 
         // 基本文字列

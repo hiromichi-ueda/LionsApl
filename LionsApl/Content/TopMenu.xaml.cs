@@ -39,6 +39,9 @@ namespace LionsApl.Content
             // SQLite マネージャークラス生成
             _sqlite = SQLiteManager.GetInstance();
 
+            // Content Utilクラス生成
+            _utl = new LAUtility();
+
             // アプリケーションバージョン設定
             AppVersion.Text = "Ver " + ((App)Application.Current).AppVersion;
 
@@ -53,6 +56,9 @@ namespace LionsApl.Content
 
             // ボタンコントロール
             ControlButtonEnable();
+
+            // 未読情報データ取得
+            GetBadgeData();
 
         }
 
@@ -147,6 +153,155 @@ namespace LionsApl.Content
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 未読情報をSQLiteファイルから取得して画面に設定する。
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void GetBadgeData()
+        {
+            int intEventCount = 0;
+            int intDirectorCount = 0;
+            int intInfomationCount = 0;
+            Label lblTitle1;
+            Label lblCount1;
+            Label lblTitle2;
+            Label lblCount2;
+            Label lblTitle3;
+            Label lblCount3;
+
+            string strTitle1 = string.Empty;
+            string strCount1 = string.Empty;
+            string strTitle2 = string.Empty;
+            string strCount2 = string.Empty;
+            string strTitle3 = string.Empty;
+            string strCount3 = string.Empty;
+
+            int rowCount = 0;
+
+            try
+            {
+                foreach (Table.T_BADGE row in _sqlite.Get_T_BADGE("SELECT * " +
+                                                                  "FROM T_BADGE " +
+                                                                  "ORDER BY DataClass"))
+                {
+                    // データ種別ごとの件数を取得
+                    switch (row.DataClass)
+                    {
+                        case LADef.DATACLASS_EV:
+                            intEventCount += 1;
+                            break;
+                        case LADef.DATACLASS_DI:
+                            intDirectorCount += 1;
+                            break;
+                        case LADef.DATACLASS_IN:
+                            intInfomationCount += 1;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                if (intEventCount > 0)
+                {
+                    // 未読情報(出欠確認)
+                    // 項目名
+                    strTitle1 = "出欠確認";
+                    lblTitle1 = _utl.CreateLabel_Style(strTitle1,
+                                                       NamedSize.Large,
+                                                       LayoutOptions.Center,
+                                                       "Page_Base",
+                                                       rowCount, 0, 1);
+                    grdBadge.Children.Add(lblTitle1);
+
+                    // 項目値
+                    strCount1 = intEventCount.ToString() + "件";
+                    lblCount1 = _utl.CreateLabel_Style(strCount1,
+                                                       NamedSize.Large,
+                                                       LayoutOptions.Center,
+                                                       "Page_Base",
+                                                       rowCount, 1, 1);
+                    grdBadge.Children.Add(lblCount1);
+
+                    // 出力行カウント
+                    rowCount++;
+                }
+                if (intDirectorCount > 0)
+                {
+                    // 未読情報(理事・委員会・その他)
+                    // 項目名
+                    strTitle2 = "理事・委員会・その他";
+                    lblTitle2 = _utl.CreateLabel_Style(strTitle2,
+                                                       NamedSize.Large,
+                                                       LayoutOptions.Center,
+                                                       "Page_Base",
+                                                       rowCount, 0, 1);
+                    grdBadge.Children.Add(lblTitle2);
+
+                    // 項目値
+                    strCount2 = intDirectorCount.ToString() + "件";
+                    lblCount2 = _utl.CreateLabel_Style(strCount2,
+                                                       NamedSize.Large,
+                                                       LayoutOptions.Center,
+                                                       "Page_Base",
+                                                       rowCount, 1, 1);
+                    grdBadge.Children.Add(lblCount2);
+
+                    // 出力行カウント
+                    rowCount++;
+                }
+                if (intInfomationCount > 0)
+                {
+                    // 未読情報(連絡事項)
+                    // 項目名
+                    strTitle3 = "連絡事項";
+                    lblTitle3 = _utl.CreateLabel_Style(strTitle3,
+                                                       NamedSize.Large,
+                                                       LayoutOptions.Center,
+                                                       "Page_Base",
+                                                       rowCount, 0, 1);
+                    grdBadge.Children.Add(lblTitle3);
+
+                    // 項目値
+                    strCount3 = intInfomationCount.ToString() + "件";
+                    lblCount3 = _utl.CreateLabel_Style(strCount3,
+                                                       NamedSize.Large,
+                                                       LayoutOptions.Center,
+                                                       "Page_Base",
+                                                       rowCount, 1, 1);
+                    grdBadge.Children.Add(lblCount3);
+
+                    // 出力行カウント
+                    rowCount++;
+                }
+
+                if(intEventCount == 0 && intDirectorCount == 0 && intInfomationCount == 0)
+                {
+                    // 未読情報(0件)
+                    // 項目名
+                    strTitle1 = "新着情報はありません";
+                    lblTitle1 = _utl.CreateLabel_Style(strTitle1,
+                                                       NamedSize.Large,
+                                                       LayoutOptions.Center,
+                                                       "Page_Base_Center",
+                                                       rowCount, 0, 2);
+                    grdBadge.Children.Add(lblTitle1);
+
+                    BadgeInfo.HeightRequest = 100;
+                }
+                else
+                {
+                    BadgeInfo.HeightRequest = 100 + 40 * (rowCount - 1);
+                }
+                
+
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Alert", $"SQLite検索エラー(T_BADGE) : {ex.Message}", "OK");
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
         /// ボタン処理
 
         #region 各ボタン処理
@@ -237,7 +392,8 @@ namespace LionsApl.Content
         {
             // 処理中ダイアログ表示
             //            await ((App)Application.Current).DispLoadingDialog();
-            Device.OpenUri(new Uri("http://ap.insat.co.jp/LionsApl/DownLoad.html"));
+            //Device.OpenUri(new Uri("http://ap.insat.co.jp/LionsApl/DownLoad.html"));
+            Device.OpenUri(new Uri(((App)Application.Current).AppDownloadUrl));
 
         }
 
@@ -249,6 +405,16 @@ namespace LionsApl.Content
 
         #endregion
 
+        public sealed class BadgeRow
+        {
+            public BadgeRow(string title, string badgeCount)
+            {
+                Title = title;
+                BadgeCount = badgeCount;
+            }
+            public string Title { get; set; }
+            public string BadgeCount { get; set; }
+        }
 
     }
 }

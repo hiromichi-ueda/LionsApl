@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LionsApl.Content.ClubMeetingProgramPageAndroid">
+
+    <!-- 
+    +++++++++++++++++++++++++++++++++++++
+    　画面名: 例会プログラム画面
+    +++++++++++++++++++++++++++++++++++++
+    -->
+
+    <ContentPage.Content>
+        <StackLayout>
+
+            <ScrollView>
+
+                <StackLayout>
+
+                    <!-- ログイン情報 -->
+                    <StackLayout 
+                        HeightRequest="18"
+                        Margin="2"
+                        >
+                        <Label
+                            x:Name="LoginInfo"
+                            Style="{StaticResource Login}"
+                            />
+                    </StackLayout>
+
+                    <!-- タイトル -->
+                    <StackLayout 
+                        Margin="4,0,4,0"
+                        HorizontalOptions="FillAndExpand"
+                        >
+                        <Label 
+                            Text="例会プログラム"
+                            Style="{StaticResource Title_Blue}"
+                        />
+                    </StackLayout>
+
+                    <!-- BODY -->
+                    <StackLayout>
+                        <Grid
+                            x:Name="Grid_Meeting"
+                            Padding="10"
+                            Style="{StaticResource Page_Grid}"
+                            >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" x:Name="GRDef_MeetingDate" />
+                                <RowDefinition Height="Auto" x:Name="GRDef_MeetingName"  />
+                                <RowDefinition Height="Auto" x:Name="GRDef_Meeting"  />
+                                <RowDefinition Height="Auto" x:Name="GRDef_MeetingUrl"  />
+                                <RowDefinition Height="Auto" x:Name="GRDef_MeetingIDPW"  />
+                                <RowDefinition Height="Auto" x:Name="GRDef_MeetingOther"  />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- 例会日 -->
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                x:Name="lbl_MeetingDate"
+                                Text="例会日"
+                                Style="{StaticResource Page_Base}"
+                            />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="1"
+                                x:Name="MeetingDate" 
+                                Text=""
+                                Style="{StaticResource Page_Base}"
+                                />
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Grid.ColumnSpan="2"
+                                x:Name="Cancel" 
+                                Text=""
+                                Style="{StaticResource Page_Base}"
+                                TextColor="Red" 
+                                />
+                            <!-- 例会名 -->
+                            <Label 
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                x:Name="lbl_MeetingName"
+                                Text="例会名"
+                                Style="{StaticResource Page_Base}"
+                            />
+                            <Label 
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="3"
+                                x:Name="MeetingName" 
+                                Text=""
+                                Style="{StaticResource Page_Base}"
+                                />
+
+                            <!-- 例会方法 -->
+                            <Label 
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                x:Name="lbl_Meeting" 
+                                Text="例会方法"
+                                Style="{StaticResource Page_Base}"
+                                />
+                            <Label 
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="3"
+                                x:Name="Meeting" 
+                                Text=""
+                                Style="{StaticResource Page_Base}"
+                                />
+
+                            <!-- URL -->
+                            <Label 
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                x:Name="lbl_MeetingUrl" 
+                                Text="URL"
+                                Style="{StaticResource Page_Base}"
+                                />
+                            <Label 
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="3"
+                                x:Name="MeetingUrl" 
+                                Text=""
+                                Style="{StaticResource Page_Base}"
+                                />
+
+                            <!-- ID -->
+                            <Label 
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                x:Name="lbl_MeetingID" 
+                                Text="ID"
+                                Style="{StaticResource Page_Base}"
+                                />
+                            <Label 
+                                Grid.Row="4"
+                                Grid.Column="1"
+                                x:Name="MeetingID" 
+                                Text=""
+                                Style="{StaticResource Page_Base}"
+                                />
+
+                            <!-- PW -->
+                            <Label 
+                                Grid.Row="4"
+                                Grid.Column="2"
+                                x:Name="lbl_MeetingPW" 
+                                Text="PW"
+                                Style="{StaticResource Page_Base}"
+                                />
+                            <Label 
+                                Grid.Row="4"
+                                Grid.Column="3"
+                                x:Name="MeetingPW" 
+                                Text=""
+                                Style="{StaticResource Page_Base}"
+                                />
+
+                            <!-- 備考 -->
+                            <Label 
+                                Grid.Row="5"
+                                Grid.Column="0"
+                                x:Name="lbl_MeetingOther"
+                                Text="備考"
+                                Style="{StaticResource Page_Base}"
+                                />
+                            <Label 
+                                Grid.Row="5"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="3"
+                                x:Name="MeetingOther" 
+                                Text=""
+                                Style="{StaticResource Page_HeightFree}"
+                                />
+                        </Grid>
+
+                    </StackLayout>
+
+                    <StackLayout>
+                        <ListView
+                            x:Name="MeetingProgramFileListView"
+                            ItemTapped="Handle_ItemTapped"
+                            CachingStrategy="RecycleElement"
+                            RowHeight="51"
+                            >
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Grid 
+                                            Style="{StaticResource ListGrid_Base}"
+                                            >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="1.*"/>
+                                            </Grid.RowDefinitions>
+
+                                            <!-- 行見出し -->
+                                            <Label 
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Grid.ColumnSpan="1"
+                                                Grid.RowSpan="1"
+                                                VerticalOptions="Center"
+                                                Text="{Binding RowTitle}" 
+                                                Style="{StaticResource List_Base_Start}"
+                                            />
+
+                                            <!-- ファイル名 -->
+                                            <Label 
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="1"
+                                                Grid.RowSpan="1"
+                                                VerticalOptions="Center"
+                                                Text="{Binding FileName}" 
+                                                Style="{StaticResource List_Base_Start}"
+                                            />
+
+                                            <!-- マーク -->
+                                            <Label 
+                                                Grid.Row="0"
+                                                Grid.Column="2"
+                                                Grid.ColumnSpan="1"
+                                                Grid.RowSpan="1"
+                                                VerticalOptions="Center"
+                                                Text="〉" 
+                                                Style="{StaticResource List_Base}"
+                                            />
+                                        </Grid>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                    </StackLayout>
+
+                </StackLayout>
+
+            </ScrollView>
+
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>

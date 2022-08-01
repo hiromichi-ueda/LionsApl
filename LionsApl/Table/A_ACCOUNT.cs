@@ -18,5 +18,6 @@ namespace LionsApl.Table
         public string AccountDate { get; set; }
         public string LastUpdDate { get; set; }
         public string VersionNo { get; set; }
+        public string BadgeLastUpdDate { get; set; }
     }
 }

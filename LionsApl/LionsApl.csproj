@@ -34,6 +34,7 @@
     <PackageReference Include="NLog" Version="4.7.12" />
     <PackageReference Include="NLog.Config" Version="4.7.12" />
     <PackageReference Include="PCLAppConfig" Version="1.0.1" />
+    <PackageReference Include="Plugin.Badge" Version="2.3.1" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
@@ -41,6 +42,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Content\ClubInfomationFileAndroid.xaml.cs">
+      <DependentUpon>ClubInfomationFileAndroid.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Content\ClubInfomationPageAndroid.xaml.cs">
+      <DependentUpon>ClubInfomationPageAndroid.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Content\ClubMeetingProgramPageAndroid.xaml.cs">
+      <DependentUpon>ClubMeetingProgramPageAndroid.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Content\ClubMeetingProgramFileAndroid.xaml.cs">
+      <DependentUpon>ClubMeetingProgramFileAndroid.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Content\MagazinePageAndroid.xaml.cs">
+      <DependentUpon>MagazinePageAndroid.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Content\Ztest2.xaml.cs">
       <DependentUpon>Ztest2.xaml</DependentUpon>
     </Compile>

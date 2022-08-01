@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -63,6 +64,23 @@ namespace LionsApl.Content
             // クラブスローガン設定
             Sel_T_CLUBSLOGAN();
 
+            // 未読情報設定
+            SetBadgeInfo();
+
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 画面表示時の更新処理
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // 未読情報設定
+            SetBadgeInfo();
 
         }
 
@@ -71,9 +89,12 @@ namespace LionsApl.Content
         /// 年間例会スケジュール一覧画面へ
         /// </summary>
         //-------------------------------------------
-        private void Label_ClubSchedule_Taped(object sender, EventArgs e)
+        private async void Label_ClubSchedule_Taped(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new ClubScheduleList());
+            // 処理中ダイアログ表示
+            await((App)Application.Current).DispLoadingDialog();
+
+            await Navigation.PushAsync(new ClubScheduleList());
         }
 
         //-------------------------------------------
@@ -81,9 +102,27 @@ namespace LionsApl.Content
         /// 理事・委員会一覧画面へ
         /// </summary>
         //-------------------------------------------
-        private void Label_Director_Taped(object sender, EventArgs e)
+        private async void Label_Director_Taped(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new ClubDirectorList());
+            // 処理中ダイアログ表示
+            await ((App)Application.Current).DispLoadingDialog();
+
+            // DB情報取得処理
+            try
+            {
+                Task<HttpResponseMessage> response = _sqlite.AsyncPostFileForWebAPI(_sqlite.GetSendFileContent_BADGEUPD());
+
+                // タブページのバッジ更新
+                ((MainTabPage)((App)Application.Current).TabPage).SetBadgeInfo();
+
+                // 理事・委員会一覧画面表示
+                await Navigation.PushAsync(new ClubDirectorList());
+
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Alert", $"理事・委員会一覧表示エラー : {ex.Message}", "OK");
+            }
         }
 
         //-------------------------------------------
@@ -91,9 +130,12 @@ namespace LionsApl.Content
         /// 例会プログラム一覧画面へ
         /// </summary>
         //-------------------------------------------
-        private void Label_MeetingProgram_Taped(object sender, EventArgs e)
+        private async void Label_MeetingProgram_Taped(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new ClubMeetingProgramList());
+            // 処理中ダイアログ表示
+            await ((App)Application.Current).DispLoadingDialog();
+
+            await Navigation.PushAsync(new ClubMeetingProgramList());
         }
 
         //-------------------------------------------
@@ -101,9 +143,27 @@ namespace LionsApl.Content
         /// 連絡事項（クラブ）一覧画面へ
         /// </summary>
         //-------------------------------------------
-        private void Label_Infomation_Taped(object sender, EventArgs e)
+        private async void Label_Infomation_Taped(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new ClubInfomationList());
+            // 処理中ダイアログ表示
+            await ((App)Application.Current).DispLoadingDialog();
+
+            // DB情報取得処理
+            try
+            {
+                Task<HttpResponseMessage> response = _sqlite.AsyncPostFileForWebAPI(_sqlite.GetSendFileContent_BADGEUPD());
+
+                // タブページのバッジ更新
+                ((MainTabPage)((App)Application.Current).TabPage).SetBadgeInfo();
+
+                // 理事・委員会一覧画面表示
+                await Navigation.PushAsync(new ClubInfomationList());
+
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Alert", $"連絡事項（クラブ）一覧表示エラー : {ex.Message}", "OK");
+            }
         }
 
         //-------------------------------------------
@@ -111,9 +171,12 @@ namespace LionsApl.Content
         /// 会員情報一覧画面へ
         /// </summary>
         //-------------------------------------------
-        private void Label_Member_Taped(object sender, EventArgs e)
+        private async void Label_Member_Taped(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new ClubMemberList());
+            // 処理中ダイアログ表示
+            await((App)Application.Current).DispLoadingDialog();
+
+            await Navigation.PushAsync(new ClubMemberList());
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -150,6 +213,45 @@ namespace LionsApl.Content
             catch (Exception ex)
             {
                 DisplayAlert("Alert", $"SQLite検索エラー(クラブスローガン) : &{ex.Message}", "OK");
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// ログイン者の未読情報(理事・委員会)をSQLiteファイルから取得して画面に設定する。
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void SetBadgeInfo()
+        {
+
+            // データ取得
+            try
+            {
+                // 理事・委員会
+                LabelDirectorBadge.Text = string.Empty;
+                foreach (Table.T_BADGE row in _sqlite.Get_T_BADGE("SELECT * " +
+                                                                  "FROM T_BADGE " +
+                                                                  "WHERE DataClass = '2' " +
+                                                                  "AND MemberCode = '" + _sqlite.Db_A_Account.MemberCode + "' "))
+                {
+                    // 未読情報設定
+                    LabelDirectorBadge.Text = LADef.ST_TOP_BADGE;
+                }
+
+                // 連絡事項
+                LabelInfomationBadge.Text = string.Empty;
+                foreach (Table.T_BADGE row in _sqlite.Get_T_BADGE("SELECT * " +
+                                                                  "FROM T_BADGE " +
+                                                                  "WHERE DataClass = '3' " +
+                                                                  "AND MemberCode = '" + _sqlite.Db_A_Account.MemberCode + "' "))
+                {
+                    // 未読情報設定
+                    LabelInfomationBadge.Text = LADef.ST_TOP_BADGE;
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Alert", $"SQLite検索エラー(理事・委員会_未読情報) : {ex.Message}", "OK");
             }
         }
 

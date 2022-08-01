@@ -106,6 +106,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -121,8 +122,19 @@
                                 </Label.GestureRecognizers>
                             </Label>
                             <Label 
+                                x:Name="LabelDirectorBadge"
                                 Grid.Row="0"
                                 Grid.Column="1"
+                                TextColor="Red"
+                                Style="{StaticResource List_Base}" 
+                                >
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="Label_Director_Taped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="2"
                                 Text="〉" 
                                 Style="{StaticResource ClubManu}"
                                 >
@@ -170,6 +182,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -185,8 +198,19 @@
                                 </Label.GestureRecognizers>
                             </Label>
                             <Label 
+                                x:Name="LabelInfomationBadge"
                                 Grid.Row="0"
                                 Grid.Column="1"
+                                TextColor="Red"
+                                Style="{StaticResource List_Base}" 
+                                >
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="Label_Infomation_Taped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="2"
                                 Text="〉" 
                                 Style="{StaticResource ClubManu}"
                                 >

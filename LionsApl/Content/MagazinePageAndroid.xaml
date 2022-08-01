@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LionsApl.Content.MagazinePageAndroid"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core">
+
+    <!-- 
+    +++++++++++++++++++++++++++++++++++++
+    　画面名: 地区誌画面
+    +++++++++++++++++++++++++++++++++++++
+    -->
+    
+    <ContentPage.Content>
+        <StackLayout>
+
+            <!-- ログイン情報 -->
+            <StackLayout 
+                        HeightRequest="18"
+                        Margin="2"
+                        >
+                <Label
+                            x:Name="LoginInfo"
+                            Style="{StaticResource Login}"
+                        />
+            </StackLayout>
+
+            <!-- タイトル -->
+            <StackLayout 
+                        Margin="4,0,4,0"
+                        HorizontalOptions="FillAndExpand"
+                        >
+                <Label 
+                            Text="地区誌"
+                            Style="{StaticResource Title_Blue}"
+                        />
+            </StackLayout>
+
+            <!-- BODY(地区誌) -->
+            <StackLayout>
+                <Grid
+                            x:Name="grid"
+                            Padding="3"
+                            >
+
+                    <!-- 地区誌 -->
+                    <WebView
+                                x:Name="PdfWebView"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand"
+                    android:WebView.EnableZoomControls="true"
+                    android:WebView.DisplayZoomControls="true"
+                                >
+                    </WebView>
+                </Grid>
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+    
+</ContentPage>

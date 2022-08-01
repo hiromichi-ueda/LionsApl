@@ -161,6 +161,7 @@ namespace LionsApl
                 _ = db.CreateTable<Table.M_AREA>();   //2021/12 ADD
                 _ = db.CreateTable<Table.M_JOB>();   //2021/12 ADD
                 _ = db.CreateTable<Table.T_MATCHING>();   //2021/12 ADD
+                _ = db.CreateTable<Table.T_BADGE>();    //2022/07 ADD
             }
         }
 
@@ -197,6 +198,7 @@ namespace LionsApl
                 _ = db.CreateTable<Table.M_AREA>();   //2021/12 ADD
                 _ = db.CreateTable<Table.M_JOB>();   //2021/12 ADD
                 _ = db.CreateTable<Table.T_MATCHING>();   //2021/12 ADD
+                _ = db.CreateTable<Table.T_BADGE>();    //2022/07 ADD
             }
         }
 
@@ -233,6 +235,7 @@ namespace LionsApl
                 _ = db.CreateTable<Table.M_AREA>();   //2021/12 ADD
                 _ = db.CreateTable<Table.M_JOB>();   //2021/12 ADD
                 _ = db.CreateTable<Table.T_MATCHING>();   //2021/12 ADD
+                //_ = db.CreateTable<Table.T_BADGE>();    //2022/07 ADD
             }
         }
 
@@ -269,6 +272,7 @@ namespace LionsApl
                 //_ = db.CreateTable<Table.M_AREA>();   //2021/12 ADD
                 //_ = db.CreateTable<Table.M_JOB>();   //2021/12 ADD
                 //_ = db.CreateTable<Table.T_MATCHING>();   //2021/12 ADD
+                _ = db.CreateTable<Table.T_BADGE>();    //2022/07 ADD
             }
         }
 
@@ -594,6 +598,20 @@ namespace LionsApl
             }
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル作成（T_BADGE）    2022/07 ADD
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void CreateTable_T_BADGE()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
+            {
+                // Create Table
+                db.CreateTable<Table.T_BADGE>();
+            }
+        }
+
         #endregion
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -633,6 +651,7 @@ namespace LionsApl
                 db.DropTable<Table.M_AREA>();       //2021/12 ADD
                 db.DropTable<Table.M_JOB>();        //2021/12 ADD
                 db.DropTable<Table.T_MATCHING>();   //2021/12 ADD
+                db.DropTable<Table.T_BADGE>();      //2022/07 ADD
             }
         }
 
@@ -669,6 +688,7 @@ namespace LionsApl
                 db.DropTable<Table.M_AREA>();       //2021/12 ADD
                 db.DropTable<Table.M_JOB>();        //2021/12 ADD
                 db.DropTable<Table.T_MATCHING>();   //2021/12 ADD
+                db.DropTable<Table.T_BADGE>();      //2022/07 ADD
             }
         }
 
@@ -705,6 +725,7 @@ namespace LionsApl
                 db.DropTable<Table.M_AREA>();       //2021/12 ADD
                 db.DropTable<Table.M_JOB>();        //2021/12 ADD
                 db.DropTable<Table.T_MATCHING>();   //2021/12 ADD
+                //db.DropTable<Table.T_BADGE>();      //2022/07 ADD
             }
         }
 
@@ -741,6 +762,7 @@ namespace LionsApl
                 //db.DropTable<Table.M_AREA>();       //2021/12 ADD
                 //db.DropTable<Table.M_JOB>();        //2021/12 ADD
                 //db.DropTable<Table.T_MATCHING>();   //2021/12 ADD
+                db.DropTable<Table.T_BADGE>();      //2022/07 ADD
             }
         }
 
@@ -1064,6 +1086,20 @@ namespace LionsApl
             {
                 // Drop Table
                 db.DropTable<Table.T_MATCHING>();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// データベーステーブル削除（T_BADGE）    2022/07 ADD
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void DropTable_T_BADGE()
+        {
+            using (SQLiteConnection db = new SQLite.SQLiteConnection(dbFile))
+            {
+                // Drop Table
+                db.DropTable<Table.T_BADGE>();
             }
         }
 
@@ -1671,6 +1707,32 @@ namespace LionsApl
 
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// T_BADGEテーブルデータ取得 2022/07 ADD
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.T_BADGE[] Get_T_BADGE(string command)
+        {
+            List<Table.T_BADGE> items = new List<Table.T_BADGE>();
+
+            try
+            {
+                // データ取得
+                using (SQLiteConnection db = new SQLiteConnection(dbFile))
+                {   // Select
+                    items = db.Query<Table.T_BADGE>(command);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.T_BADGE[0]);
+
+        }
+
         #endregion
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1883,7 +1945,8 @@ namespace LionsApl
                         MemberLastName = row.MemberLastName,
                         AccountDate = row.AccountDate,
                         LastUpdDate = row.LastUpdDate,
-                        VersionNo = row.VersionNo
+                        VersionNo = row.VersionNo,
+                        BadgeLastUpdDate = row.BadgeLastUpdDate
                     };
                     LoginInfo = Db_A_Account.ClubName + "　" + Db_A_Account.MemberFirstName + " " + Db_A_Account.MemberLastName;
                 }
@@ -1955,8 +2018,9 @@ namespace LionsApl
                         MemberLastName = account.MemberLastName,
                         AccountDate = account.AccountDate,
                         LastUpdDate = account.LastUpdDate, 
-                        VersionNo = account.VersionNo
-                        
+                        VersionNo = account.VersionNo,
+                        BadgeLastUpdDate = account.BadgeLastUpdDate
+
                     });
                     db.Commit();
                 }
@@ -2054,6 +2118,29 @@ namespace LionsApl
             }
 
             return items.Count > 0 ? items.ToArray() : (new Table.A_ACCOUNT[0]);
+
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// T_BADGEテーブルデータ物理削除
+        /// </summary>
+        /// <param name="command">物理削除用SQLコマンド</param>
+        /// <returns></returns>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public Table.T_BADGE[] Del_T_BADGE(string command)
+        {
+
+            SQLiteConnection db = new SQLiteConnection(dbFile);
+            List<Table.T_BADGE> items = db.Query<Table.T_BADGE>(command);
+            if (items.Count > 0)
+            {
+                // Delete
+                db.Delete(items);
+                db.Commit();
+            }
+
+            return items.Count > 0 ? items.ToArray() : (new Table.T_BADGE[0]);
 
         }
 
@@ -2266,6 +2353,28 @@ namespace LionsApl
             content = new MultipartFormDataContent();
             // DBデータ種別（文字列データ）
             content.Add(new StringContent("TOP"), "DbType");
+            // 処理日時（文字列データ）
+            content.Add(new StringContent(nowDt.ToString()), "AplTime");
+            // Sqliteファイル（バイナリデータ）
+            ByteArrayContent sqlite = new ByteArrayContent(File.ReadAllBytes(dbFile));
+            content.Add(sqlite, "Sqlite", Path.GetFileName(dbFile));
+
+            return content;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// ファイルコンテンツ（BADGE更新）
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public MultipartFormDataContent GetSendFileContent_BADGEUPD()
+        {
+            // 処理日時取得
+            DateTime nowDt = DateTime.Now;
+
+            content = new MultipartFormDataContent();
+            // DBデータ種別（文字列データ）
+            content.Add(new StringContent("BADGEUPD"), "DbType");
             // 処理日時（文字列データ）
             content.Add(new StringContent(nowDt.ToString()), "AplTime");
             // Sqliteファイル（バイナリデータ）

@@ -223,7 +223,14 @@ namespace LionsApl.Content
             }
 
             // 地区誌画面へ
-            Navigation.PushAsync(new MagazinePage(item.DataNo));
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                Navigation.PushAsync(new MagazinePage(item.DataNo));
+            }
+            else if (Device.RuntimePlatform == Device.Android)
+            {
+                Navigation.PushAsync(new MagazinePageAndroid(item.DataNo));
+            }
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;

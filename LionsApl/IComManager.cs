@@ -47,6 +47,11 @@ namespace LionsApl
         private string AccountItem4 = "ClubCode";
         private string AccountItem5 = "MemberCode";
 
+        private string BadgeItem1 = "DataClass";
+        private string BadgeItem2 = "DataNo";
+        private string BadgeItem3 = "ClubCode";
+        private string BadgeItem4 = "MemberCode";
+
         private static IComManager _single = null;
         private HttpClient _httpClient = null;
 
@@ -59,6 +64,7 @@ namespace LionsApl
         public string DbType4 = "EVENTRET";
         public string DbType5 = "TOP";
         public string DbType6 = "ACCOUNTREG";
+        public string DbType7 = "BADGE";
 
         //public string DbPath { get; } = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "LionsAplDB.db3");
 
@@ -260,6 +266,33 @@ namespace LionsApl
 
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 出欠情報をコンテンツに設定
+        /// </summary>
+        /// <param name="badge">未読情報</param>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        public void SetContentToBADGE(CBADGE badge)
+        {
+            // 処理日時取得
+            DateTime nowDt = DateTime.Now;
+
+            content = new MultipartFormDataContent();
+            // DBデータ種別（文字列データ）
+            content.Add(new StringContent(DbType7), ReqItem1);
+            // 処理日時（文字列データ）
+            content.Add(new StringContent(nowDt.ToString()), ReqItem2);
+
+            // データクラス（文字列データ）
+            content.Add(new StringContent(badge.DataClass), BadgeItem1);
+            // データNo.（文字列データ）
+            content.Add(new StringContent(badge.DataNo.ToString()), BadgeItem2);
+            // クラブコード（文字列データ）
+            content.Add(new StringContent(badge.ClubCode), BadgeItem3);
+            // 会員コード（文字列データ）
+            content.Add(new StringContent(badge.MemberCode), BadgeItem4);
+
+        }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -429,6 +462,30 @@ namespace LionsApl
         public string AccountDate { get; set; }
         public string Region { get; set; }
         public string Zone { get; set; }
+        public string ClubCode { get; set; }
+        public string MemberCode { get; set; }
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// 未読情報クラス
+    /// </summary>
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    public sealed class CBADGE
+    {
+        public CBADGE(string dataClass,
+                      int dataNo,
+                      string clubCode,
+                      string memberCode)
+        {
+            DataClass = dataClass;
+            DataNo = dataNo;
+            ClubCode = clubCode;
+            MemberCode = memberCode;
+        }
+        public string DataClass { get; set; }
+        public int DataNo { get; set; }
         public string ClubCode { get; set; }
         public string MemberCode { get; set; }
     }

@@ -1,14 +1,13 @@
-﻿using System;
-
+﻿
 using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
 
 using PCLAppConfig;
-using Xamarin.Forms;
 using Android.Content.Res;
 using Xamarin.Essentials;
+using Android.Content;
 
 namespace LionsApl.Droid
 {
@@ -31,6 +30,11 @@ namespace LionsApl.Droid
             }
 
             LoadApplication(new App());
+
+            // アラーム動作設定
+            if (Intent.Data is null) {
+                setAlarm();
+            }
         }
 
         /// <summary>
@@ -123,6 +127,36 @@ namespace LionsApl.Droid
                 }
             }
         }
-       
+
+        /// <summary>
+        /// アラーム動作設定
+        /// </summary>
+        private void setAlarm()
+        {
+            Intent intent = new Intent(this, typeof(AlarmReceiver)); // ReceivedActivityを呼び出すインテントを作成
+            PendingIntent pendingIntent = PendingIntent.GetBroadcast(this, 0, intent, PendingIntentFlags.UpdateCurrent); // ブロードキャストを投げるPendingIntentの作成
+
+            //アラームマネージャーの取得
+            AlarmManager alarmManager = (AlarmManager)GetSystemService(Context.AlarmService);
+            long interval = ((App)Xamarin.Forms.Application.Current).AndroidAlarmInterval * 60 * 1000;
+            long trigger = SystemClock.ElapsedRealtime() + interval;
+            //アラームマネージャーにセット
+            alarmManager.SetInexactRepeating(AlarmType.ElapsedRealtimeWakeup, trigger, interval, pendingIntent);
+        }
+
+        /// <summary>
+        /// アラーム動作解除
+        /// </summary>
+        private void cancelAlarm()
+        {
+            Intent intent = new Intent(this, typeof(AlarmReceiver)); // ReceivedActivityを呼び出すインテントを作成
+            PendingIntent pendingIntent = PendingIntent.GetBroadcast(this, 0, intent, PendingIntentFlags.UpdateCurrent); // ブロードキャストを投げるPendingIntentの作成
+
+            //アラームマネージャーの取得
+            AlarmManager alarmManager = (AlarmManager)GetSystemService(Context.AlarmService);
+            //アラームマネージャーをキャンセル
+            alarmManager.Cancel(pendingIntent);
+        }
+
     }
 }

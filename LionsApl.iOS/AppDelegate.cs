@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
+using System.Threading;
 using Foundation;
 using PCLAppConfig;
+using SQLite;
 using UIKit;
 
 namespace LionsApl.iOS
@@ -13,7 +14,7 @@ namespace LionsApl.iOS
     // User Interface of the application, as well as listening (and optionally responding) to 
     // application events from iOS.
     [Register("AppDelegate")]
-    public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
+    public class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
@@ -22,6 +23,7 @@ namespace LionsApl.iOS
         //
         // You have 17 seconds to return from this method, or iOS will terminate your application.
         //
+
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
@@ -50,7 +52,8 @@ namespace LionsApl.iOS
         public override void DidEnterBackground(UIApplication uiApplication)
         {
             System.Diagnostics.Debug.WriteLine("---> DidEnterBackground");
-            UIApplication.SharedApplication.ApplicationIconBadgeNumber += 1;
+
+            //UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
 
             base.DidEnterBackground(uiApplication);
         }
@@ -63,15 +66,39 @@ namespace LionsApl.iOS
         public override void PerformFetch(UIApplication app, Action<UIBackgroundFetchResult> completionHandler)
         {
             var result = UIBackgroundFetchResult.NoData;
+            DateTime nowDt = DateTime.Now;
+            UILocalNotification notification = new UILocalNotification();
 
             try
             {
+                // SQLLiteの件数
+                int badgeCount = GetBadgeCount();
 
-                // 通知バッジ
-                UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
+                if (badgeCount > 0)
+                {
+                    int intNowDt = nowDt.Hour * 10000 + nowDt.Minute * 100 + nowDt.Second;
+                    if (intNowDt >= ((App)Xamarin.Forms.Application.Current).iOSNotFetchFromTime ||
+                        intNowDt <= ((App)Xamarin.Forms.Application.Current).iOSNotFetchToTime)
+                    {
+                        result = UIBackgroundFetchResult.NewData;
+                        return;
+                    }
 
-                // WEBサービス
-                this.WebServicesApi();
+                    notification = new UILocalNotification();
+                    //notification.FireDate = NSDate.FromTimeIntervalSinceNow(15);
+                    notification.FireDate = NSDate.FromTimeIntervalSinceNow(10);
+                    //notification.AlertTitle = "Alert Title"; // required for Apple Watch notifications
+                    notification.AlertAction = "LionsApl";
+                    notification.AlertBody = "未読情報が" + badgeCount.ToString() + "件あります。";
+                    notification.SoundName = UILocalNotification.DefaultSoundName;
+                    notification.ApplicationIconBadgeNumber = badgeCount;
+                    UIApplication.SharedApplication.ScheduleLocalNotification(notification);
+                }
+                else
+                {
+                    // 通知バッジ
+                    UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
+                }
 
                 result = UIBackgroundFetchResult.NewData;
 
@@ -149,6 +176,28 @@ namespace LionsApl.iOS
                     //Assert.NotNull(content);
                 }
             }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 未読情報をSQLiteファイルから取得する。(アラート通知)
+        /// </summary>
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private int GetBadgeCount()
+        {
+            int badgeCount = 0;
+            
+            try
+            {
+                // 未読件数取得
+                badgeCount = ((App)Xamarin.Forms.Application.Current).GetBadgeCount();
+            }
+            catch
+            {
+                badgeCount = -1;
+            }
+            return badgeCount;
+
         }
     }
 }

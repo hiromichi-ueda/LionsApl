@@ -672,6 +672,38 @@
                 />
         </Style>
 
+        <!-- BADGE INFO -->
+        <!-- ラベル（Title） -->
+        <Style 
+            x:Key="Badge_Info_Label_Title"
+            TargetType="Label"
+            >
+            <Setter 
+                Property="TextColor"
+                Value="#ffffff"
+                />
+            <Setter 
+                Property="Background"
+                Value="#f0f8ff"
+                />
+            <Setter 
+                Property="HorizontalOptions"
+                Value="FillAndExpand"
+                />
+            <Setter 
+                Property="VerticalOptions"
+                Value="Start"
+                />
+            <Setter 
+                Property="Margin"
+                Value="2,2,2,1"
+                />
+            <Setter
+                Property="HorizontalTextAlignment"
+                Value="Center"
+                />
+        </Style>
+
 
     </Application.Resources>
 
