@@ -53,7 +53,9 @@ namespace LionsApl.iOS
         {
             System.Diagnostics.Debug.WriteLine("---> DidEnterBackground");
 
-            //UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
+            // SQLLiteの件数
+            int badgeCount = GetBadgeCount();
+            UIApplication.SharedApplication.ApplicationIconBadgeNumber = badgeCount;
 
             base.DidEnterBackground(uiApplication);
         }
