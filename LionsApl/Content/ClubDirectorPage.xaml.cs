@@ -154,7 +154,7 @@ namespace LionsApl.Content
                     Subject.Text = _utl.GetString(row.Subject);
 
                     // 議題・内容
-                    agendaStr = _utl.GetString(row.Agenda, _utl.NLC_ON);
+                    agendaStr = _utl.GetString(row.Agenda);
                     Agenda.Text = agendaStr;
 
                     // 回答期限
